@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+.dbml
+/DAL/HighLandsDbContext.dbml
+/DAL/HighLandsDbContext.dbml.layout
+/DAL/HighLandsDbContext.designer.cs
