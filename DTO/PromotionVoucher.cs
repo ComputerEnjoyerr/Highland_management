@@ -1,26 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DTO
+
+namespace DTO;
+
+public partial class PromotionVoucher
 {
-    public class PromotionVoucher
-    {
-        private string _promotionId, _customerId;
-        private DateTime _usedDate;
+    public string PromotionId { get; set; } = null!;
 
-        public PromotionVoucher() { }
-        public PromotionVoucher(string promotionId, string customerId, DateTime usedDate)
-        {
-            PromotionId = promotionId;
-            CustomerId = customerId;
-            UsedDate = usedDate;
-        }
+    public string CustomerId { get; set; } = null!;
 
-        public string PromotionId { get => _promotionId; set => _promotionId = value; }
-        public string CustomerId { get => _customerId; set => _customerId = value; }
-        public DateTime UsedDate { get => _usedDate; set => _usedDate = value; }
-    }
+    public DateOnly? UsedDate { get; set; }
+
+    public virtual Customer Customer { get; set; } = null!;
+
+    public virtual Promotion Promotion { get; set; } = null!;
+
 }

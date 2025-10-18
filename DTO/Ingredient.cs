@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DTO
+namespace DTO;
+
+public partial class Ingredient
 {
-    public class Ingredient
-    {
-        private string _id, _name;
+    public string Id { get; set; } = null!;
 
-        public Ingredient(string id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
+    public string IngredientName { get; set; } = null!;
 
-        public string Id { get => _id; set => _id = value; }
-        public string Name { get => _name; set => _name = value; }
-    }
+    public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
+
+    public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
+
+    public virtual ICollection<StockReceipt> StockReceipts { get; set; } = new List<StockReceipt>();
+
 }

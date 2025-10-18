@@ -1,28 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DTO
+
+namespace DTO;
+
+public partial class PromotionProgram
 {
-    public class PromotionProgram
-    {
-        private string _promotionId, _categoryId;
-        private DateTime _startDate, _endDate;
+    public string PromotionId { get; set; } = null!;
 
-        public PromotionProgram() { }
-        public PromotionProgram(string promotionId, string categoryId, DateTime startDate, DateTime endDate)
-        {
-            PromotionId = promotionId;
-            CategoryId = categoryId;
-            StartDate = startDate;
-            EndDate = endDate;
-        }
+    public string? CategoryId { get; set; }
 
-        public string PromotionId { get => _promotionId; set => _promotionId = value; }
-        public string CategoryId { get => _categoryId; set => _categoryId = value; }
-        public DateTime StartDate { get => _startDate; set => _startDate = value; }
-        public DateTime EndDate { get => _endDate; set => _endDate = value; }
-    }
+    public DateOnly? StartDate { get; set; }
+
+    public virtual Category? Category { get; set; }
+
+    public virtual Promotion Promotion { get; set; } = null!;
+
 }

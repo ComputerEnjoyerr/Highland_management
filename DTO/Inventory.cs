@@ -1,28 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DTO
+
+namespace DTO;
+
+public partial class Inventory
 {
-    public class Inventory
-    {
-        private string _branchId, _ingredientId;
-        private decimal _currentQuantity;
-        private int _unitId;
+    public string BranchId { get; set; } = null!;
 
-        public Inventory(string branchId, string ingredientId, decimal currentQuantity, int unitId)
-        {
-            BranchId = branchId;
-            IngredientId = ingredientId;
-            CurrentQuantity = currentQuantity;
-            UnitId = unitId;
-        }
+    public string IngredientId { get; set; } = null!;
 
-        public string BranchId { get => _branchId; set => _branchId = value; }
-        public string IngredientId { get => _ingredientId; set => _ingredientId = value; }
-        public decimal CurrentQuantity { get => _currentQuantity; set => _currentQuantity = value; }
-        public int UnitId { get => _unitId; set => _unitId = value; }
-    }
+    public decimal? CurrentQuantity { get; set; }
+
+    public int? UnitId { get; set; }
+
+    public virtual Branch Branch { get; set; } = null!;
+
+    public virtual Ingredient Ingredient { get; set; } = null!;
+
+    public virtual Unit? Unit { get; set; }
 }

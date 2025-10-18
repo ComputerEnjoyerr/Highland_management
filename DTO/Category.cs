@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DTO
+
+namespace DTO;
+
+public partial class Category
 {
-    public class Category
-    {
-        private string _id, _name;
+    public string Id { get; set; } = null!;
 
-        public Category(string id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
+    public string? Name { get; set; }
 
-        public string Id { get => _id; set => _id = value; }
-        public string Name { get => _name; set => _name = value; }
-    }
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+
+    public virtual ICollection<PromotionProgram> PromotionPrograms { get; set; } = new List<PromotionProgram>();
+
 }

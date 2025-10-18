@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DTO
+
+namespace DTO;
+
+public partial class Table
 {
-    public class Table
-    {
-        private int _id, _capacity;
-        private string _name, _branchId;
+    public int Id { get; set; }
 
-        public Table() { }
-        public Table(int id, int capacity, string name, string branchId)
-        {
-            Id = id;
-            Capacity = capacity;
-            Name = name;
-            BranchId = branchId;
-        }
+    public string? TableName { get; set; }
 
-        public int Id { get => _id; set => _id = value; }
-        public int Capacity { get => _capacity; set => _capacity = value; }
-        public string Name { get => _name; set => _name = value; }
-        public string BranchId { get => _branchId; set => _branchId = value; }
-    }
+    public string BranchId { get; set; } = null!;
+
+    public int? Capacity { get; set; }
+
+    public int? Status { get; set; }
+
+    public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
+
+    public virtual Branch Branch { get; set; } = null!;
+
 }

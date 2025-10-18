@@ -1,25 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DTO
+
+namespace DTO;
+
+public partial class Province
 {
-    public class Province
-    {
-        private string _id, _name, _codeName;
+    public string Id { get; set; } = null!;
 
-        public Province() { }
-        public Province(string id, string name, string codeName)
-        {
-            Id = id;
-            Name = name;
-            CodeName = codeName;
-        }
+    public string ProvinceName { get; set; } = null!;
 
-        public string Id { get => _id; set => _id = value; }
-        public string Name { get => _name; set => _name = value; }
-        public string CodeName { get => _codeName; set => _codeName = value; }
-    }
+    public string CodeName { get; set; } = null!;
+
+    public string? Type { get; set; }
+
+    public virtual ICollection<Ward> Wards { get; set; } = new List<Ward>();
 }
