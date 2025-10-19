@@ -75,9 +75,9 @@
             txtIngredientName = new TextBox();
             label8 = new Label();
             panel3 = new Panel();
-            dataGridView4 = new DataGridView();
+            dgvIngredient = new DataGridView();
             groupBox5 = new GroupBox();
-            textBox9 = new TextBox();
+            txtFindIngredient = new TextBox();
             label11 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -94,7 +94,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
             groupBox4.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvIngredient).BeginInit();
             groupBox5.SuspendLayout();
             SuspendLayout();
             // 
@@ -114,10 +114,10 @@
             tabPage1.Controls.Add(dgvProduct);
             tabPage1.Controls.Add(groupBox3);
             tabPage1.Controls.Add(panel1);
-            tabPage1.Location = new Point(4, 32);
+            tabPage1.Location = new Point(4, 26);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(984, 674);
+            tabPage1.Size = new Size(984, 680);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Sản phẩm";
             tabPage1.UseVisualStyleBackColor = true;
@@ -130,7 +130,7 @@
             dgvProduct.Location = new Point(483, 64);
             dgvProduct.Name = "dgvProduct";
             dgvProduct.RowHeadersWidth = 51;
-            dgvProduct.Size = new Size(498, 607);
+            dgvProduct.Size = new Size(498, 613);
             dgvProduct.TabIndex = 4;
             dgvProduct.CellClick += dgvProduct_CellClick;
             // 
@@ -150,7 +150,7 @@
             // 
             txtFindProduct.Location = new Point(113, 24);
             txtFindProduct.Name = "txtFindProduct";
-            txtFindProduct.Size = new Size(379, 30);
+            txtFindProduct.Size = new Size(379, 25);
             txtFindProduct.TabIndex = 6;
             txtFindProduct.TextChanged += txtFindProduct_TextChanged;
             // 
@@ -159,7 +159,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(10, 27);
             label5.Name = "label5";
-            label5.Size = new Size(91, 23);
+            label5.Size = new Size(75, 19);
             label5.TabIndex = 4;
             label5.Text = "Tìm kiếm:";
             // 
@@ -170,7 +170,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(480, 668);
+            panel1.Size = new Size(480, 674);
             panel1.TabIndex = 0;
             // 
             // groupBox2
@@ -179,19 +179,20 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 350);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(480, 318);
+            groupBox2.Size = new Size(480, 324);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Nguyên liệu";
             // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 26);
+            dataGridView1.Location = new Point(3, 21);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(474, 289);
+            dataGridView1.Size = new Size(474, 300);
             dataGridView1.TabIndex = 2;
             // 
             // groupBox1
@@ -286,7 +287,7 @@
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(101, 94);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(342, 31);
+            cboCategory.Size = new Size(342, 25);
             cboCategory.TabIndex = 7;
             // 
             // label4
@@ -294,7 +295,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(12, 164);
             label4.Name = "label4";
-            label4.Size = new Size(87, 23);
+            label4.Size = new Size(72, 19);
             label4.TabIndex = 4;
             label4.Text = "Hình ảnh:";
             // 
@@ -303,7 +304,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(12, 97);
             label3.Name = "label3";
-            label3.Size = new Size(48, 23);
+            label3.Size = new Size(41, 19);
             label3.TabIndex = 4;
             label3.Text = "Loại:";
             // 
@@ -311,7 +312,7 @@
             // 
             txtPrice.Location = new Point(101, 129);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(342, 30);
+            txtPrice.Size = new Size(342, 25);
             txtPrice.TabIndex = 6;
             // 
             // label13
@@ -319,7 +320,7 @@
             label13.AutoSize = true;
             label13.Location = new Point(12, 132);
             label13.Name = "label13";
-            label13.Size = new Size(76, 23);
+            label13.Size = new Size(64, 19);
             label13.TabIndex = 4;
             label13.Text = "Giá bán:";
             // 
@@ -327,7 +328,7 @@
             // 
             txtProductName1.Location = new Point(101, 61);
             txtProductName1.Name = "txtProductName1";
-            txtProductName1.Size = new Size(342, 30);
+            txtProductName1.Size = new Size(342, 25);
             txtProductName1.TabIndex = 6;
             // 
             // label2
@@ -335,7 +336,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(12, 64);
             label2.Name = "label2";
-            label2.Size = new Size(67, 23);
+            label2.Size = new Size(57, 19);
             label2.TabIndex = 4;
             label2.Text = "Tên SP:";
             // 
@@ -344,7 +345,7 @@
             txtProductId1.Location = new Point(101, 28);
             txtProductId1.Name = "txtProductId1";
             txtProductId1.ReadOnly = true;
-            txtProductId1.Size = new Size(342, 30);
+            txtProductId1.Size = new Size(342, 25);
             txtProductId1.TabIndex = 6;
             // 
             // label1
@@ -352,17 +353,17 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 31);
             label1.Name = "label1";
-            label1.Size = new Size(65, 23);
+            label1.Size = new Size(55, 19);
             label1.TabIndex = 4;
             label1.Text = "Mã SP:";
             // 
             // tabPage2
             // 
             tabPage2.Controls.Add(panel4);
-            tabPage2.Location = new Point(4, 32);
+            tabPage2.Location = new Point(4, 26);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(984, 674);
+            tabPage2.Size = new Size(984, 680);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Quản lý công thức";
             tabPage2.UseVisualStyleBackColor = true;
@@ -374,7 +375,7 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(3, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(978, 668);
+            panel4.Size = new Size(978, 674);
             panel4.TabIndex = 1;
             // 
             // panel5
@@ -384,17 +385,18 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(454, 668);
+            panel5.Size = new Size(454, 674);
             panel5.TabIndex = 1;
             // 
             // dataGridView3
             // 
             dataGridView3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView3.Location = new Point(5, 357);
             dataGridView3.Name = "dataGridView3";
             dataGridView3.RowHeadersWidth = 51;
-            dataGridView3.Size = new Size(443, 306);
+            dataGridView3.Size = new Size(443, 312);
             dataGridView3.TabIndex = 1;
             // 
             // groupBox4
@@ -467,7 +469,8 @@
             // 
             txtIngredientId.Location = new Point(154, 92);
             txtIngredientId.Name = "txtIngredientId";
-            txtIngredientId.Size = new Size(279, 30);
+            txtIngredientId.ReadOnly = true;
+            txtIngredientId.Size = new Size(279, 25);
             txtIngredientId.TabIndex = 69;
             // 
             // label7
@@ -475,7 +478,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(14, 96);
             label7.Name = "label7";
-            label7.Size = new Size(138, 23);
+            label7.Size = new Size(115, 19);
             label7.TabIndex = 66;
             label7.Text = "Mã nguyên liệu:";
             // 
@@ -484,7 +487,7 @@
             txtProductName2.Location = new Point(154, 59);
             txtProductName2.Name = "txtProductName2";
             txtProductName2.ReadOnly = true;
-            txtProductName2.Size = new Size(279, 30);
+            txtProductName2.Size = new Size(279, 25);
             txtProductName2.TabIndex = 70;
             // 
             // label9
@@ -492,7 +495,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(14, 62);
             label9.Name = "label9";
-            label9.Size = new Size(124, 23);
+            label9.Size = new Size(104, 19);
             label9.TabIndex = 67;
             label9.Text = "Tên sản phẩm:";
             // 
@@ -501,7 +504,7 @@
             txtProductId2.Location = new Point(154, 25);
             txtProductId2.Name = "txtProductId2";
             txtProductId2.ReadOnly = true;
-            txtProductId2.Size = new Size(279, 30);
+            txtProductId2.Size = new Size(279, 25);
             txtProductId2.TabIndex = 71;
             // 
             // label10
@@ -509,7 +512,7 @@
             label10.AutoSize = true;
             label10.Location = new Point(14, 28);
             label10.Name = "label10";
-            label10.Size = new Size(122, 23);
+            label10.Size = new Size(102, 19);
             label10.TabIndex = 68;
             label10.Text = "Mã sản phẩm:";
             // 
@@ -518,7 +521,7 @@
             cboIngredientUnit.FormattingEnabled = true;
             cboIngredientUnit.Location = new Point(154, 196);
             cboIngredientUnit.Name = "cboIngredientUnit";
-            cboIngredientUnit.Size = new Size(279, 31);
+            cboIngredientUnit.Size = new Size(279, 25);
             cboIngredientUnit.TabIndex = 65;
             // 
             // label12
@@ -526,7 +529,7 @@
             label12.AutoSize = true;
             label12.Location = new Point(14, 202);
             label12.Name = "label12";
-            label12.Size = new Size(105, 23);
+            label12.Size = new Size(85, 19);
             label12.TabIndex = 60;
             label12.Text = "Đơn vị tính:";
             // 
@@ -535,7 +538,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(14, 165);
             label6.Name = "label6";
-            label6.Size = new Size(88, 23);
+            label6.Size = new Size(73, 19);
             label6.TabIndex = 61;
             label6.Text = "Số lượng:";
             // 
@@ -543,14 +546,15 @@
             // 
             txtIngredientQty.Location = new Point(154, 162);
             txtIngredientQty.Name = "txtIngredientQty";
-            txtIngredientQty.Size = new Size(279, 30);
+            txtIngredientQty.Size = new Size(279, 25);
             txtIngredientQty.TabIndex = 63;
             // 
             // txtIngredientName
             // 
             txtIngredientName.Location = new Point(154, 127);
             txtIngredientName.Name = "txtIngredientName";
-            txtIngredientName.Size = new Size(279, 30);
+            txtIngredientName.ReadOnly = true;
+            txtIngredientName.Size = new Size(279, 25);
             txtIngredientName.TabIndex = 64;
             // 
             // label8
@@ -558,33 +562,35 @@
             label8.AutoSize = true;
             label8.Location = new Point(14, 130);
             label8.Name = "label8";
-            label8.Size = new Size(140, 23);
+            label8.Size = new Size(117, 19);
             label8.TabIndex = 62;
             label8.Text = "Tên nguyên liệu:";
             // 
             // panel3
             // 
-            panel3.Controls.Add(dataGridView4);
+            panel3.Controls.Add(dgvIngredient);
             panel3.Controls.Add(groupBox5);
             panel3.Dock = DockStyle.Right;
             panel3.Location = new Point(454, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(524, 668);
+            panel3.Size = new Size(524, 674);
             panel3.TabIndex = 0;
             // 
-            // dataGridView4
+            // dgvIngredient
             // 
-            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView4.Dock = DockStyle.Fill;
-            dataGridView4.Location = new Point(0, 68);
-            dataGridView4.Name = "dataGridView4";
-            dataGridView4.RowHeadersWidth = 51;
-            dataGridView4.Size = new Size(524, 600);
-            dataGridView4.TabIndex = 1;
+            dgvIngredient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvIngredient.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvIngredient.Dock = DockStyle.Fill;
+            dgvIngredient.Location = new Point(0, 68);
+            dgvIngredient.Name = "dgvIngredient";
+            dgvIngredient.RowHeadersWidth = 51;
+            dgvIngredient.Size = new Size(524, 606);
+            dgvIngredient.TabIndex = 1;
+            dgvIngredient.CellClick += dgvIngredient_CellClick;
             // 
             // groupBox5
             // 
-            groupBox5.Controls.Add(textBox9);
+            groupBox5.Controls.Add(txtFindIngredient);
             groupBox5.Controls.Add(label11);
             groupBox5.Dock = DockStyle.Top;
             groupBox5.Location = new Point(0, 0);
@@ -594,19 +600,19 @@
             groupBox5.TabStop = false;
             groupBox5.Text = "Nguyên liệu";
             // 
-            // textBox9
+            // txtFindIngredient
             // 
-            textBox9.Location = new Point(110, 27);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(408, 30);
-            textBox9.TabIndex = 69;
+            txtFindIngredient.Location = new Point(110, 27);
+            txtFindIngredient.Name = "txtFindIngredient";
+            txtFindIngredient.Size = new Size(408, 25);
+            txtFindIngredient.TabIndex = 69;
             // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Location = new Point(13, 31);
             label11.Name = "label11";
-            label11.Size = new Size(91, 23);
+            label11.Size = new Size(75, 19);
             label11.TabIndex = 66;
             label11.Text = "Tìm kiếm:";
             // 
@@ -637,7 +643,7 @@
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvIngredient).EndInit();
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
             ResumeLayout(false);
@@ -689,9 +695,9 @@
         private TextBox txtIngredientQty;
         private TextBox txtIngredientName;
         private Label label8;
-        private DataGridView dataGridView4;
+        private DataGridView dgvIngredient;
         private GroupBox groupBox5;
-        private TextBox textBox9;
+        private TextBox txtFindIngredient;
         private Label label11;
         private DataGridView dgvProduct;
         private TextBox txtPrice;

@@ -34,13 +34,13 @@ namespace DAL
 
         public void Update(Product product)
         {
-            var oldProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
-            if (oldProduct != null)
+            var existing = _context.Products.FirstOrDefault(p => p.Id == product.Id);
+            if (existing != null)
             {
-                oldProduct.ProductName = product.ProductName;
-                oldProduct.Price = product.Price;
-                oldProduct.Image = product.Image;
-                oldProduct.CategoryId = product.CategoryId;
+                existing.ProductName = product.ProductName;
+                existing.Price = product.Price;
+                existing.Image = product.Image;
+                existing.CategoryId = product.CategoryId;
                 _context.SaveChanges();
             }
         }
