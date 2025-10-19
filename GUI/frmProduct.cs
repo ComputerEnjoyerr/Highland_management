@@ -301,7 +301,7 @@ namespace GUI
 
             try
             {
-                // Chờ 2 giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
+                // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
                 await Task.Delay(500, _cts.Token);
                 LoaddgvProduct(input);
             }
@@ -320,6 +320,26 @@ namespace GUI
                 txtIngredientName.Text = selectedRow.Cells["IngredientName"].Value.ToString();
                 var unitName = selectedRow.Cells["StandardUnit"].Value.ToString();
                 cboIngredientUnit.SelectedIndex = cboIngredientUnit.FindStringExact(unitName);
+            }
+        }
+
+        private async void txtFindIngredient_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtFindIngredient.Text;
+
+            // Hủy thao tác trước đó nếu người dùng vẫn đang nhập
+            _cts?.Cancel();
+            _cts = new CancellationTokenSource();
+
+            try
+            {
+                // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
+                await Task.Delay(500, _cts.Token);
+                LoaddgvSupplierIngredient(input);
+            }
+            catch (TaskCanceledException)
+            {
+                // Người dùng vẫn đang nhập, bỏ qua
             }
         }
     }

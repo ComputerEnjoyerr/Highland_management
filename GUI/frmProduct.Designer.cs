@@ -606,6 +606,7 @@
             txtFindIngredient.Name = "txtFindIngredient";
             txtFindIngredient.Size = new Size(408, 25);
             txtFindIngredient.TabIndex = 69;
+            txtFindIngredient.TextChanged += txtFindIngredient_TextChanged;
             // 
             // label11
             // 
