@@ -1,6 +1,7 @@
 ﻿using BLL;
 using DTO;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace GUI
     public partial class frmProduct : Form
     {
         private readonly BLL_Product bLL_Product = new();
+        private readonly BLL_Recipe bLL_Recipe = new();
         private readonly BLL_Category bLL_Category = new();
         private readonly BLL_Ingredient bLL_Ingredient = new();
         private readonly BLL_SupplierIngredient bLL_SupplierIngredient = new();
@@ -97,6 +99,49 @@ namespace GUI
             dgvIngredient.DataSource = displayList;
         }
 
+        private void LoaddgvRecipe(string productId)
+        {
+            dgvRecipe1.MultiSelect = false;
+            dgvRecipe1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRecipe1.ReadOnly = true;
+            dgvRecipe1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvRecipe2.MultiSelect = false;
+            dgvRecipe2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRecipe2.ReadOnly = true;
+            dgvRecipe2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            var product = bLL_Product.GetById(productId);
+            if (product != null)
+            {
+                var filteredList = bLL_Recipe.GetAll()
+                    .Where(r => r.ProductId == productId)
+                    .Select(r => new
+                    {
+                        r.Id,
+                        Product = r.Product != null ? r.Product.ProductName : "Lỗi hiển thị",
+                        Ingredient = r.Ingredient != null ? r.Ingredient.IngredientName : "Lỗi hiển thị",
+                        r.Quantity,
+                        RecipeUnit = r.RecipeUnit != null ? r.RecipeUnit.UnitName : "Lỗi hiển thị"
+                    }).ToList();
+                dgvRecipe1.DataSource = filteredList;
+                dgvRecipe2.DataSource = filteredList;
+                return;
+            }
+            var displayList = bLL_Recipe.GetAll()
+                .Select(r => new
+                {
+                    r.Id,
+                    Product = r.Product != null ? r.Product.ProductName : "Lỗi hiển thị",
+                    Ingredient = r.Ingredient != null ? r.Ingredient.IngredientName : "Lỗi hiển thị",
+                    r.Quantity,
+                    RecipeUnit = r.RecipeUnit != null ? r.RecipeUnit.UnitName : "Lỗi hiển thị"
+                }).ToList();
+            dgvRecipe1.DataSource = displayList;
+            dgvRecipe2.DataSource = displayList;
+        }
+
+
         private void LoadCboCategory()
         {
             var categories = bLL_Category.GetAll();
@@ -104,7 +149,7 @@ namespace GUI
             cboCategory.DisplayMember = "Name";
             cboCategory.ValueMember = "Id";
             cboCategory.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboCategory.SelectedIndex = -1;
+            cboCategory.SelectedIndex = 0;
         }
 
         private void LoadCboUnit()
@@ -114,7 +159,17 @@ namespace GUI
             cboIngredientUnit.DisplayMember = "UnitName";
             cboIngredientUnit.ValueMember = "Id";
             cboIngredientUnit.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboIngredientUnit.SelectedIndex = -1;
+            cboIngredientUnit.SelectedIndex = 0;
+        }
+
+        private void LoadCboProduct()
+        {
+            var products = bLL_Product.GetAll();
+            cboProductName.DataSource = products;
+            cboProductName.DisplayMember = "ProductName";
+            cboProductName.ValueMember = "Id";
+            cboProductName.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboProductName.SelectedIndex = -1;
         }
 
         private void RefreshProduct()
@@ -122,15 +177,17 @@ namespace GUI
             txtProductId1.Clear();
             txtProductName1.Clear();
             txtPrice.Clear();
-            cboCategory.SelectedIndex = -1;
+            cboCategory.SelectedIndex = 0;
             txtProductName1.Focus();
         }
+
         private void frmProduct_Load(object sender, EventArgs e)
         {
             LoaddgvProduct();
             LoaddgvSupplierIngredient();
             LoadCboCategory();
             LoadCboUnit();
+            LoadCboProduct();
         }
 
 
@@ -143,7 +200,7 @@ namespace GUI
                     MessageBox.Show("Vui lòng nhập giá bán và giờ làm thêm hợp lệ.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     return;
                 }
-                if (txtPrice.Text.Trim().Length > 0)
+                if (txtPrice.Text.Trim().Length > 10)
                 {
                     MessageBox.Show("Giá bán vượt mức cho phép (Tối đa 10 ký tự số)", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     return;
@@ -193,19 +250,6 @@ namespace GUI
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             RefreshProduct();
-        }
-
-        private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                var selectedRow = dgvProduct.Rows[e.RowIndex];
-                txtProductId1.Text = selectedRow.Cells["Id"].Value.ToString();
-                txtProductName1.Text = selectedRow.Cells["ProductName"].Value.ToString();
-                txtPrice.Text = selectedRow.Cells["Price"].Value.ToString();
-                var categoryName = selectedRow.Cells["CategoryName"].Value.ToString();
-                cboCategory.SelectedIndex = cboCategory.FindStringExact(categoryName);
-            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -323,6 +367,38 @@ namespace GUI
             }
         }
 
+        private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var selectedRow = dgvProduct.Rows[e.RowIndex];
+                txtProductId1.Text = selectedRow.Cells["Id"].Value.ToString();
+                txtProductName1.Text = selectedRow.Cells["ProductName"].Value.ToString();
+                txtPrice.Text = selectedRow.Cells["Price"].Value.ToString();
+                var categoryName = selectedRow.Cells["CategoryName"].Value.ToString();
+                cboCategory.SelectedIndex = cboCategory.FindStringExact(categoryName);
+
+                // Hiển thị chi tiết công thức
+                LoaddgvRecipe(txtProductId1.Text);
+            }
+        }
+
+        private void dgvProduct_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                tcMain.SelectTab("tpRecipe");
+
+                var selectedRow = dgvProduct.Rows[e.RowIndex];
+                txtProductId2.Text = selectedRow.Cells["Id"].Value.ToString();
+                var productName = selectedRow.Cells["ProductName"].Value.ToString();
+                cboProductName.SelectedIndex = cboProductName.FindStringExact(productName);
+
+                // Hiển thị chi tiết công thức
+                LoaddgvRecipe(txtProductId1.Text);
+            }
+        }
+
         private async void txtFindIngredient_TextChanged(object sender, EventArgs e)
         {
             string input = txtFindIngredient.Text;
@@ -341,6 +417,95 @@ namespace GUI
             {
                 // Người dùng vẫn đang nhập, bỏ qua
             }
+        }
+
+        private void cboProductName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboProductName.SelectedIndex != -1)
+            {
+                if (cboProductName.SelectedValue == null)
+                    return;
+                txtProductId2.Text = cboProductName.SelectedValue.ToString();
+
+            }
+            else
+            {
+                txtProductId2.Clear();
+            }
+        }
+
+        private void btnAddRecipe_Click(object sender, EventArgs e)
+        {
+            if (txtProductId2.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            if (txtIngredientId.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("Vui lòng chọn nguyên liệu", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                if (txtIngredientQty.Text.IsNullOrEmpty())
+                {
+                    MessageBox.Show("Vui lòng nhập số lượng", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!decimal.TryParse(txtIngredientQty.Text, out decimal quantity))
+                {
+                    MessageBox.Show("Giá tiền không hợp lệ", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (cboIngredientUnit.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Vui lòng chọn đơn vị tính", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (cboIngredientUnit.SelectedValue == null)
+                {
+                    MessageBox.Show("Không thể lưu dữ liệu Đơn vị tính", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                var recipe = new Recipe
+                {
+                    Id = bLL_Recipe.GenerateId(),
+                    IngredientId = txtIngredientId.Text,
+                    ProductId = txtProductId2.Text,
+                    Quantity = quantity,
+                    RecipeUnitId = (int)cboIngredientUnit.SelectedValue
+                };
+                bLL_Recipe.Add(recipe);
+                LoaddgvRecipe(txtProductId2.Text);
+
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Thêm công thức thất bại.\nChi tiết lỗi: " + inner);
+            }
+        }
+
+        private void dgvRecipe2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+
+                var selectedRow = dgvRecipe2.Rows[e.RowIndex];
+                txtRecipeId.Text = selectedRow.Cells["Id"].Value.ToString();
+                var productName = selectedRow.Cells["Product"].Value.ToString();
+                cboProductName.SelectedIndex = cboProductName.FindStringExact(productName);
+
+            }
+        }
+
+        private void txtProductId2_TextChanged(object sender, EventArgs e)
+        {
+
+            if (txtProductId2.Text.IsNullOrEmpty())
+                return;
+            LoaddgvRecipe(txtProductId2.Text);
         }
     }
 }

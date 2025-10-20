@@ -9,6 +9,17 @@ namespace BLL
 
         public List<Product> GetAll() { return dAL_Product.GetAll(); }
 
+        public Product GetById(string id)
+        {
+            var product = dAL_Product.GetById(id);
+            if (product == null)
+            {
+                return new Product();
+            }
+            return product;
+        }
+
+
         public void Add(Product product)
         {
             if (string.IsNullOrWhiteSpace(product.ProductName))
