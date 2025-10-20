@@ -3,6 +3,7 @@ using DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -22,22 +23,6 @@ namespace GUI
         private readonly BLL_Address bLL_Address = new();
         private readonly BLL_Province bLL_Province = new();
         private readonly BLL_Ward bLL_Ward = new();
-
-        private void LoadSupplier()
-        {
-            var displayList = bLL_Supplier.GetAllSuppliers().Select(s => new
-            {
-                s.Id,
-                s.Name,
-                s.Phone,               
-                s.Email,
-                Address = s.Address != null ? s.Address.Address1 : "Huy gay",
-                Ward = s.Address?.Ward != null ? s.Address.Ward.WardName : "Unknown",
-                Province = s.Address?.Ward?.Province != null ? s.Address.Ward.Province.ProvinceName : "Unknown",
-            }).ToList();
-            dgvSupplier.DataSource = displayList;
-        }
-
 
         private void LoadProvince()
         {
@@ -59,17 +44,34 @@ namespace GUI
 
         private void frmSupplier_Load(object sender, EventArgs e)
         {
-            LoadSupplier();
+            LoaddgvSupplier();
             LoadProvince();
-            
-        }
-       
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
 
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {              
+           
+            if(string.IsNullOrEmpty(txtSupplierName.Text)||
+                string.IsNullOrEmpty(txtPhone.Text)||
+                string.IsNullOrEmpty(txtEmail.Text)||
+                string.IsNullOrEmpty(txtAddress.Text)){
+                MessageBox.Show("Thông tin nhà cung cấp không được để trống!","Thiếu thông tin",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbProvince.SelectedValue == null)
+            {
+                MessageBox.Show("Tỉnh/Thành phố không được để trống");
+                return;
+            }
+            if (cbWard.SelectedValue == null)
+            {
+                MessageBox.Show("Phường/Xã phố không được để trống");
+                return;
+            }
             try
             {
-                string provinceId = cbProvince.SelectedValue.ToString();
+                string provinceId = cbProvince.SelectedValue.ToString();              
                 string wardId = cbWard.SelectedValue.ToString();
                 var address = new Address
                 {
@@ -91,17 +93,21 @@ namespace GUI
                     AddressId = address.Id,
 
                 };
+                if (!ValidateSupplier(add))
+                {
+                    return;
+                }
                 bLL_Supplier.Add(add);
                 MessageBox.Show("Đã thêm thành công");
                 ClearInputFields();
-                LoadSupplier();
+                LoaddgvSupplier();
             }
             catch (Exception ex)
             {
                 var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
                 MessageBox.Show("Thêm nhà cung cấp thất bại.\nChi tiết lỗi: " + inner);
             }
-           
+
         }
 
 
@@ -142,11 +148,15 @@ namespace GUI
                 supplier.Phone = txtPhone.Text;
                 supplier.Email = txtEmail.Text;
 
+                if (!ValidateSupplier(supplier))
+                {
+                    return;
+                }
                 bLL_Supplier.Update(supplier); // Lưu vào DB
 
                 MessageBox.Show("Đã cập nhật thành công");
                 ClearInputFields();
-                LoadSupplier();
+                LoaddgvSupplier();
             }
             catch (Exception ex)
             {
@@ -159,7 +169,7 @@ namespace GUI
             try
             {
                 string id = txtSupplierID.Text.Trim();
-                if(string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id))
                 {
                     MessageBox.Show("Vui lòng chọn nhà cung cấp để xóa.");
                     return;
@@ -169,12 +179,12 @@ namespace GUI
                 {
                     bLL_Supplier.Delete(id);
                     MessageBox.Show("Đã xóa thành công");
-                    LoadSupplier();
+                    LoaddgvSupplier();
                     ClearInputFields();
-                    
+
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
                 MessageBox.Show("Xóa nhà cung cấp thất bại.\nChi tiết lỗi: " + inner);
@@ -217,7 +227,7 @@ namespace GUI
             if (e.RowIndex >= 0)
             {
                 var selectedRow = dgvSupplier.Rows[e.RowIndex];
-                
+
                 //txtSupplierID.Text = dgvSupplier.Rows[e.RowIndex].Cells["Id"].Value.ToString();
                 txtSupplierName.Text = selectedRow.Cells["Name"].Value.ToString();
                 txtPhone.Text = selectedRow.Cells["Phone"].Value.ToString();
@@ -234,11 +244,95 @@ namespace GUI
 
         private void cbWard_SelectedIndexChanged(object sender, EventArgs e)
         {
-        //    if (cbWard.SelectedIndex != -1 && cbWard.SelectedValue != null)
-        //    {
-        //        string wardId = cbWard.SelectedValue.ToString();
-        //        txtSupplierID.Text = bLL_Supplier.GenerateSupplierId(wardId);
-        //    }
+            //    if (cbWard.SelectedIndex != -1 && cbWard.SelectedValue != null)
+            //    {
+            //        string wardId = cbWard.SelectedValue.ToString();
+            //        txtSupplierID.Text = bLL_Supplier.GenerateSupplierId(wardId);
+            //    }
         }
+
+        private void LoaddgvSupplier(string keyword = null)
+        {
+            dgvSupplier.MultiSelect = false;
+            dgvSupplier.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSupplier.ReadOnly = true;
+
+            
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var filterList = bLL_Supplier.GetAllSuppliers()
+                    .Where(s => s.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) && s.Address != null)
+                    //.ToList();
+                    .Select(s => new
+                    {
+                        s.Id,
+                        s.Name,
+                        s.Phone,
+                        s.Email,
+                        Address = s.Address != null ? s.Address.Address1 : "null",
+                        Ward = s.Address?.Ward != null ? s.Address.Ward.WardName : "Unknown",
+                        Province = s.Address?.Ward?.Province != null ? s.Address.Ward.Province.ProvinceName : "Unknown",
+                    }).ToList();
+
+                dgvSupplier.DataSource = filterList;
+                return;
+            }
+                        
+            var displayList = bLL_Supplier.GetAllSuppliers().Select(s => new
+            {
+                s.Id,
+                s.Name,
+                s.Phone,
+                s.Email,
+                Address = s.Address != null ? s.Address.Address1 : "null",
+                Ward = s.Address?.Ward != null ? s.Address.Ward.WardName : "Unknown",
+                Province = s.Address?.Ward?.Province != null ? s.Address.Ward.Province.ProvinceName : "Unknown",
+            }).ToList();
+
+                dgvSupplier.DataSource = displayList;            
+        }
+        //Biển theo dõi công tác nhập liệu
+        private CancellationTokenSource _cts = new();
+
+        private async Task txtFindSupplier_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private async void txtFindSuppliers_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtFindSuppliers.Text;
+
+            //Hủy thao tác trước đó nếu người dùng vẫn đang nhập
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
+
+            try
+            {
+                //chờ 0,5s sau khi người dùng ngừng nhập
+                await Task.Delay(500, _cts.Token);
+                LoaddgvSupplier(input);
+            }
+            catch (TaskCanceledException)
+            {
+
+            }
+        }
+        //Kiểm tra email hợp lệ
+        private bool ValidateSupplier(Supplier supplier)
+        {
+            var context = new ValidationContext(supplier, null, null);
+            var results = new List<ValidationResult>();
+
+            bool isValid = Validator.TryValidateObject(supplier, context, results, true);
+
+            if (!isValid)
+            {
+                //thông báo lỗi
+                MessageBox.Show(results.First().ErrorMessage, "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        } 
     }
 }

@@ -68,7 +68,7 @@
             label2 = new Label();
             cbWard = new ComboBox();
             label1 = new Label();
-            textBox9 = new TextBox();
+            txtFindSuppliers = new TextBox();
             label11 = new Label();
             txtAddress = new TextBox();
             label8 = new Label();
@@ -321,7 +321,7 @@
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(cbWard);
             groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(textBox9);
+            groupBox1.Controls.Add(txtFindSuppliers);
             groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(txtAddress);
             groupBox1.Controls.Add(label8);
@@ -489,13 +489,14 @@
             label1.TabIndex = 33;
             label1.Text = "Xã/Phường:";
             // 
-            // textBox9
+            // txtFindSuppliers
             // 
-            textBox9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox9.Location = new Point(116, 275);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(245, 30);
-            textBox9.TabIndex = 35;
+            txtFindSuppliers.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtFindSuppliers.Location = new Point(116, 275);
+            txtFindSuppliers.Name = "txtFindSuppliers";
+            txtFindSuppliers.Size = new Size(245, 30);
+            txtFindSuppliers.TabIndex = 35;
+            txtFindSuppliers.TextChanged += txtFindSuppliers_TextChanged;
             // 
             // label11
             // 
@@ -526,6 +527,7 @@
             // dgvSupplier
             // 
             dgvSupplier.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvSupplier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSupplier.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSupplier.Location = new Point(3, 305);
             dgvSupplier.Name = "dgvSupplier";
@@ -589,7 +591,7 @@
         private Button btnHoanTac;
         private Button btnAdd;
         private Button btnDelete;
-        private TextBox textBox9;
+        private TextBox txtFindSuppliers;
         private Label label11;
         private Button button5;
         private Button button6;

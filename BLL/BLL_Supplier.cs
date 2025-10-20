@@ -46,15 +46,17 @@ namespace BLL
             return ward?.WardName ?? "Unknown";
         }
 
-        
-        
-
-        public void Add(DTO.Supplier supplier)
+        public void Add(Supplier supplier)
         {
            if(string.IsNullOrEmpty(supplier.Id))
                 throw new ArgumentException("Mã nhà cung cấp không được để trống!");
            if(string.IsNullOrEmpty(supplier.Name))
                 throw new ArgumentException("Tên nhà cung cấp không được để trống!");
+            if (string.IsNullOrEmpty(supplier.Phone))
+                throw new ArgumentException("Số điện thoại nhà cung cấp không được để trống!");
+            if (string.IsNullOrEmpty(supplier.Name))
+                throw new ArgumentException("Email nhà cung cấp không được để trống!");
+
             dAL_Supplier.Add(supplier);
         }
 
