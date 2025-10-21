@@ -17,6 +17,16 @@ namespace DAL
                 .ToList();
         }
 
+        public Ingredient GetById(string id)
+        {
+            var ingredient = _context.Ingredients.FirstOrDefault(i => i.Id == id);
+            if (ingredient != null)
+            {
+                return ingredient;
+            }
+            return new Ingredient();
+        }
+
         public void Add(Ingredient ingredient)
         {
             _context.Add(ingredient);

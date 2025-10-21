@@ -17,6 +17,8 @@ namespace BLL
             return dAL_Ingredient.GetAll();
         }
 
+        public Ingredient GetById(string id) { return  dAL_Ingredient.GetById(id); }
+
         public void Add(Ingredient ingredient)
         {
             dAL_Ingredient.Add(ingredient);

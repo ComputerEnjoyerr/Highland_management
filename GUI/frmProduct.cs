@@ -119,7 +119,7 @@ namespace GUI
                     .Select(r => new
                     {
                         r.Id,
-                        Product = r.Product != null ? r.Product.ProductName : "Lỗi hiển thị",
+                        r.IngredientId,
                         Ingredient = r.Ingredient != null ? r.Ingredient.IngredientName : "Lỗi hiển thị",
                         r.Quantity,
                         RecipeUnit = r.RecipeUnit != null ? r.RecipeUnit.UnitName : "Lỗi hiển thị"
@@ -132,7 +132,7 @@ namespace GUI
                 .Select(r => new
                 {
                     r.Id,
-                    Product = r.Product != null ? r.Product.ProductName : "Lỗi hiển thị",
+                    r.IngredientId,
                     Ingredient = r.Ingredient != null ? r.Ingredient.IngredientName : "Lỗi hiển thị",
                     r.Quantity,
                     RecipeUnit = r.RecipeUnit != null ? r.RecipeUnit.UnitName : "Lỗi hiển thị"
@@ -179,6 +179,16 @@ namespace GUI
             txtPrice.Clear();
             cboCategory.SelectedIndex = 0;
             txtProductName1.Focus();
+            LoadCboProduct();
+        }
+        private void RefreshRecipe()
+        {
+            txtRecipeId.Clear();
+            txtIngredientId.Clear();
+            txtIngredientName.Clear();
+            txtIngredientQty.Clear();
+            cboIngredientUnit.SelectedIndex = 0;
+            txtIngredientQty.Focus();
         }
 
         private void frmProduct_Load(object sender, EventArgs e)
@@ -478,6 +488,7 @@ namespace GUI
                 };
                 bLL_Recipe.Add(recipe);
                 LoaddgvRecipe(txtProductId2.Text);
+                RefreshRecipe();
 
             }
             catch (Exception ex)
@@ -494,9 +505,18 @@ namespace GUI
 
                 var selectedRow = dgvRecipe2.Rows[e.RowIndex];
                 txtRecipeId.Text = selectedRow.Cells["Id"].Value.ToString();
-                var productName = selectedRow.Cells["Product"].Value.ToString();
-                cboProductName.SelectedIndex = cboProductName.FindStringExact(productName);
 
+                var unit = selectedRow.Cells["RecipeUnit"].Value.ToString();
+                cboIngredientUnit.SelectedIndex = cboIngredientUnit.FindStringExact(unit);
+
+                txtIngredientQty.Text = selectedRow.Cells["Quantity"].Value.ToString();
+
+                var ingredientId = selectedRow.Cells["IngredientId"].Value.ToString();
+                if (ingredientId == null) return;
+
+                txtIngredientId.Text = ingredientId;
+                var ingredient = bLL_Ingredient.GetById(ingredientId);
+                txtIngredientName.Text = ingredient.IngredientName;
             }
         }
 
@@ -506,6 +526,95 @@ namespace GUI
             if (txtProductId2.Text.IsNullOrEmpty())
                 return;
             LoaddgvRecipe(txtProductId2.Text);
+        }
+
+        private void btnDeleteRecipe_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtRecipeId.Text))
+            {
+                MessageBox.Show("Vui lòng chọn công thức cần xóa từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            DialogResult rs = MessageBox.Show("Bạn có chắc muốn xóa dữ liệu công thức này không?\nNếu xóa công thức này sẽ biết mất hoàn toàn", "Lưu ý", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (DialogResult.No == rs)
+                return;
+            try
+            {
+                bLL_Recipe.Delete(txtRecipeId.Text);
+                LoaddgvRecipe(txtProductId2.Text);
+                RefreshRecipe();
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Xóa công thức thất bại.\nChi tiết lỗi: " + inner);
+            }
+        }
+
+        private void btnUpdateRecipe_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtRecipeId.Text))
+            {
+                MessageBox.Show("Vui lòng chọn công thức cần cập nhật từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtProductId2.Text))
+            {
+                MessageBox.Show("Không thể tìm thấy sản phẩm có công thức này.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtIngredientId.Text))
+            {
+                MessageBox.Show("Không thể tìm thấy nguyên liệu thuộc công thức này.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            DialogResult rs = MessageBox.Show("Bạn có chắc muốn cập nhật dữ liệu công thức này không?", "Lưu ý", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (DialogResult.No == rs)
+                return;
+            try
+            {
+                if (txtIngredientQty.Text.IsNullOrEmpty())
+                {
+                    MessageBox.Show("Vui lòng nhập số lượng", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!decimal.TryParse(txtIngredientQty.Text, out decimal quantity))
+                {
+                    MessageBox.Show("Giá tiền không hợp lệ", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (cboIngredientUnit.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Vui lòng chọn đơn vị tính", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (cboIngredientUnit.SelectedValue == null)
+                {
+                    MessageBox.Show("Không thể lưu dữ liệu Đơn vị tính", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    return;
+                }
+                var recipe = new Recipe
+                {
+                    Id = txtRecipeId.Text,
+                    IngredientId = txtIngredientId.Text,
+                    ProductId = txtProductId2.Text,
+                    Quantity = quantity,
+                    RecipeUnitId = (int)cboIngredientUnit.SelectedValue
+                };
+                bLL_Recipe.Update(recipe);
+                LoaddgvRecipe(txtProductId2.Text);
+                RefreshRecipe();
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Cập nhật công thức thất bại.\nChi tiết lỗi: " + inner);
+            }
+        }
+
+        private void btnClearRecipe_Click(object sender, EventArgs e)
+        {
+            RefreshRecipe();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace DAL
             _context.SaveChanges();
         }
 
-        public void Remove(string id)
+        public void Delete(string id)
         {
             var recipe = _context.Recipes.FirstOrDefault(r => r.Id == id);
             if (recipe != null)

@@ -17,7 +17,7 @@ namespace BLL
         }
 
         public void Add(Recipe recipe) { dAL_Recipe.Add(recipe); }
-        public void Remove(string id) { dAL_Recipe.Remove(id); }
+        public void Delete(string id) { dAL_Recipe.Delete(id); }
         public void Update(Recipe recipe) { dAL_Recipe.Update(recipe); }
         public string GenerateId() { return dAL_Recipe.GenerateId(); }
     }
