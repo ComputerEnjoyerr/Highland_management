@@ -32,10 +32,10 @@ namespace BLL
             string timesTamp = DateTime.Now.ToString("yyMMddHHmmss");
             string codeName = bLL_Province.GetAllProvinces()
                 .FirstOrDefault(p => p.Id == provinceId)?.CodeName ?? "XX";
-            string numberPath = GetNextNumber().ToString("D3");
-            string ranDomString = Guid.NewGuid().ToString("N").Substring(0, 2).ToUpper();
+            //string numberPath = GetNextNumber().ToString("D3");
+            string ranDomString = Guid.NewGuid().ToString("N").Substring(0, 4).ToUpper();
 
-            string supplierId = $"{prefix}{timesTamp}{codeName}{numberPath}{ranDomString}";
+            string supplierId = $"{prefix}{timesTamp}{codeName}{ranDomString}";
             return supplierId.Length > 20 ? supplierId.Substring(0, 20) : supplierId;
         }
        
