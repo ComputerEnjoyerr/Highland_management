@@ -12,6 +12,7 @@ public partial class Supplier
     public string Name { get; set; } = null!;
     [Phone(ErrorMessage = "Số điện thoại phải phù hợp!")]
     [StringLength(11, MinimumLength = 8, ErrorMessage ="Số điện thoại phải từ 8 đến 11 ký tự")]
+    
     public string Phone { get; set; } = null!;
 
     [Required (ErrorMessage = "Địa chỉ không được để trống")]

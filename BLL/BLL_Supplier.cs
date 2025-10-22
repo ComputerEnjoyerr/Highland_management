@@ -78,5 +78,20 @@ namespace BLL
         //    var wardName = GenerateAddressId(addressId);
         //    Console.WriteLine($"Địa chỉ ID: {wardName}");
         //}
+
+        //kiem tra so dien thoai va email bi trùng
+        public Supplier GetEmailSupplier(string email)
+        {
+            var emailSupplier = dAL_Supplier.GetAllSuppliers().FirstOrDefault(s => s.Email == email);
+            if (emailSupplier == null) return new Supplier();
+            return emailSupplier;
+        }
+
+        public Supplier getPhoneSupplier(string phone)
+        {
+            var phoneSupplier = dAL_Supplier.GetAllSuppliers().FirstOrDefault(s => s.Phone == phone);
+            if(phoneSupplier == null) return new Supplier();
+            return phoneSupplier;
+        }
     }
 }

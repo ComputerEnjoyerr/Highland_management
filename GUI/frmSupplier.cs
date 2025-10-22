@@ -69,6 +69,25 @@ namespace GUI
                 MessageBox.Show("Phường/Xã phố không được để trống");
                 return;
             }
+            if(!decimal.TryParse(txtPhone.Text, out decimal phoneNum))
+                {
+                MessageBox.Show("Số điện thoại phải là ký tự số!");
+                return;
+
+            }
+            var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text);
+            var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text);
+            if (exitingEmail != null && !string.IsNullOrEmpty(exitingEmail.Id))
+            {
+                MessageBox.Show("Email đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (exitingPhone != null && !string.IsNullOrEmpty(exitingPhone.Id)) 
+            {
+                MessageBox.Show("Số điện thoại đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 string provinceId = cbProvince.SelectedValue.ToString();              
@@ -110,9 +129,28 @@ namespace GUI
 
         }
 
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (!decimal.TryParse(txtPhone.Text, out decimal phoneNum))
+            {
+                MessageBox.Show("Số điện thoại phải là ký tự số!");
+                return;
+
+            }
+            var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text);
+            var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text);
+            if (exitingEmail != null && !string.IsNullOrEmpty(exitingEmail.Id))
+            {
+                MessageBox.Show("Email đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (exitingPhone != null && !string.IsNullOrEmpty(exitingPhone.Id))
+            {
+                MessageBox.Show("Số điện thoại đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 string id = txtSupplierID.Text.Trim(); // Lấy ID Supplier cần update
@@ -334,5 +372,7 @@ namespace GUI
 
             return true;
         } 
+
+        
     }
 }
