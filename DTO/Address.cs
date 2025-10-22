@@ -18,5 +18,5 @@ public partial class Address
     public virtual ICollection<Supplier> Suppliers { get; set; } = new List<Supplier>();
 
     public virtual Ward? Ward { get; set; }
-
+    
 }
