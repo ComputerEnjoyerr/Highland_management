@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DTO;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,9 @@ namespace GUI
         private readonly BLL_Address bLL_Address = new();
         private readonly BLL_Province bLL_Province = new();
         private readonly BLL_Ward bLL_Ward = new();
+        private readonly BLL_Ingredient bLL_Ingredient = new();
+        private readonly BLL_SupplierIngredient bLL_SupplierIngredient = new();
+        private readonly BLL_Unit bLL_unit = new();  
 
         private void LoadProvince()
         {
@@ -42,21 +46,84 @@ namespace GUI
             cbWard.SelectedIndex = -1;
         }
 
-        private void frmSupplier_Load(object sender, EventArgs e)
+        private void LoadDgvIngredient(string keyword = null)
         {
-            LoaddgvSupplier();
-            LoadProvince();
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+
+                var filteredList = bLL_SupplierIngredient.GetAll()
+                    .Where(si => si.Supplier != null && si.Supplier.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                                 si.Ingredient != null && si.Ingredient.IngredientName.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                    .Select(si => new
+                    {
+                        si.IngredientId,
+                        IngredientName = si.Ingredient != null ? si.Ingredient.IngredientName : "Lỗi hiển thị",
+                        SupplierName = si.Supplier != null ? si.Supplier.Name : "Lỗi hiển thị",
+                        StandardUnit = si.StandardUnit != null ? si.StandardUnit.UnitName : "Lỗi hiển thị",
+                        si.UnitPrice,
+                        si.ExpiryDay
+                    }).ToList();
+                dgvIngredient.DataSource = filteredList;
+                return;
+            }
+
+            var displayList = bLL_SupplierIngredient.GetAll().Select(si => new
+            {
+                si.IngredientId,
+                IngredientName = si.Ingredient != null ? si.Ingredient.IngredientName : "Lỗi hiển thị",
+                SupplierName = si.Supplier != null ? si.Supplier.Name : "Lỗi hiển thị",
+                StandardUnit = si.StandardUnit != null ? si.StandardUnit.UnitName : "Lỗi hiển thị",
+                si.UnitPrice,
+                si.ExpiryDay
+            }).ToList();
+            dgvIngredient.DataSource = displayList;
 
         }
 
+        private void LoadCboSupplier()
+        {
+            var suppliers = bLL_Supplier.GetAllSuppliers();
+            cboSupplier.DataSource = suppliers;
+            cboSupplier.DisplayMember = "Name";
+            cboSupplier.ValueMember = "Id";
+            cboSupplier.SelectedIndex = 0;
+        }
+
+        private void LoadCboUnit()
+        {
+            var units = bLL_unit.GetAll();
+            cboUnit.DataSource = units;
+            cboUnit.DisplayMember = "UnitName";
+            cboUnit.ValueMember = "Id";
+            cboUnit.SelectedIndex = 0;
+        }
+
+        private void frmSupplier_Load(object sender, EventArgs e)
+        {
+            cboSupplier.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboUnit.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            dgvIngredient.MultiSelect = false;
+            dgvIngredient.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvIngredient.ReadOnly = true;
+            dgvIngredient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            LoaddgvSupplier();
+            LoadProvince();
+            LoadDgvIngredient();
+            LoadCboSupplier();
+            LoadCboUnit();
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
-        {              
-           
-            if(string.IsNullOrEmpty(txtSupplierName.Text)||
-                string.IsNullOrEmpty(txtPhone.Text)||
-                string.IsNullOrEmpty(txtEmail.Text)||
-                string.IsNullOrEmpty(txtAddress.Text)){
-                MessageBox.Show("Thông tin nhà cung cấp không được để trống!","Thiếu thông tin",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+        {
+
+            if (string.IsNullOrEmpty(txtSupplierName.Text) ||
+                string.IsNullOrEmpty(txtPhone.Text) ||
+                string.IsNullOrEmpty(txtEmail.Text) ||
+                string.IsNullOrEmpty(txtAddress.Text))
+            {
+                MessageBox.Show("Thông tin nhà cung cấp không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (cbProvince.SelectedValue == null)
@@ -69,8 +136,8 @@ namespace GUI
                 MessageBox.Show("Phường/Xã phố không được để trống");
                 return;
             }
-            if(!decimal.TryParse(txtPhone.Text, out decimal phoneNum))
-                {
+            if (!decimal.TryParse(txtPhone.Text, out decimal phoneNum))
+            {
                 MessageBox.Show("Số điện thoại phải là ký tự số!");
                 return;
 
@@ -83,14 +150,14 @@ namespace GUI
                 return;
             }
 
-            if (exitingPhone != null && !string.IsNullOrEmpty(exitingPhone.Id)) 
+            if (exitingPhone != null && !string.IsNullOrEmpty(exitingPhone.Id))
             {
                 MessageBox.Show("Số điện thoại đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                string provinceId = cbProvince.SelectedValue.ToString();              
+                string provinceId = cbProvince.SelectedValue.ToString();
                 string wardId = cbWard.SelectedValue.ToString();
                 var address = new Address
                 {
@@ -286,6 +353,10 @@ namespace GUI
                 var wardName = selectedRow.Cells["Ward"].Value.ToString();
                 cbWard.SelectedIndex = cbWard.FindStringExact(wardName);
                 txtSupplierID.Text = selectedRow.Cells["Id"].Value.ToString();
+
+                var supplierName = selectedRow.Cells["Name"].Value.ToString();
+                cboSupplier.SelectedIndex = cboSupplier.FindStringExact(supplierName);
+                LoadDgvIngredient(txtSupplierName.Text);
             }
         }
 
@@ -304,7 +375,7 @@ namespace GUI
             dgvSupplier.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSupplier.ReadOnly = true;
 
-            
+
             if (!string.IsNullOrEmpty(keyword))
             {
                 var filterList = bLL_Supplier.GetAllSuppliers()
@@ -324,7 +395,7 @@ namespace GUI
                 dgvSupplier.DataSource = filterList;
                 return;
             }
-                        
+
             var displayList = bLL_Supplier.GetAllSuppliers().Select(s => new
             {
                 s.Id,
@@ -336,14 +407,10 @@ namespace GUI
                 Province = s.Address?.Ward?.Province != null ? s.Address.Ward.Province.ProvinceName : "Unknown",
             }).ToList();
 
-                dgvSupplier.DataSource = displayList;            
+            dgvSupplier.DataSource = displayList;
         }
         //Biển theo dõi công tác nhập liệu
         private CancellationTokenSource _cts = new();
-
-        private async Task txtFindSupplier_TextChanged(object sender, EventArgs e)
-        {
-        }
 
         private async void txtFindSuppliers_TextChanged(object sender, EventArgs e)
         {
@@ -380,8 +447,25 @@ namespace GUI
             }
 
             return true;
-        } 
+        }
 
-        
+        private void dgvIngredient_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var selectedRow = dgvIngredient.Rows[e.RowIndex];
+                txtIngredientId.Text = selectedRow.Cells["IngredientId"].Value.ToString();
+                txtIngredientPrice.Text = selectedRow.Cells["UnitPrice"].Value.ToString();
+                txtIngredientName.Text = selectedRow.Cells["IngredientName"].Value.ToString();
+
+                nmrExpieryDay.Text = selectedRow.Cells["ExpiryDay"].Value.ToString();
+
+                var supplierName = selectedRow.Cells["SupplierName"].Value.ToString();
+                cboSupplier.SelectedIndex = cboSupplier.FindStringExact(supplierName);
+
+                var unit = selectedRow.Cells["StandardUnit"].Value.ToString();
+                cboUnit.SelectedIndex = cboUnit.FindStringExact(unit);
+            }
+        }
     }
 }
