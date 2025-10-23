@@ -204,6 +204,15 @@ namespace GUI
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtSupplierName.Text) ||
+              string.IsNullOrEmpty(txtPhone.Text) ||
+              string.IsNullOrEmpty(txtEmail.Text) ||
+              string.IsNullOrEmpty(txtAddress.Text))
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp để xóa!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 string id = txtSupplierID.Text.Trim();
