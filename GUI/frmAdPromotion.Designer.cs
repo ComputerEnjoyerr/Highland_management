@@ -53,29 +53,33 @@
             textBox6 = new TextBox();
             label6 = new Label();
             tabPage2 = new TabPage();
-            dataGridView2 = new DataGridView();
+            dgvPromotionProgram = new DataGridView();
             panel2 = new Panel();
-            dateTimePicker1 = new DateTimePicker();
-            numericUpDown3 = new NumericUpDown();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
+            txtPPMaxDiscount = new TextBox();
+            nmrPPRequiringPoint = new NumericUpDown();
+            label18 = new Label();
+            dtpPPStartDate = new DateTimePicker();
+            nmrPPExpiryDay = new NumericUpDown();
+            btnSave = new Button();
+            btnReset = new Button();
+            btnAdd = new Button();
+            btnDelete = new Button();
             label17 = new Label();
-            comboBox3 = new ComboBox();
+            cboPPCategory = new ComboBox();
+            cboPPDiscountType = new ComboBox();
             label9 = new Label();
-            comboBox4 = new ComboBox();
             label10 = new Label();
-            textBox3 = new TextBox();
+            txtPPDescription = new TextBox();
             label11 = new Label();
-            textBox4 = new TextBox();
+            txtPPValue = new TextBox();
+            label19 = new Label();
             label12 = new Label();
             label13 = new Label();
-            textBox7 = new TextBox();
+            txtPPSearch = new TextBox();
             label14 = new Label();
-            textBox9 = new TextBox();
+            txtPPName = new TextBox();
             label15 = new Label();
-            textBox10 = new TextBox();
+            txtPPId = new TextBox();
             label16 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -83,9 +87,10 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPromotionProgram).BeginInit();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmrPPRequiringPoint).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmrPPExpiryDay).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -323,7 +328,7 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(dataGridView2);
+            tabPage2.Controls.Add(dgvPromotionProgram);
             tabPage2.Controls.Add(panel2);
             tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
@@ -333,100 +338,129 @@
             tabPage2.Text = "Quản lý Chương trình KM";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // dataGridView2
+            // dgvPromotionProgram
             // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 240);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(978, 431);
-            dataGridView2.TabIndex = 7;
+            dgvPromotionProgram.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPromotionProgram.Dock = DockStyle.Fill;
+            dgvPromotionProgram.Location = new Point(3, 279);
+            dgvPromotionProgram.Name = "dgvPromotionProgram";
+            dgvPromotionProgram.RowHeadersWidth = 51;
+            dgvPromotionProgram.Size = new Size(978, 392);
+            dgvPromotionProgram.TabIndex = 7;
             // 
             // panel2
             // 
-            panel2.Controls.Add(dateTimePicker1);
-            panel2.Controls.Add(numericUpDown3);
-            panel2.Controls.Add(button5);
-            panel2.Controls.Add(button6);
-            panel2.Controls.Add(button7);
-            panel2.Controls.Add(button8);
+            panel2.Controls.Add(txtPPMaxDiscount);
+            panel2.Controls.Add(nmrPPRequiringPoint);
+            panel2.Controls.Add(label18);
+            panel2.Controls.Add(dtpPPStartDate);
+            panel2.Controls.Add(nmrPPExpiryDay);
+            panel2.Controls.Add(btnSave);
+            panel2.Controls.Add(btnReset);
+            panel2.Controls.Add(btnAdd);
+            panel2.Controls.Add(btnDelete);
             panel2.Controls.Add(label17);
-            panel2.Controls.Add(comboBox3);
+            panel2.Controls.Add(cboPPCategory);
+            panel2.Controls.Add(cboPPDiscountType);
             panel2.Controls.Add(label9);
-            panel2.Controls.Add(comboBox4);
             panel2.Controls.Add(label10);
-            panel2.Controls.Add(textBox3);
+            panel2.Controls.Add(txtPPDescription);
             panel2.Controls.Add(label11);
-            panel2.Controls.Add(textBox4);
+            panel2.Controls.Add(txtPPValue);
+            panel2.Controls.Add(label19);
             panel2.Controls.Add(label12);
             panel2.Controls.Add(label13);
-            panel2.Controls.Add(textBox7);
+            panel2.Controls.Add(txtPPSearch);
             panel2.Controls.Add(label14);
-            panel2.Controls.Add(textBox9);
+            panel2.Controls.Add(txtPPName);
             panel2.Controls.Add(label15);
-            panel2.Controls.Add(textBox10);
+            panel2.Controls.Add(txtPPId);
             panel2.Controls.Add(label16);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(978, 237);
+            panel2.Size = new Size(978, 276);
             panel2.TabIndex = 6;
             // 
-            // dateTimePicker1
+            // txtPPMaxDiscount
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(458, 112);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(155, 30);
-            dateTimePicker1.TabIndex = 35;
+            txtPPMaxDiscount.Location = new Point(428, 80);
+            txtPPMaxDiscount.Name = "txtPPMaxDiscount";
+            txtPPMaxDiscount.Size = new Size(185, 30);
+            txtPPMaxDiscount.TabIndex = 38;
             // 
-            // numericUpDown3
+            // nmrPPRequiringPoint
             // 
-            numericUpDown3.Location = new Point(428, 144);
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(185, 30);
-            numericUpDown3.TabIndex = 34;
+            nmrPPRequiringPoint.Location = new Point(458, 180);
+            nmrPPRequiringPoint.Name = "nmrPPRequiringPoint";
+            nmrPPRequiringPoint.Size = new Size(155, 30);
+            nmrPPRequiringPoint.TabIndex = 37;
             // 
-            // button5
+            // label18
             // 
-            button5.BackColor = Color.FromArgb(230, 181, 56);
-            button5.Location = new Point(638, 75);
-            button5.Name = "button5";
-            button5.Size = new Size(145, 53);
-            button5.TabIndex = 32;
-            button5.Text = "Lưu";
-            button5.UseVisualStyleBackColor = false;
+            label18.AutoSize = true;
+            label18.Location = new Point(333, 185);
+            label18.Name = "label18";
+            label18.Size = new Size(123, 23);
+            label18.TabIndex = 36;
+            label18.Text = "Điểm yêu cầu:";
             // 
-            // button6
+            // dtpPPStartDate
             // 
-            button6.BackColor = Color.White;
-            button6.Location = new Point(789, 75);
-            button6.Name = "button6";
-            button6.Size = new Size(145, 53);
-            button6.TabIndex = 33;
-            button6.Text = "Hoàn tác";
-            button6.UseVisualStyleBackColor = false;
+            dtpPPStartDate.Format = DateTimePickerFormat.Short;
+            dtpPPStartDate.Location = new Point(458, 112);
+            dtpPPStartDate.Name = "dtpPPStartDate";
+            dtpPPStartDate.Size = new Size(155, 30);
+            dtpPPStartDate.TabIndex = 35;
             // 
-            // button7
+            // nmrPPExpiryDay
             // 
-            button7.BackColor = Color.FromArgb(104, 176, 145);
-            button7.Location = new Point(638, 16);
-            button7.Name = "button7";
-            button7.Size = new Size(145, 53);
-            button7.TabIndex = 32;
-            button7.Text = "Thêm";
-            button7.UseVisualStyleBackColor = false;
+            nmrPPExpiryDay.Location = new Point(428, 144);
+            nmrPPExpiryDay.Name = "nmrPPExpiryDay";
+            nmrPPExpiryDay.Size = new Size(185, 30);
+            nmrPPExpiryDay.TabIndex = 34;
             // 
-            // button8
+            // btnSave
             // 
-            button8.BackColor = Color.FromArgb(169, 65, 65);
-            button8.Location = new Point(789, 16);
-            button8.Name = "button8";
-            button8.Size = new Size(145, 53);
-            button8.TabIndex = 33;
-            button8.Text = "Xóa";
-            button8.UseVisualStyleBackColor = false;
+            btnSave.BackColor = Color.FromArgb(230, 181, 56);
+            btnSave.Location = new Point(638, 75);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(145, 53);
+            btnSave.TabIndex = 32;
+            btnSave.Text = "Lưu";
+            btnSave.UseVisualStyleBackColor = false;
+            // 
+            // btnReset
+            // 
+            btnReset.BackColor = Color.White;
+            btnReset.Location = new Point(789, 75);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(145, 53);
+            btnReset.TabIndex = 33;
+            btnReset.Text = "Hoàn tác";
+            btnReset.UseVisualStyleBackColor = false;
+            btnReset.Click += btnReset_Click;
+            // 
+            // btnAdd
+            // 
+            btnAdd.BackColor = Color.FromArgb(104, 176, 145);
+            btnAdd.Location = new Point(638, 16);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(145, 53);
+            btnAdd.TabIndex = 32;
+            btnAdd.Text = "Thêm";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.FromArgb(169, 65, 65);
+            btnDelete.Location = new Point(789, 16);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(145, 53);
+            btnDelete.TabIndex = 33;
+            btnDelete.Text = "Xóa";
+            btnDelete.UseVisualStyleBackColor = false;
             // 
             // label17
             // 
@@ -437,13 +471,21 @@
             label17.TabIndex = 22;
             label17.Text = "HSD:";
             // 
-            // comboBox3
+            // cboPPCategory
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(428, 16);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(185, 31);
-            comboBox3.TabIndex = 31;
+            cboPPCategory.FormattingEnabled = true;
+            cboPPCategory.Location = new Point(104, 174);
+            cboPPCategory.Name = "cboPPCategory";
+            cboPPCategory.Size = new Size(204, 31);
+            cboPPCategory.TabIndex = 31;
+            // 
+            // cboPPDiscountType
+            // 
+            cboPPDiscountType.FormattingEnabled = true;
+            cboPPDiscountType.Location = new Point(428, 16);
+            cboPPDiscountType.Name = "cboPPDiscountType";
+            cboPPDiscountType.Size = new Size(185, 31);
+            cboPPDiscountType.TabIndex = 31;
             // 
             // label9
             // 
@@ -454,14 +496,6 @@
             label9.TabIndex = 22;
             label9.Text = "Ngày bắt đầu:";
             // 
-            // comboBox4
-            // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(428, 81);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(185, 31);
-            comboBox4.TabIndex = 31;
-            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -471,13 +505,13 @@
             label10.TabIndex = 22;
             label10.Text = "Giới hạn:";
             // 
-            // textBox3
+            // txtPPDescription
             // 
-            textBox3.Location = new Point(105, 81);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(204, 87);
-            textBox3.TabIndex = 27;
+            txtPPDescription.Location = new Point(105, 81);
+            txtPPDescription.Multiline = true;
+            txtPPDescription.Name = "txtPPDescription";
+            txtPPDescription.Size = new Size(204, 87);
+            txtPPDescription.TabIndex = 27;
             // 
             // label11
             // 
@@ -488,12 +522,21 @@
             label11.TabIndex = 23;
             label11.Text = "Mô tả:";
             // 
-            // textBox4
+            // txtPPValue
             // 
-            textBox4.Location = new Point(428, 47);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(185, 30);
-            textBox4.TabIndex = 27;
+            txtPPValue.Location = new Point(428, 47);
+            txtPPValue.Name = "txtPPValue";
+            txtPPValue.Size = new Size(185, 30);
+            txtPPValue.TabIndex = 27;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(21, 178);
+            label19.Name = "label19";
+            label19.Size = new Size(73, 23);
+            label19.TabIndex = 24;
+            label19.Text = "Loại SP:";
             // 
             // label12
             // 
@@ -513,28 +556,28 @@
             label13.TabIndex = 24;
             label13.Text = "Loại KM:";
             // 
-            // textBox7
+            // txtPPSearch
             // 
-            textBox7.Location = new Point(105, 203);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(397, 30);
-            textBox7.TabIndex = 29;
+            txtPPSearch.Location = new Point(104, 240);
+            txtPPSearch.Name = "txtPPSearch";
+            txtPPSearch.Size = new Size(397, 30);
+            txtPPSearch.TabIndex = 29;
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(7, 209);
+            label14.Location = new Point(6, 246);
             label14.Name = "label14";
             label14.Size = new Size(91, 23);
             label14.TabIndex = 25;
             label14.Text = "Tìm kiếm:";
             // 
-            // textBox9
+            // txtPPName
             // 
-            textBox9.Location = new Point(104, 47);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(204, 30);
-            textBox9.TabIndex = 29;
+            txtPPName.Location = new Point(104, 47);
+            txtPPName.Name = "txtPPName";
+            txtPPName.Size = new Size(204, 30);
+            txtPPName.TabIndex = 29;
             // 
             // label15
             // 
@@ -545,13 +588,13 @@
             label15.TabIndex = 25;
             label15.Text = "Tên:";
             // 
-            // textBox10
+            // txtPPId
             // 
-            textBox10.Location = new Point(104, 16);
-            textBox10.Name = "textBox10";
-            textBox10.ReadOnly = true;
-            textBox10.Size = new Size(204, 30);
-            textBox10.TabIndex = 30;
+            txtPPId.Location = new Point(104, 16);
+            txtPPId.Name = "txtPPId";
+            txtPPId.ReadOnly = true;
+            txtPPId.Size = new Size(204, 30);
+            txtPPId.TabIndex = 30;
             // 
             // label16
             // 
@@ -570,6 +613,7 @@
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "frmAdPromotion";
             Text = "frmPromotion";
+            Load += frmAdPromotion_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -577,10 +621,11 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvPromotionProgram).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmrPPRequiringPoint).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmrPPExpiryDay).EndInit();
             ResumeLayout(false);
         }
 
@@ -611,29 +656,33 @@
         private TextBox textBox6;
         private Label label6;
         private NumericUpDown numericUpDown1;
-        private DataGridView dataGridView2;
+        private DataGridView dgvPromotionProgram;
         private Panel panel2;
-        private DateTimePicker dateTimePicker1;
-        private NumericUpDown numericUpDown3;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
+        private DateTimePicker dtpPPStartDate;
+        private NumericUpDown nmrPPExpiryDay;
+        private Button btnSave;
+        private Button btnReset;
+        private Button btnAdd;
+        private Button btnDelete;
         private Label label17;
-        private ComboBox comboBox3;
+        private ComboBox cboPPDiscountType;
         private Label label9;
-        private ComboBox comboBox4;
         private Label label10;
-        private TextBox textBox3;
+        private TextBox txtPPDescription;
         private Label label11;
-        private TextBox textBox4;
+        private TextBox txtPPValue;
         private Label label12;
         private Label label13;
-        private TextBox textBox7;
+        private TextBox txtPPSearch;
         private Label label14;
-        private TextBox textBox9;
+        private TextBox txtPPName;
         private Label label15;
-        private TextBox textBox10;
+        private TextBox txtPPId;
         private Label label16;
+        private NumericUpDown nmrPPRequiringPoint;
+        private Label label18;
+        private TextBox txtPPMaxDiscount;
+        private ComboBox cboPPCategory;
+        private Label label19;
     }
 }
