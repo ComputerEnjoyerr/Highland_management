@@ -31,14 +31,9 @@ namespace DAL
             var oldPromotionProgram = _context.PromotionPrograms.FirstOrDefault(pp => pp.PromotionId == promotionProgram.PromotionId);
             if (oldPromotionProgram != null)
             {
-                oldPromotionProgram.Promotion.PromotionName = promotionProgram.Promotion.PromotionName;
-                oldPromotionProgram.Promotion.Description = promotionProgram.Promotion.Description;
-                oldPromotionProgram.Promotion.DiscountType = promotionProgram.Promotion.DiscountType;
-                oldPromotionProgram.Promotion.Value = promotionProgram.Promotion.Value;
+
                 oldPromotionProgram.StartDate = promotionProgram.StartDate;
-                oldPromotionProgram.Promotion.RequiringPoint = promotionProgram.Promotion.RequiringPoint;
-                oldPromotionProgram.Promotion.ExpiryDay = promotionProgram.Promotion.ExpiryDay;
-                oldPromotionProgram.Category.Name = promotionProgram.Category.Name;
+                oldPromotionProgram.CategoryId = promotionProgram.CategoryId;
                 _context.SaveChanges();
             }
         }
@@ -52,5 +47,16 @@ namespace DAL
                 _context.SaveChanges();
             }
         }
-    }
-}
+
+        // Hàm kiểm tra id
+        public bool CheckPromotionProgramIdExists(string id)
+        {
+            return _context.PromotionPrograms.Any(p => p.PromotionId == id);
+        }
+
+        // Hàm kiểm tra tên
+        public bool CheckPromotionProgramNameExists(string name)
+        {
+            return _context.Promotions.Any(p => p.PromotionName == name);
+        }
+}}

@@ -17,9 +17,9 @@ namespace BLL
             return _dALPromotion.GetAllPromotions();
         }
 
-        public Promotion? GetPromotionById(string id)
+        public Promotion? GetPromotionById(string promotionId)
         {
-            return _dALPromotion.GetPromotionById(id);
+            return _dALPromotion.GetPromotionById(promotionId);
         }
 
         public void Add(Promotion promotion)
@@ -27,9 +27,14 @@ namespace BLL
             _dALPromotion.Add(promotion);
         }
 
-        public void Remove(Promotion promotion)
+        public void Remove(string id)
         {
-            _dALPromotion.Remove(promotion);
+            _dALPromotion.Remove(id);
+        }
+
+        public void Update(Promotion promotion)
+        {
+            _dALPromotion.Update(promotion);
         }
     }
 }

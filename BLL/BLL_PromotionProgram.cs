@@ -24,7 +24,7 @@ namespace BLL
         }
 
         // Tạo iDPromotionProgram tự động
-        public string GeneratePromotionProgramId()
+        public string GeneratePromotionProgramId(string PromptionId)
         {
             string prefix = "PR";
             string timeStamp1 = DateTime.Now.ToString("yyMMdd");
@@ -36,12 +36,10 @@ namespace BLL
 
         public void Add(PromotionProgram promotionProgram)
         {
-            if (string.IsNullOrEmpty(promotionProgram.Promotion.PromotionName))
-                throw new ArgumentException("Tên chương trình khuyến mãi không được để trống!");
             if (promotionProgram.StartDate == null)
                 throw new ArgumentException("Ngày bắt đầu không được để trống!");
-            if (promotionProgram.Category == null || string.IsNullOrEmpty(promotionProgram.Category.Name))
-                throw new ArgumentException("Danh mục không được để trống!");
+            //if (promotionProgram.Category == null || string.IsNullOrEmpty(promotionProgram.Category.Name))
+            //    throw new ArgumentException("Danh mục không được để trống!");
             dAL_PromotionProgram.Add(promotionProgram);
         }
 
@@ -53,6 +51,18 @@ namespace BLL
         public void Delete(string id)
         {
             dAL_PromotionProgram.Delete(id);
+        }
+
+        // Hàm kiểm tra id
+        public bool CheckPromotionProgramIdExists(string id)
+        {
+            return dAL_PromotionProgram.CheckPromotionProgramIdExists(id);
+        }
+
+        // Hàm kiểm tra tên
+        public bool CheckPromotionProgramNameExists(string name)
+        {
+            return dAL_PromotionProgram.CheckPromotionProgramNameExists(name);
         }
     }
 }
