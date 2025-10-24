@@ -55,6 +55,11 @@ namespace GUI
         // Hàm tải dữ liệu lên
         public void LoadPromotionProgramData(string keyword = null)
         {
+            dgvPromotionProgram.MultiSelect = false;
+            dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPromotionProgram.ReadOnly = true;
+            dgvPromotionProgram.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             if (!string.IsNullOrWhiteSpace(keyword))
             {
 
@@ -154,7 +159,7 @@ namespace GUI
             }
             if (!int.TryParse(nmrPPExpiryDay.Text, out int expiryDate) || expiryDate < 0)
             {
-                MessageBox.Show("Điểm yêu cầu phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ngày hết hạn phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nmrPPExpiryDay.Focus();
                 return;
             }
@@ -213,31 +218,31 @@ namespace GUI
 
             InitializeComboBoxes();
 
-            // Cấu hình DataGridView hiển thị cho đẹp
-            dgvPromotionProgram.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvPromotionProgram.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPromotionProgram.MultiSelect = false;
-            dgvPromotionProgram.ReadOnly = true;
-            dgvPromotionProgram.AllowUserToAddRows = false;
-            dgvPromotionProgram.AllowUserToDeleteRows = false;
-            dgvPromotionProgram.AllowUserToResizeRows = false;
-            dgvPromotionProgram.RowHeadersVisible = false;
+            //// Cấu hình DataGridView hiển thị cho đẹp
+            //dgvPromotionProgram.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dgvPromotionProgram.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //dgvPromotionProgram.MultiSelect = false;
+            //dgvPromotionProgram.ReadOnly = true;
+            //dgvPromotionProgram.AllowUserToAddRows = false;
+            //dgvPromotionProgram.AllowUserToDeleteRows = false;
+            //dgvPromotionProgram.AllowUserToResizeRows = false;
+            //dgvPromotionProgram.RowHeadersVisible = false;
 
-            // Style cho bảng
-            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
-            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvPromotionProgram.EnableHeadersVisualStyles = false;
+            //// Style cho bảng
+            //dgvPromotionProgram.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
+            //dgvPromotionProgram.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            //dgvPromotionProgram.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            //dgvPromotionProgram.EnableHeadersVisualStyles = false;
 
-            dgvPromotionProgram.DefaultCellStyle.BackColor = Color.White;
-            dgvPromotionProgram.DefaultCellStyle.ForeColor = Color.Black;
-            dgvPromotionProgram.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
-            dgvPromotionProgram.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvPromotionProgram.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+            //dgvPromotionProgram.DefaultCellStyle.BackColor = Color.White;
+            //dgvPromotionProgram.DefaultCellStyle.ForeColor = Color.Black;
+            //dgvPromotionProgram.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
+            //dgvPromotionProgram.DefaultCellStyle.SelectionForeColor = Color.Black;
+            //dgvPromotionProgram.DefaultCellStyle.Font = new Font("Segoe UI", 9);
 
-            dgvPromotionProgram.GridColor = Color.LightGray;
-            dgvPromotionProgram.BorderStyle = BorderStyle.None;
+            //dgvPromotionProgram.GridColor = Color.LightGray;
+            //dgvPromotionProgram.BorderStyle = BorderStyle.None;
         }
 
         private void dgvPromotionProgram_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -376,6 +381,15 @@ namespace GUI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtPPId.Text))
+            {
+                MessageBox.Show("Vui lòng chọn chương trình khuyến mãi cần cập nhật từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            DialogResult rs = MessageBox.Show("Bạn có chắc muốn cập nhật chương trình khuyến mãi này?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DialogResult.No == rs)
+                return;
+
             // Kiểm tra dữ liệu nhập vào
             if (string.IsNullOrEmpty(txtPPName.Text) ||
             string.IsNullOrEmpty(txtPPDescription.Text) ||
@@ -396,7 +410,7 @@ namespace GUI
             }
 
             decimal maxDiscount;
-            if (!decimal.TryParse(txtPPMaxDiscount.Text, out maxDiscount))
+            if (!decimal.TryParse(txtPPMaxDiscount.Text, out maxDiscount) || maxDiscount < 0)
             {
                 MessageBox.Show("Giá trị giảm giá tối đa không hợp lệ (phải là số > 0)!", "Lỗi");
                 txtPPMaxDiscount.Clear();
@@ -416,6 +430,14 @@ namespace GUI
                 cboPPCategory.Focus();
                 return;
             }
+            int test;
+            if (!int.TryParse(txtPPValue.Text, out test) || test < 0)
+            {
+                MessageBox.Show("Giá trị giảm giá phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPPValue.Clear();
+                txtPPValue.Focus();
+                return;
+            }
             if (!int.TryParse(nmrPPRequiringPoint.Text, out int requiringPoint) || requiringPoint < 0)
             {
                 MessageBox.Show("Điểm yêu cầu phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -424,14 +446,8 @@ namespace GUI
             }
             if (!int.TryParse(nmrPPExpiryDay.Text, out int expiryDate) || expiryDate < 0)
             {
-                MessageBox.Show("Điểm yêu cầu phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ngày hết hạn phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nmrPPExpiryDay.Focus();
-                return;
-            }
-            if (dtpPPStartDate.Value.Date < DateTime.Today)
-            {
-                MessageBox.Show("Ngày bắt đầu không thể nhỏ hơn hôm nay!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                dtpPPStartDate.Focus();
                 return;
             }
             try
