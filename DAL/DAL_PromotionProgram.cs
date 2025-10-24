@@ -14,10 +14,15 @@ namespace DAL
 
         public List<Promotion> GetAllPromotionPrograms()
         {
+            //return _context.Promotions
+            //    .Include(p => p.PromotionProgram)
+            //    .ThenInclude(pp => pp.Category)
+            //    .ToList();
             return _context.Promotions
-                .Include(p => p.PromotionProgram)
-                .ThenInclude(pp => pp.Category)
-                .ToList();
+        .Where(p => p.PromotionType == "Chương trình khuyến mãi")
+        .Include(p => p.PromotionProgram)
+        .ThenInclude(pp => pp.Category)
+        .ToList();
         }
 
         public void Add(PromotionProgram promotionProgram)
