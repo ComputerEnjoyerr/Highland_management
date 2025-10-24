@@ -58,6 +58,11 @@ namespace GUI
         // Hàm tải dữ liệu lên
         public void LoadPromotionProgramData(string keyword = null)
         {
+            dgvPromotionProgram.MultiSelect = false;
+            dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPromotionProgram.ReadOnly = true;
+            dgvPromotionProgram.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             if (!string.IsNullOrWhiteSpace(keyword))
             {
 
@@ -69,7 +74,9 @@ namespace GUI
                     p.Id,
                     p.PromotionName,
                     p.Description,
-                    Category = p.PromotionProgram.Category.Name,
+                    Category = p.PromotionProgram != null && p.PromotionProgram.Category != null
+                     ? p.PromotionProgram.Category.Name
+                     : "(Không có danh mục)",
                     p.DiscountType,
                     p.Value,
                     p.MaxDiscount,
@@ -156,7 +163,7 @@ namespace GUI
             }
             if (!int.TryParse(nmrPPExpiryDay.Text, out int expiryDate) || expiryDate < 0)
             {
-                MessageBox.Show("Điểm yêu cầu phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ngày hết hạn phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nmrPPExpiryDay.Focus();
                 return;
             }
@@ -379,6 +386,75 @@ namespace GUI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtPPId.Text))
+            {
+                MessageBox.Show("Vui lòng chọn chương trình khuyến mãi cần cập nhật từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            DialogResult rs = MessageBox.Show("Bạn có chắc muốn cập nhật chương trình khuyến mãi này?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DialogResult.No == rs)
+                return;
+
+            // Kiểm tra dữ liệu nhập vào
+            if (string.IsNullOrEmpty(txtPPName.Text) ||
+            string.IsNullOrEmpty(txtPPDescription.Text) ||
+            string.IsNullOrEmpty(txtPPValue.Text) ||
+            string.IsNullOrEmpty(txtPPMaxDiscount.Text))
+            {
+                MessageBox.Show("Thông tin chương trình khuyến mãi không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            decimal value;
+            if (!decimal.TryParse(txtPPValue.Text, out value))
+            {
+                MessageBox.Show("Giá trị giảm giá không hợp lệ (phải là số > 0)!", "Thông báo");
+                txtPPValue.Clear();
+                txtPPValue.Focus();
+                return; // Dừng lại, không tiếp tục tạo promotion
+            }
+
+            decimal maxDiscount;
+            if (!decimal.TryParse(txtPPMaxDiscount.Text, out maxDiscount) || maxDiscount < 0)
+            {
+                MessageBox.Show("Giá trị giảm giá tối đa không hợp lệ (phải là số > 0)!", "Lỗi");
+                txtPPMaxDiscount.Clear();
+                txtPPMaxDiscount.Focus();
+                return; // Dừng lại, không tiếp tục tạo promotion
+            }
+
+            if (cboPPDiscountType.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn loại giảm giá!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboPPDiscountType.Focus();
+                return;
+            }
+            if (cboPPCategory.SelectedValue == null)
+            {
+                MessageBox.Show("Danh mục sản phẩm không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboPPCategory.Focus();
+                return;
+            }
+            int test;
+            if (!int.TryParse(txtPPValue.Text, out test) || test < 0)
+            {
+                MessageBox.Show("Giá trị giảm giá phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPPValue.Clear();
+                txtPPValue.Focus();
+                return;
+            }
+            if (!int.TryParse(nmrPPRequiringPoint.Text, out int requiringPoint) || requiringPoint < 0)
+            {
+                MessageBox.Show("Điểm yêu cầu phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nmrPPRequiringPoint.Focus();
+                return;
+            }
+            if (!int.TryParse(nmrPPExpiryDay.Text, out int expiryDate) || expiryDate < 0)
+            {
+                MessageBox.Show("Ngày hết hạn phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nmrPPExpiryDay.Focus();
+                return;
+            }
             try
             {
                 string id = txtPPId.Text.Trim(); // Lấy ID PromotionProgram cần update

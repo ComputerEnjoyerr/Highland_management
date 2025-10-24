@@ -19,10 +19,10 @@ namespace DAL
             //    .ThenInclude(pp => pp.Category)
             //    .ToList();
             return _context.Promotions
-        .Where(p => p.PromotionType == "Chương trình khuyến mãi")
-        .Include(p => p.PromotionProgram)
-        .ThenInclude(pp => pp.Category)
-        .ToList();
+            .Where(p => p.PromotionType == "Chương trình khuyến mãi")
+            .Include(p => p.PromotionProgram)
+            .ThenInclude(pp => pp.Category)
+            .ToList();
         }
 
         public void Add(PromotionProgram promotionProgram)
