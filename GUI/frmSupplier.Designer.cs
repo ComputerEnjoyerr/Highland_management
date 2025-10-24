@@ -42,9 +42,9 @@
             label6 = new Label();
             txtIngredientPrice = new TextBox();
             label5 = new Label();
-            txtIngredientName = new TextBox();
             label4 = new Label();
             cboUnit = new ComboBox();
+            cboIngredientName = new ComboBox();
             cboSupplier = new ComboBox();
             txtIngredientId = new TextBox();
             label3 = new Label();
@@ -125,9 +125,9 @@
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(txtIngredientPrice);
             groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(txtIngredientName);
             groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(cboUnit);
+            groupBox2.Controls.Add(cboIngredientName);
             groupBox2.Controls.Add(cboSupplier);
             groupBox2.Controls.Add(txtIngredientId);
             groupBox2.Controls.Add(label3);
@@ -158,6 +158,7 @@
             btnUpdateIng.TabIndex = 40;
             btnUpdateIng.Text = "Lưu";
             btnUpdateIng.UseVisualStyleBackColor = false;
+            btnUpdateIng.Click += btnUpdateIng_Click;
             // 
             // btnClearIng
             // 
@@ -168,6 +169,7 @@
             btnClearIng.TabIndex = 42;
             btnClearIng.Text = "Hoàn tác";
             btnClearIng.UseVisualStyleBackColor = false;
+            btnClearIng.Click += btnClearIng_Click;
             // 
             // btnAddIng
             // 
@@ -178,6 +180,7 @@
             btnAddIng.TabIndex = 41;
             btnAddIng.Text = "Thêm";
             btnAddIng.UseVisualStyleBackColor = false;
+            btnAddIng.Click += btnAddIng_Click;
             // 
             // btnDeleteIng
             // 
@@ -188,6 +191,7 @@
             btnDeleteIng.TabIndex = 43;
             btnDeleteIng.Text = "Xóa";
             btnDeleteIng.UseVisualStyleBackColor = false;
+            btnDeleteIng.Click += btnDeleteIng_Click;
             // 
             // label14
             // 
@@ -232,13 +236,6 @@
             label5.TabIndex = 33;
             label5.Text = "Giá tiền:";
             // 
-            // txtIngredientName
-            // 
-            txtIngredientName.Location = new Point(143, 71);
-            txtIngredientName.Name = "txtIngredientName";
-            txtIngredientName.Size = new Size(254, 30);
-            txtIngredientName.TabIndex = 38;
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -256,6 +253,15 @@
             cboUnit.Size = new Size(254, 31);
             cboUnit.TabIndex = 37;
             // 
+            // cboIngredientName
+            // 
+            cboIngredientName.FormattingEnabled = true;
+            cboIngredientName.Location = new Point(143, 71);
+            cboIngredientName.Name = "cboIngredientName";
+            cboIngredientName.Size = new Size(254, 31);
+            cboIngredientName.TabIndex = 37;
+            cboIngredientName.SelectedIndexChanged += cboIngredientName_SelectedIndexChanged;
+            // 
             // cboSupplier
             // 
             cboSupplier.FormattingEnabled = true;
@@ -263,6 +269,7 @@
             cboSupplier.Name = "cboSupplier";
             cboSupplier.Size = new Size(254, 31);
             cboSupplier.TabIndex = 37;
+            cboSupplier.SelectedIndexChanged += cboSupplier_SelectedIndexChanged;
             // 
             // txtIngredientId
             // 
@@ -287,6 +294,7 @@
             txtFindIngredient.Name = "txtFindIngredient";
             txtFindIngredient.Size = new Size(289, 30);
             txtFindIngredient.TabIndex = 35;
+            txtFindIngredient.TextChanged += txtFindIngredient_TextChanged;
             // 
             // label12
             // 
@@ -572,7 +580,6 @@
         private Label label6;
         private TextBox txtIngredientPrice;
         private Label label5;
-        private TextBox txtIngredientName;
         private Label label4;
         private TextBox txtIngredientId;
         private Label label3;
@@ -612,5 +619,6 @@
         private Label label15;
         private NumericUpDown nmrExpieryDay;
         private ComboBox cboUnit;
+        private ComboBox cboIngredientName;
     }
 }

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DTO;
 
 public partial class SupplierIngredient
 {
-    public string? SupplierId { get; set; }
+    public string SupplierId { get; set; }
 
-    public string? IngredientId { get; set; }
+    public string IngredientId { get; set; }
 
     public decimal? UnitPrice { get; set; }
 

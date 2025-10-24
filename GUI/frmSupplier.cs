@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DTO;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace GUI
         private readonly BLL_Ward bLL_Ward = new();
         private readonly BLL_Ingredient bLL_Ingredient = new();
         private readonly BLL_SupplierIngredient bLL_SupplierIngredient = new();
-        private readonly BLL_Unit bLL_unit = new();  
+        private readonly BLL_Unit bLL_unit = new();
 
         private void LoadProvince()
         {
@@ -53,6 +54,7 @@ namespace GUI
 
                 var filteredList = bLL_SupplierIngredient.GetAll()
                     .Where(si => si.Supplier != null && si.Supplier.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                                 si.Supplier != null && si.Supplier.Id.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
                                  si.Ingredient != null && si.Ingredient.IngredientName.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                     .Select(si => new
                     {
@@ -98,6 +100,25 @@ namespace GUI
             cboUnit.SelectedIndex = 0;
         }
 
+        private void LoadCboIngredient()
+        {
+            var ingredient = bLL_Ingredient.GetAll();
+            cboIngredientName.DataSource = ingredient;
+            cboIngredientName.DisplayMember = "IngredientName";
+            cboIngredientName.ValueMember = "Id";
+        }
+
+        private void RefreshDgvIngredient()
+        {
+            txtIngredientId.Clear();
+            txtIngredientPrice.Clear();
+            cboIngredientName.SelectedIndex = -1;
+            cboSupplier.SelectedIndex = -1;
+            cboUnit.SelectedIndex = -1;
+            nmrExpieryDay.Text = "0";
+            LoadDgvIngredient();
+        }
+
         private void frmSupplier_Load(object sender, EventArgs e)
         {
             cboSupplier.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -113,6 +134,7 @@ namespace GUI
             LoadDgvIngredient();
             LoadCboSupplier();
             LoadCboUnit();
+            LoadCboIngredient();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -319,6 +341,7 @@ namespace GUI
             txtEmail.Clear();
             cbWard.SelectedIndex = -1;
             cbProvince.SelectedIndex = -1;
+            cboSupplier.SelectedIndex = -1;
         }
 
         private void cbProvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -431,6 +454,27 @@ namespace GUI
 
             }
         }
+
+        private async void txtFindIngredient_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtFindIngredient.Text;
+
+            //Hủy thao tác trước đó nếu người dùng vẫn đang nhập
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
+
+            try
+            {
+                //chờ 0,5s sau khi người dùng ngừng nhập
+                await Task.Delay(500, _cts.Token);
+                LoadDgvIngredient(input);
+            }
+            catch (TaskCanceledException)
+            {
+
+            }
+        }
+
         //Kiểm tra email hợp lệ
         private bool ValidateSupplier(Supplier supplier)
         {
@@ -456,7 +500,9 @@ namespace GUI
                 var selectedRow = dgvIngredient.Rows[e.RowIndex];
                 txtIngredientId.Text = selectedRow.Cells["IngredientId"].Value.ToString();
                 txtIngredientPrice.Text = selectedRow.Cells["UnitPrice"].Value.ToString();
-                txtIngredientName.Text = selectedRow.Cells["IngredientName"].Value.ToString();
+
+                var ingredientName = selectedRow.Cells["IngredientName"].Value.ToString();
+                cboIngredientName.SelectedIndex = cboIngredientName.FindStringExact(ingredientName);
 
                 nmrExpieryDay.Text = selectedRow.Cells["ExpiryDay"].Value.ToString();
 
@@ -467,5 +513,169 @@ namespace GUI
                 cboUnit.SelectedIndex = cboUnit.FindStringExact(unit);
             }
         }
+
+        private void btnAddIng_Click(object sender, EventArgs e)
+        {
+            if (cboIngredientName.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn nguyên liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cboSupplier.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cboUnit.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng đơn vị tính", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                if (!decimal.TryParse(txtIngredientPrice.Text, out var price))
+                {
+                    MessageBox.Show("Số tiền không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(cboUnit.SelectedValue.ToString(), out var unit))
+                {
+                    MessageBox.Show("Đơn vị tính không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(nmrExpieryDay.Value.ToString(), out var exp))
+                {
+                    MessageBox.Show("Hạn sử dụng không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (exp <= -1)
+                {
+                    {
+                        MessageBox.Show("Hạn sử dụng không được là số âm", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                var supIngre = new SupplierIngredient
+                {
+                    IngredientId = cboIngredientName.SelectedValue.ToString(),
+                    SupplierId = cboSupplier.SelectedValue.ToString(),
+                    UnitPrice = price,
+                    StandardUnitId = unit,
+                    ExpiryDay = exp,
+
+                };
+                bLL_SupplierIngredient.Add(supIngre);
+                LoadDgvIngredient(txtSupplierName.Text);
+                RefreshDgvIngredient();
+
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Thêm nguyên liệu của nhà cung cấp thất bại.\nChi tiết lỗi: " + inner);
+            }
+        }
+
+        private void cboIngredientName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboIngredientName.SelectedIndex >= 0)
+            {
+                txtIngredientId.Text = cboIngredientName.SelectedValue.ToString();
+            }
+        }
+
+        private void btnClearIng_Click(object sender, EventArgs e)
+        {
+            RefreshDgvIngredient();
+        }
+
+        private void btnUpdateIng_Click(object sender, EventArgs e)
+        {
+            if (cboIngredientName.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn nguyên liệu", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cboSupplier.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cboUnit.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng đơn vị tính", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            DialogResult rs = MessageBox.Show("Bạn có chắc muốn cập nhật dữ liệu nguyên liệu của nhà cung cấp này không?", "Lưu ý", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (DialogResult.No == rs)
+                return;
+            try
+            {
+                if (!decimal.TryParse(txtIngredientPrice.Text, out var price))
+                {
+                    MessageBox.Show("Số tiền không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(cboUnit.SelectedValue.ToString(), out var unit))
+                {
+                    MessageBox.Show("Đơn vị tính không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(nmrExpieryDay.Text, out var exp))
+                {
+                    MessageBox.Show("Hạn sử dụng không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (exp <= 0)
+                {
+                    MessageBox.Show("Hạn sử dụng không được bằng hoặc nhỏ hơn 0", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var supIngre = new SupplierIngredient
+                {
+                    IngredientId = txtIngredientId.Text,
+                    SupplierId = txtSupplierID.Text,
+                    UnitPrice = price,
+                    StandardUnitId = unit,
+                    ExpiryDay = exp,
+
+                };
+                bLL_SupplierIngredient.Update(supIngre);
+                LoadDgvIngredient(txtSupplierName.Text);
+                RefreshDgvIngredient();
+
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Cập nhật nguyên liệu của nhà cung cấp thất bại.\nChi tiết lỗi: " + inner);
+            }
+        }
+
+        private void btnDeleteIng_Click(object sender, EventArgs e)
+        {
+            DialogResult rs = MessageBox.Show("Bạn có chắc muốn xóa dữ liệu nguyên liệu của nhà cung cấp này không?\nNếu xóa nguyên liệu của nhà cung cấp này sẽ biết mất hoàn toàn", "Lưu ý", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (DialogResult.No == rs)
+                return;
+        }
+
+        private void cboSupplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboSupplier.SelectedIndex >= 0)
+            {
+                txtSupplierID.Text = cboSupplier.SelectedValue.ToString();
+                LoadDgvIngredient(txtSupplierID.Text);  
+            }
+        }
+
+
     }
 }
