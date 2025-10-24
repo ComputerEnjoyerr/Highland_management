@@ -66,31 +66,31 @@ namespace GUI
             }).ToList();
             dgvBranch.DataSource = displayList;
 
-            //// Cấu hình DataGridView hiển thị cho đẹp
-            //dgvBranch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //dgvBranch.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            //dgvBranch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //dgvBranch.MultiSelect = false;
-            //dgvBranch.ReadOnly = true;
-            //dgvBranch.AllowUserToAddRows = false;
-            //dgvBranch.AllowUserToDeleteRows = false;
-            //dgvBranch.AllowUserToResizeRows = false;
-            //dgvBranch.RowHeadersVisible = false;
+            // Cấu hình DataGridView hiển thị cho đẹp
+            dgvBranch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBranch.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvBranch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBranch.MultiSelect = false;
+            dgvBranch.ReadOnly = true;
+            dgvBranch.AllowUserToAddRows = false;
+            dgvBranch.AllowUserToDeleteRows = false;
+            dgvBranch.AllowUserToResizeRows = false;
+            dgvBranch.RowHeadersVisible = false;
 
-            //// Style cho bảng
-            //dgvBranch.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
-            //dgvBranch.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            //dgvBranch.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            //dgvBranch.EnableHeadersVisualStyles = false;
+            // Style cho bảng
+            dgvBranch.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
+            dgvBranch.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvBranch.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvBranch.EnableHeadersVisualStyles = false;
 
-            //dgvBranch.DefaultCellStyle.BackColor = Color.White;
-            //dgvBranch.DefaultCellStyle.ForeColor = Color.Black;
-            //dgvBranch.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
-            //dgvBranch.DefaultCellStyle.SelectionForeColor = Color.Black;
-            //dgvBranch.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+            dgvBranch.DefaultCellStyle.BackColor = Color.White;
+            dgvBranch.DefaultCellStyle.ForeColor = Color.Black;
+            dgvBranch.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
+            dgvBranch.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvBranch.DefaultCellStyle.Font = new Font("Segoe UI", 9);
 
-            //dgvBranch.GridColor = Color.LightGray;
-            //dgvBranch.BorderStyle = BorderStyle.None;
+            dgvBranch.GridColor = Color.LightGray;
+            dgvBranch.BorderStyle = BorderStyle.None;
         }
 
         private void LoadProvince()
@@ -146,9 +146,15 @@ namespace GUI
             if (cboProvince.SelectedIndex != -1)
             {
                 string provinceId = cboProvince.SelectedValue.ToString();
-                string newBranchId = bLL_Branch.GenerateBranchId(provinceId);
-                txtBId.Text = newBranchId;
-                LoadWard(cboProvince.SelectedValue.ToString());
+
+                // Chỉ sinh mã mới nếu txtBId đang trống (đang thêm mới)
+                if (string.IsNullOrWhiteSpace(txtBId.Text))
+                {
+                    string newBranchId = bLL_Branch.GenerateBranchId(provinceId);
+                    txtBId.Text = newBranchId;
+                }
+
+                LoadWard(provinceId);
             }
             else
             {
@@ -195,6 +201,14 @@ namespace GUI
             if (!System.Text.RegularExpressions.Regex.IsMatch(txtPhone.Text, @"^0\d{9}$"))
             {
                 MessageBox.Show("Số điện thoại không hợp lệ! Phải gồm 10 chữ số và bắt đầu bằng 0.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPhone.Clear();
+                txtPhone.Focus();
+                return;
+            }
+            var existingPhone = bLL_Branch.GetBranchByPhone(txtPhone.Text);
+            if (existingPhone != null)
+            {
+                MessageBox.Show("Số điện thoại đã trùng với chi nhánh khác", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 txtPhone.Clear();
                 txtPhone.Focus();
                 return;
@@ -306,6 +320,14 @@ namespace GUI
                     txtPhone.Focus();
                     return;
                 }
+                var existingPhone = bLL_Branch.GetBranchByPhone(txtPhone.Text, txtBId.Text);
+                if (existingPhone != null)
+                {
+                    MessageBox.Show("Số điện thoại đã trùng với chi nhánh khác", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    txtPhone.Clear();
+                    txtPhone.Focus();
+                    return;
+                }
                 if (cboProvince.SelectedValue == null)
                 {
                     MessageBox.Show("Tỉnh/Thành phố không được để trống", "Thông báo");
@@ -321,24 +343,32 @@ namespace GUI
 
                 string id = txtBId.Text.Trim(); // Lấy ID Branch cần update
                 var branch = bLL_Branch.GetAll().FirstOrDefault(b => b.Id == id);
-                // Update thông tin Address
-                if (branch.Address != null)
+                if (branch != null)
                 {
-                    branch.Address.Address1 = txtAddress.Text;
-                    branch.Address.WardId = cboWard.SelectedValue.ToString();
+                    // Update thông tin Address
+                    if (branch.Address != null)
+                    {
+                        branch.Address.Address1 = txtAddress.Text;
+                        branch.Address.WardId = cboWard.SelectedValue.ToString();
+                    }
+                    else
+                    {
+                        // Nếu chưa có Address, tạo mới
+                        var address = new Address
+                        {
+                            Id = bLL_Address.GetAllAddresses().Count + 1.ToString(),
+                            Address1 = txtAddress.Text,
+                            WardId = cboWard.SelectedValue.ToString()
+                        };
+                        bLL_Address.Add(branch.Address);
+                        branch.AddressId = address.Id;
+                    }
                 }
                 else
                 {
-                    // Nếu chưa có Address, tạo mới
-                    var address = new Address
-                    {
-                        Id = bLL_Address.GetAllAddresses().Count + 1.ToString(),
-                        Address1 = txtAddress.Text,
-                        WardId = cboWard.SelectedValue.ToString()
-                    };
-                    bLL_Address.Add(branch.Address);
-                    branch.AddressId = address.Id;
+                    MessageBox.Show("Không tìm thấy chi nhánh để cập nhật địa chỉ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
 
                 branch.BranchName = txtBName.Text;
                 branch.Phone = txtPhone.Text;

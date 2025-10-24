@@ -86,5 +86,22 @@ namespace BLL
         {
             return dAL_Branch.IsBranchNameExists(branchName);
         }
+
+        // Hàm kt trùng số điện thoại chi nhánh
+        public Branch GetBranchByPhone(string phone, string id = null)
+        {
+            var existing = dAL_Branch.GetById(id);
+            var existingPhone = dAL_Branch.GetAll()
+                .FirstOrDefault(b => b.Phone == phone);
+            if (existingPhone == null)
+            {
+                return null;
+            }
+            if (existing != null)
+            {
+                return null;
+            }
+            return existingPhone;
+        }
     }
 }
