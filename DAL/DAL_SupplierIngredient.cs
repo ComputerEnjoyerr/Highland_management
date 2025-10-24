@@ -32,9 +32,9 @@ namespace DAL
             var existing = _context.SupplierIngredients.FirstOrDefault(si => si.SupplierId == supplierIngredient.SupplierId && si.IngredientId == supplierIngredient.IngredientId);
             if (existing != null)
             {
-                existing.StandardUnitId = existing.StandardUnitId;
-                existing.UnitPrice = existing.UnitPrice;
-                existing.ExpiryDay = existing.ExpiryDay;
+                existing.StandardUnitId = supplierIngredient.StandardUnitId;
+                existing.UnitPrice = supplierIngredient.UnitPrice;
+                existing.ExpiryDay = supplierIngredient.ExpiryDay;
                 _context.SaveChanges();
             }
         }

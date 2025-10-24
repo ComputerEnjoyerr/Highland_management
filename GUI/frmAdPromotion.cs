@@ -18,6 +18,7 @@ namespace GUI
         private readonly BLL_PromotionProgram bLL_PromotionProgram = new BLL_PromotionProgram();
         private readonly BLL_Promotion bLL_Promotion = new BLL_Promotion();
         private readonly BLL_Category bLL_Category = new BLL_Category();
+        private readonly BLL_PromotionVoucher bLL_PromotionVoucher = new BLL_PromotionVoucher();
 
         public frmAdPromotion()
         {
@@ -50,6 +51,8 @@ namespace GUI
             cboPPCategory.DataSource = categories;
             cboPPCategory.DisplayMember = "Name";
             cboPPCategory.ValueMember = "Id";
+            //Khởi tạo Combobox cho Loại giảm giá Voucher
+            cbVoucherDiscountType.DataSource = discountTypes;
         }
 
         // Hàm tải dữ liệu lên
@@ -94,9 +97,10 @@ namespace GUI
                     p.Id,
                     p.PromotionName,
                     p.Description,
+                    //Category = p.PromotionProgram.Category.Name,
                     Category = p.PromotionProgram != null && p.PromotionProgram.Category != null
-                     ? p.PromotionProgram.Category.Name
-                     : "(Không có danh mục)",
+                                ? p.PromotionProgram.Category.Name
+                                : "(Không có danh mục)",
                     p.DiscountType,
                     p.Value,
                     p.MaxDiscount,
@@ -215,34 +219,35 @@ namespace GUI
         private void frmAdPromotion_Load(object sender, EventArgs e)
         {
             LoadPromotionProgramData();
+            LoadDataVoucher();
 
             InitializeComboBoxes();
 
-            //// Cấu hình DataGridView hiển thị cho đẹp
-            //dgvPromotionProgram.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //dgvPromotionProgram.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            //dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //dgvPromotionProgram.MultiSelect = false;
-            //dgvPromotionProgram.ReadOnly = true;
-            //dgvPromotionProgram.AllowUserToAddRows = false;
-            //dgvPromotionProgram.AllowUserToDeleteRows = false;
-            //dgvPromotionProgram.AllowUserToResizeRows = false;
-            //dgvPromotionProgram.RowHeadersVisible = false;
+            // Cấu hình DataGridView hiển thị cho đẹp
+            dgvPromotionProgram.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPromotionProgram.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPromotionProgram.MultiSelect = false;
+            dgvPromotionProgram.ReadOnly = true;
+            dgvPromotionProgram.AllowUserToAddRows = false;
+            dgvPromotionProgram.AllowUserToDeleteRows = false;
+            dgvPromotionProgram.AllowUserToResizeRows = false;
+            dgvPromotionProgram.RowHeadersVisible = false;
 
-            //// Style cho bảng
-            //dgvPromotionProgram.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
-            //dgvPromotionProgram.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            //dgvPromotionProgram.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            //dgvPromotionProgram.EnableHeadersVisualStyles = false;
+            // Style cho bảng
+            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
+            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvPromotionProgram.EnableHeadersVisualStyles = false;
 
-            //dgvPromotionProgram.DefaultCellStyle.BackColor = Color.White;
-            //dgvPromotionProgram.DefaultCellStyle.ForeColor = Color.Black;
-            //dgvPromotionProgram.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
-            //dgvPromotionProgram.DefaultCellStyle.SelectionForeColor = Color.Black;
-            //dgvPromotionProgram.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+            dgvPromotionProgram.DefaultCellStyle.BackColor = Color.White;
+            dgvPromotionProgram.DefaultCellStyle.ForeColor = Color.Black;
+            dgvPromotionProgram.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
+            dgvPromotionProgram.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvPromotionProgram.DefaultCellStyle.Font = new Font("Segoe UI", 9);
 
-            //dgvPromotionProgram.GridColor = Color.LightGray;
-            //dgvPromotionProgram.BorderStyle = BorderStyle.None;
+            dgvPromotionProgram.GridColor = Color.LightGray;
+            dgvPromotionProgram.BorderStyle = BorderStyle.None;
         }
 
         private void dgvPromotionProgram_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -487,6 +492,248 @@ namespace GUI
             {
                 var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
                 MessageBox.Show("Cập nhật chương trình khuyến mãi thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+
+        //---------------------------------------------------------------------------------------------------------------------
+        private void ClearDataVoucher()
+        {
+            txtVoucherID.Clear();
+            txtVoucherName.Clear();
+            txtVoucherDescription.Clear();
+            cbVoucherDiscountType.SelectedIndex = -1;
+            txtVoucherValue.Clear();
+            txtVoucherMaxDiscount.Clear();
+            numVoucherExpiryday.TabIndex = 0;
+
+        }
+
+        private void btnClearVoucher_Click(object sender, EventArgs e)
+        {
+            ClearDataVoucher();
+
+        }
+
+        private void LoadDataVoucher(string keyword = null)
+        {
+            dgvDataVoucher.MultiSelect = false;
+            dgvDataVoucher.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDataVoucher.ReadOnly = true;
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                var list = bLL_Promotion.GetAllPromotions()
+                    .Where(pr => pr.PromotionType == "Voucher" &&
+                                (pr.Id.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                                 pr.PromotionName.Contains(keyword, StringComparison.OrdinalIgnoreCase)))
+                    .Select(pr => new
+                    {
+                        pr.Id,
+                        pr.PromotionName,
+                        pr.Description,
+                        pr.DiscountType,
+                        pr.Value,
+                        pr.MaxDiscount,
+                        pr.ExpiryDay
+
+                    }).ToList();
+                dgvDataVoucher.DataSource = list;
+                return;
+            }
+            var voucherList = bLL_PromotionVoucher.GetAllPromotionVouchers()
+                .Select(pr => new
+                {
+                    pr.Id,
+                    pr.PromotionName,
+                    pr.Description,
+                    pr.DiscountType,
+                    pr.Value,
+                    pr.MaxDiscount,
+                    pr.ExpiryDay
+                }).ToList();
+            dgvDataVoucher.DataSource = voucherList;
+
+        }
+
+        private void dgvDataVoucher_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var selectedRow = dgvDataVoucher.Rows[e.RowIndex];
+                txtVoucherID.Text = selectedRow.Cells["Id"].Value.ToString();
+                txtVoucherName.Text = selectedRow.Cells["PromotionName"].Value.ToString();
+                txtVoucherDescription.Text = selectedRow.Cells["Description"].Value.ToString();
+                var discountType = selectedRow.Cells["DiscountType"].Value.ToString();
+                cbVoucherDiscountType.SelectedIndex = cbVoucherDiscountType.FindStringExact(discountType);
+                txtVoucherValue.Text = selectedRow.Cells["Value"].Value.ToString();
+                txtVoucherMaxDiscount.Text = selectedRow.Cells["MaxDiscount"].Value.ToString();
+                numVoucherExpiryday.Value = Convert.ToDecimal(selectedRow.Cells["ExpiryDay"].Value);
+
+            }
+        }
+
+        private void btnDeleteVoucher_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtVoucherID.Text))
+            {
+                MessageBox.Show("Vui lòng chọn thông tin Voucher để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                string voucherId = txtVoucherID.Text.Trim();
+                if (string.IsNullOrEmpty(voucherId))
+                {
+                    MessageBox.Show("Vui lòng chọn voucher để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                DialogResult rs = MessageBox.Show("Bạn có muốn xóa voucher này không?", voucherId, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (rs == DialogResult.Yes)
+                {
+                    bLL_PromotionVoucher.DeleteProVoucher(voucherId);
+                    bLL_Promotion.Remove(voucherId);
+                    MessageBox.Show("Đã xóa voucher thành công", "Thông báo");
+                    LoadDataVoucher();
+                    ClearDataVoucher();
+                }
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Xóa voucher thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+
+        private void btnAddVoucher_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrEmpty(txtVoucherName.Text) || string.IsNullOrEmpty(txtVoucherDescription.Text)
+                || string.IsNullOrEmpty(txtVoucherValue.Text) || string.IsNullOrEmpty(txtVoucherMaxDiscount.Text))
+            {
+                MessageBox.Show("Thông tin Voucher không được để trống", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if(cbVoucherDiscountType.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn loại giảm giá!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbVoucherDiscountType.Focus();
+                return;
+            }
+            if (txtVoucherName.Text.Length > 20)
+            {
+                MessageBox.Show("Mã Voucher không được quá 20 ký tự", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            decimal valueVoucher;
+            if (!decimal.TryParse(txtVoucherValue.Text, out valueVoucher) || valueVoucher <0)
+            {
+                MessageBox.Show("Giá trị giảm giá Voucher không được nhỏ hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);              
+                return; // Dừng lại, không tiếp tục tạo promotion
+            }
+
+            decimal maxDiscountVoucher;
+            if(!decimal.TryParse(txtVoucherMaxDiscount.Text, out maxDiscountVoucher) || maxDiscountVoucher < 0)
+            {
+                MessageBox.Show("Giá trị giảm giá tối đa Voucher không được nhỏ hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if(txtVoucherDescription.Text.Length > 100)
+            {
+                MessageBox.Show("Mô tả không được quá 100 ký tự!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                string discountType = cbVoucherDiscountType.SelectedItem.ToString() ?? "";
+                string voucherId = bLL_PromotionVoucher.GenerateProVoucherId(discountType);
+                var voucher = new Promotion
+                {
+                    Id = voucherId,
+                    PromotionName = txtVoucherName.Text,
+                    Description = txtVoucherDescription.Text,
+                    PromotionType = "Voucher",
+                    DiscountType = cbVoucherDiscountType.SelectedItem.ToString(),
+                    Value = valueVoucher,
+                    MaxDiscount = maxDiscountVoucher,
+                    ExpiryDay = (int)numVoucherExpiryday.Value
+                };
+                bLL_Promotion.Add(voucher);
+                MessageBox.Show("Đã thêm voucher thành công", "Thông báo");
+                LoadDataVoucher();
+                ClearDataVoucher();
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Thêm voucher thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+
+        private void btnUpdateVoucher_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtVoucherID.Text))
+            {
+                MessageBox.Show("Vui lòng chọn Voucher để cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            decimal valueVoucher;
+            if (!decimal.TryParse(txtVoucherValue.Text, out valueVoucher) || valueVoucher < 0)
+            {
+                MessageBox.Show("Giá trị giảm giá Voucher không được nhỏ hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            decimal maxDiscountVoucher;
+            if (!decimal.TryParse(txtVoucherMaxDiscount.Text, out maxDiscountVoucher) || maxDiscountVoucher <0)
+            {
+                MessageBox.Show("Giá trị giảm giá tối đa Voucher không được nhỏ hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                string id = txtVoucherID.Text.Trim(); // Lấy ID Voucher cần update
+                var voucher = bLL_PromotionVoucher.GetAllPromotionVouchers().FirstOrDefault(p => p.Id == id);
+                if (voucher == null)
+                {
+                    MessageBox.Show("Không tìm thấy voucher để cập nhật!", "Thông báo");
+                    return;
+                }
+                voucher.PromotionName = txtVoucherName.Text;
+                voucher.Description = txtVoucherDescription.Text;
+                voucher.DiscountType = cbVoucherDiscountType.SelectedItem.ToString();
+                voucher.Value = decimal.Parse(txtVoucherValue.Text);
+                voucher.MaxDiscount = decimal.Parse(txtVoucherMaxDiscount.Text);
+                voucher.ExpiryDay = (int)numVoucherExpiryday.Value;
+                DialogResult rs = MessageBox.Show("Bạn có muốn cập nhật thông tin Voucher không?", "Thông báo", MessageBoxButtons.OKCancel);
+                if (rs == DialogResult.OK)
+                {
+                    bLL_Promotion.Update(voucher);
+                    MessageBox.Show("Đã cập nhật voucher thành công", "Thông báo");
+                    ClearDataVoucher();
+                    LoadDataVoucher();
+                }
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Cập nhật chương trình khuyến mãi thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+        private CancellationTokenSource _ctsVoucher = new();
+        private async void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            string input = textBox2.Text;
+
+            _ctsVoucher.Cancel();
+            _ctsVoucher = new CancellationTokenSource();
+
+            try
+            {
+                await Task.Delay(500, _ctsVoucher.Token);
+                LoadDataVoucher(input);
+            }
+            catch(TaskCanceledException)
+            {
+
             }
         }
     }

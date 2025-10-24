@@ -1,5 +1,7 @@
 ﻿using BLL;
 using DTO;
+using FastReport;
+using FastReport.Preview;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace GUI
 {
@@ -615,6 +618,14 @@ namespace GUI
         private void btnClearRecipe_Click(object sender, EventArgs e)
         {
             RefreshRecipe();
+        }
+
+        private void btnShowReport_Click(object sender, EventArgs e)
+        {
+            Report report = new Report();
+            string path = Path.Combine(Application.StartupPath, @"..\..\..\RPTProductDetail.frx");
+            report.Load(path);
+            report.Show();
         }
     }
 }

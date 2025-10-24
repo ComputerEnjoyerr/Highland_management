@@ -30,27 +30,27 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            dataGridView1 = new DataGridView();
+            dgvDataVoucher = new DataGridView();
             panel1 = new Panel();
-            numericUpDown1 = new NumericUpDown();
-            button4 = new Button();
-            button3 = new Button();
-            btnThem = new Button();
-            button2 = new Button();
-            comboBox1 = new ComboBox();
+            numVoucherExpiryday = new NumericUpDown();
+            btnUpdateVoucher = new Button();
+            btnClearVoucher = new Button();
+            btnAddVoucher = new Button();
+            btnDeleteVoucher = new Button();
+            cbVoucherDiscountType = new ComboBox();
             label2 = new Label();
-            comboBox2 = new ComboBox();
             label1 = new Label();
-            textBox1 = new TextBox();
+            txtVoucherDescription = new TextBox();
             label3 = new Label();
-            textBox8 = new TextBox();
+            txtVoucherMaxDiscount = new TextBox();
+            txtVoucherValue = new TextBox();
             label8 = new Label();
             label7 = new Label();
             textBox2 = new TextBox();
             label4 = new Label();
-            textBox5 = new TextBox();
+            txtVoucherName = new TextBox();
             label5 = new Label();
-            textBox6 = new TextBox();
+            txtVoucherID = new TextBox();
             label6 = new Label();
             tabPage2 = new TabPage();
             dgvPromotionProgram = new DataGridView();
@@ -83,9 +83,9 @@
             label16 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDataVoucher).BeginInit();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numVoucherExpiryday).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPromotionProgram).BeginInit();
             panel2.SuspendLayout();
@@ -106,7 +106,7 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(dataGridView1);
+            tabPage1.Controls.Add(dgvDataVoucher);
             tabPage1.Controls.Add(panel1);
             tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
@@ -116,37 +116,39 @@
             tabPage1.Text = "Quản lý Voucher";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvDataVoucher
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 240);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(978, 431);
-            dataGridView1.TabIndex = 5;
+            dgvDataVoucher.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDataVoucher.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDataVoucher.Dock = DockStyle.Fill;
+            dgvDataVoucher.Location = new Point(3, 240);
+            dgvDataVoucher.Name = "dgvDataVoucher";
+            dgvDataVoucher.RowHeadersWidth = 51;
+            dgvDataVoucher.Size = new Size(978, 431);
+            dgvDataVoucher.TabIndex = 5;
+            dgvDataVoucher.CellClick += dgvDataVoucher_CellClick;
             // 
             // panel1
             // 
-            panel1.Controls.Add(numericUpDown1);
-            panel1.Controls.Add(button4);
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(btnThem);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(numVoucherExpiryday);
+            panel1.Controls.Add(btnUpdateVoucher);
+            panel1.Controls.Add(btnClearVoucher);
+            panel1.Controls.Add(btnAddVoucher);
+            panel1.Controls.Add(btnDeleteVoucher);
+            panel1.Controls.Add(cbVoucherDiscountType);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(comboBox2);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtVoucherDescription);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(textBox8);
+            panel1.Controls.Add(txtVoucherMaxDiscount);
+            panel1.Controls.Add(txtVoucherValue);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(textBox2);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox5);
+            panel1.Controls.Add(txtVoucherName);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(textBox6);
+            panel1.Controls.Add(txtVoucherID);
             panel1.Controls.Add(label6);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(3, 3);
@@ -154,60 +156,64 @@
             panel1.Size = new Size(978, 237);
             panel1.TabIndex = 4;
             // 
-            // numericUpDown1
+            // numVoucherExpiryday
             // 
-            numericUpDown1.Location = new Point(428, 113);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(185, 30);
-            numericUpDown1.TabIndex = 34;
+            numVoucherExpiryday.Location = new Point(428, 113);
+            numVoucherExpiryday.Name = "numVoucherExpiryday";
+            numVoucherExpiryday.Size = new Size(185, 30);
+            numVoucherExpiryday.TabIndex = 34;
             // 
-            // button4
+            // btnUpdateVoucher
             // 
-            button4.BackColor = Color.FromArgb(230, 181, 56);
-            button4.Location = new Point(638, 75);
-            button4.Name = "button4";
-            button4.Size = new Size(145, 53);
-            button4.TabIndex = 32;
-            button4.Text = "Lưu";
-            button4.UseVisualStyleBackColor = false;
+            btnUpdateVoucher.BackColor = Color.FromArgb(230, 181, 56);
+            btnUpdateVoucher.Location = new Point(638, 75);
+            btnUpdateVoucher.Name = "btnUpdateVoucher";
+            btnUpdateVoucher.Size = new Size(145, 53);
+            btnUpdateVoucher.TabIndex = 32;
+            btnUpdateVoucher.Text = "Lưu";
+            btnUpdateVoucher.UseVisualStyleBackColor = false;
+            btnUpdateVoucher.Click += btnUpdateVoucher_Click;
             // 
-            // button3
+            // btnClearVoucher
             // 
-            button3.BackColor = Color.White;
-            button3.Location = new Point(789, 75);
-            button3.Name = "button3";
-            button3.Size = new Size(145, 53);
-            button3.TabIndex = 33;
-            button3.Text = "Hoàn tác";
-            button3.UseVisualStyleBackColor = false;
+            btnClearVoucher.BackColor = Color.White;
+            btnClearVoucher.Location = new Point(789, 75);
+            btnClearVoucher.Name = "btnClearVoucher";
+            btnClearVoucher.Size = new Size(145, 53);
+            btnClearVoucher.TabIndex = 33;
+            btnClearVoucher.Text = "Hoàn tác";
+            btnClearVoucher.UseVisualStyleBackColor = false;
+            btnClearVoucher.Click += btnClearVoucher_Click;
             // 
-            // btnThem
+            // btnAddVoucher
             // 
-            btnThem.BackColor = Color.FromArgb(104, 176, 145);
-            btnThem.Location = new Point(638, 16);
-            btnThem.Name = "btnThem";
-            btnThem.Size = new Size(145, 53);
-            btnThem.TabIndex = 32;
-            btnThem.Text = "Thêm";
-            btnThem.UseVisualStyleBackColor = false;
+            btnAddVoucher.BackColor = Color.FromArgb(104, 176, 145);
+            btnAddVoucher.Location = new Point(638, 16);
+            btnAddVoucher.Name = "btnAddVoucher";
+            btnAddVoucher.Size = new Size(145, 53);
+            btnAddVoucher.TabIndex = 32;
+            btnAddVoucher.Text = "Thêm";
+            btnAddVoucher.UseVisualStyleBackColor = false;
+            btnAddVoucher.Click += btnAddVoucher_Click;
             // 
-            // button2
+            // btnDeleteVoucher
             // 
-            button2.BackColor = Color.FromArgb(169, 65, 65);
-            button2.Location = new Point(789, 16);
-            button2.Name = "button2";
-            button2.Size = new Size(145, 53);
-            button2.TabIndex = 33;
-            button2.Text = "Xóa";
-            button2.UseVisualStyleBackColor = false;
+            btnDeleteVoucher.BackColor = Color.FromArgb(169, 65, 65);
+            btnDeleteVoucher.Location = new Point(789, 16);
+            btnDeleteVoucher.Name = "btnDeleteVoucher";
+            btnDeleteVoucher.Size = new Size(145, 53);
+            btnDeleteVoucher.TabIndex = 33;
+            btnDeleteVoucher.Text = "Xóa";
+            btnDeleteVoucher.UseVisualStyleBackColor = false;
+            btnDeleteVoucher.Click += btnDeleteVoucher_Click;
             // 
-            // comboBox1
+            // cbVoucherDiscountType
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(428, 16);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(185, 31);
-            comboBox1.TabIndex = 31;
+            cbVoucherDiscountType.FormattingEnabled = true;
+            cbVoucherDiscountType.Location = new Point(428, 16);
+            cbVoucherDiscountType.Name = "cbVoucherDiscountType";
+            cbVoucherDiscountType.Size = new Size(185, 31);
+            cbVoucherDiscountType.TabIndex = 31;
             // 
             // label2
             // 
@@ -218,14 +224,6 @@
             label2.TabIndex = 22;
             label2.Text = "HSD:";
             // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(428, 81);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(185, 31);
-            comboBox2.TabIndex = 31;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -235,13 +233,13 @@
             label1.TabIndex = 22;
             label1.Text = "Giới hạn:";
             // 
-            // textBox1
+            // txtVoucherDescription
             // 
-            textBox1.Location = new Point(105, 81);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(204, 87);
-            textBox1.TabIndex = 27;
+            txtVoucherDescription.Location = new Point(105, 81);
+            txtVoucherDescription.Multiline = true;
+            txtVoucherDescription.Name = "txtVoucherDescription";
+            txtVoucherDescription.Size = new Size(204, 87);
+            txtVoucherDescription.TabIndex = 27;
             // 
             // label3
             // 
@@ -252,12 +250,19 @@
             label3.TabIndex = 23;
             label3.Text = "Mô tả:";
             // 
-            // textBox8
+            // txtVoucherMaxDiscount
             // 
-            textBox8.Location = new Point(428, 47);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(185, 30);
-            textBox8.TabIndex = 27;
+            txtVoucherMaxDiscount.Location = new Point(428, 80);
+            txtVoucherMaxDiscount.Name = "txtVoucherMaxDiscount";
+            txtVoucherMaxDiscount.Size = new Size(185, 30);
+            txtVoucherMaxDiscount.TabIndex = 27;
+            // 
+            // txtVoucherValue
+            // 
+            txtVoucherValue.Location = new Point(428, 47);
+            txtVoucherValue.Name = "txtVoucherValue";
+            txtVoucherValue.Size = new Size(185, 30);
+            txtVoucherValue.TabIndex = 27;
             // 
             // label8
             // 
@@ -283,6 +288,7 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(397, 30);
             textBox2.TabIndex = 29;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // label4
             // 
@@ -293,12 +299,12 @@
             label4.TabIndex = 25;
             label4.Text = "Tìm kiếm:";
             // 
-            // textBox5
+            // txtVoucherName
             // 
-            textBox5.Location = new Point(104, 47);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(204, 30);
-            textBox5.TabIndex = 29;
+            txtVoucherName.Location = new Point(104, 47);
+            txtVoucherName.Name = "txtVoucherName";
+            txtVoucherName.Size = new Size(204, 30);
+            txtVoucherName.TabIndex = 29;
             // 
             // label5
             // 
@@ -309,13 +315,13 @@
             label5.TabIndex = 25;
             label5.Text = "Tên:";
             // 
-            // textBox6
+            // txtVoucherID
             // 
-            textBox6.Location = new Point(104, 16);
-            textBox6.Name = "textBox6";
-            textBox6.ReadOnly = true;
-            textBox6.Size = new Size(204, 30);
-            textBox6.TabIndex = 30;
+            txtVoucherID.Location = new Point(104, 16);
+            txtVoucherID.Name = "txtVoucherID";
+            txtVoucherID.ReadOnly = true;
+            txtVoucherID.Size = new Size(204, 30);
+            txtVoucherID.TabIndex = 30;
             // 
             // label6
             // 
@@ -330,10 +336,10 @@
             // 
             tabPage2.Controls.Add(dgvPromotionProgram);
             tabPage2.Controls.Add(panel2);
-            tabPage2.Location = new Point(4, 32);
+            tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(984, 674);
+            tabPage2.Size = new Size(984, 677);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Quản lý Chương trình KM";
             tabPage2.UseVisualStyleBackColor = true;
@@ -345,7 +351,7 @@
             dgvPromotionProgram.Location = new Point(3, 279);
             dgvPromotionProgram.Name = "dgvPromotionProgram";
             dgvPromotionProgram.RowHeadersWidth = 51;
-            dgvPromotionProgram.Size = new Size(978, 392);
+            dgvPromotionProgram.Size = new Size(978, 395);
             dgvPromotionProgram.TabIndex = 7;
             dgvPromotionProgram.CellClick += dgvPromotionProgram_CellClick;
             // 
@@ -626,10 +632,10 @@
             Load += frmAdPromotion_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvDataVoucher).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numVoucherExpiryday).EndInit();
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvPromotionProgram).EndInit();
             panel2.ResumeLayout(false);
@@ -644,28 +650,27 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private DataGridView dataGridView1;
+        private DataGridView dgvDataVoucher;
         private Panel panel1;
-        private Button button4;
-        private Button button3;
-        private Button btnThem;
-        private Button button2;
-        private ComboBox comboBox1;
+        private Button btnUpdateVoucher;
+        private Button btnClearVoucher;
+        private Button btnAddVoucher;
+        private Button btnDeleteVoucher;
+        private ComboBox cbVoucherDiscountType;
         private Label label2;
-        private ComboBox comboBox2;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txtVoucherDescription;
         private Label label3;
-        private TextBox textBox8;
+        private TextBox txtVoucherValue;
         private Label label8;
         private Label label7;
         private TextBox textBox2;
         private Label label4;
-        private TextBox textBox5;
+        private TextBox txtVoucherName;
         private Label label5;
-        private TextBox textBox6;
+        private TextBox txtVoucherID;
         private Label label6;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown numVoucherExpiryday;
         private DataGridView dgvPromotionProgram;
         private Panel panel2;
         private DateTimePicker dtpPPStartDate;
@@ -694,5 +699,6 @@
         private TextBox txtPPMaxDiscount;
         private ComboBox cboPPCategory;
         private Label label19;
+        private TextBox txtVoucherMaxDiscount;
     }
 }

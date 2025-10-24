@@ -9,7 +9,7 @@ namespace DAL
 {
     public class DAL_Promotion
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();
+        private readonly HighlandsDatabaseVer2Context _context = new();      
 
         public List<Promotion> GetAllPromotions()
         {
@@ -44,9 +44,12 @@ namespace DAL
                 existingPromotion.PromotionName = promotion.PromotionName;
                 existingPromotion.Description = promotion.Description;
                 existingPromotion.DiscountType = promotion.DiscountType;
+
                 existingPromotion.Value = promotion.Value;
+
                 existingPromotion.RequiringPoint = promotion.RequiringPoint;
                 existingPromotion.ExpiryDay = promotion.ExpiryDay;
+
                 // Save changes
                 _context.SaveChanges();
             }

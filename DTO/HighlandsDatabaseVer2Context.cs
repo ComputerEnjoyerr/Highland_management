@@ -652,8 +652,10 @@ public partial class HighlandsDatabaseVer2Context : DbContext
         modelBuilder.Entity<SupplierIngredient>(entity =>
         {
             entity
-                .HasNoKey()
-                .ToTable("SUPPLIER_INGREDIENT");
+                .HasKey(e => new { e.SupplierId, e.IngredientId })
+                .HasName("PK__SUPPLIER__F00C8D919AF15C94");
+
+            entity.ToTable("SUPPLIER_INGREDIENT");
 
             entity.Property(e => e.ExpiryDay).HasDefaultValue(30);
             entity.Property(e => e.IngredientId).HasMaxLength(14);
