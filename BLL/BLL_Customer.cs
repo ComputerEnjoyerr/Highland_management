@@ -24,15 +24,18 @@ namespace BLL
 
         public Customer GetByPhone(string phone, string id = null)
         {
-            var existing = dAL_Customer.GetById(id);
             var existingPhone = dAL_Customer.GetAll()
                 .FirstOrDefault(c => c.Phone == phone);
+
+            // Nếu chưa có ai dùng số này
             if (existingPhone == null)
-            {
                 return null;
-            }
-            if (existing != null)
+
+            // Nếu là khách đang chọn
+            if (id != null && existingPhone.Id == id)
                 return null;
+
+            // Nếu có khách khác
             return existingPhone;
         }
 
