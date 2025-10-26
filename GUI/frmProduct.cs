@@ -26,7 +26,8 @@ namespace GUI
         private readonly BLL_Ingredient bLL_Ingredient = new();
         private readonly BLL_SupplierIngredient bLL_SupplierIngredient = new();
         private readonly BLL_Unit bLL_Unit = new();
-
+        private string selectedImagePath = null;   
+        private string selectedImageName = null;   
         public frmProduct()
         {
             InitializeComponent();
@@ -104,16 +105,6 @@ namespace GUI
 
         private void LoaddgvRecipe(string productId)
         {
-            dgvRecipe1.MultiSelect = false;
-            dgvRecipe1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRecipe1.ReadOnly = true;
-            dgvRecipe1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            dgvRecipe2.MultiSelect = false;
-            dgvRecipe2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRecipe2.ReadOnly = true;
-            dgvRecipe2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
             var product = bLL_Product.GetById(productId);
             if (product != null)
             {
@@ -182,6 +173,9 @@ namespace GUI
             txtPrice.Clear();
             cboCategory.SelectedIndex = 0;
             txtProductName1.Focus();
+            pbImage.Image = null;
+            selectedImageName = null;
+            selectedImagePath = null;
             LoadCboProduct();
         }
         private void RefreshRecipe()
@@ -196,11 +190,28 @@ namespace GUI
 
         private void frmProduct_Load(object sender, EventArgs e)
         {
+
+            dgvRecipe1.MultiSelect = false;
+            dgvRecipe1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRecipe1.ReadOnly = true;
+            dgvRecipe1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvRecipe2.MultiSelect = false;
+            dgvRecipe2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRecipe2.ReadOnly = true;
+            dgvRecipe2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            pbImage.SizeMode = PictureBoxSizeMode.Zoom;
+
+
+
             LoaddgvProduct();
             LoaddgvSupplierIngredient();
             LoadCboCategory();
             LoadCboUnit();
             LoadCboProduct();
+
+
         }
 
 
@@ -245,9 +256,13 @@ namespace GUI
                     Id = $"PD{dateTime:yyMMddHHmmss}",
                     ProductName = txtProductName1.Text,
                     CategoryId = cboCategory.SelectedValue.ToString(),
-                    // Image = ?,
+                    // Image,
                     Price = price
                 };
+                // Lưu ảnh vào product và thư mục
+                if (!SaveImageToFile(product))
+                    return;
+
                 bLL_Product.Add(product);
                 LoaddgvProduct();
                 RefreshProduct();
@@ -335,6 +350,9 @@ namespace GUI
                     // Image = ?,
                     Price = price
                 };
+                if (!SaveImageToFile(product))
+                    return;
+
                 bLL_Product.Update(product);
                 LoaddgvProduct();
                 RefreshProduct();
@@ -393,6 +411,10 @@ namespace GUI
 
                 // Hiển thị chi tiết công thức
                 LoaddgvRecipe(txtProductId1.Text);
+                // Hiển thị ảnh sản phẩm
+                var product = bLL_Product.GetById(txtProductId1.Text);
+                if (product != null) 
+                    DisplayImage(product);
             }
         }
 
@@ -626,6 +648,91 @@ namespace GUI
             string path = Path.Combine(Application.StartupPath, @"..\..\..\RPTProductDetail.frx");
             report.Load(path);
             report.Show();
+        }
+
+        private void btnChooseImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Chọn ảnh sản phẩm";
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Lưu thông tin file được chọn
+                    selectedImagePath = openFileDialog.FileName;
+                    selectedImageName = Path.GetFileName(selectedImagePath);
+
+                    // Hiển thị ảnh trong pbImage 
+                    using (var img = Image.FromFile(selectedImagePath))
+                    {
+                        pbImage.Image = new Bitmap(img);
+                    }
+                }
+            }
+        }
+
+        private bool SaveImageToFile(Product product)
+        {
+            try
+            {
+                // Đường dẫn cố định tới thư mục ảnh trong project GUI
+                string imageFolder = Path.Combine(Application.StartupPath, "Images");
+
+                // Tạo thư mục nếu chưa có hoặc bị xóa
+                if (!Directory.Exists(imageFolder))
+                    Directory.CreateDirectory(imageFolder);
+
+                if (string.IsNullOrEmpty(selectedImagePath))
+                {
+                    product.Image = null;
+                    return true;
+                }
+
+                // Tạo đường dẫn đích
+                string destinationPath = Path.Combine(imageFolder, selectedImageName);
+
+                // Lệnh tự động tạo tên mới nếu trùng tên
+                if (File.Exists(destinationPath))
+                {
+                    string fileNameWithoutExt = Path.GetFileNameWithoutExtension(selectedImageName);
+                    string extension = Path.GetExtension(selectedImageName);
+                    string newName = $"{fileNameWithoutExt}_{DateTime.Now:yyyyMMddHHmmss}{extension}";
+                    destinationPath = Path.Combine(imageFolder, newName);
+                    selectedImageName = newName;
+                }
+
+                // Sao chép file vào thư mục Image
+                File.Copy(selectedImagePath, destinationPath, true);
+
+                // Gán tên file vào product
+                product.Image = selectedImageName;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lưu ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void DisplayImage(Product product)
+        {
+            pbImage.Image = null;
+
+            if (!string.IsNullOrEmpty(product.Image))
+            {
+                // Tìm file ảnh trùng tên với product.Image
+                string imagePath = Path.Combine(Application.StartupPath, "Images", product.Image);
+                if (File.Exists(imagePath))
+                {
+                    using (var img = Image.FromFile(imagePath))
+                    {
+                        pbImage.Image = new Bitmap(img);
+                    }
+                }
+            }
         }
     }
 }
