@@ -553,6 +553,13 @@ namespace GUI
                     MessageBox.Show("Số tiền không hợp lệ", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                //Kiểm tra giá tiền nhỏ hơn 0
+                if(price < 0)
+                {
+                    MessageBox.Show("Giá tiền không được là số âm", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                
 
                 if (!int.TryParse(cboUnit.SelectedValue.ToString(), out var unit))
                 {
