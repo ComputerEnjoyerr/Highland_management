@@ -34,6 +34,10 @@ namespace BLL
 
         public void Update(Branch branch)
         {
+            // Kiểm tra nếu có chi nhánh khác dùng cùng số điện thoại
+            var allBranches = dAL_Branch.GetAll();
+            if (allBranches.Any(b => b.Phone == branch.Phone && b.Id != branch.Id))
+                throw new Exception("Số điện thoại này đã được chi nhánh khác sử dụng!");
             if (string.IsNullOrWhiteSpace(branch.Id))
                 throw new Exception("Thiếu ID chi nhánh khi cập nhật.");
             if (string.IsNullOrWhiteSpace(branch.BranchName))

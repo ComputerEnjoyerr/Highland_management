@@ -1,6 +1,7 @@
 ﻿using BLL;
 using DAL;
 using DTO;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace GUI
         private readonly BLL_Address bLL_Address = new BLL_Address();
         private readonly BLL_Province bLL_Province = new BLL_Province();
         private readonly BLL_Ward bLL_Ward = new BLL_Ward();
+        private readonly BLL_Employee bLL_Employee = new BLL_Employee();
 
         public frmBranch()
         {
@@ -100,6 +102,12 @@ namespace GUI
             cboProvince.DisplayMember = "ProvinceName";
             cboProvince.ValueMember = "Id";
             cboProvince.SelectedIndex = -1;
+
+            // Load cho phần nhân viên chi nhánh
+            cboEProvince.DataSource = provinces;
+            cboEProvince.DisplayMember = "ProvinceName";
+            cboEProvince.ValueMember = "Id";
+            cboEProvince.SelectedIndex = -1;
         }
 
         private void LoadWard(string provinceId)
@@ -109,6 +117,12 @@ namespace GUI
             cboWard.DisplayMember = "WardName";
             cboWard.ValueMember = "Id";
             cboWard.SelectedIndex = -1;
+
+            // Load cho phần nhân viên chi nhánh
+            cboEWard.DataSource = wards;
+            cboEWard.DisplayMember = "WardName";
+            cboEWard.ValueMember = "Id";
+            cboEWard.SelectedIndex = -1;
         }
 
         private void LoadStatus()
@@ -139,6 +153,7 @@ namespace GUI
             LoadBranches();
             LoadProvince();
             LoadStatus();
+            LoadRole();
         }
 
         private void cboProvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -165,6 +180,10 @@ namespace GUI
         private void btnReset_Click(object sender, EventArgs e)
         {
             ClearData();
+
+            // Xóa danh sách nhân viên chi nhánh khi reset
+            dgvBanchEmployee.ClearSelection();
+            dgvBanchEmployee.DataSource = null;
         }
 
         //Biển theo dõi công tác nhập liệu
@@ -320,14 +339,6 @@ namespace GUI
                     txtPhone.Focus();
                     return;
                 }
-                var existingPhone = bLL_Branch.GetBranchByPhone(txtPhone.Text, txtBId.Text);
-                if (existingPhone != null)
-                {
-                    MessageBox.Show("Số điện thoại đã trùng với chi nhánh khác", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    txtPhone.Clear();
-                    txtPhone.Focus();
-                    return;
-                }
                 if (cboProvince.SelectedValue == null)
                 {
                     MessageBox.Show("Tỉnh/Thành phố không được để trống", "Thông báo");
@@ -394,7 +405,7 @@ namespace GUI
             if (e.RowIndex >= 0)
             {
                 var selectedRow = dgvBranch.Rows[e.RowIndex];
-              
+
                 txtBName.Text = selectedRow.Cells["BranchName"].Value.ToString();
                 txtAddress.Text = selectedRow.Cells["Address"].Value.ToString();
                 var province = selectedRow.Cells["Province"].Value.ToString();
@@ -407,7 +418,173 @@ namespace GUI
                 var status = selectedRow.Cells["Status"].Value.ToString();
                 cboStatus.SelectedIndex = cboStatus.FindStringExact(status);
                 txtBId.Text = selectedRow.Cells["Id"].Value.ToString();
+
+                // Load nhân viên chi nhánh tương ứng
+                string branchId = selectedRow.Cells["Id"].Value.ToString();
+                LoadEmployees(branchId);
             }
+        }
+
+        // Hàm xử lý sự kiện khi form được đóng
+        private void frmBranch_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _cts?.Cancel(); // Hủy bỏ bất kỳ tác vụ nào đang chờ
+        }
+
+        // ----------------------- Nhân Viên Chi Nhánh ------------------------
+
+        // Hàm reset dữ liệu nhân viên chi nhánh
+        private void ClearEmployeeData()
+        {
+            txtEId.Clear();
+            txtEName.Clear();
+            txtEPhone.Clear();
+            txtEAddress.Clear();
+            cboEWard.SelectedIndex = -1;
+            cboEProvince.SelectedIndex = -1;
+            cboERole.SelectedIndex = -1;
+        }
+
+        // Hàm load nhân viên chi nhánh
+        private void LoadEmployees(string branchId, string keyword = null)
+        {
+            dgvBanchEmployee.MultiSelect = false;
+            dgvBanchEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBanchEmployee.ReadOnly = true;
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                var filteredList = bLL_Employee.GetAll()
+                    .Where(e => e.EmployeeName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                                e.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                    .Select(e => new
+                    {
+                        e.Id,
+                        e.EmployeeName,
+                        e.Phone,
+                        Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
+                        Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                        Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
+                        e.HireDate,
+                        e.SalaryPerHour,
+                        e.Role
+                    }).ToList();
+                dgvBanchEmployee.DataSource = filteredList;
+                return;
+            }
+
+
+            var employees = bLL_Employee.GetEmployeesByBranchId(branchId).Select(e => new
+            {
+                e.Id,
+                e.EmployeeName,
+                e.Phone,
+                Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
+                Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
+                e.HireDate,
+                e.SalaryPerHour,
+                e.Role
+            }).ToList();
+            dgvBanchEmployee.DataSource = employees;
+
+            // Cấu hình DataGridView hiển thị cho đẹp
+            dgvBanchEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBanchEmployee.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvBanchEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBanchEmployee.MultiSelect = false;
+            dgvBanchEmployee.ReadOnly = true;
+            dgvBanchEmployee.AllowUserToAddRows = false;
+            dgvBanchEmployee.AllowUserToDeleteRows = false;
+            dgvBanchEmployee.AllowUserToResizeRows = false;
+            dgvBanchEmployee.RowHeadersVisible = false;
+
+            // Style cho bảng
+            dgvBanchEmployee.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
+            dgvBanchEmployee.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvBanchEmployee.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dgvBanchEmployee.EnableHeadersVisualStyles = false;
+
+            dgvBanchEmployee.DefaultCellStyle.BackColor = Color.White;
+            dgvBanchEmployee.DefaultCellStyle.ForeColor = Color.Black;
+            dgvBanchEmployee.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
+            dgvBanchEmployee.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvBanchEmployee.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+
+            dgvBanchEmployee.GridColor = Color.LightGray;
+            dgvBanchEmployee.BorderStyle = BorderStyle.None;
+        }
+
+        private void LoadRole()
+        {
+            cboERole.Items.Clear();
+            cboERole.Items.Add("Nhân viên");
+            cboERole.Items.Add("Thời vụ");
+            cboERole.Items.Add("Quản lý");
+            cboERole.SelectedIndex = 0;
+        }
+
+        private void btnEReset_Click(object sender, EventArgs e)
+        {
+            ClearEmployeeData();
+        }
+
+
+        private async void txtEFind_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtEFind.Text;
+
+            // Hủy thao tác trước đó nếu người dùng vẫn đang nhập
+            _cts?.Cancel();
+            _cts = new CancellationTokenSource();
+
+            try
+            {
+                // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
+                await Task.Delay(500, _cts.Token);
+                LoadBranches(input);
+            }
+            catch (TaskCanceledException)
+            {
+                // Người dùng vẫn đang nhập, bỏ qua
+            }
+        }
+
+        private void dgvBanchEmployee_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var selectedRow = dgvBanchEmployee.Rows[e.RowIndex];
+
+                txtEName.Text = selectedRow.Cells["EmployeeName"].Value.ToString();
+                txtEPhone.Text = selectedRow.Cells["Phone"].Value.ToString();
+                txtEAddress.Text = selectedRow.Cells["Address"].Value.ToString();
+                var province = selectedRow.Cells["Province"].Value.ToString();
+                cboEProvince.SelectedIndex = cboEProvince.FindStringExact(province);
+                var ward = selectedRow.Cells["Ward"].Value.ToString();
+                cboEWard.SelectedIndex = cboEWard.FindStringExact(ward);
+                var role = selectedRow.Cells["Role"].Value.ToString();
+                cboERole.SelectedIndex = cboERole.FindStringExact(role);
+                txtESalaryPerHour.Text = selectedRow.Cells["SalaryPerHour"].Value.ToString();
+                txtEId.Text = selectedRow.Cells["Id"].Value.ToString();
+            }
+        }
+
+        private void txtEName_Leave(object sender, EventArgs e)
+        {
+            string name = txtEName.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Vui lòng nhập tên nhân viên!",
+                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEName.Clear();
+                txtEName.Focus();
+                return;
+            }
+
+            // Nếu hợp lệ -> tạo mã mới
+            txtEId.Text = bLL_Employee.GenerateEmployeeId();
         }
     }
 }
