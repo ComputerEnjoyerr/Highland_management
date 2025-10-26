@@ -164,8 +164,9 @@ namespace GUI
                 return;
 
             }
-            var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text);
-            var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text);
+            var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text, txtSupplierID.Text);
+            var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text, txtSupplierID.Text);
+            
             if (exitingEmail != null && !string.IsNullOrEmpty(exitingEmail.Id))
             {
                 MessageBox.Show("Email đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -175,6 +176,12 @@ namespace GUI
             if (exitingPhone != null && !string.IsNullOrEmpty(exitingPhone.Id))
             {
                 MessageBox.Show("Số điện thoại đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+           
+            if (txtSupplierName.Text.Length > 100)
+            {
+                MessageBox.Show("Tên nhà cung cấp không được vượt quá 100 ký tự", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -220,14 +227,22 @@ namespace GUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtSupplierName.Text) ||
+               string.IsNullOrEmpty(txtPhone.Text) ||
+               string.IsNullOrEmpty(txtEmail.Text) ||
+               string.IsNullOrEmpty(txtAddress.Text))
+            {
+                MessageBox.Show("Vui lòng chọn nhà cung cấp để cập nhật!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (!decimal.TryParse(txtPhone.Text, out decimal phoneNum))
             {
                 MessageBox.Show("Số điện thoại phải là ký tự số!");
                 return;
 
             }
-            var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text);
-            var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text);
+            var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text, txtSupplierID.Text);
+            var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text, txtSupplierID.Text);
             if (exitingEmail != null && !string.IsNullOrEmpty(exitingEmail.Id))
             {
                 MessageBox.Show("Email đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);

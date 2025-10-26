@@ -80,18 +80,25 @@ namespace BLL
         //}
 
         //kiem tra so dien thoai va email bi trùng
-        public Supplier GetEmailSupplier(string email)
+        public Supplier GetEmailSupplier(string email,string id)
         {
-            var emailSupplier = dAL_Supplier.GetAllSuppliers().FirstOrDefault(s => s.Email == email);
-            if (emailSupplier == null) return new Supplier();
-            return emailSupplier;
+            //kiểm tra email có bị trùng với ncc khác không
+            var emailSupplier = dAL_Supplier.GetAllSuppliers().FirstOrDefault(s => s.Email == email && s.Id != id);
+            //if (emailSupplier == null) return new Supplier();
+            //return emailSupplier;
+
+            return emailSupplier ?? new Supplier();
         }
 
-        public Supplier getPhoneSupplier(string phone)
+        public Supplier getPhoneSupplier(string phone, string id)
         {
-            var phoneSupplier = dAL_Supplier.GetAllSuppliers().FirstOrDefault(s => s.Phone == phone);
-            if(phoneSupplier == null) return new Supplier();
-            return phoneSupplier;
+            //kiểm tra số điện thoại có bị trùng với ncc khác không
+            var phoneSupplier = dAL_Supplier.GetAllSuppliers().FirstOrDefault(s => s.Phone == phone && s.Id != id);
+            //if(phoneSupplier == null) return new Supplier();
+            //return phoneSupplier;
+            return phoneSupplier ?? new Supplier();
         }
+
+        
     }
 }
