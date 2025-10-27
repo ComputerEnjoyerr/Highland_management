@@ -97,7 +97,7 @@
             dgvBranch.Location = new Point(3, 565);
             dgvBranch.Name = "dgvBranch";
             dgvBranch.RowHeadersWidth = 51;
-            dgvBranch.Size = new Size(406, 142);
+            dgvBranch.Size = new Size(118, 142);
             dgvBranch.TabIndex = 5;
             dgvBranch.CellClick += dgvBranch_CellClick;
             // 
@@ -107,7 +107,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(415, 559);
+            panel2.Size = new Size(121, 559);
             panel2.TabIndex = 4;
             // 
             // groupBox1
@@ -139,7 +139,7 @@
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(415, 559);
+            groupBox1.Size = new Size(121, 559);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Chi nhánh";
@@ -367,9 +367,9 @@
             panel1.Controls.Add(dgvBanchEmployee);
             panel1.Controls.Add(panel3);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(415, 0);
+            panel1.Location = new Point(121, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(577, 710);
+            panel1.Size = new Size(871, 710);
             panel1.TabIndex = 3;
             // 
             // dgvBanchEmployee
@@ -379,7 +379,7 @@
             dgvBanchEmployee.Location = new Point(6, 364);
             dgvBanchEmployee.Name = "dgvBanchEmployee";
             dgvBanchEmployee.RowHeadersWidth = 51;
-            dgvBanchEmployee.Size = new Size(568, 343);
+            dgvBanchEmployee.Size = new Size(862, 343);
             dgvBanchEmployee.TabIndex = 33;
             dgvBanchEmployee.CellClick += dgvBanchEmployee_CellClick;
             // 
@@ -389,7 +389,7 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(577, 358);
+            panel3.Size = new Size(871, 358);
             panel3.TabIndex = 32;
             // 
             // groupBox2
@@ -419,7 +419,7 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(577, 358);
+            groupBox2.Size = new Size(871, 358);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Nhân viên chi nhánh";
@@ -569,6 +569,7 @@
             btnESave.TabIndex = 40;
             btnESave.Text = "Lưu";
             btnESave.UseVisualStyleBackColor = false;
+            btnESave.Click += btnESave_Click;
             // 
             // btnEReset
             // 
@@ -590,6 +591,7 @@
             btnEAdd.TabIndex = 41;
             btnEAdd.Text = "Thêm";
             btnEAdd.UseVisualStyleBackColor = false;
+            btnEAdd.Click += btnEAdd_Click;
             // 
             // btnEDelete
             // 
@@ -600,6 +602,7 @@
             btnEDelete.TabIndex = 43;
             btnEDelete.Text = "Xóa";
             btnEDelete.UseVisualStyleBackColor = false;
+            btnEDelete.Click += btnEDelete_Click;
             // 
             // txtEFind
             // 

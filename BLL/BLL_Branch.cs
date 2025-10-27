@@ -11,6 +11,7 @@ namespace BLL
     public class BLL_Branch
     {
         private readonly DAL_Branch dAL_Branch = new();
+        BLL_Employee bLL_Employee = new BLL_Employee();
         BLL_Province bLL_Province = new BLL_Province();
         BLL_Ward bLL_Ward = new BLL_Ward();
 
@@ -45,7 +46,16 @@ namespace BLL
             dAL_Branch.Update(branch);
         }
 
-        public void Delete(string id) { dAL_Branch.Delete(id); }
+        public void Delete(string id)
+        {
+            // Kiểm tra xem còn nhân viên trong chi nhánh không
+            var employees = bLL_Employee.GetEmployeesByBranchId(id);
+            if (employees != null && employees.Count > 0)
+                throw new Exception("Không thể xóa chi nhánh vì vẫn còn nhân viên đang làm việc.");
+
+            // Nếu không có nhân viên thì xóa chi nhánh
+            dAL_Branch.Delete(id);
+        }
 
         //Hàm kiểm tra hợp lệ của chi nhánh
         private void ValidateBranch(Branch branch)

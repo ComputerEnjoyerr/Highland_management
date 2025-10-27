@@ -1,6 +1,7 @@
 ﻿using BLL;
 using DAL;
 using DTO;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
 
 namespace GUI
 {
@@ -264,7 +266,7 @@ namespace GUI
 
                 string branchId = bLL_Branch.GenerateBranchId(provinceId);
                 txtBId.Text = branchId;
-                var branch = new Branch
+                var branch = new DTO.Branch
                 {
                     Id = branchId,
                     BranchName = txtBName.Text,
@@ -443,10 +445,11 @@ namespace GUI
             cboEWard.SelectedIndex = -1;
             cboEProvince.SelectedIndex = -1;
             cboERole.SelectedIndex = -1;
+            txtESalaryPerHour.Clear();
         }
 
         // Hàm load nhân viên chi nhánh
-        private void LoadEmployees(string branchId, string keyword = null)
+        private void LoadEmployees(string branchId, string keyword = "")
         {
             dgvBanchEmployee.MultiSelect = false;
             dgvBanchEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -480,8 +483,8 @@ namespace GUI
                 e.EmployeeName,
                 e.Phone,
                 Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
-                Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
+                Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
                 e.HireDate,
                 e.SalaryPerHour,
                 e.Role
@@ -572,7 +575,38 @@ namespace GUI
 
         private void txtEName_Leave(object sender, EventArgs e)
         {
+            // Nếu người dùng không nhập tên => báo lỗi
+            if (string.IsNullOrWhiteSpace(txtEName.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên nhân viên!",
+                                "Thiếu thông tin",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+
+                txtEName.Focus(); // Trả con trỏ về ô nhập
+                return;
+            }
+
+            // Kiểm tra độ dài Name
             string name = txtEName.Text.Trim();
+            if (name.Length > 30)
+            {
+                MessageBox.Show("Tên nhân viên không được vượt quá 30 ký tự!",
+                                "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEName.Clear();
+                txtEName.Focus();
+                return;
+            }
+
+            // Kiểm tra trùng tên
+            if (bLL_Employee.IsEmployeeNameExists(name))
+            {
+                MessageBox.Show("Tên chương trình khuyến mãi này đã tồn tại!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEName.Clear();
+                txtEName.Focus();
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -585,6 +619,203 @@ namespace GUI
 
             // Nếu hợp lệ -> tạo mã mới
             txtEId.Text = bLL_Employee.GenerateEmployeeId();
+        }
+
+        private void btnEAdd_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtEName.Text) ||
+                string.IsNullOrEmpty(txtEPhone.Text) ||
+                string.IsNullOrEmpty(txtEAddress.Text) ||
+                string.IsNullOrEmpty(txtESalaryPerHour.Text))
+            {
+                MessageBox.Show("Thông tin nhân viên không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtEPhone.Text, @"^0\d{9}$"))
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ! Phải gồm 10 chữ số và bắt đầu bằng 0.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEPhone.Clear();
+                txtEPhone.Focus();
+                return;
+            }
+            var existingPhone = bLL_Employee.GetEmployeeByPhone(txtEPhone.Text);
+            if (existingPhone != null)
+            {
+                MessageBox.Show("Số điện thoại đã trùng với nhân viên khác", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                txtEPhone.Clear();
+                txtEPhone.Focus();
+                return;
+            }
+            if (cboEProvince.SelectedValue == null)
+            {
+                MessageBox.Show("Tỉnh/Thành phố không được để trống", "Thông báo");
+                cboEProvince.Focus();
+                return;
+            }
+            if (cboEWard.SelectedValue == null)
+            {
+                MessageBox.Show("Phường/Xã phố không được để trống", "Thông báo");
+                cboEWard.Focus();
+                return;
+            }
+            if (bLL_Employee.IsEmployeeNameExists(txtEName.Text.Trim()))
+            {
+                MessageBox.Show("Tên nhân viên đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                string branchId = txtBId.Text;
+                string provinceId = cboEProvince.SelectedValue.ToString();
+                string wardId = cboEWard.SelectedValue.ToString();
+                var address = new Address
+                {
+                    Id = bLL_Address.GenerateAddressId(cboEProvince.SelectedValue.ToString()),
+                    WardId = cboEWard.SelectedValue.ToString(),
+                    Address1 = txtEAddress.Text,
+                };
+                bLL_Address.Add(address);
+
+                string employeeId = bLL_Employee.GenerateEmployeeId();
+                txtEId.Text = employeeId;
+                var employee = new Employee
+                {
+                    Id = employeeId,
+                    EmployeeName = txtEName.Text,
+                    Phone = txtEPhone.Text,
+                    AddressId = address.Id,
+                    HireDate = DateOnly.FromDateTime(DateTime.Today),
+                    SalaryPerHour = decimal.Parse(txtESalaryPerHour.Text),
+                    Role = cboERole.SelectedItem.ToString(),
+                    BranchId = txtBId.Text
+                };
+                bLL_Employee.Add(employee);
+                MessageBox.Show("Đã thêm nhân viên thành công", "Thông báo");
+                ClearEmployeeData();
+                LoadEmployees(branchId);
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Thêm nhân viên thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+
+        private void btnEDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string id = txtEId.Text.Trim();
+                if (string.IsNullOrEmpty(id))
+                {
+                    MessageBox.Show("Vui lòng chọn nhân viên để xóa.", "Thông báo");
+                    return;
+                }
+                DialogResult rs = MessageBox.Show("Bạn có muốn xóa nhân viên này không?", id, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (rs == DialogResult.Yes)
+                {
+                    bLL_Employee.Delete(id);
+                    MessageBox.Show("Đã xóa thành công", "Thông báo");
+                    ClearEmployeeData();
+                    LoadEmployees(txtBId.Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Xóa nhân viên thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+
+        private void btnESave_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEId.Text))
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên cần cập nhật từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            DialogResult rs = MessageBox.Show("Bạn có chắc muốn cập nhật nhân viên này?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (DialogResult.No == rs)
+                return;
+
+            try
+            {
+                if (string.IsNullOrEmpty(txtEName.Text) ||
+                    string.IsNullOrEmpty(txtEPhone.Text) ||
+                    string.IsNullOrEmpty(txtEAddress.Text) ||
+                    string.IsNullOrEmpty(txtESalaryPerHour.Text))
+                {
+                    MessageBox.Show("Thông tin nhân viên không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtEPhone.Text, @"^0\d{9}$"))
+                {
+                    MessageBox.Show("Số điện thoại không hợp lệ! Phải gồm 10 chữ số và bắt đầu bằng 0.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtEPhone.Clear();
+                    txtEPhone.Focus();
+                    return;
+                }
+                if (cboEProvince.SelectedValue == null)
+                {
+                    MessageBox.Show("Tỉnh/Thành phố không được để trống", "Thông báo");
+                    cboEProvince.Focus();
+                    return;
+                }
+                if (cboEWard.SelectedValue == null)
+                {
+                    MessageBox.Show("Phường/Xã phố không được để trống", "Thông báo");
+                    cboEWard.Focus();
+                    return;
+                }
+
+                string id = txtEId.Text.Trim(); // Lấy ID Employee cần update
+                var employee = bLL_Employee.GetAll().FirstOrDefault(e => e.Id == id);
+                if (employee != null)
+                {
+                    // Update thông tin Address
+                    if (employee.Address != null)
+                    {
+                        employee.Address.Address1 = txtEAddress.Text;
+                        employee.Address.WardId = cboEWard.SelectedValue.ToString();
+                    }
+                    else
+                    {
+                        // Nếu chưa có Address, tạo mới
+                        var address = new Address
+                        {
+                            Id = bLL_Address.GetAllAddresses().Count + 1.ToString(),
+                            Address1 = txtEAddress.Text,
+                            WardId = cboEWard.SelectedValue.ToString()
+                        };
+                        bLL_Address.Add(employee.Address);
+                        employee.AddressId = address.Id;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy nhân viên để cập nhật địa chỉ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+                employee.EmployeeName = txtEName.Text;
+                employee.Phone = txtEPhone.Text;
+                employee.HireDate = DateOnly.FromDateTime(DateTime.Today);
+                employee.SalaryPerHour = decimal.Parse(txtESalaryPerHour.Text);
+                employee.Role = cboERole.SelectedItem.ToString();
+                employee.BranchId = txtBId.Text;
+
+                bLL_Employee.Update(employee);
+                MessageBox.Show("Đã cập nhật thành công", "Thông báo");
+
+                LoadEmployees(txtBId.Text);
+                ClearEmployeeData();
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Cập nhật nhân viên thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
         }
     }
 }

@@ -14,7 +14,12 @@ namespace DAL
 
         public List<Employee> GetAll()
         {
-            return _context.Employees.ToList();
+            return _context.Employees
+                .Include(e => e.Branch)
+                .Include(e => e.Address)
+                .ThenInclude(e => e.Ward)
+                .ThenInclude(e => e.Province)
+                .ToList();
         }
 
         public Employee? GetById(string id)

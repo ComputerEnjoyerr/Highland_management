@@ -33,13 +33,38 @@ namespace BLL
 
         public void Update(Employee employee)
         {
+            // Kiểm tra tên nhân viên
+            if (string.IsNullOrWhiteSpace(employee.EmployeeName))
+                throw new Exception("Tên nhân viên không được để trống.");
+            if (employee.EmployeeName.Length > 30)
+                throw new Exception("Tên nhân viên không được vượt quá 30 ký tự.");
+
+            // Kiểm tra lương
+            if (employee.SalaryPerHour < 0)
+                throw new Exception("Lương nhân viên không được âm.");
+            if (!decimal.TryParse(employee.SalaryPerHour.ToString(), out _))
+                throw new Exception("Lương phải là số hợp lệ.");
+
+            // Kiểm tra số điện thoại
+            if (string.IsNullOrWhiteSpace(employee.Phone))
+                throw new Exception("Số điện thoại không được để trống.");
+            if (employee.Phone.Length > 15)
+                throw new Exception("Số điện thoại không được vượt quá 15 ký tự.");
+            var allEmployee = dAL_Employee.GetAll();
+            if (allEmployee.Any(e => e.Phone == employee.Phone && e.Id != employee.Id))
+                throw new Exception("Số điện thoại này đã được nhân viên khác sử dụng!");
             dAL_Employee.Update(employee);
         }
 
         // Hàm lấy danh sách nhân viên theo chi nhánh
         public List<Employee> GetEmployeesByBranchId(string branchId)
         {
-            return dAL_Employee.GetAll().Where(e => e.BranchId == branchId).ToList();
+            var employees = dAL_Employee.GetAll().Where(e => e.BranchId == branchId).ToList();
+            if (employees == null)
+            {
+                return new List<Employee>();
+            }
+            return employees;
         }
 
         // Hàm xét dữ liệu nhân viên có hợp lệ hay không
@@ -64,6 +89,8 @@ namespace BLL
             // Kiểm tra lương
             if (employee.SalaryPerHour < 0)
                 throw new Exception("Lương nhân viên không được âm.");
+            if (!decimal.TryParse(employee.SalaryPerHour.ToString(), out _))
+                throw new Exception("Lương phải là số hợp lệ.");
 
             // Kiểm tra số điện thoại
             if (string.IsNullOrWhiteSpace(employee.Phone))
@@ -106,5 +133,27 @@ namespace BLL
             return newId.Length > 10 ? newId.Substring(0, 10) : newId;
         }
 
+        // Hàm kiểm tra trùng lặp tên nhân viên
+        public bool IsEmployeeNameExists(string employeeName)
+        {
+            return dAL_Employee.IsEmployeeNameExists(employeeName);
+        }
+
+        // Hàm kt trùng số điện thoại chi nhánh
+        public Employee GetEmployeeByPhone(string phone, string id = null)
+        {
+            var existing = dAL_Employee.GetById(id);
+            var existingPhone = dAL_Employee.GetAll()
+                .FirstOrDefault(e => e.Phone == phone);
+            if (existingPhone == null)
+            {
+                return null;
+            }
+            if (existing != null)
+            {
+                return null;
+            }
+            return existingPhone;
+        }
     }
 }
