@@ -59,25 +59,27 @@
             dgvBanchEmployee = new DataGridView();
             panel3 = new Panel();
             groupBox2 = new GroupBox();
-            comboBox1 = new ComboBox();
-            comboBox4 = new ComboBox();
+            txtESalaryPerHour = new TextBox();
+            label19 = new Label();
+            cboERole = new ComboBox();
+            cboEProvince = new ComboBox();
             label3 = new Label();
-            comboBox5 = new ComboBox();
+            cboEWard = new ComboBox();
             label4 = new Label();
-            textBox3 = new TextBox();
+            txtEPhone = new TextBox();
             label5 = new Label();
-            textBox4 = new TextBox();
+            txtEAddress = new TextBox();
             label6 = new Label();
             label13 = new Label();
-            textBox5 = new TextBox();
+            txtEName = new TextBox();
             label14 = new Label();
-            textBox6 = new TextBox();
+            txtEId = new TextBox();
             label15 = new Label();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
-            textBox10 = new TextBox();
+            btnESave = new Button();
+            btnEReset = new Button();
+            btnEAdd = new Button();
+            btnEDelete = new Button();
+            txtEFind = new TextBox();
             label12 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvBranch).BeginInit();
             panel2.SuspendLayout();
@@ -95,7 +97,7 @@
             dgvBranch.Location = new Point(3, 565);
             dgvBranch.Name = "dgvBranch";
             dgvBranch.RowHeadersWidth = 51;
-            dgvBranch.Size = new Size(406, 142);
+            dgvBranch.Size = new Size(118, 142);
             dgvBranch.TabIndex = 5;
             dgvBranch.CellClick += dgvBranch_CellClick;
             // 
@@ -105,7 +107,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(415, 559);
+            panel2.Size = new Size(121, 559);
             panel2.TabIndex = 4;
             // 
             // groupBox1
@@ -137,7 +139,7 @@
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(415, 559);
+            groupBox1.Size = new Size(121, 559);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Chi nhánh";
@@ -365,9 +367,9 @@
             panel1.Controls.Add(dgvBanchEmployee);
             panel1.Controls.Add(panel3);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(415, 0);
+            panel1.Location = new Point(121, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(577, 710);
+            panel1.Size = new Size(871, 710);
             panel1.TabIndex = 3;
             // 
             // dgvBanchEmployee
@@ -377,8 +379,9 @@
             dgvBanchEmployee.Location = new Point(6, 364);
             dgvBanchEmployee.Name = "dgvBanchEmployee";
             dgvBanchEmployee.RowHeadersWidth = 51;
-            dgvBanchEmployee.Size = new Size(568, 343);
+            dgvBanchEmployee.Size = new Size(862, 343);
             dgvBanchEmployee.TabIndex = 33;
+            dgvBanchEmployee.CellClick += dgvBanchEmployee_CellClick;
             // 
             // panel3
             // 
@@ -386,54 +389,74 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(577, 358);
+            panel3.Size = new Size(871, 358);
             panel3.TabIndex = 32;
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(comboBox1);
-            groupBox2.Controls.Add(comboBox4);
+            groupBox2.Controls.Add(txtESalaryPerHour);
+            groupBox2.Controls.Add(label19);
+            groupBox2.Controls.Add(cboERole);
+            groupBox2.Controls.Add(cboEProvince);
             groupBox2.Controls.Add(label3);
-            groupBox2.Controls.Add(comboBox5);
+            groupBox2.Controls.Add(cboEWard);
             groupBox2.Controls.Add(label4);
-            groupBox2.Controls.Add(textBox3);
+            groupBox2.Controls.Add(txtEPhone);
             groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(textBox4);
+            groupBox2.Controls.Add(txtEAddress);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(label13);
-            groupBox2.Controls.Add(textBox5);
+            groupBox2.Controls.Add(txtEName);
             groupBox2.Controls.Add(label14);
-            groupBox2.Controls.Add(textBox6);
+            groupBox2.Controls.Add(txtEId);
             groupBox2.Controls.Add(label15);
-            groupBox2.Controls.Add(button5);
-            groupBox2.Controls.Add(button6);
-            groupBox2.Controls.Add(button7);
-            groupBox2.Controls.Add(button8);
-            groupBox2.Controls.Add(textBox10);
+            groupBox2.Controls.Add(btnESave);
+            groupBox2.Controls.Add(btnEReset);
+            groupBox2.Controls.Add(btnEAdd);
+            groupBox2.Controls.Add(btnEDelete);
+            groupBox2.Controls.Add(txtEFind);
             groupBox2.Controls.Add(label12);
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(577, 358);
+            groupBox2.Size = new Size(871, 358);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Nhân viên chi nhánh";
             // 
-            // comboBox1
+            // txtESalaryPerHour
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(409, 35);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(140, 31);
-            comboBox1.TabIndex = 55;
+            txtESalaryPerHour.Location = new Point(409, 112);
+            txtESalaryPerHour.Name = "txtESalaryPerHour";
+            txtESalaryPerHour.Size = new Size(140, 30);
+            txtESalaryPerHour.TabIndex = 59;
             // 
-            // comboBox4
+            // label19
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(139, 159);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(175, 31);
-            comboBox4.TabIndex = 56;
+            label19.AutoSize = true;
+            label19.Location = new Point(324, 115);
+            label19.Name = "label19";
+            label19.Size = new Size(67, 23);
+            label19.TabIndex = 58;
+            label19.Text = "Lương:";
+            // 
+            // cboERole
+            // 
+            cboERole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboERole.FormattingEnabled = true;
+            cboERole.Location = new Point(409, 35);
+            cboERole.Name = "cboERole";
+            cboERole.Size = new Size(140, 31);
+            cboERole.TabIndex = 55;
+            // 
+            // cboEProvince
+            // 
+            cboEProvince.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboEProvince.FormattingEnabled = true;
+            cboEProvince.Location = new Point(139, 159);
+            cboEProvince.Name = "cboEProvince";
+            cboEProvince.Size = new Size(175, 31);
+            cboEProvince.TabIndex = 56;
             // 
             // label3
             // 
@@ -444,13 +467,14 @@
             label3.TabIndex = 44;
             label3.Text = "Tỉnh/TP:";
             // 
-            // comboBox5
+            // cboEWard
             // 
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Location = new Point(139, 128);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(175, 31);
-            comboBox5.TabIndex = 57;
+            cboEWard.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboEWard.FormattingEnabled = true;
+            cboEWard.Location = new Point(139, 128);
+            cboEWard.Name = "cboEWard";
+            cboEWard.Size = new Size(175, 31);
+            cboEWard.TabIndex = 57;
             // 
             // label4
             // 
@@ -461,28 +485,28 @@
             label4.TabIndex = 45;
             label4.Text = "Xã/Phường:";
             // 
-            // textBox3
+            // txtEPhone
             // 
-            textBox3.Location = new Point(409, 66);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(140, 30);
-            textBox3.TabIndex = 51;
+            txtEPhone.Location = new Point(409, 72);
+            txtEPhone.Name = "txtEPhone";
+            txtEPhone.Size = new Size(140, 30);
+            txtEPhone.TabIndex = 51;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(324, 72);
+            label5.Location = new Point(324, 78);
             label5.Name = "label5";
             label5.Size = new Size(48, 23);
             label5.TabIndex = 46;
             label5.Text = "SĐT:";
             // 
-            // textBox4
+            // txtEAddress
             // 
-            textBox4.Location = new Point(110, 97);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(204, 30);
-            textBox4.TabIndex = 52;
+            txtEAddress.Location = new Point(110, 97);
+            txtEAddress.Name = "txtEAddress";
+            txtEAddress.Size = new Size(204, 30);
+            txtEAddress.TabIndex = 52;
             // 
             // label6
             // 
@@ -502,12 +526,13 @@
             label13.TabIndex = 48;
             label13.Text = "Chức vụ:";
             // 
-            // textBox5
+            // txtEName
             // 
-            textBox5.Location = new Point(110, 66);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(204, 30);
-            textBox5.TabIndex = 53;
+            txtEName.Location = new Point(110, 66);
+            txtEName.Name = "txtEName";
+            txtEName.Size = new Size(204, 30);
+            txtEName.TabIndex = 53;
+            txtEName.Leave += txtEName_Leave;
             // 
             // label14
             // 
@@ -518,13 +543,13 @@
             label14.TabIndex = 49;
             label14.Text = "Họ tên:";
             // 
-            // textBox6
+            // txtEId
             // 
-            textBox6.Location = new Point(110, 35);
-            textBox6.Name = "textBox6";
-            textBox6.ReadOnly = true;
-            textBox6.Size = new Size(204, 30);
-            textBox6.TabIndex = 54;
+            txtEId.Location = new Point(110, 35);
+            txtEId.Name = "txtEId";
+            txtEId.ReadOnly = true;
+            txtEId.Size = new Size(204, 30);
+            txtEId.TabIndex = 54;
             // 
             // label15
             // 
@@ -535,52 +560,57 @@
             label15.TabIndex = 50;
             label15.Text = "Mã NV:";
             // 
-            // button5
+            // btnESave
             // 
-            button5.BackColor = Color.FromArgb(230, 181, 56);
-            button5.Location = new Point(27, 257);
-            button5.Name = "button5";
-            button5.Size = new Size(128, 53);
-            button5.TabIndex = 40;
-            button5.Text = "Lưu";
-            button5.UseVisualStyleBackColor = false;
+            btnESave.BackColor = Color.FromArgb(230, 181, 56);
+            btnESave.Location = new Point(27, 257);
+            btnESave.Name = "btnESave";
+            btnESave.Size = new Size(128, 53);
+            btnESave.TabIndex = 40;
+            btnESave.Text = "Lưu";
+            btnESave.UseVisualStyleBackColor = false;
+            btnESave.Click += btnESave_Click;
             // 
-            // button6
+            // btnEReset
             // 
-            button6.BackColor = Color.White;
-            button6.Location = new Point(161, 257);
-            button6.Name = "button6";
-            button6.Size = new Size(128, 53);
-            button6.TabIndex = 42;
-            button6.Text = "Hoàn tác";
-            button6.UseVisualStyleBackColor = false;
+            btnEReset.BackColor = Color.White;
+            btnEReset.Location = new Point(161, 257);
+            btnEReset.Name = "btnEReset";
+            btnEReset.Size = new Size(128, 53);
+            btnEReset.TabIndex = 42;
+            btnEReset.Text = "Hoàn tác";
+            btnEReset.UseVisualStyleBackColor = false;
+            btnEReset.Click += btnEReset_Click;
             // 
-            // button7
+            // btnEAdd
             // 
-            button7.BackColor = Color.FromArgb(104, 176, 145);
-            button7.Location = new Point(27, 199);
-            button7.Name = "button7";
-            button7.Size = new Size(128, 53);
-            button7.TabIndex = 41;
-            button7.Text = "Thêm";
-            button7.UseVisualStyleBackColor = false;
+            btnEAdd.BackColor = Color.FromArgb(104, 176, 145);
+            btnEAdd.Location = new Point(27, 199);
+            btnEAdd.Name = "btnEAdd";
+            btnEAdd.Size = new Size(128, 53);
+            btnEAdd.TabIndex = 41;
+            btnEAdd.Text = "Thêm";
+            btnEAdd.UseVisualStyleBackColor = false;
+            btnEAdd.Click += btnEAdd_Click;
             // 
-            // button8
+            // btnEDelete
             // 
-            button8.BackColor = Color.FromArgb(169, 65, 65);
-            button8.Location = new Point(161, 199);
-            button8.Name = "button8";
-            button8.Size = new Size(128, 53);
-            button8.TabIndex = 43;
-            button8.Text = "Xóa";
-            button8.UseVisualStyleBackColor = false;
+            btnEDelete.BackColor = Color.FromArgb(169, 65, 65);
+            btnEDelete.Location = new Point(161, 199);
+            btnEDelete.Name = "btnEDelete";
+            btnEDelete.Size = new Size(128, 53);
+            btnEDelete.TabIndex = 43;
+            btnEDelete.Text = "Xóa";
+            btnEDelete.UseVisualStyleBackColor = false;
+            btnEDelete.Click += btnEDelete_Click;
             // 
-            // textBox10
+            // txtEFind
             // 
-            textBox10.Location = new Point(108, 323);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(272, 30);
-            textBox10.TabIndex = 35;
+            txtEFind.Location = new Point(108, 323);
+            txtEFind.Name = "txtEFind";
+            txtEFind.Size = new Size(272, 30);
+            txtEFind.TabIndex = 35;
+            txtEFind.TextChanged += txtEFind_TextChanged;
             // 
             // label12
             // 
@@ -637,25 +667,25 @@
         private DataGridView dgvBanchEmployee;
         private Panel panel3;
         private GroupBox groupBox2;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private TextBox textBox10;
+        private Button btnESave;
+        private Button btnEReset;
+        private Button btnEAdd;
+        private Button btnEDelete;
+        private TextBox txtEFind;
         private Label label12;
-        private ComboBox comboBox1;
-        private ComboBox comboBox4;
+        private ComboBox cboERole;
+        private ComboBox cboEProvince;
         private Label label3;
-        private ComboBox comboBox5;
+        private ComboBox cboEWard;
         private Label label4;
-        private TextBox textBox3;
+        private TextBox txtEPhone;
         private Label label5;
-        private TextBox textBox4;
+        private TextBox txtEAddress;
         private Label label6;
         private Label label13;
-        private TextBox textBox5;
+        private TextBox txtEName;
         private Label label14;
-        private TextBox textBox6;
+        private TextBox txtEId;
         private Label label15;
         private Button btnSave;
         private Button btnReset;
@@ -667,5 +697,7 @@
         private Label label17;
         private ComboBox cboStatus;
         private Label label16;
+        private TextBox txtESalaryPerHour;
+        private Label label19;
     }
 }
