@@ -47,39 +47,23 @@ namespace GUI
             cbWard.SelectedIndex = -1;
         }
 
-        private void LoadDgvIngredient(string keyword = null)
+        private void LoadDgvIngredient(string keyword = "")
         {
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-
-                var filteredList = bLL_SupplierIngredient.GetAll()
-                    .Where(si => si.Supplier != null && si.Supplier.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                 si.Supplier != null && si.Supplier.Id.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                 si.Ingredient != null && si.Ingredient.IngredientName.Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .Select(si => new
-                    {
-                        si.IngredientId,
-                        IngredientName = si.Ingredient != null ? si.Ingredient.IngredientName : "Lỗi hiển thị",
-                        SupplierName = si.Supplier != null ? si.Supplier.Name : "Lỗi hiển thị",
-                        StandardUnit = si.StandardUnit != null ? si.StandardUnit.UnitName : "Lỗi hiển thị",
-                        si.UnitPrice,
-                        si.ExpiryDay
-                    }).ToList();
-                dgvIngredient.DataSource = filteredList;
-                return;
-            }
-
-            var displayList = bLL_SupplierIngredient.GetAll().Select(si => new
-            {
-                si.IngredientId,
-                IngredientName = si.Ingredient != null ? si.Ingredient.IngredientName : "Lỗi hiển thị",
-                SupplierName = si.Supplier != null ? si.Supplier.Name : "Lỗi hiển thị",
-                StandardUnit = si.StandardUnit != null ? si.StandardUnit.UnitName : "Lỗi hiển thị",
-                si.UnitPrice,
-                si.ExpiryDay
-            }).ToList();
-            dgvIngredient.DataSource = displayList;
-
+            var filteredList = bLL_SupplierIngredient.GetAll()
+                .Where(si => si.Supplier != null && si.Supplier.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                             si.Supplier != null && si.Supplier.Id.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                             si.Ingredient != null && si.Ingredient.IngredientName.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .Select(si => new
+                {
+                    si.IngredientId,
+                    IngredientName = si.Ingredient != null ? si.Ingredient.IngredientName : "Lỗi hiển thị",
+                    SupplierName = si.Supplier != null ? si.Supplier.Name : "Lỗi hiển thị",
+                    Unit = si.StandardUnit != null ? si.StandardUnit.UnitName : "Lỗi hiển thị",
+                    si.UnitPrice,
+                    si.ExpiryDay
+                }).ToList();
+            dgvIngredient.DataSource = filteredList;
+            return;
         }
 
         private void LoadCboSupplier()
@@ -524,8 +508,8 @@ namespace GUI
                 var supplierName = selectedRow.Cells["SupplierName"].Value.ToString();
                 cboSupplier.SelectedIndex = cboSupplier.FindStringExact(supplierName);
 
-                var unit = selectedRow.Cells["StandardUnit"].Value.ToString();
-                cboUnit.SelectedIndex = cboUnit.FindStringExact(unit);
+                //var unit = selectedRow.Cells["Unit"].Value.ToString();
+                //cboUnit.SelectedIndex = cboUnit.FindStringExact(unit);
             }
         }
 
