@@ -10,7 +10,7 @@ namespace DAL
 {
     public class DAL_PromotionProgram
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();
+        private readonly HighlandsContext _context = new();
 
         public List<Promotion> GetAllPromotionPrograms()
         {
@@ -21,7 +21,7 @@ namespace DAL
             return _context.Promotions
             .Where(p => p.PromotionType == "Chương trình khuyến mãi")
             .Include(p => p.PromotionProgram)
-            .ThenInclude(pp => pp.Category)
+            //.ThenInclude(pp => pp.Category)
             .ToList();
         }
 
@@ -38,7 +38,7 @@ namespace DAL
             {
 
                 oldPromotionProgram.StartDate = promotionProgram.StartDate;
-                oldPromotionProgram.CategoryId = promotionProgram.CategoryId;
+                //oldPromotionProgram.CategoryId = promotionProgram.CategoryId;
                 _context.SaveChanges();
             }
         }

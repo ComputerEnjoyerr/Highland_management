@@ -193,7 +193,8 @@ namespace GUI
                     Id = bLL_Address.GenerateAddressId(cbProvince.SelectedValue.ToString()),
                     //ProvinceId = cbProvince.SelectedValue.ToString(),
                     WardId = cbWard.SelectedValue.ToString(),
-                    Address1 = txtAddress.Text,
+                    Name = txtAddress.Text,
+                    //Address1 = txtAddress.Text,
                 };
                 bLL_Address.Add(address);
 
@@ -269,7 +270,8 @@ namespace GUI
                 // Update thông tin Address
                 if (supplier.Address != null)
                 {
-                    supplier.Address.Address1 = txtAddress.Text;
+                    supplier.Address.Name = txtAddress.Text;
+                    //supplier.Address.Address1 = txtAddress.Text;
                     supplier.Address.WardId = cbWard.SelectedValue.ToString();
                 }
                 else
@@ -278,7 +280,8 @@ namespace GUI
                     var address = new Address
                     {
                         Id = bLL_Address.GetAllAddresses().Count + 1.ToString(),
-                        Address1 = txtAddress.Text,
+                        Name = txtAddress.Text,
+                        //Address1 = txtAddress.Text,
                         WardId = cbWard.SelectedValue.ToString()
                     };
                     bLL_Address.Add(supplier.Address);
@@ -425,7 +428,8 @@ namespace GUI
                         s.Name,
                         s.Phone,
                         s.Email,
-                        Address = s.Address != null ? s.Address.Address1 : "null",
+                        Address = s.Address != null ? s.Address.Name : "null",
+                        //Address = s.Address != null ? s.Address.Address1 : "null",
                         Ward = s.Address?.Ward != null ? s.Address.Ward.WardName : "Unknown",
                         Province = s.Address?.Ward?.Province != null ? s.Address.Ward.Province.ProvinceName : "Unknown",
                     }).ToList();
@@ -440,7 +444,8 @@ namespace GUI
                 s.Name,
                 s.Phone,
                 s.Email,
-                Address = s.Address != null ? s.Address.Address1 : "null",
+                Address = s.Address != null ? s.Address.Name : "null",
+                //Address = s.Address != null ? s.Address.Address1 : "null",
                 Ward = s.Address?.Ward != null ? s.Address.Ward.WardName : "Unknown",
                 Province = s.Address?.Ward?.Province != null ? s.Address.Ward.Province.ProvinceName : "Unknown",
             }).ToList();

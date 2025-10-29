@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class WorkSchedule
@@ -23,5 +22,4 @@ public partial class WorkSchedule
     public virtual Employee? CreatedByNavigation { get; set; }
 
     public virtual ICollection<WorkShift> WorkShifts { get; set; } = new List<WorkShift>();
-
 }

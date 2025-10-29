@@ -15,4 +15,5 @@ public partial class Ingredient
 
     public virtual ICollection<StockReceipt> StockReceipts { get; set; } = new List<StockReceipt>();
 
+    public virtual ICollection<SupplierIngredient> SupplierIngredients { get; set; } = new List<SupplierIngredient>();
 }

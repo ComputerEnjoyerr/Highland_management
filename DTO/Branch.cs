@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace DTO;
 
 public partial class Branch
@@ -41,5 +42,4 @@ public partial class Branch
     public virtual ICollection<Table> Tables { get; set; } = new List<Table>();
 
     public virtual ICollection<WorkSchedule> WorkSchedules { get; set; } = new List<WorkSchedule>();
-
 }

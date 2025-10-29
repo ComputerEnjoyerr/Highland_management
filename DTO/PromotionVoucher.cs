@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class PromotionVoucher
@@ -15,5 +14,4 @@ public partial class PromotionVoucher
     public virtual Customer Customer { get; set; } = null!;
 
     public virtual Promotion Promotion { get; set; } = null!;
-
 }

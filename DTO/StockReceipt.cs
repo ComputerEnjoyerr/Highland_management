@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class StockReceipt
@@ -11,6 +10,10 @@ public partial class StockReceipt
     public string? BranchId { get; set; }
 
     public string? IngredientId { get; set; }
+
+    public string? SupplierId { get; set; }
+
+    public string? CreatedBy { get; set; }
 
     public int? PurchasedUnitId { get; set; }
 
@@ -26,8 +29,11 @@ public partial class StockReceipt
 
     public virtual Branch? Branch { get; set; }
 
+    public virtual Employee? CreatedByNavigation { get; set; }
+
     public virtual Ingredient? Ingredient { get; set; }
 
     public virtual Unit? PurchasedUnit { get; set; }
 
+    public virtual Supplier? Supplier { get; set; }
 }

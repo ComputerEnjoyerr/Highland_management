@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class ShiftAssignment
@@ -17,5 +16,4 @@ public partial class ShiftAssignment
     public virtual Employee? Employee { get; set; }
 
     public virtual WorkShift? Shift { get; set; }
-
 }

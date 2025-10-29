@@ -7,7 +7,7 @@ public partial class Address
 {
     public string Id { get; set; } = null!;
 
-    public string? Address1 { get; set; }
+    public string? Name { get; set; }
 
     public string? WardId { get; set; }
 
@@ -18,5 +18,4 @@ public partial class Address
     public virtual ICollection<Supplier> Suppliers { get; set; } = new List<Supplier>();
 
     public virtual Ward? Ward { get; set; }
-    
 }

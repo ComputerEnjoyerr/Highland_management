@@ -74,9 +74,9 @@ namespace GUI
                     p.Id,
                     p.PromotionName,
                     p.Description,
-                    Category = p.PromotionProgram != null && p.PromotionProgram.Category != null
-                     ? p.PromotionProgram.Category.Name
-                     : "(Không có danh mục)",
+                    //Category = p.PromotionProgram != null && p.PromotionProgram.Category != null
+                    // ? p.PromotionProgram.Category.Name
+                    // : "(Không có danh mục)",
                     p.DiscountType,
                     p.Value,
                     p.MaxDiscount,
@@ -98,9 +98,9 @@ namespace GUI
                     p.PromotionName,
                     p.Description,
                     //Category = p.PromotionProgram.Category.Name,
-                    Category = p.PromotionProgram != null && p.PromotionProgram.Category != null
-                                ? p.PromotionProgram.Category.Name
-                                : "(Không có danh mục)",
+                    //Category = p.PromotionProgram != null && p.PromotionProgram.Category != null
+                    //            ? p.PromotionProgram.Category.Name
+                    //            : "(Không có danh mục)",
                     p.DiscountType,
                     p.Value,
                     p.MaxDiscount,
@@ -196,7 +196,7 @@ namespace GUI
                 var add = new PromotionProgram
                 {
                     PromotionId = promotionId,
-                    CategoryId = categoryId,
+                    //CategoryId = categoryId,
                     StartDate = DateOnly.FromDateTime(dtpPPStartDate.Value)
                 };
                 bLL_PromotionProgram.Add(add);
@@ -477,7 +477,7 @@ namespace GUI
                 var promotionProgram = new PromotionProgram
                 {
                     PromotionId = id,
-                    CategoryId = cboPPCategory.SelectedValue.ToString(),
+                    //CategoryId = cboPPCategory.SelectedValue.ToString(),
                     StartDate = DateOnly.FromDateTime(dtpPPStartDate.Value)
                 };
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Promotion
@@ -31,5 +30,4 @@ public partial class Promotion
     public virtual ICollection<PromotionUsage> PromotionUsages { get; set; } = new List<PromotionUsage>();
 
     public virtual ICollection<PromotionVoucher> PromotionVouchers { get; set; } = new List<PromotionVoucher>();
-
 }

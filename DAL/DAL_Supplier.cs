@@ -10,7 +10,7 @@ namespace DAL
 {
     public class DAL_Supplier
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();
+        private readonly HighlandsContext _context = new();
         public List<Supplier> GetAllSuppliers()
         {
             return _context.Suppliers
