@@ -10,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -158,11 +159,22 @@ namespace GUI
                 MessageBox.Show("Phường/Xã phố không được để trống");
                 return;
             }
-            if (!decimal.TryParse(txtPhone.Text, out decimal phoneNum))
+            //Kiểm tra số điện thoại bắt đầu bằng đầu 0 và có 8-11 chữ số
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtPhone.Text, @"^0\d{8,11}$"))
             {
-                MessageBox.Show("Số điện thoại phải là ký tự số!");
+                MessageBox.Show("Số điện thoại phải bắt đầu bằng 0 và có từ 8 - 11 chữ số", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPhone.Clear();
+                txtPhone.Focus();
                 return;
-
+            }
+            //Kiểm tra Email đúng đinh dạng
+            if (!Regex.IsMatch(txtEmail.Text, @"^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$"))
+            {
+                MessageBox.Show("Email không hợp lệ! Vui lòng nhập đúng định dạng.",
+                                "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Clear();
+                txtEmail.Focus();
+                return;
             }
             var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text, txtSupplierID.Text);
             var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text, txtSupplierID.Text);
@@ -208,10 +220,6 @@ namespace GUI
                     AddressId = address.Id,
 
                 };
-                if (!ValidateSupplier(add))
-                {
-                    return;
-                }
                 bLL_Supplier.Add(add);
                 MessageBox.Show("Đã thêm thành công");
                 ClearInputFields();
@@ -240,6 +248,22 @@ namespace GUI
                 MessageBox.Show("Số điện thoại phải là ký tự số!");
                 return;
 
+            }
+            //Kiểm tra số điện thoại bắt đầu bằng đầu 0 và có 8-11 chữ số
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtPhone.Text, @"^0\d{8,11}$"))
+            {
+                MessageBox.Show("Số điện thoại phải bắt đầu bằng 0 và có từ 8 - 11 chữ số", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPhone.Clear();
+                txtPhone.Focus();
+                return;
+            }
+            //Kiểm tra Email hợp lệ
+            if (!Regex.IsMatch(txtEmail.Text, @"^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$"))
+            {
+                MessageBox.Show("Email không hợp lệ! Vui lòng nhập đúng định dạng (vd: abc@gmail.com).",
+                                "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return;
             }
             var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text, txtSupplierID.Text);
             var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text, txtSupplierID.Text);
@@ -289,11 +313,7 @@ namespace GUI
                 supplier.Name = txtSupplierName.Text;
                 supplier.Phone = txtPhone.Text;
                 supplier.Email = txtEmail.Text;
-
-                if (!ValidateSupplier(supplier))
-                {
-                    return;
-                }
+               
                 bLL_Supplier.Update(supplier); // Lưu vào DB
 
                 MessageBox.Show("Đã cập nhật thành công");
@@ -488,24 +508,6 @@ namespace GUI
             {
 
             }
-        }
-
-        //Kiểm tra email hợp lệ
-        private bool ValidateSupplier(Supplier supplier)
-        {
-            var context = new ValidationContext(supplier, null, null);
-            var results = new List<ValidationResult>();
-
-            bool isValid = Validator.TryValidateObject(supplier, context, results, true);
-
-            if (!isValid)
-            {
-                //thông báo lỗi
-                MessageBox.Show(results.First().ErrorMessage, "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
         }
 
         private void dgvIngredient_CellClick(object sender, DataGridViewCellEventArgs e)
