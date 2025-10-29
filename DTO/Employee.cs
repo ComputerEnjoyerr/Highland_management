@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Employee
 {
     public string Id { get; set; } = null!;
+
+    public string CitizenId { get; set; } = null!;
 
     public string EmployeeName { get; set; } = null!;
 
@@ -16,11 +17,17 @@ public partial class Employee
 
     public string Phone { get; set; } = null!;
 
+    public DateOnly DateOfBirth { get; set; }
+
+    public string? Gender { get; set; }
+
     public DateOnly? HireDate { get; set; }
 
     public decimal SalaryPerHour { get; set; }
 
     public string? Role { get; set; }
+
+    public string? CurrentStatus { get; set; }
 
     public virtual Account? Account { get; set; }
 
@@ -40,6 +47,7 @@ public partial class Employee
 
     public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
 
-    public virtual ICollection<WorkSchedule> WorkSchedules { get; set; } = new List<WorkSchedule>();
+    public virtual ICollection<StockReceipt> StockReceipts { get; set; } = new List<StockReceipt>();
 
+    public virtual ICollection<WorkSchedule> WorkSchedules { get; set; } = new List<WorkSchedule>();
 }

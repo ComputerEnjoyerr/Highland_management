@@ -9,7 +9,7 @@ namespace DAL
 {
     public class DAL_Address
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();
+        private readonly HighlandsContext _context = new();
 
         public List<Address> GetAllAddresses()
         {
@@ -42,7 +42,7 @@ namespace DAL
             var oldAddress = _context.Addresses.FirstOrDefault(a => a.Id == address.Id);
             if (oldAddress != null)
             {
-                oldAddress.Address1 = address.Address1;
+                oldAddress.Name = address.Name;
                 oldAddress.WardId = address.WardId;
                 _context.SaveChanges();
             }

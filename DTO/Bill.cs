@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace DTO;
 
 public partial class Bill
@@ -30,4 +31,3 @@ public partial class Bill
 
     public virtual Table Table { get; set; } = null!;
 }
-

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Product
@@ -15,6 +14,8 @@ public partial class Product
     public string? Image { get; set; }
 
     public string? CategoryId { get; set; }
+
+    public string? Status { get; set; }
 
     public virtual ICollection<Billinfo> Billinfos { get; set; } = new List<Billinfo>();
 

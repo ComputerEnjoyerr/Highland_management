@@ -10,7 +10,7 @@ namespace DAL
 {
     public class DAL_Product
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();
+        private readonly HighlandsContext _context = new();
 
         public List<Product> GetAll()
         {

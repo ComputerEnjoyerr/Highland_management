@@ -9,7 +9,7 @@ namespace DAL
 {
     public class DAL_Ingredient
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();
+        private readonly HighlandsContext _context = new();
 
         public List<Ingredient> GetAll()
         {

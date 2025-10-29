@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace DTO;
 
 public partial class Attendance
@@ -16,6 +17,8 @@ public partial class Attendance
 
     public DateTime? CheckOut { get; set; }
 
+    public decimal? OvertimeHours { get; set; }
+
     public string? Status { get; set; }
 
     public string? Method { get; set; }
@@ -31,5 +34,4 @@ public partial class Attendance
     public virtual Employee? Employee { get; set; }
 
     public virtual WorkShift? Shift { get; set; }
-
 }

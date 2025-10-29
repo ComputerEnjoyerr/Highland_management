@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Table
@@ -19,5 +18,4 @@ public partial class Table
     public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
 
     public virtual Branch Branch { get; set; } = null!;
-
 }

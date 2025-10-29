@@ -20,5 +20,4 @@ public partial class Recipe
     public virtual Product Product { get; set; } = null!;
 
     public virtual Unit RecipeUnit { get; set; } = null!;
-
 }

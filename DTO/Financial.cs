@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Financial
@@ -27,6 +26,8 @@ public partial class Financial
     public decimal? RentCost { get; set; }
 
     public decimal? OtherCost { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
 
     public virtual Branch? Branch { get; set; }
 }
