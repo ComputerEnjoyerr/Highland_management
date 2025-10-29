@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Notification
@@ -27,5 +26,4 @@ public partial class Notification
     public virtual Branch? Branch { get; set; }
 
     public virtual Employee? Employee { get; set; }
-
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Unit
@@ -16,4 +15,5 @@ public partial class Unit
 
     public virtual ICollection<StockReceipt> StockReceipts { get; set; } = new List<StockReceipt>();
 
+    public virtual ICollection<SupplierIngredient> SupplierIngredients { get; set; } = new List<SupplierIngredient>();
 }

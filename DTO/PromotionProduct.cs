@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class PromotionProduct
@@ -19,5 +18,4 @@ public partial class PromotionProduct
     public virtual Product Product { get; set; } = null!;
 
     public virtual Promotion Promotion { get; set; } = null!;
-
 }

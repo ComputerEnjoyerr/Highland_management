@@ -9,7 +9,7 @@ namespace DAL
 {
     public class DAL_Ward
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();
+        private readonly HighlandsContext _context = new();
 
         public List<Ward> GetAllWards()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 namespace DTO;
 
 public partial class BranchEmployee
@@ -15,5 +16,4 @@ public partial class BranchEmployee
     public virtual Branch Branch { get; set; } = null!;
 
     public virtual Employee Employee { get; set; } = null!;
-
 }

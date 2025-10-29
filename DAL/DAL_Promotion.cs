@@ -9,7 +9,7 @@ namespace DAL
 {
     public class DAL_Promotion
     {
-        private readonly HighlandsDatabaseVer2Context _context = new();      
+        private readonly HighlandsContext _context = new();      
 
         public List<Promotion> GetAllPromotions()
         {

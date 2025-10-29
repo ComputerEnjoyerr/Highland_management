@@ -44,7 +44,8 @@ namespace GUI
                     {
                         b.Id,
                         b.BranchName,
-                        Address = b.Address != null ? b.Address.Address1 : "Lỗi hiển thị",
+                        //Address = b.Address != null ? b.Address.Address1 : "Lỗi hiển thị",
+                        Address = b.Address != null ? b.Address.Name : "Lỗi hiển thị",
                         Province = b.Address.Ward.Province != null ? b.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
                         Ward = b.Address.Ward != null ? b.Address.Ward.WardName : "Lỗi hiển thị",
                         b.Phone,
@@ -60,7 +61,8 @@ namespace GUI
             {
                 b.Id,
                 b.BranchName,
-                Address = b.Address != null ? b.Address.Address1 : "Lỗi hiển thị",
+                //Address = b.Address != null ? b.Address.Address1 : "Lỗi hiển thị",
+                Address = b.Address != null ? b.Address.Name : "Lỗi hiển thị",
                 Province = b.Address.Ward.Province != null ? b.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
                 Ward = b.Address.Ward != null ? b.Address.Ward.WardName : "Lỗi hiển thị",
                 b.Phone,
@@ -260,7 +262,8 @@ namespace GUI
                 {
                     Id = bLL_Address.GenerateAddressId(cboProvince.SelectedValue.ToString()),
                     WardId = cboWard.SelectedValue.ToString(),
-                    Address1 = txtAddress.Text,
+                    //Address1 = txtAddress.Text,
+                    Name = txtAddress.Text,
                 };
                 bLL_Address.Add(address);
 
@@ -361,7 +364,8 @@ namespace GUI
                     // Update thông tin Address
                     if (branch.Address != null)
                     {
-                        branch.Address.Address1 = txtAddress.Text;
+                        //branch.Address.Address1 = txtAddress.Text;
+                        branch.Address.Name = txtAddress.Text;
                         branch.Address.WardId = cboWard.SelectedValue.ToString();
                     }
                     else
@@ -370,7 +374,8 @@ namespace GUI
                         var address = new Address
                         {
                             Id = bLL_Address.GetAllAddresses().Count + 1.ToString(),
-                            Address1 = txtAddress.Text,
+                            //Address1 = txtAddress.Text,
+                            Name = txtAddress.Text,
                             WardId = cboWard.SelectedValue.ToString()
                         };
                         bLL_Address.Add(branch.Address);
@@ -465,7 +470,8 @@ namespace GUI
                         e.Id,
                         e.EmployeeName,
                         e.Phone,
-                        Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
+                        //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
+                        Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
                         Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
                         Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
                         e.HireDate,
@@ -482,7 +488,8 @@ namespace GUI
                 e.Id,
                 e.EmployeeName,
                 e.Phone,
-                Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
+                //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
+                Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
                 Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
                 Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
                 e.HireDate,
@@ -673,7 +680,8 @@ namespace GUI
                 {
                     Id = bLL_Address.GenerateAddressId(cboEProvince.SelectedValue.ToString()),
                     WardId = cboEWard.SelectedValue.ToString(),
-                    Address1 = txtEAddress.Text,
+                    Name = txtEAddress.Text,
+                    //Address1 = txtEAddress.Text,
                 };
                 bLL_Address.Add(address);
 
@@ -776,7 +784,8 @@ namespace GUI
                     // Update thông tin Address
                     if (employee.Address != null)
                     {
-                        employee.Address.Address1 = txtEAddress.Text;
+                        employee.Address.Name = txtEAddress.Text;
+                        //employee.Address.Address1 = txtEAddress.Text;
                         employee.Address.WardId = cboEWard.SelectedValue.ToString();
                     }
                     else
@@ -785,7 +794,8 @@ namespace GUI
                         var address = new Address
                         {
                             Id = bLL_Address.GetAllAddresses().Count + 1.ToString(),
-                            Address1 = txtEAddress.Text,
+                            Name = txtEAddress.Text,
+                            //Address1 = txtEAddress.Text,
                             WardId = cboEWard.SelectedValue.ToString()
                         };
                         bLL_Address.Add(employee.Address);

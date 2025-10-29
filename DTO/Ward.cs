@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DTO;
 
 public partial class Ward
@@ -17,5 +16,4 @@ public partial class Ward
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 
     public virtual Province? Province { get; set; }
-
 }
