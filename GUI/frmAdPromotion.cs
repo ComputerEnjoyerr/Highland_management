@@ -31,7 +31,7 @@ namespace GUI
             txtPPId.Clear();
             txtPPName.Clear();
             txtPPDescription.Clear();
-            cboPPCategory.SelectedIndex = -1;
+            //cboPPCategory.SelectedIndex = -1;
             cboPPDiscountType.SelectedIndex = -1;
             txtPPValue.Clear();
             txtPPMaxDiscount.Clear();
@@ -48,9 +48,9 @@ namespace GUI
             cboPPDiscountType.DataSource = discountTypes;
             // Khởi tạo ComboBox cho Danh mục sản phẩm
             var categories = bLL_Category.GetAll();
-            cboPPCategory.DataSource = categories;
-            cboPPCategory.DisplayMember = "Name";
-            cboPPCategory.ValueMember = "Id";
+            //cboPPCategory.DataSource = categories;
+            //cboPPCategory.DisplayMember = "Name";
+            //cboPPCategory.ValueMember = "Id";
             //Khởi tạo Combobox cho Loại giảm giá Voucher
             cbVoucherDiscountType.DataSource = discountTypes;
         }
@@ -149,12 +149,12 @@ namespace GUI
                 cboPPDiscountType.Focus();
                 return;
             }
-            if (cboPPCategory.SelectedValue == null)
-            {
-                MessageBox.Show("Danh mục sản phẩm không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cboPPCategory.Focus();
-                return;
-            }
+            //if (cboPPCategory.SelectedValue == null)
+            //{
+            //    MessageBox.Show("Danh mục sản phẩm không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    cboPPCategory.Focus();
+            //    return;
+            //}
             if (!int.TryParse(nmrPPRequiringPoint.Text, out int requiringPoint) || requiringPoint < 0)
             {
                 MessageBox.Show("Điểm yêu cầu phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -176,7 +176,7 @@ namespace GUI
             try
             {
                 string promotionId = bLL_PromotionProgram.GeneratePromotionProgramId("");
-                string categoryId = cboPPCategory.SelectedValue.ToString();
+                //string categoryId = cboPPCategory.SelectedValue.ToString();
 
                 var promotion = new Promotion
                 {
@@ -259,7 +259,7 @@ namespace GUI
                 txtPPName.Text = selectedRow.Cells["PromotionName"].Value.ToString();
                 txtPPDescription.Text = selectedRow.Cells["Description"].Value.ToString();
                 var categoryName = selectedRow.Cells["Category"].Value.ToString();
-                cboPPCategory.SelectedIndex = cboPPCategory.FindStringExact(categoryName);
+                //cboPPCategory.SelectedIndex = cboPPCategory.FindStringExact(categoryName);
                 var discountType = selectedRow.Cells["DiscountType"].Value.ToString();
                 cboPPDiscountType.SelectedIndex = cboPPDiscountType.FindStringExact(discountType);
                 txtPPValue.Text = selectedRow.Cells["Value"].Value.ToString();
@@ -429,12 +429,12 @@ namespace GUI
                 cboPPDiscountType.Focus();
                 return;
             }
-            if (cboPPCategory.SelectedValue == null)
-            {
-                MessageBox.Show("Danh mục sản phẩm không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cboPPCategory.Focus();
-                return;
-            }
+            //if (cboPPCategory.SelectedValue == null)
+            //{
+            //    MessageBox.Show("Danh mục sản phẩm không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    cboPPCategory.Focus();
+            //    return;
+            //}
             int test;
             if (!int.TryParse(txtPPValue.Text, out test) || test < 0)
             {

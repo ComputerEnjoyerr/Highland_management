@@ -65,14 +65,12 @@
             btnAdd = new Button();
             btnDelete = new Button();
             label17 = new Label();
-            cboPPCategory = new ComboBox();
             cboPPDiscountType = new ComboBox();
             label9 = new Label();
             label10 = new Label();
             txtPPDescription = new TextBox();
             label11 = new Label();
             txtPPValue = new TextBox();
-            label19 = new Label();
             label12 = new Label();
             label13 = new Label();
             txtPPSearch = new TextBox();
@@ -101,7 +99,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(992, 710);
+            tabControl1.Size = new Size(1692, 989);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -111,7 +109,7 @@
             tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(984, 674);
+            tabPage1.Size = new Size(1684, 953);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Quản lý Voucher";
             tabPage1.UseVisualStyleBackColor = true;
@@ -121,10 +119,10 @@
             dgvDataVoucher.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvDataVoucher.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDataVoucher.Dock = DockStyle.Fill;
-            dgvDataVoucher.Location = new Point(3, 240);
+            dgvDataVoucher.Location = new Point(3, 419);
             dgvDataVoucher.Name = "dgvDataVoucher";
             dgvDataVoucher.RowHeadersWidth = 51;
-            dgvDataVoucher.Size = new Size(978, 431);
+            dgvDataVoucher.Size = new Size(1678, 531);
             dgvDataVoucher.TabIndex = 5;
             dgvDataVoucher.CellClick += dgvDataVoucher_CellClick;
             // 
@@ -153,72 +151,84 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(978, 237);
+            panel1.Size = new Size(1678, 416);
             panel1.TabIndex = 4;
             // 
             // numVoucherExpiryday
             // 
-            numVoucherExpiryday.Location = new Point(428, 113);
+            numVoucherExpiryday.Location = new Point(952, 144);
             numVoucherExpiryday.Name = "numVoucherExpiryday";
             numVoucherExpiryday.Size = new Size(185, 30);
             numVoucherExpiryday.TabIndex = 34;
             // 
             // btnUpdateVoucher
             // 
-            btnUpdateVoucher.BackColor = Color.FromArgb(230, 181, 56);
-            btnUpdateVoucher.Location = new Point(638, 75);
+            btnUpdateVoucher.BackColor = SystemColors.Control;
+            btnUpdateVoucher.Image = Properties.Resources.pen;
+            btnUpdateVoucher.ImageAlign = ContentAlignment.MiddleRight;
+            btnUpdateVoucher.Location = new Point(343, 255);
             btnUpdateVoucher.Name = "btnUpdateVoucher";
-            btnUpdateVoucher.Size = new Size(145, 53);
+            btnUpdateVoucher.Size = new Size(132, 57);
             btnUpdateVoucher.TabIndex = 32;
             btnUpdateVoucher.Text = "Lưu";
+            btnUpdateVoucher.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnUpdateVoucher.UseVisualStyleBackColor = false;
             btnUpdateVoucher.Click += btnUpdateVoucher_Click;
             // 
             // btnClearVoucher
             // 
-            btnClearVoucher.BackColor = Color.White;
-            btnClearVoucher.Location = new Point(789, 75);
+            btnClearVoucher.BackColor = SystemColors.Control;
+            btnClearVoucher.Image = Properties.Resources.arrow;
+            btnClearVoucher.ImageAlign = ContentAlignment.MiddleRight;
+            btnClearVoucher.Location = new Point(494, 255);
             btnClearVoucher.Name = "btnClearVoucher";
-            btnClearVoucher.Size = new Size(145, 53);
+            btnClearVoucher.Size = new Size(132, 57);
             btnClearVoucher.TabIndex = 33;
             btnClearVoucher.Text = "Hoàn tác";
+            btnClearVoucher.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnClearVoucher.UseVisualStyleBackColor = false;
             btnClearVoucher.Click += btnClearVoucher_Click;
             // 
             // btnAddVoucher
             // 
-            btnAddVoucher.BackColor = Color.FromArgb(104, 176, 145);
-            btnAddVoucher.Location = new Point(638, 16);
+            btnAddVoucher.BackColor = SystemColors.Control;
+            btnAddVoucher.Image = Properties.Resources.plus;
+            btnAddVoucher.ImageAlign = ContentAlignment.MiddleRight;
+            btnAddVoucher.Location = new Point(41, 255);
             btnAddVoucher.Name = "btnAddVoucher";
-            btnAddVoucher.Size = new Size(145, 53);
+            btnAddVoucher.Size = new Size(132, 57);
             btnAddVoucher.TabIndex = 32;
             btnAddVoucher.Text = "Thêm";
+            btnAddVoucher.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnAddVoucher.UseVisualStyleBackColor = false;
             btnAddVoucher.Click += btnAddVoucher_Click;
             // 
             // btnDeleteVoucher
             // 
-            btnDeleteVoucher.BackColor = Color.FromArgb(169, 65, 65);
-            btnDeleteVoucher.Location = new Point(789, 16);
+            btnDeleteVoucher.BackColor = SystemColors.Control;
+            btnDeleteVoucher.Image = Properties.Resources.delete;
+            btnDeleteVoucher.ImageAlign = ContentAlignment.MiddleRight;
+            btnDeleteVoucher.Location = new Point(192, 255);
             btnDeleteVoucher.Name = "btnDeleteVoucher";
-            btnDeleteVoucher.Size = new Size(145, 53);
+            btnDeleteVoucher.Size = new Size(132, 57);
             btnDeleteVoucher.TabIndex = 33;
             btnDeleteVoucher.Text = "Xóa";
+            btnDeleteVoucher.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnDeleteVoucher.UseVisualStyleBackColor = false;
             btnDeleteVoucher.Click += btnDeleteVoucher_Click;
             // 
             // cbVoucherDiscountType
             // 
             cbVoucherDiscountType.FormattingEnabled = true;
-            cbVoucherDiscountType.Location = new Point(428, 16);
+            cbVoucherDiscountType.Location = new Point(952, 37);
             cbVoucherDiscountType.Name = "cbVoucherDiscountType";
-            cbVoucherDiscountType.Size = new Size(185, 31);
+            cbVoucherDiscountType.Size = new Size(503, 31);
             cbVoucherDiscountType.TabIndex = 31;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(333, 118);
+            label2.Location = new Point(857, 149);
             label2.Name = "label2";
             label2.Size = new Size(51, 23);
             label2.TabIndex = 22;
@@ -227,7 +237,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(333, 87);
+            label1.Location = new Point(856, 115);
             label1.Name = "label1";
             label1.Size = new Size(82, 23);
             label1.TabIndex = 22;
@@ -235,16 +245,16 @@
             // 
             // txtVoucherDescription
             // 
-            txtVoucherDescription.Location = new Point(105, 81);
+            txtVoucherDescription.Location = new Point(122, 111);
             txtVoucherDescription.Multiline = true;
             txtVoucherDescription.Name = "txtVoucherDescription";
-            txtVoucherDescription.Size = new Size(204, 87);
+            txtVoucherDescription.Size = new Size(609, 119);
             txtVoucherDescription.TabIndex = 27;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(21, 87);
+            label3.Location = new Point(38, 117);
             label3.Name = "label3";
             label3.Size = new Size(62, 23);
             label3.TabIndex = 23;
@@ -252,22 +262,22 @@
             // 
             // txtVoucherMaxDiscount
             // 
-            txtVoucherMaxDiscount.Location = new Point(428, 80);
+            txtVoucherMaxDiscount.Location = new Point(951, 108);
             txtVoucherMaxDiscount.Name = "txtVoucherMaxDiscount";
-            txtVoucherMaxDiscount.Size = new Size(185, 30);
+            txtVoucherMaxDiscount.Size = new Size(503, 30);
             txtVoucherMaxDiscount.TabIndex = 27;
             // 
             // txtVoucherValue
             // 
-            txtVoucherValue.Location = new Point(428, 47);
+            txtVoucherValue.Location = new Point(952, 73);
             txtVoucherValue.Name = "txtVoucherValue";
-            txtVoucherValue.Size = new Size(185, 30);
+            txtVoucherValue.Size = new Size(503, 30);
             txtVoucherValue.TabIndex = 27;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(333, 50);
+            label8.Location = new Point(857, 76);
             label8.Name = "label8";
             label8.Size = new Size(85, 23);
             label8.TabIndex = 23;
@@ -276,7 +286,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(333, 22);
+            label7.Location = new Point(857, 43);
             label7.Name = "label7";
             label7.Size = new Size(80, 23);
             label7.TabIndex = 24;
@@ -284,16 +294,18 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(112, 202);
+            textBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            textBox2.Location = new Point(144, 380);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(397, 30);
+            textBox2.Size = new Size(765, 30);
             textBox2.TabIndex = 29;
             textBox2.TextChanged += textBox2_TextChanged;
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label4.AutoSize = true;
-            label4.Location = new Point(7, 208);
+            label4.Location = new Point(39, 386);
             label4.Name = "label4";
             label4.Size = new Size(91, 23);
             label4.TabIndex = 25;
@@ -301,15 +313,15 @@
             // 
             // txtVoucherName
             // 
-            txtVoucherName.Location = new Point(104, 47);
+            txtVoucherName.Location = new Point(122, 75);
             txtVoucherName.Name = "txtVoucherName";
-            txtVoucherName.Size = new Size(204, 30);
+            txtVoucherName.Size = new Size(609, 30);
             txtVoucherName.TabIndex = 29;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(21, 53);
+            label5.Location = new Point(39, 81);
             label5.Name = "label5";
             label5.Size = new Size(42, 23);
             label5.TabIndex = 25;
@@ -317,16 +329,16 @@
             // 
             // txtVoucherID
             // 
-            txtVoucherID.Location = new Point(104, 16);
+            txtVoucherID.Location = new Point(122, 39);
             txtVoucherID.Name = "txtVoucherID";
             txtVoucherID.ReadOnly = true;
-            txtVoucherID.Size = new Size(204, 30);
+            txtVoucherID.Size = new Size(609, 30);
             txtVoucherID.TabIndex = 30;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(21, 22);
+            label6.Location = new Point(39, 45);
             label6.Name = "label6";
             label6.Size = new Size(72, 23);
             label6.TabIndex = 26;
@@ -336,10 +348,10 @@
             // 
             tabPage2.Controls.Add(dgvPromotionProgram);
             tabPage2.Controls.Add(panel2);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(984, 677);
+            tabPage2.Size = new Size(1684, 953);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Quản lý Chương trình KM";
             tabPage2.UseVisualStyleBackColor = true;
@@ -348,10 +360,10 @@
             // 
             dgvPromotionProgram.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPromotionProgram.Dock = DockStyle.Fill;
-            dgvPromotionProgram.Location = new Point(3, 279);
+            dgvPromotionProgram.Location = new Point(3, 454);
             dgvPromotionProgram.Name = "dgvPromotionProgram";
             dgvPromotionProgram.RowHeadersWidth = 51;
-            dgvPromotionProgram.Size = new Size(978, 395);
+            dgvPromotionProgram.Size = new Size(1678, 496);
             dgvPromotionProgram.TabIndex = 7;
             dgvPromotionProgram.CellClick += dgvPromotionProgram_CellClick;
             // 
@@ -367,14 +379,12 @@
             panel2.Controls.Add(btnAdd);
             panel2.Controls.Add(btnDelete);
             panel2.Controls.Add(label17);
-            panel2.Controls.Add(cboPPCategory);
             panel2.Controls.Add(cboPPDiscountType);
             panel2.Controls.Add(label9);
             panel2.Controls.Add(label10);
             panel2.Controls.Add(txtPPDescription);
             panel2.Controls.Add(label11);
             panel2.Controls.Add(txtPPValue);
-            panel2.Controls.Add(label19);
             panel2.Controls.Add(label12);
             panel2.Controls.Add(label13);
             panel2.Controls.Add(txtPPSearch);
@@ -386,28 +396,28 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(978, 276);
+            panel2.Size = new Size(1678, 451);
             panel2.TabIndex = 6;
             // 
             // txtPPMaxDiscount
             // 
-            txtPPMaxDiscount.Location = new Point(452, 80);
+            txtPPMaxDiscount.Location = new Point(968, 116);
             txtPPMaxDiscount.Name = "txtPPMaxDiscount";
-            txtPPMaxDiscount.Size = new Size(185, 30);
+            txtPPMaxDiscount.Size = new Size(470, 30);
             txtPPMaxDiscount.TabIndex = 38;
             // 
             // nmrPPRequiringPoint
             // 
-            nmrPPRequiringPoint.Location = new Point(482, 180);
+            nmrPPRequiringPoint.Location = new Point(968, 224);
             nmrPPRequiringPoint.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             nmrPPRequiringPoint.Name = "nmrPPRequiringPoint";
-            nmrPPRequiringPoint.Size = new Size(155, 30);
+            nmrPPRequiringPoint.Size = new Size(209, 30);
             nmrPPRequiringPoint.TabIndex = 37;
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(357, 185);
+            label18.Location = new Point(836, 229);
             label18.Name = "label18";
             label18.Size = new Size(123, 23);
             label18.TabIndex = 36;
@@ -416,94 +426,97 @@
             // dtpPPStartDate
             // 
             dtpPPStartDate.Format = DateTimePickerFormat.Short;
-            dtpPPStartDate.Location = new Point(482, 112);
+            dtpPPStartDate.Location = new Point(968, 152);
             dtpPPStartDate.Name = "dtpPPStartDate";
-            dtpPPStartDate.Size = new Size(155, 30);
+            dtpPPStartDate.Size = new Size(209, 30);
             dtpPPStartDate.TabIndex = 35;
             // 
             // nmrPPExpiryDay
             // 
-            nmrPPExpiryDay.Location = new Point(452, 144);
+            nmrPPExpiryDay.Location = new Point(968, 188);
             nmrPPExpiryDay.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             nmrPPExpiryDay.Name = "nmrPPExpiryDay";
-            nmrPPExpiryDay.Size = new Size(185, 30);
+            nmrPPExpiryDay.Size = new Size(209, 30);
             nmrPPExpiryDay.TabIndex = 34;
             // 
             // btnSave
             // 
-            btnSave.BackColor = Color.FromArgb(230, 181, 56);
-            btnSave.Location = new Point(662, 75);
+            btnSave.BackColor = SystemColors.Control;
+            btnSave.Image = Properties.Resources.pen;
+            btnSave.ImageAlign = ContentAlignment.MiddleRight;
+            btnSave.Location = new Point(337, 300);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(145, 53);
+            btnSave.Size = new Size(136, 61);
             btnSave.TabIndex = 32;
             btnSave.Text = "Lưu";
+            btnSave.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
             // btnReset
             // 
-            btnReset.BackColor = Color.White;
-            btnReset.Location = new Point(813, 75);
+            btnReset.BackColor = SystemColors.Control;
+            btnReset.Image = Properties.Resources.arrow;
+            btnReset.ImageAlign = ContentAlignment.MiddleRight;
+            btnReset.Location = new Point(488, 300);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(145, 53);
+            btnReset.Size = new Size(136, 61);
             btnReset.TabIndex = 33;
             btnReset.Text = "Hoàn tác";
+            btnReset.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
             // btnAdd
             // 
-            btnAdd.BackColor = Color.FromArgb(104, 176, 145);
-            btnAdd.Location = new Point(662, 16);
+            btnAdd.BackColor = SystemColors.Control;
+            btnAdd.Image = Properties.Resources.plus;
+            btnAdd.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdd.Location = new Point(35, 300);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(145, 53);
+            btnAdd.Size = new Size(136, 61);
             btnAdd.TabIndex = 32;
             btnAdd.Text = "Thêm";
+            btnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
-            btnDelete.BackColor = Color.FromArgb(169, 65, 65);
-            btnDelete.Location = new Point(813, 16);
+            btnDelete.BackColor = SystemColors.Control;
+            btnDelete.Image = Properties.Resources.delete;
+            btnDelete.ImageAlign = ContentAlignment.MiddleRight;
+            btnDelete.Location = new Point(186, 300);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(145, 53);
+            btnDelete.Size = new Size(136, 61);
             btnDelete.TabIndex = 33;
             btnDelete.Text = "Xóa";
+            btnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(357, 149);
+            label17.Location = new Point(836, 193);
             label17.Name = "label17";
             label17.Size = new Size(51, 23);
             label17.TabIndex = 22;
             label17.Text = "HSD:";
             // 
-            // cboPPCategory
-            // 
-            cboPPCategory.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboPPCategory.FormattingEnabled = true;
-            cboPPCategory.Location = new Point(104, 174);
-            cboPPCategory.Name = "cboPPCategory";
-            cboPPCategory.Size = new Size(247, 31);
-            cboPPCategory.TabIndex = 31;
-            // 
             // cboPPDiscountType
             // 
             cboPPDiscountType.DropDownStyle = ComboBoxStyle.DropDownList;
             cboPPDiscountType.FormattingEnabled = true;
-            cboPPDiscountType.Location = new Point(452, 16);
+            cboPPDiscountType.Location = new Point(968, 43);
             cboPPDiscountType.Name = "cboPPDiscountType";
-            cboPPDiscountType.Size = new Size(185, 31);
+            cboPPDiscountType.Size = new Size(470, 31);
             cboPPDiscountType.TabIndex = 31;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(357, 118);
+            label9.Location = new Point(836, 158);
             label9.Name = "label9";
             label9.Size = new Size(124, 23);
             label9.TabIndex = 22;
@@ -512,7 +525,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(357, 87);
+            label10.Location = new Point(836, 117);
             label10.Name = "label10";
             label10.Size = new Size(82, 23);
             label10.TabIndex = 22;
@@ -520,17 +533,17 @@
             // 
             // txtPPDescription
             // 
-            txtPPDescription.Location = new Point(105, 81);
+            txtPPDescription.Location = new Point(114, 118);
             txtPPDescription.Multiline = true;
             txtPPDescription.Name = "txtPPDescription";
-            txtPPDescription.Size = new Size(247, 87);
+            txtPPDescription.Size = new Size(565, 136);
             txtPPDescription.TabIndex = 27;
             txtPPDescription.TextChanged += txtPPDescription_TextChanged;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(21, 87);
+            label11.Location = new Point(30, 124);
             label11.Name = "label11";
             label11.Size = new Size(62, 23);
             label11.TabIndex = 23;
@@ -538,24 +551,15 @@
             // 
             // txtPPValue
             // 
-            txtPPValue.Location = new Point(452, 47);
+            txtPPValue.Location = new Point(968, 80);
             txtPPValue.Name = "txtPPValue";
-            txtPPValue.Size = new Size(185, 30);
+            txtPPValue.Size = new Size(470, 30);
             txtPPValue.TabIndex = 27;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Location = new Point(21, 178);
-            label19.Name = "label19";
-            label19.Size = new Size(73, 23);
-            label19.TabIndex = 24;
-            label19.Text = "Loại SP:";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(357, 50);
+            label12.Location = new Point(836, 77);
             label12.Name = "label12";
             label12.Size = new Size(85, 23);
             label12.TabIndex = 23;
@@ -564,7 +568,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(357, 22);
+            label13.Location = new Point(836, 43);
             label13.Name = "label13";
             label13.Size = new Size(80, 23);
             label13.TabIndex = 24;
@@ -572,16 +576,18 @@
             // 
             // txtPPSearch
             // 
-            txtPPSearch.Location = new Point(104, 240);
+            txtPPSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtPPSearch.Location = new Point(114, 414);
             txtPPSearch.Name = "txtPPSearch";
-            txtPPSearch.Size = new Size(397, 30);
+            txtPPSearch.Size = new Size(616, 30);
             txtPPSearch.TabIndex = 29;
             txtPPSearch.TextChanged += txtPPSearch_TextChanged;
             // 
             // label14
             // 
+            label14.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label14.AutoSize = true;
-            label14.Location = new Point(6, 246);
+            label14.Location = new Point(17, 417);
             label14.Name = "label14";
             label14.Size = new Size(91, 23);
             label14.TabIndex = 25;
@@ -589,16 +595,16 @@
             // 
             // txtPPName
             // 
-            txtPPName.Location = new Point(104, 47);
+            txtPPName.Location = new Point(113, 81);
             txtPPName.Name = "txtPPName";
-            txtPPName.Size = new Size(247, 30);
+            txtPPName.Size = new Size(565, 30);
             txtPPName.TabIndex = 29;
             txtPPName.Leave += txtPPName_Leave;
             // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(21, 53);
+            label15.Location = new Point(30, 87);
             label15.Name = "label15";
             label15.Size = new Size(42, 23);
             label15.TabIndex = 25;
@@ -606,16 +612,16 @@
             // 
             // txtPPId
             // 
-            txtPPId.Location = new Point(104, 16);
+            txtPPId.Location = new Point(113, 45);
             txtPPId.Name = "txtPPId";
             txtPPId.ReadOnly = true;
-            txtPPId.Size = new Size(247, 30);
+            txtPPId.Size = new Size(565, 30);
             txtPPId.TabIndex = 30;
             // 
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(21, 22);
+            label16.Location = new Point(30, 51);
             label16.Name = "label16";
             label16.Size = new Size(72, 23);
             label16.TabIndex = 26;
@@ -624,7 +630,7 @@
             // frmAdPromotion
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1692, 989);
             Controls.Add(tabControl1);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "frmAdPromotion";
@@ -697,8 +703,6 @@
         private NumericUpDown nmrPPRequiringPoint;
         private Label label18;
         private TextBox txtPPMaxDiscount;
-        private ComboBox cboPPCategory;
-        private Label label19;
         private TextBox txtVoucherMaxDiscount;
     }
 }
