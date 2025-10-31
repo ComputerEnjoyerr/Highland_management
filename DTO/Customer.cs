@@ -13,13 +13,13 @@ public partial class Customer
 
     public string Phone { get; set; } = null!;
 
-    public DateOnly? DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 
     public string? Gender { get; set; }
 
-    public decimal? Point { get; set; }
+    public decimal Point { get; set; }
 
-    public int? Drips { get; set; }
+    public int Drips { get; set; }
 
     public string? Tier { get; set; }
 

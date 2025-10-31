@@ -42,6 +42,9 @@ namespace DAL
                 existing.Point = customer.Point;
                 existing.Drips = customer.Drips;
                 existing.Tier = customer.Tier;
+                existing.Gender = customer.Gender;
+                existing.DateOfBirth = customer.DateOfBirth;
+
                 _context.SaveChanges();
             }
         }
