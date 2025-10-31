@@ -9,7 +9,7 @@ namespace BLL
 {
     public class ValidationData
     {
-        // ======== CHUỖI CƠ BẢN ========
+        // ======== CHUỖI ========
 
         public static bool IsNotEmpty(string? input) =>
             !string.IsNullOrWhiteSpace(input);
@@ -21,7 +21,7 @@ namespace BLL
 
         public static bool IsValidName(string? name)
         {
-            // Chỉ cho phép chữ cái (cả có dấu tiếng Việt), khoảng trắng, và dấu '-'
+            // Chỉ cho chữ cái, khoảng trắng và dấu -
             if (string.IsNullOrWhiteSpace(name)) return false;
             string pattern = @"^[\p{L}\s'-]{2,50}$";
             return Regex.IsMatch(name.Trim(), pattern);
@@ -29,9 +29,9 @@ namespace BLL
 
         public static bool IsValidPhone(string? phone)
         {
-            // 0xxxxxxxxx hoặc +84xxxxxxxxx
+            // Số đth là 0xxxxxxxxx
             if (string.IsNullOrWhiteSpace(phone)) return false;
-            string pattern = @"^(0|\+84)\d{9,10}$";
+            string pattern = @"^(0)\d{9,10}$";
             return Regex.IsMatch(phone.Trim(), pattern);
         }
 
@@ -72,10 +72,11 @@ namespace BLL
 
         // ======== KIỂM TRA GIỚI HẠN NGÀY / SỐ ========
 
-        public static bool IsValidDateOfBirth(DateTime date)
+        public static bool IsValidDateOfBirth(DateOnly date)
         {
             // Tuổi phải >= 16
-            return date <= DateTime.Now.AddYears(-16);
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-16));
+            return date <= currentDate;
         }
 
         public static bool IsValidDecimal(decimal value, decimal min = 0, decimal max = decimal.MaxValue)
@@ -138,14 +139,14 @@ namespace BLL
 
         public static bool IsValidStatus(string? status)
         {
-            // Áp dụng cho BRANCH.Status, EMPLOYEE.CurrentStatus, PRODUCT.Status,...
+            // Áp dụng cho Branch, Employee, Product,...
             if (string.IsNullOrWhiteSpace(status)) return false;
 
             string[] validStatus = new[]
             {
                 "Đang hoạt động", "Đã đóng", "Đóng vĩnh viễn", // Branch
-                "Đang làm việc", "Đã nghỉ",                   // Employee
-                "Đang bán", "Ngừng bán"                       // Product
+                "Đang làm việc", "Đã nghỉ",                    // Employee
+                "Đang bán", "Ngừng bán"                        // Product
             };
 
             foreach (var s in validStatus)

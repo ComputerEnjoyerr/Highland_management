@@ -28,40 +28,36 @@ namespace GUI
         private readonly BLL_Unit bLL_Unit = new();
         private string selectedImagePath = null;   
         private string selectedImageName = null;   
+
+        private List<Product> productList = new List<Product>();
+
         public frmProduct()
         {
             InitializeComponent();
         }
 
-        private void LoaddgvProduct(string keyword = null)
+        private void LoaddgvProduct(string keyword = "")
         {
             dgvProduct.MultiSelect = false;
             dgvProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProduct.ReadOnly = true;
 
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                var filteredList = bLL_Product.GetAll()
-                    .Where(p => p.ProductName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                p.Category != null && p.Category.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                p.Price.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .Select(p => new
-                    {
-                        p.Id,
-                        p.ProductName,
-                        p.Price,
-                        p.Image,
-                        CategoryName = p.Category != null ? p.Category.Name : "Lỗi hiển thị"
-                    }).ToList();
-                dgvProduct.DataSource = filteredList;
-                return;
-            }
+            // Lọc dữ liệu từ keyword
+            var filteredList = bLL_Product.GetAll()
+                .Where(p => p.ProductName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            p.Category != null && p.Category.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            p.Price.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-            var displayList = bLL_Product.GetAll().Select(p => new
+            productList = filteredList; // Gán danh sách vào biến
+
+            // Trích dữ liệu cần thiết
+            var displayList = productList.Select(p => new
             {
                 p.Id,
                 p.ProductName,
                 p.Price,
+                p.Status,
                 p.Image,
                 CategoryName = p.Category != null ? p.Category.Name : "Lỗi hiển thị"
             }).ToList();
@@ -142,8 +138,7 @@ namespace GUI
             cboCategory.DataSource = categories;
             cboCategory.DisplayMember = "Name";
             cboCategory.ValueMember = "Id";
-            cboCategory.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboCategory.SelectedIndex = 0;
+
         }
 
         private void LoadCboUnit()
@@ -152,8 +147,7 @@ namespace GUI
             cboIngredientUnit.DataSource = units;
             cboIngredientUnit.DisplayMember = "UnitName";
             cboIngredientUnit.ValueMember = "Id";
-            cboIngredientUnit.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboIngredientUnit.SelectedIndex = 0;
+
         }
 
         private void LoadCboProduct()
@@ -162,8 +156,7 @@ namespace GUI
             cboProductName.DataSource = products;
             cboProductName.DisplayMember = "ProductName";
             cboProductName.ValueMember = "Id";
-            cboProductName.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboProductName.SelectedIndex = -1;
+
         }
 
         private void RefreshProduct()
@@ -172,6 +165,7 @@ namespace GUI
             txtProductName1.Clear();
             txtPrice.Clear();
             cboCategory.SelectedIndex = 0;
+            cboStatus.SelectedIndex = 0;
             txtProductName1.Focus();
             pbImage.Image = null;
             selectedImageName = null;
@@ -191,6 +185,15 @@ namespace GUI
         private void frmProduct_Load(object sender, EventArgs e)
         {
 
+            // Tải dữ liệu về các control
+            LoaddgvProduct();
+            LoaddgvSupplierIngredient();
+            LoadCboCategory();
+            LoadCboUnit();
+            LoadCboProduct();
+
+            // ===== Cài đặt trạng thái hiển thị =====
+
             dgvRecipe1.MultiSelect = false;
             dgvRecipe1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRecipe1.ReadOnly = true;
@@ -203,15 +206,25 @@ namespace GUI
 
             pbImage.SizeMode = PictureBoxSizeMode.Zoom;
 
+            // cbo loại sản phẩm
+            cboCategory.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboCategory.SelectedIndex = 0;
 
+            // cbo đơn vị tính nguyên liệu
+            cboIngredientUnit.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboIngredientUnit.SelectedIndex = 0;
 
-            LoaddgvProduct();
-            LoaddgvSupplierIngredient();
-            LoadCboCategory();
-            LoadCboUnit();
-            LoadCboProduct();
+            // cbo sản phẩm
+            cboProductName.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboProductName.SelectedIndex = -1;
 
+            // cbo trạng thái sản phẩm
+            cboStatus.Items.Add("Đang bán");
+            cboStatus.Items.Add("Ngừng bán");
+            cboStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboStatus.SelectedIndex = 0;
 
+            // ========================================
         }
 
 
@@ -219,44 +232,22 @@ namespace GUI
         {
             try
             {
+                // Kiểm tra giá tiền có phải là decimal
                 if (!decimal.TryParse(txtPrice.Text, out decimal price))
                 {
                     MessageBox.Show("Vui lòng nhập giá bán và giờ làm thêm hợp lệ.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     return;
                 }
-                if (txtPrice.Text.Trim().Length > 10)
-                {
-                    MessageBox.Show("Giá bán vượt mức cho phép (Tối đa 10 ký tự số)", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(txtProductName1.Text))
-                {
-                    MessageBox.Show("Vui lòng nhập tên sản phẩm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (txtProductName1.Text.Length > 50)
-                {
-                    MessageBox.Show("Tên sản phẩm vượt mức cho phép (Tối đa 50 ký tự)", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
 
-                if (cboCategory.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Vui lòng chọn danh mục sản phẩm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (cboCategory.SelectedValue == null)
-                {
-                    MessageBox.Show("Giá trị danh mục sản phẩm không hợp lệ", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
                 DateTime dateTime = DateTime.Now;
+                // Tạo product mới để thêm vào
                 Product product = new Product
                 {
                     Id = $"PD{dateTime:yyMMddHHmmss}",
                     ProductName = txtProductName1.Text,
                     CategoryId = cboCategory.SelectedValue.ToString(),
                     // Image,
+                    Status = cboStatus.SelectedItem.ToString(),
                     Price = price
                 };
                 // Lưu ảnh vào product và thư mục
@@ -282,11 +273,6 @@ namespace GUI
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtProductId1.Text))
-            {
-                MessageBox.Show("Vui lòng chọn sản phẩm cần xóa từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                return;
-            }
             DialogResult rs = MessageBox.Show("Bạn có chắc muốn xóa dữ liệu sản phẩm này không?\nNếu xóa sản phẩm này sẽ biết mất hoàn toàn", "Lưu ý", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (DialogResult.No == rs)
                 return;
@@ -305,48 +291,24 @@ namespace GUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtProductId1.Text))
-            {
-                MessageBox.Show("Vui lòng chọn sản phẩm cần cập nhật từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                return;
-            }
             DialogResult rs = MessageBox.Show("Bạn có chắc muốn cập nhật sản phẩm này?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (DialogResult.No == rs)
                 return;
             try
             {
+                // Kiểm tra số tiền có phải là decimal
                 if (!decimal.TryParse(txtPrice.Text, out decimal price))
                 {
                     MessageBox.Show("Vui lòng nhập giá bán hợp lệ.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     return;
                 }
-                int priceLength = 10;
-                if (txtPrice.Text.Trim().Length > priceLength)
-                {
-                    MessageBox.Show($"Giá bán vượt mức cho phép (Tối đa {priceLength} ký tự số)", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(txtProductName1.Text))
-                {
-                    MessageBox.Show("Vui lòng nhập tên sản phẩm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (cboCategory.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Vui lòng chọn danh mục sản phẩm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (cboCategory.SelectedValue == null)
-                {
-                    MessageBox.Show("Giá trị danh mục sản phẩm không hợp lệ", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-
+                // Tạo product mới để sửa
                 var product = new Product
                 {
                     Id = txtProductId1.Text,
                     ProductName = txtProductName1.Text,
                     CategoryId = cboCategory.SelectedValue.ToString(),
+                    Status = cboStatus.SelectedItem.ToString(),
                     // Image = ?,
                     Price = price
                 };
@@ -408,6 +370,8 @@ namespace GUI
                 txtPrice.Text = selectedRow.Cells["Price"].Value.ToString();
                 var categoryName = selectedRow.Cells["CategoryName"].Value.ToString();
                 cboCategory.SelectedIndex = cboCategory.FindStringExact(categoryName);
+                var status = selectedRow.Cells["Status"].Value.ToString();
+                cboStatus.SelectedIndex = cboStatus.FindStringExact(status);
 
                 // Hiển thị chi tiết công thức
                 LoaddgvRecipe(txtProductId1.Text);
