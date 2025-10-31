@@ -41,6 +41,7 @@ namespace DAL
                 existing.Price = product.Price;
                 existing.Image = product.Image;
                 existing.CategoryId = product.CategoryId;
+                existing.Status = product.Status;   
                 _context.SaveChanges();
             }
         }
