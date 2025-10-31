@@ -111,7 +111,7 @@
             tcMain.Location = new Point(0, 0);
             tcMain.Name = "tcMain";
             tcMain.SelectedIndex = 0;
-            tcMain.Size = new Size(992, 710);
+            tcMain.Size = new Size(1692, 989);
             tcMain.TabIndex = 0;
             // 
             // tpProduct
@@ -122,7 +122,7 @@
             tpProduct.Location = new Point(4, 32);
             tpProduct.Name = "tpProduct";
             tpProduct.Padding = new Padding(3);
-            tpProduct.Size = new Size(984, 674);
+            tpProduct.Size = new Size(1684, 953);
             tpProduct.TabIndex = 0;
             tpProduct.Text = "Sản phẩm";
             tpProduct.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@
             dgvProduct.Location = new Point(566, 64);
             dgvProduct.Name = "dgvProduct";
             dgvProduct.RowHeadersWidth = 51;
-            dgvProduct.Size = new Size(415, 607);
+            dgvProduct.Size = new Size(1115, 886);
             dgvProduct.TabIndex = 4;
             dgvProduct.CellClick += dgvProduct_CellClick;
             dgvProduct.CellDoubleClick += dgvProduct_CellDoubleClick;
@@ -147,7 +147,7 @@
             groupBox3.Dock = DockStyle.Top;
             groupBox3.Location = new Point(566, 3);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(415, 61);
+            groupBox3.Size = new Size(1115, 61);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Sản phẩm";
@@ -176,7 +176,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(563, 668);
+            panel1.Size = new Size(563, 947);
             panel1.TabIndex = 0;
             // 
             // groupBox2
@@ -185,7 +185,7 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 456);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(563, 212);
+            groupBox2.Size = new Size(563, 491);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Chi tiết Công thức";
@@ -198,7 +198,7 @@
             dgvRecipe1.Location = new Point(3, 26);
             dgvRecipe1.Name = "dgvRecipe1";
             dgvRecipe1.RowHeadersWidth = 51;
-            dgvRecipe1.Size = new Size(557, 183);
+            dgvRecipe1.Size = new Size(557, 462);
             dgvRecipe1.TabIndex = 2;
             // 
             // groupBox1
@@ -419,10 +419,10 @@
             // tpRecipe
             // 
             tpRecipe.Controls.Add(panel4);
-            tpRecipe.Location = new Point(4, 29);
+            tpRecipe.Location = new Point(4, 32);
             tpRecipe.Name = "tpRecipe";
             tpRecipe.Padding = new Padding(3);
-            tpRecipe.Size = new Size(984, 677);
+            tpRecipe.Size = new Size(1684, 953);
             tpRecipe.TabIndex = 1;
             tpRecipe.Text = "Quản lý công thức";
             tpRecipe.UseVisualStyleBackColor = true;
@@ -434,7 +434,7 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(3, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(978, 671);
+            panel4.Size = new Size(1678, 947);
             panel4.TabIndex = 1;
             // 
             // panel5
@@ -444,7 +444,7 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(260, 671);
+            panel5.Size = new Size(960, 947);
             panel5.TabIndex = 1;
             // 
             // dgvRecipe2
@@ -455,7 +455,7 @@
             dgvRecipe2.Location = new Point(5, 421);
             dgvRecipe2.Name = "dgvRecipe2";
             dgvRecipe2.RowHeadersWidth = 51;
-            dgvRecipe2.Size = new Size(249, 245);
+            dgvRecipe2.Size = new Size(949, 521);
             dgvRecipe2.TabIndex = 1;
             dgvRecipe2.CellClick += dgvRecipe2_CellClick;
             // 
@@ -482,7 +482,7 @@
             groupBox4.Dock = DockStyle.Top;
             groupBox4.Location = new Point(0, 0);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(260, 415);
+            groupBox4.Size = new Size(960, 415);
             groupBox4.TabIndex = 0;
             groupBox4.TabStop = false;
             groupBox4.Text = "Công thức";
@@ -493,7 +493,7 @@
             cboProductName.FormattingEnabled = true;
             cboProductName.Location = new Point(171, 126);
             cboProductName.Name = "cboProductName";
-            cboProductName.Size = new Size(17, 31);
+            cboProductName.Size = new Size(635, 31);
             cboProductName.TabIndex = 76;
             cboProductName.SelectedIndexChanged += cboProductName_SelectedIndexChanged;
             // 
@@ -559,7 +559,7 @@
             txtIngredientId.Location = new Point(171, 163);
             txtIngredientId.Name = "txtIngredientId";
             txtIngredientId.ReadOnly = true;
-            txtIngredientId.Size = new Size(17, 30);
+            txtIngredientId.Size = new Size(635, 30);
             txtIngredientId.TabIndex = 69;
             // 
             // label7
@@ -586,7 +586,7 @@
             txtRecipeId.Location = new Point(171, 54);
             txtRecipeId.Name = "txtRecipeId";
             txtRecipeId.ReadOnly = true;
-            txtRecipeId.Size = new Size(17, 30);
+            txtRecipeId.Size = new Size(635, 30);
             txtRecipeId.TabIndex = 71;
             // 
             // label14
@@ -604,7 +604,7 @@
             txtProductId2.Location = new Point(171, 90);
             txtProductId2.Name = "txtProductId2";
             txtProductId2.ReadOnly = true;
-            txtProductId2.Size = new Size(17, 30);
+            txtProductId2.Size = new Size(635, 30);
             txtProductId2.TabIndex = 71;
             txtProductId2.TextChanged += txtProductId2_TextChanged;
             // 
@@ -623,7 +623,7 @@
             cboIngredientUnit.FormattingEnabled = true;
             cboIngredientUnit.Location = new Point(171, 271);
             cboIngredientUnit.Name = "cboIngredientUnit";
-            cboIngredientUnit.Size = new Size(17, 31);
+            cboIngredientUnit.Size = new Size(270, 31);
             cboIngredientUnit.TabIndex = 65;
             // 
             // label12
@@ -649,7 +649,7 @@
             txtIngredientQty.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtIngredientQty.Location = new Point(171, 235);
             txtIngredientQty.Name = "txtIngredientQty";
-            txtIngredientQty.Size = new Size(17, 30);
+            txtIngredientQty.Size = new Size(270, 30);
             txtIngredientQty.TabIndex = 63;
             // 
             // txtIngredientName
@@ -658,7 +658,7 @@
             txtIngredientName.Location = new Point(171, 199);
             txtIngredientName.Name = "txtIngredientName";
             txtIngredientName.ReadOnly = true;
-            txtIngredientName.Size = new Size(17, 30);
+            txtIngredientName.Size = new Size(635, 30);
             txtIngredientName.TabIndex = 64;
             // 
             // label8
@@ -675,9 +675,9 @@
             panel3.Controls.Add(dgvIngredient);
             panel3.Controls.Add(groupBox5);
             panel3.Dock = DockStyle.Right;
-            panel3.Location = new Point(260, 0);
+            panel3.Location = new Point(960, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(718, 671);
+            panel3.Size = new Size(718, 947);
             panel3.TabIndex = 0;
             // 
             // dgvIngredient
@@ -688,7 +688,7 @@
             dgvIngredient.Location = new Point(0, 68);
             dgvIngredient.Name = "dgvIngredient";
             dgvIngredient.RowHeadersWidth = 51;
-            dgvIngredient.Size = new Size(718, 603);
+            dgvIngredient.Size = new Size(718, 879);
             dgvIngredient.TabIndex = 1;
             dgvIngredient.CellClick += dgvIngredient_CellClick;
             // 
@@ -724,7 +724,7 @@
             // frmProduct
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1692, 989);
             Controls.Add(tcMain);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "frmProduct";

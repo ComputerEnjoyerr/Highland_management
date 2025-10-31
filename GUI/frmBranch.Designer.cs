@@ -81,6 +81,14 @@
             btnEDelete = new Button();
             txtEFind = new TextBox();
             label12 = new Label();
+            label20 = new Label();
+            txtCitizenId = new TextBox();
+            label21 = new Label();
+            cboGender = new ComboBox();
+            label22 = new Label();
+            dtpDateOfBirth = new DateTimePicker();
+            label23 = new Label();
+            cboEmployeeStatus = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvBranch).BeginInit();
             panel2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -94,10 +102,10 @@
             // 
             dgvBranch.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvBranch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBranch.Location = new Point(3, 565);
+            dgvBranch.Location = new Point(3, 483);
             dgvBranch.Name = "dgvBranch";
             dgvBranch.RowHeadersWidth = 51;
-            dgvBranch.Size = new Size(118, 142);
+            dgvBranch.Size = new Size(878, 503);
             dgvBranch.TabIndex = 5;
             dgvBranch.CellClick += dgvBranch_CellClick;
             // 
@@ -107,7 +115,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(121, 559);
+            panel2.Size = new Size(887, 477);
             panel2.TabIndex = 4;
             // 
             // groupBox1
@@ -139,51 +147,54 @@
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(121, 559);
+            groupBox1.Size = new Size(887, 477);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Chi nhánh";
             // 
             // cboStatus
             // 
+            cboStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cboStatus.FormattingEnabled = true;
-            cboStatus.Location = new Point(135, 342);
+            cboStatus.Location = new Point(644, 111);
             cboStatus.Name = "cboStatus";
-            cboStatus.Size = new Size(253, 31);
+            cboStatus.Size = new Size(185, 31);
             cboStatus.TabIndex = 65;
             // 
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(24, 348);
+            label16.Location = new Point(515, 119);
             label16.Name = "label16";
-            label16.Size = new Size(65, 23);
+            label16.Size = new Size(97, 23);
             label16.TabIndex = 64;
-            label16.Text = "Status:";
+            label16.Text = "Trạng thái:";
             // 
             // dtpCloseTime
             // 
+            dtpCloseTime.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtpCloseTime.Format = DateTimePickerFormat.Time;
-            dtpCloseTime.Location = new Point(135, 306);
+            dtpCloseTime.Location = new Point(644, 74);
             dtpCloseTime.Name = "dtpCloseTime";
             dtpCloseTime.ShowUpDown = true;
-            dtpCloseTime.Size = new Size(253, 30);
+            dtpCloseTime.Size = new Size(145, 30);
             dtpCloseTime.TabIndex = 63;
             // 
             // dtpOpenTime
             // 
+            dtpOpenTime.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtpOpenTime.Format = DateTimePickerFormat.Time;
-            dtpOpenTime.Location = new Point(135, 270);
+            dtpOpenTime.Location = new Point(644, 38);
             dtpOpenTime.Name = "dtpOpenTime";
             dtpOpenTime.ShowUpDown = true;
-            dtpOpenTime.Size = new Size(253, 30);
+            dtpOpenTime.Size = new Size(145, 30);
             dtpOpenTime.TabIndex = 62;
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(11, 309);
+            label18.Location = new Point(515, 77);
             label18.Name = "label18";
             label18.Size = new Size(123, 23);
             label18.TabIndex = 60;
@@ -192,7 +203,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(24, 274);
+            label17.Location = new Point(515, 41);
             label17.Name = "label17";
             label17.Size = new Size(108, 23);
             label17.TabIndex = 61;
@@ -200,59 +211,72 @@
             // 
             // btnSave
             // 
-            btnSave.BackColor = Color.FromArgb(230, 181, 56);
-            btnSave.Location = new Point(24, 457);
+            btnSave.BackColor = SystemColors.Control;
+            btnSave.Image = Properties.Resources.pen;
+            btnSave.ImageAlign = ContentAlignment.MiddleRight;
+            btnSave.Location = new Point(322, 302);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(145, 53);
+            btnSave.Size = new Size(128, 58);
             btnSave.TabIndex = 48;
             btnSave.Text = "Lưu";
+            btnSave.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
             // btnReset
             // 
-            btnReset.BackColor = Color.White;
-            btnReset.Location = new Point(175, 457);
+            btnReset.BackColor = SystemColors.Control;
+            btnReset.Image = Properties.Resources.arrow;
+            btnReset.ImageAlign = ContentAlignment.MiddleRight;
+            btnReset.Location = new Point(468, 302);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(145, 53);
+            btnReset.Size = new Size(128, 58);
             btnReset.TabIndex = 50;
             btnReset.Text = "Hoàn tác";
+            btnReset.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
             // btnAdd
             // 
-            btnAdd.BackColor = Color.FromArgb(104, 176, 145);
-            btnAdd.Location = new Point(24, 398);
+            btnAdd.BackColor = SystemColors.Control;
+            btnAdd.Image = Properties.Resources.plus;
+            btnAdd.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdd.Location = new Point(28, 302);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(145, 53);
+            btnAdd.Size = new Size(128, 58);
             btnAdd.TabIndex = 49;
             btnAdd.Text = "Thêm";
+            btnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
-            btnDelete.BackColor = Color.FromArgb(169, 65, 65);
-            btnDelete.Location = new Point(175, 398);
+            btnDelete.BackColor = SystemColors.Control;
+            btnDelete.Image = Properties.Resources.delete;
+            btnDelete.ImageAlign = ContentAlignment.MiddleRight;
+            btnDelete.Location = new Point(176, 302);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(145, 53);
+            btnDelete.Size = new Size(128, 58);
             btnDelete.TabIndex = 51;
             btnDelete.Text = "Xóa";
+            btnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // txtPhone
             // 
-            txtPhone.Location = new Point(135, 128);
+            txtPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtPhone.Location = new Point(135, 133);
             txtPhone.Name = "txtPhone";
-            txtPhone.Size = new Size(253, 30);
+            txtPhone.Size = new Size(313, 30);
             txtPhone.TabIndex = 41;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(24, 132);
+            label7.Location = new Point(24, 137);
             label7.Name = "label7";
             label7.Size = new Size(48, 23);
             label7.TabIndex = 38;
@@ -260,16 +284,17 @@
             // 
             // txtBName
             // 
-            txtBName.Location = new Point(135, 69);
+            txtBName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtBName.Location = new Point(135, 74);
             txtBName.Multiline = true;
             txtBName.Name = "txtBName";
-            txtBName.Size = new Size(253, 53);
+            txtBName.Size = new Size(313, 53);
             txtBName.TabIndex = 42;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(24, 72);
+            label9.Location = new Point(24, 77);
             label9.Name = "label9";
             label9.Size = new Size(71, 23);
             label9.TabIndex = 39;
@@ -277,10 +302,11 @@
             // 
             // txtBId
             // 
+            txtBId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtBId.Location = new Point(135, 38);
             txtBId.Name = "txtBId";
             txtBId.ReadOnly = true;
-            txtBId.Size = new Size(253, 30);
+            txtBId.Size = new Size(313, 30);
             txtBId.TabIndex = 43;
             // 
             // label10
@@ -294,18 +320,19 @@
             // 
             // cboProvince
             // 
+            cboProvince.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboProvince.DropDownStyle = ComboBoxStyle.DropDownList;
             cboProvince.FormattingEnabled = true;
-            cboProvince.Location = new Point(135, 233);
+            cboProvince.Location = new Point(135, 242);
             cboProvince.Name = "cboProvince";
-            cboProvince.Size = new Size(253, 31);
+            cboProvince.Size = new Size(313, 31);
             cboProvince.TabIndex = 36;
             cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(24, 239);
+            label2.Location = new Point(24, 248);
             label2.Name = "label2";
             label2.Size = new Size(78, 23);
             label2.TabIndex = 32;
@@ -313,17 +340,18 @@
             // 
             // cboWard
             // 
+            cboWard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboWard.DropDownStyle = ComboBoxStyle.DropDownList;
             cboWard.FormattingEnabled = true;
-            cboWard.Location = new Point(135, 195);
+            cboWard.Location = new Point(135, 204);
             cboWard.Name = "cboWard";
-            cboWard.Size = new Size(253, 31);
+            cboWard.Size = new Size(313, 31);
             cboWard.TabIndex = 37;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(24, 201);
+            label1.Location = new Point(24, 210);
             label1.Name = "label1";
             label1.Size = new Size(106, 23);
             label1.TabIndex = 33;
@@ -331,16 +359,18 @@
             // 
             // txtFindBranch
             // 
-            txtFindBranch.Location = new Point(116, 526);
+            txtFindBranch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtFindBranch.Location = new Point(121, 444);
             txtFindBranch.Name = "txtFindBranch";
-            txtFindBranch.Size = new Size(272, 30);
+            txtFindBranch.Size = new Size(597, 30);
             txtFindBranch.TabIndex = 35;
             txtFindBranch.TextChanged += txtFindBranch_TextChanged;
             // 
             // label11
             // 
+            label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label11.AutoSize = true;
-            label11.Location = new Point(24, 529);
+            label11.Location = new Point(24, 447);
             label11.Name = "label11";
             label11.Size = new Size(91, 23);
             label11.TabIndex = 34;
@@ -348,15 +378,16 @@
             // 
             // txtAddress
             // 
-            txtAddress.Location = new Point(135, 160);
+            txtAddress.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtAddress.Location = new Point(135, 169);
             txtAddress.Name = "txtAddress";
-            txtAddress.Size = new Size(253, 30);
+            txtAddress.Size = new Size(313, 30);
             txtAddress.TabIndex = 35;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(24, 163);
+            label8.Location = new Point(24, 172);
             label8.Name = "label8";
             label8.Size = new Size(70, 23);
             label8.TabIndex = 34;
@@ -367,19 +398,19 @@
             panel1.Controls.Add(dgvBanchEmployee);
             panel1.Controls.Add(panel3);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(121, 0);
+            panel1.Location = new Point(887, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(871, 710);
+            panel1.Size = new Size(805, 989);
             panel1.TabIndex = 3;
             // 
             // dgvBanchEmployee
             // 
             dgvBanchEmployee.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvBanchEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBanchEmployee.Location = new Point(6, 364);
+            dgvBanchEmployee.Location = new Point(6, 444);
             dgvBanchEmployee.Name = "dgvBanchEmployee";
             dgvBanchEmployee.RowHeadersWidth = 51;
-            dgvBanchEmployee.Size = new Size(862, 343);
+            dgvBanchEmployee.Size = new Size(796, 542);
             dgvBanchEmployee.TabIndex = 33;
             dgvBanchEmployee.CellClick += dgvBanchEmployee_CellClick;
             // 
@@ -389,13 +420,16 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(871, 358);
+            panel3.Size = new Size(805, 440);
             panel3.TabIndex = 32;
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(dtpDateOfBirth);
             groupBox2.Controls.Add(txtESalaryPerHour);
             groupBox2.Controls.Add(label19);
+            groupBox2.Controls.Add(cboEmployeeStatus);
+            groupBox2.Controls.Add(cboGender);
             groupBox2.Controls.Add(cboERole);
             groupBox2.Controls.Add(cboEProvince);
             groupBox2.Controls.Add(label3);
@@ -403,9 +437,14 @@
             groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(txtEPhone);
             groupBox2.Controls.Add(label5);
+            groupBox2.Controls.Add(label22);
+            groupBox2.Controls.Add(label23);
             groupBox2.Controls.Add(txtEAddress);
+            groupBox2.Controls.Add(label21);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(label13);
+            groupBox2.Controls.Add(txtCitizenId);
+            groupBox2.Controls.Add(label20);
             groupBox2.Controls.Add(txtEName);
             groupBox2.Controls.Add(label14);
             groupBox2.Controls.Add(txtEId);
@@ -419,22 +458,22 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(871, 358);
+            groupBox2.Size = new Size(805, 440);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Nhân viên chi nhánh";
             // 
             // txtESalaryPerHour
             // 
-            txtESalaryPerHour.Location = new Point(409, 112);
+            txtESalaryPerHour.Location = new Point(551, 108);
             txtESalaryPerHour.Name = "txtESalaryPerHour";
-            txtESalaryPerHour.Size = new Size(140, 30);
+            txtESalaryPerHour.Size = new Size(223, 30);
             txtESalaryPerHour.TabIndex = 59;
             // 
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(324, 115);
+            label19.Location = new Point(466, 111);
             label19.Name = "label19";
             label19.Size = new Size(67, 23);
             label19.TabIndex = 58;
@@ -444,24 +483,24 @@
             // 
             cboERole.DropDownStyle = ComboBoxStyle.DropDownList;
             cboERole.FormattingEnabled = true;
-            cboERole.Location = new Point(409, 35);
+            cboERole.Location = new Point(551, 35);
             cboERole.Name = "cboERole";
-            cboERole.Size = new Size(140, 31);
+            cboERole.Size = new Size(223, 31);
             cboERole.TabIndex = 55;
             // 
             // cboEProvince
             // 
             cboEProvince.DropDownStyle = ComboBoxStyle.DropDownList;
             cboEProvince.FormattingEnabled = true;
-            cboEProvince.Location = new Point(139, 159);
+            cboEProvince.Location = new Point(152, 216);
             cboEProvince.Name = "cboEProvince";
-            cboEProvince.Size = new Size(175, 31);
+            cboEProvince.Size = new Size(276, 31);
             cboEProvince.TabIndex = 56;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(28, 165);
+            label3.Location = new Point(28, 222);
             label3.Name = "label3";
             label3.Size = new Size(78, 23);
             label3.TabIndex = 44;
@@ -471,15 +510,15 @@
             // 
             cboEWard.DropDownStyle = ComboBoxStyle.DropDownList;
             cboEWard.FormattingEnabled = true;
-            cboEWard.Location = new Point(139, 128);
+            cboEWard.Location = new Point(152, 179);
             cboEWard.Name = "cboEWard";
-            cboEWard.Size = new Size(175, 31);
+            cboEWard.Size = new Size(276, 31);
             cboEWard.TabIndex = 57;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(28, 134);
+            label4.Location = new Point(28, 185);
             label4.Name = "label4";
             label4.Size = new Size(106, 23);
             label4.TabIndex = 45;
@@ -487,15 +526,15 @@
             // 
             // txtEPhone
             // 
-            txtEPhone.Location = new Point(409, 72);
+            txtEPhone.Location = new Point(551, 72);
             txtEPhone.Name = "txtEPhone";
-            txtEPhone.Size = new Size(140, 30);
+            txtEPhone.Size = new Size(223, 30);
             txtEPhone.TabIndex = 51;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(324, 78);
+            label5.Location = new Point(466, 78);
             label5.Name = "label5";
             label5.Size = new Size(48, 23);
             label5.TabIndex = 46;
@@ -503,15 +542,15 @@
             // 
             // txtEAddress
             // 
-            txtEAddress.Location = new Point(110, 97);
+            txtEAddress.Location = new Point(152, 143);
             txtEAddress.Name = "txtEAddress";
-            txtEAddress.Size = new Size(204, 30);
+            txtEAddress.Size = new Size(276, 30);
             txtEAddress.TabIndex = 52;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(27, 103);
+            label6.Location = new Point(27, 149);
             label6.Name = "label6";
             label6.Size = new Size(70, 23);
             label6.TabIndex = 47;
@@ -520,7 +559,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(324, 41);
+            label13.Location = new Point(466, 41);
             label13.Name = "label13";
             label13.Size = new Size(79, 23);
             label13.TabIndex = 48;
@@ -528,16 +567,16 @@
             // 
             // txtEName
             // 
-            txtEName.Location = new Point(110, 66);
+            txtEName.Location = new Point(152, 107);
             txtEName.Name = "txtEName";
-            txtEName.Size = new Size(204, 30);
+            txtEName.Size = new Size(276, 30);
             txtEName.TabIndex = 53;
             txtEName.Leave += txtEName_Leave;
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(27, 72);
+            label14.Location = new Point(27, 113);
             label14.Name = "label14";
             label14.Size = new Size(69, 23);
             label14.TabIndex = 49;
@@ -545,10 +584,10 @@
             // 
             // txtEId
             // 
-            txtEId.Location = new Point(110, 35);
+            txtEId.Location = new Point(152, 35);
             txtEId.Name = "txtEId";
             txtEId.ReadOnly = true;
-            txtEId.Size = new Size(204, 30);
+            txtEId.Size = new Size(276, 30);
             txtEId.TabIndex = 54;
             // 
             // label15
@@ -562,69 +601,153 @@
             // 
             // btnESave
             // 
-            btnESave.BackColor = Color.FromArgb(230, 181, 56);
-            btnESave.Location = new Point(27, 257);
+            btnESave.BackColor = SystemColors.Control;
+            btnESave.Image = Properties.Resources.pen;
+            btnESave.ImageAlign = ContentAlignment.MiddleRight;
+            btnESave.Location = new Point(318, 306);
             btnESave.Name = "btnESave";
-            btnESave.Size = new Size(128, 53);
+            btnESave.Size = new Size(128, 58);
             btnESave.TabIndex = 40;
             btnESave.Text = "Lưu";
+            btnESave.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnESave.UseVisualStyleBackColor = false;
             btnESave.Click += btnESave_Click;
             // 
             // btnEReset
             // 
-            btnEReset.BackColor = Color.White;
-            btnEReset.Location = new Point(161, 257);
+            btnEReset.BackColor = SystemColors.Control;
+            btnEReset.Image = Properties.Resources.arrow;
+            btnEReset.ImageAlign = ContentAlignment.MiddleRight;
+            btnEReset.Location = new Point(463, 306);
             btnEReset.Name = "btnEReset";
-            btnEReset.Size = new Size(128, 53);
+            btnEReset.Size = new Size(128, 58);
             btnEReset.TabIndex = 42;
             btnEReset.Text = "Hoàn tác";
+            btnEReset.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEReset.UseVisualStyleBackColor = false;
             btnEReset.Click += btnEReset_Click;
             // 
             // btnEAdd
             // 
-            btnEAdd.BackColor = Color.FromArgb(104, 176, 145);
-            btnEAdd.Location = new Point(27, 199);
+            btnEAdd.BackColor = SystemColors.Control;
+            btnEAdd.Image = Properties.Resources.plus;
+            btnEAdd.ImageAlign = ContentAlignment.MiddleRight;
+            btnEAdd.Location = new Point(28, 306);
             btnEAdd.Name = "btnEAdd";
-            btnEAdd.Size = new Size(128, 53);
+            btnEAdd.Size = new Size(128, 58);
             btnEAdd.TabIndex = 41;
             btnEAdd.Text = "Thêm";
+            btnEAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEAdd.UseVisualStyleBackColor = false;
             btnEAdd.Click += btnEAdd_Click;
             // 
             // btnEDelete
             // 
-            btnEDelete.BackColor = Color.FromArgb(169, 65, 65);
-            btnEDelete.Location = new Point(161, 199);
+            btnEDelete.BackColor = SystemColors.Control;
+            btnEDelete.Image = Properties.Resources.delete;
+            btnEDelete.ImageAlign = ContentAlignment.MiddleRight;
+            btnEDelete.Location = new Point(173, 306);
             btnEDelete.Name = "btnEDelete";
-            btnEDelete.Size = new Size(128, 53);
+            btnEDelete.Size = new Size(128, 58);
             btnEDelete.TabIndex = 43;
             btnEDelete.Text = "Xóa";
+            btnEDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnEDelete.UseVisualStyleBackColor = false;
             btnEDelete.Click += btnEDelete_Click;
             // 
             // txtEFind
             // 
-            txtEFind.Location = new Point(108, 323);
+            txtEFind.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtEFind.Location = new Point(110, 404);
             txtEFind.Name = "txtEFind";
-            txtEFind.Size = new Size(272, 30);
+            txtEFind.Size = new Size(527, 30);
             txtEFind.TabIndex = 35;
             txtEFind.TextChanged += txtEFind_TextChanged;
             // 
             // label12
             // 
+            label12.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label12.AutoSize = true;
-            label12.Location = new Point(16, 326);
+            label12.Location = new Point(18, 407);
             label12.Name = "label12";
             label12.Size = new Size(91, 23);
             label12.TabIndex = 34;
             label12.Text = "Tìm kiếm:";
             // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(27, 77);
+            label20.Name = "label20";
+            label20.Size = new Size(120, 23);
+            label20.TabIndex = 49;
+            label20.Text = "CCCD/CMND:";
+            // 
+            // txtCitizenId
+            // 
+            txtCitizenId.Location = new Point(152, 71);
+            txtCitizenId.Name = "txtCitizenId";
+            txtCitizenId.Size = new Size(276, 30);
+            txtCitizenId.TabIndex = 53;
+            txtCitizenId.Leave += txtEName_Leave;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(466, 152);
+            label21.Name = "label21";
+            label21.Size = new Size(85, 23);
+            label21.TabIndex = 48;
+            label21.Text = "Giới tính:";
+            // 
+            // cboGender
+            // 
+            cboGender.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboGender.FormattingEnabled = true;
+            cboGender.Location = new Point(551, 146);
+            cboGender.Name = "cboGender";
+            cboGender.Size = new Size(223, 31);
+            cboGender.TabIndex = 55;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(466, 190);
+            label22.Name = "label22";
+            label22.Size = new Size(94, 23);
+            label22.TabIndex = 48;
+            label22.Text = "Ngày sinh:";
+            // 
+            // dtpDateOfBirth
+            // 
+            dtpDateOfBirth.Format = DateTimePickerFormat.Short;
+            dtpDateOfBirth.Location = new Point(566, 184);
+            dtpDateOfBirth.Name = "dtpDateOfBirth";
+            dtpDateOfBirth.Size = new Size(208, 30);
+            dtpDateOfBirth.TabIndex = 60;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(27, 261);
+            label23.Name = "label23";
+            label23.Size = new Size(97, 23);
+            label23.TabIndex = 48;
+            label23.Text = "Trạng thái:";
+            // 
+            // cboEmployeeStatus
+            // 
+            cboEmployeeStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboEmployeeStatus.FormattingEnabled = true;
+            cboEmployeeStatus.Location = new Point(152, 253);
+            cboEmployeeStatus.Name = "cboEmployeeStatus";
+            cboEmployeeStatus.Size = new Size(216, 31);
+            cboEmployeeStatus.TabIndex = 55;
+            // 
             // frmBranch
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1692, 989);
             Controls.Add(dgvBranch);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -664,15 +787,21 @@
         private TextBox txtAddress;
         private Label label8;
         private Panel panel1;
+        private Button btnSave;
+        private Button btnReset;
+        private Button btnAdd;
+        private Button btnDelete;
+        private DateTimePicker dtpCloseTime;
+        private DateTimePicker dtpOpenTime;
+        private Label label18;
+        private Label label17;
+        private ComboBox cboStatus;
+        private Label label16;
         private DataGridView dgvBanchEmployee;
         private Panel panel3;
         private GroupBox groupBox2;
-        private Button btnESave;
-        private Button btnEReset;
-        private Button btnEAdd;
-        private Button btnEDelete;
-        private TextBox txtEFind;
-        private Label label12;
+        private TextBox txtESalaryPerHour;
+        private Label label19;
         private ComboBox cboERole;
         private ComboBox cboEProvince;
         private Label label3;
@@ -687,17 +816,19 @@
         private Label label14;
         private TextBox txtEId;
         private Label label15;
-        private Button btnSave;
-        private Button btnReset;
-        private Button btnAdd;
-        private Button btnDelete;
-        private DateTimePicker dtpCloseTime;
-        private DateTimePicker dtpOpenTime;
-        private Label label18;
-        private Label label17;
-        private ComboBox cboStatus;
-        private Label label16;
-        private TextBox txtESalaryPerHour;
-        private Label label19;
+        private Button btnESave;
+        private Button btnEReset;
+        private Button btnEAdd;
+        private Button btnEDelete;
+        private TextBox txtEFind;
+        private Label label12;
+        private TextBox txtCitizenId;
+        private Label label20;
+        private ComboBox cboGender;
+        private Label label21;
+        private DateTimePicker dtpDateOfBirth;
+        private Label label22;
+        private ComboBox cboEmployeeStatus;
+        private Label label23;
     }
 }
