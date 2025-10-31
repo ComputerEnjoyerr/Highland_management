@@ -12,66 +12,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GUI
 {
     public partial class frmCusstomer : Form
     {
         private readonly BLL_Customer bLL_Customer = new();
-
+        private List<Customer> customerList = new();
         public frmCusstomer()
         {
             InitializeComponent();
         }
 
-        private void LoadProduct(string keyword = null)
+        private void LoadCustomer(string keyword = "")
         {
-            dgvCustomer.MultiSelect = false;
-            dgvCustomer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvCustomer.ReadOnly = true;
+            // Lọc dữ liệu khách nếu có
+            var filterdList = bLL_Customer.GetAll()
+                .Where(c => c.CustomerName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            c.Tier.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            c.Phone.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            c.Email.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                var filterdList = bLL_Customer.GetAll()
-                    .Where(c => c.CustomerName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                c.Tier.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                c.Phone.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                c.Email.Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .Select(c => new
-                    {
-                        c.Id,
-                        c.CustomerName,
-                        c.Point,
-                        c.Drips,
-                        c.Tier,
-                        c.Phone,
-                        c.Email,
-                    }).ToList();
-                dgvCustomer.DataSource = filterdList;
-                return;
-            }
+            customerList = filterdList; // Gán vào biến lưu trữ
 
-            var displayList = bLL_Customer.GetAll()
+            // Hiển thị ra dgv
+            var displayList = customerList
                 .Select(c => new
                 {
                     c.Id,
                     c.CustomerName,
-                    c.Point,
-                    c.Drips,
-                    c.Tier,
                     c.Phone,
                     c.Email,
+                    c.Drips,
+                    c.Tier,
+                    c.Gender,
+                    c.DateOfBirth
                 }).ToList();
             dgvCustomer.DataSource = displayList;
-        }
-
-        private void LoadCboTier()
-        {
-            cboTier.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboTier.Items.Add("Member");
-            cboTier.Items.Add("Phin Bạc");
-            cboTier.SelectedIndex = 0;
         }
 
         private void RefreshInput()
@@ -102,42 +81,6 @@ namespace GUI
         {
             try
             {
-                if (txtName.Text.IsNullOrEmpty())
-                {
-                    MessageBox.Show("Vui lòng nhập họ tên", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (txtPhone.Text.Length < 8)
-                {
-                    MessageBox.Show("Số điện thoại không hợp lệ", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                var existingPhone = bLL_Customer.GetByPhone(txtPhone.Text);
-                if (existingPhone != null)
-                {
-                    MessageBox.Show("Số điện thoại đã trùng với 1 khách hàng khác", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (txtEmail.Text.IsNullOrEmpty())
-                {
-                    MessageBox.Show("Vui lòng nhập Email", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (nmrDrips.Value <= -1)
-                {
-                    MessageBox.Show("Drips không được là số âm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (nmrPoint.Value <= -1)
-                {
-                    MessageBox.Show("Điểm không được là số âm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (cboTier.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Không thể tìm thấy thông tin hạng", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
                 var customer = new Customer
                 {
                     Id = bLL_Customer.GenerateId(txtPhone.Text),
@@ -146,11 +89,13 @@ namespace GUI
                     Email = txtEmail.Text,
                     Point = nmrPoint.Value,
                     Drips = (int)nmrDrips.Value,
+                    Gender = cboGender.SelectedItem.ToString(),
+                    DateOfBirth = DateOnly.FromDateTime(dtpDOB.Value),
                     Tier = cboTier.SelectedItem.ToString()
                 };
                 if (!ValidateInput(customer)) return;
                 bLL_Customer.Add(customer);
-                LoadProduct();
+                LoadCustomer();
                 RefreshInput();
             }
             catch (Exception ex)
@@ -163,32 +108,55 @@ namespace GUI
 
         private void frmCusstomer_Load(object sender, EventArgs e)
         {
-            LoadProduct();
-            LoadCboTier();
+            LoadCustomer();
+
+            // ===== Cài đặt trạng thái hiển thị =====
+
+            dgvCustomer.MultiSelect = false;
+            dgvCustomer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustomer.ReadOnly = true;
+
+            // cbo Hạng
+            cboTier.Items.Add("Member");
+            cboTier.Items.Add("Phin Bạc");
+            cboTier.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboTier.SelectedIndex = 0;
+
+            // cbo Giới tính
+            cboGender.Items.Add("Nam");
+            cboGender.Items.Add("Nữ");
+            cboGender.Items.Add("Khác");
+            cboGender.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboGender.SelectedIndex = 0;
+
+            // ========================================
+
+
         }
 
         private void cboTier_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboTier.SelectedItem?.ToString() == "Phin Bạc")
-            {
                 nmrPoint.Text = "700";
-            }
+            else
+                nmrPoint.Text = "0";
         }
 
         private void dgvCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.RowIndex < customerList.Count)
             {
-                var selectedRow = dgvCustomer.Rows[e.RowIndex];
-                txtId.Text = selectedRow.Cells["Id"].Value.ToString();
-                txtName.Text = selectedRow.Cells["CustomerName"].Value.ToString();
-                txtPhone.Text = selectedRow.Cells["Phone"].Value.ToString();
-                txtEmail.Text = selectedRow.Cells["Email"].Value.ToString();
+                var selectedRow = customerList[e.RowIndex];
+                txtId.Text = selectedRow.Id;
+                txtName.Text = selectedRow.CustomerName;
+                txtPhone.Text = selectedRow.Phone;
+                txtEmail.Text = selectedRow.Email;
 
-                nmrDrips.Value = decimal.Parse(selectedRow.Cells["Drips"].Value.ToString());
-                nmrPoint.Value = decimal.Parse(selectedRow.Cells["Point"].Value.ToString());
+                nmrDrips.Value = decimal.Parse(selectedRow.Drips.ToString());
+                nmrPoint.Value = selectedRow.Point;
 
-                var tier = selectedRow.Cells["Tier"].Value.ToString();
+                var tier = selectedRow.Tier;
                 cboTier.SelectedIndex = cboTier.FindStringExact(tier);
             }
         }
@@ -206,7 +174,7 @@ namespace GUI
             try
             {
                 bLL_Customer.Delete(txtId.Text);
-                LoadProduct();
+                LoadCustomer();
                 RefreshInput();
             }
             catch (Exception ex)
@@ -219,53 +187,11 @@ namespace GUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (txtId.Text.IsNullOrEmpty())
-            {
-                MessageBox.Show("Vui lòng chọn khách hàng cần cập nhật", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                return;
-            }
             DialogResult rs = MessageBox.Show("Bạn có chắc muốn cập nhật dữ liệu khách hàng này không?", "Lưu ý", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (DialogResult.No == rs)
                 return;
             try
             {
-                if (txtName.Text.IsNullOrEmpty())
-                {
-                    MessageBox.Show("Vui lòng nhập họ tên", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (txtPhone.Text.Length < 8)
-                {
-                    MessageBox.Show("Số điện thoại không hợp lệ", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                var existingPhone = bLL_Customer.GetByPhone(txtPhone.Text, txtId.Text);
-                if (existingPhone != null)
-                {
-                    MessageBox.Show("Số điện thoại đã trùng với 1 khách hàng khác", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (txtEmail.Text.IsNullOrEmpty())
-                {
-                    MessageBox.Show("Vui lòng nhập Email", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (nmrDrips.Value <= -1)
-                {
-                    MessageBox.Show("Drips không được là số âm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (nmrPoint.Value <= -1)
-                {
-                    MessageBox.Show("Điểm không được là số âm", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (cboTier.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Không thể tìm thấy thông tin hạng", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 var customer = new Customer
                 {
                     Id = txtId.Text,
@@ -274,10 +200,12 @@ namespace GUI
                     Email = txtEmail.Text,
                     Point = nmrPoint.Value,
                     Drips = (int)nmrDrips.Value,
+                    Gender = cboGender.SelectedItem.ToString(),
+                    DateOfBirth = DateOnly.FromDateTime(dtpDOB.Value),
                     Tier = cboTier.SelectedItem.ToString()
                 };
                 bLL_Customer.Update(customer);
-                LoadProduct();
+                LoadCustomer();
                 RefreshInput();
 
             }
@@ -308,12 +236,21 @@ namespace GUI
             {
                 // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
                 await Task.Delay(500, _cts.Token);
-                LoadProduct(txtFindCustomer.Text);
+                LoadCustomer(txtFindCustomer.Text);
             }
             catch (TaskCanceledException)
             {
                 // Người dùng vẫn đang nhập, bỏ qua
             }
+        }
+
+        private void nmrPoint_ValueChanged(object sender, EventArgs e)
+        {
+            decimal value = nmrPoint.Value;
+            if (value >= 700)
+                cboTier.SelectedIndex = 1;
+            else
+                cboTier.SelectedIndex = 0;
         }
     }
 }

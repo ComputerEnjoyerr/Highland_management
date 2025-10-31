@@ -38,10 +38,6 @@ namespace GUI
 
         private void LoaddgvProduct(string keyword = "")
         {
-            dgvProduct.MultiSelect = false;
-            dgvProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProduct.ReadOnly = true;
-
             // Lọc dữ liệu từ keyword
             var filteredList = bLL_Product.GetAll()
                 .Where(p => p.ProductName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
@@ -193,6 +189,11 @@ namespace GUI
             LoadCboProduct();
 
             // ===== Cài đặt trạng thái hiển thị =====
+
+            dgvProduct.MultiSelect = false;
+            dgvProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProduct.ReadOnly = true;
+            dgvProduct.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             dgvRecipe1.MultiSelect = false;
             dgvRecipe1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -362,22 +363,23 @@ namespace GUI
 
         private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.RowIndex < productList.Count)
             {
-                var selectedRow = dgvProduct.Rows[e.RowIndex];
-                txtProductId1.Text = selectedRow.Cells["Id"].Value.ToString();
-                txtProductName1.Text = selectedRow.Cells["ProductName"].Value.ToString();
-                txtPrice.Text = selectedRow.Cells["Price"].Value.ToString();
-                var categoryName = selectedRow.Cells["CategoryName"].Value.ToString();
+                var selectedRow = productList[e.RowIndex];
+
+                txtProductId1.Text = selectedRow.Id;
+                txtProductName1.Text = selectedRow.ProductName;
+                txtPrice.Text = selectedRow.Price.ToString();
+                var categoryName = selectedRow.Category?.Name;
                 cboCategory.SelectedIndex = cboCategory.FindStringExact(categoryName);
-                var status = selectedRow.Cells["Status"].Value.ToString();
+                var status = selectedRow.Status;
                 cboStatus.SelectedIndex = cboStatus.FindStringExact(status);
 
                 // Hiển thị chi tiết công thức
                 LoaddgvRecipe(txtProductId1.Text);
                 // Hiển thị ảnh sản phẩm
                 var product = bLL_Product.GetById(txtProductId1.Text);
-                if (product != null) 
+                if (product != null)
                     DisplayImage(product);
             }
         }
@@ -641,7 +643,7 @@ namespace GUI
             try
             {
                 // Đường dẫn cố định tới thư mục ảnh trong project GUI
-                string imageFolder = Path.Combine(Application.StartupPath, "Images");
+                string imageFolder = Path.Combine(Application.StartupPath, @"..\..\..\Images\Product");
 
                 // Tạo thư mục nếu chưa có hoặc bị xóa
                 if (!Directory.Exists(imageFolder))
@@ -661,7 +663,7 @@ namespace GUI
                 {
                     string fileNameWithoutExt = Path.GetFileNameWithoutExtension(selectedImageName);
                     string extension = Path.GetExtension(selectedImageName);
-                    string newName = $"{fileNameWithoutExt}_{DateTime.Now:yyyyMMddHHmmss}{extension}";
+                    string newName = $"{ fileNameWithoutExt}_{DateTime.Now:yyyyMMddHHmmss}{extension}";
                     destinationPath = Path.Combine(imageFolder, newName);
                     selectedImageName = newName;
                 }
@@ -688,7 +690,7 @@ namespace GUI
             if (!string.IsNullOrEmpty(product.Image))
             {
                 // Tìm file ảnh trùng tên với product.Image
-                string imagePath = Path.Combine(Application.StartupPath, "Images", product.Image);
+                string imagePath = Path.Combine(Application.StartupPath, @"..\..\..\Images\Product", product.Image);
                 if (File.Exists(imagePath))
                 {
                     using (var img = Image.FromFile(imagePath))
