@@ -34,6 +34,7 @@ namespace DAL
             {
                 existing.StandardUnitId = supplierIngredient.StandardUnitId;
                 existing.UnitPrice = supplierIngredient.UnitPrice;
+                existing.ProducedDate = supplierIngredient.ProducedDate;
                 existing.ExpiryDay = supplierIngredient.ExpiryDay;
                 _context.SaveChanges();
             }

@@ -29,6 +29,11 @@ namespace GUI
         private readonly BLL_SupplierIngredient bLL_SupplierIngredient = new();
         private readonly BLL_Unit bLL_unit = new();
 
+        //tạo dữ liệu thực
+        private List<SupplierIngredient> supplierIngredientList = new List<SupplierIngredient>();
+        //dah sach hiển thị
+        private List<SupplierIngredient> displayedList = new List<SupplierIngredient>();   // danh sách đang hiển thị
+
         private void LoadProvince()
         {
             var provinces = bLL_Province.GetAllProvinces();
@@ -47,38 +52,34 @@ namespace GUI
             cbWard.SelectedIndex = -1;
         }
 
-        private void LoadDgvIngredient(string keyword = null)
+        private void LoadDgvIngredient(string keyword = "")
         {
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
+            dgvIngredient.MultiSelect = false;
+            dgvIngredient.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvIngredient.ReadOnly = true;
+            
+            // Lọc dữ liệu theo keyword
+            var filteredList = bLL_SupplierIngredient.GetAll()
+                                 .Where(si =>
+                                             (si.Supplier != null && si.Supplier.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase)) ||
+                                             (si.Supplier != null && si.Supplier.Id.Contains(keyword, StringComparison.OrdinalIgnoreCase)) ||
+                                             (si.Ingredient != null && si.Ingredient.IngredientName.Contains(keyword, StringComparison.OrdinalIgnoreCase)))
+                                             .ToList();
 
-                var filteredList = bLL_SupplierIngredient.GetAll()
-                    .Where(si => si.Supplier != null && si.Supplier.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                 si.Supplier != null && si.Supplier.Id.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                 si.Ingredient != null && si.Ingredient.IngredientName.Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .Select(si => new
-                    {
-                        si.IngredientId,
-                        IngredientName = si.Ingredient != null ? si.Ingredient.IngredientName : "Lỗi hiển thị",
-                        SupplierName = si.Supplier != null ? si.Supplier.Name : "Lỗi hiển thị",
-                        StandardUnit = si.StandardUnit != null ? si.StandardUnit.UnitName : "Lỗi hiển thị",
-                        si.UnitPrice,
-                        si.ExpiryDay
-                    }).ToList();
-                dgvIngredient.DataSource = filteredList;
-                return;
-            }
+            supplierIngredientList = filteredList; // lưu danh sách gốc
 
-            var displayList = bLL_SupplierIngredient.GetAll().Select(si => new
+            // Hiển thị
+            var displayData = supplierIngredientList.Select(si => new
             {
                 si.IngredientId,
-                IngredientName = si.Ingredient != null ? si.Ingredient.IngredientName : "Lỗi hiển thị",
-                SupplierName = si.Supplier != null ? si.Supplier.Name : "Lỗi hiển thị",
-                StandardUnit = si.StandardUnit != null ? si.StandardUnit.UnitName : "Lỗi hiển thị",
+                IngredientName = si.Ingredient?.IngredientName ?? "Lỗi hiển thị",
+                SupplierName = si.Supplier?.Name ?? "Lỗi hiển thị",
+                StandardUnit = si.StandardUnit?.UnitName ?? "Lỗi hiển thị",
                 si.UnitPrice,
+                si.ProducedDate,
                 si.ExpiryDay
             }).ToList();
-            dgvIngredient.DataSource = displayList;
+            dgvIngredient.DataSource = displayData;
 
         }
 
@@ -139,34 +140,13 @@ namespace GUI
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrEmpty(txtSupplierName.Text) ||
-                string.IsNullOrEmpty(txtPhone.Text) ||
-                string.IsNullOrEmpty(txtEmail.Text) ||
-                string.IsNullOrEmpty(txtAddress.Text))
-            {
-                MessageBox.Show("Thông tin nhà cung cấp không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (string.IsNullOrEmpty(txtAddress.Text)){
+                MessageBox.Show("Địa chỉ không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-            }
-            if (cbProvince.SelectedValue == null)
-            {
-                MessageBox.Show("Tỉnh/Thành phố không được để trống");
-                return;
-            }
-            if (cbWard.SelectedValue == null)
-            {
-                MessageBox.Show("Phường/Xã phố không được để trống");
-                return;
-            }
-            if (!decimal.TryParse(txtPhone.Text, out decimal phoneNum))
-            {
-                MessageBox.Show("Số điện thoại phải là ký tự số!");
-                return;
-
             }
             var exitingEmail = bLL_Supplier.GetEmailSupplier(txtEmail.Text, txtSupplierID.Text);
             var exitingPhone = bLL_Supplier.getPhoneSupplier(txtPhone.Text, txtSupplierID.Text);
-            
+
             if (exitingEmail != null && !string.IsNullOrEmpty(exitingEmail.Id))
             {
                 MessageBox.Show("Email đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -178,16 +158,24 @@ namespace GUI
                 MessageBox.Show("Số điện thoại đã bị trùng với một nhà cung cấp khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-           
-            if (txtSupplierName.Text.Length > 100)
+
+            if (cbProvince.SelectedValue == null)
             {
-                MessageBox.Show("Tên nhà cung cấp không được vượt quá 100 ký tự", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui lòng chọn tỉnh/thành phố!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if(cbWard.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn phường/xã!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             try
             {
+               
                 string provinceId = cbProvince.SelectedValue.ToString();
                 string wardId = cbWard.SelectedValue.ToString();
+              
                 var address = new Address
                 {
                     Id = bLL_Address.GenerateAddressId(cbProvince.SelectedValue.ToString()),
@@ -209,10 +197,10 @@ namespace GUI
                     AddressId = address.Id,
 
                 };
-                if (!ValidateSupplier(add))
-                {
-                    return;
-                }
+                //if (!ValidateSupplier(add))
+                //{
+                //    return;
+                //}
                 bLL_Supplier.Add(add);
                 MessageBox.Show("Đã thêm thành công");
                 ClearInputFields();
@@ -228,6 +216,11 @@ namespace GUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtAddress.Text))
+            {
+                MessageBox.Show("Địa chỉ không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (string.IsNullOrEmpty(txtSupplierName.Text) ||
                string.IsNullOrEmpty(txtPhone.Text) ||
                string.IsNullOrEmpty(txtEmail.Text) ||
@@ -293,10 +286,10 @@ namespace GUI
                 supplier.Phone = txtPhone.Text;
                 supplier.Email = txtEmail.Text;
 
-                if (!ValidateSupplier(supplier))
-                {
-                    return;
-                }
+                //if (!ValidateSupplier(supplier))
+                //{
+                //    return;
+                //}
                 bLL_Supplier.Update(supplier); // Lưu vào DB
 
                 MessageBox.Show("Đã cập nhật thành công");
@@ -311,14 +304,14 @@ namespace GUI
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSupplierName.Text) ||
-              string.IsNullOrEmpty(txtPhone.Text) ||
-              string.IsNullOrEmpty(txtEmail.Text) ||
-              string.IsNullOrEmpty(txtAddress.Text))
-            {
-                MessageBox.Show("Vui lòng chọn nhà cung cấp để xóa!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (string.IsNullOrEmpty(txtSupplierName.Text) ||
+            //  string.IsNullOrEmpty(txtPhone.Text) ||
+            //  string.IsNullOrEmpty(txtEmail.Text) ||
+            //  string.IsNullOrEmpty(txtAddress.Text))
+            //{
+            //    MessageBox.Show("Vui lòng chọn nhà cung cấp để xóa!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
             try
             {
@@ -495,43 +488,21 @@ namespace GUI
             }
         }
 
-        //Kiểm tra email hợp lệ
-        private bool ValidateSupplier(Supplier supplier)
-        {
-            var context = new ValidationContext(supplier, null, null);
-            var results = new List<ValidationResult>();
-
-            bool isValid = Validator.TryValidateObject(supplier, context, results, true);
-
-            if (!isValid)
-            {
-                //thông báo lỗi
-                MessageBox.Show(results.First().ErrorMessage, "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
-        }
-
         private void dgvIngredient_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                var selectedRow = dgvIngredient.Rows[e.RowIndex];
-                txtIngredientId.Text = selectedRow.Cells["IngredientId"].Value.ToString();
-                txtIngredientPrice.Text = selectedRow.Cells["UnitPrice"].Value.ToString();
+        {           
+            var ingredientId = dgvIngredient.Rows[e.RowIndex].Cells["IngredientId"].Value.ToString();
 
-                var ingredientName = selectedRow.Cells["IngredientName"].Value.ToString();
-                cboIngredientName.SelectedIndex = cboIngredientName.FindStringExact(ingredientName);
+            // Lấy dữ liệu gốc từ danh sách
+            var selected = supplierIngredientList.FirstOrDefault(si => si.IngredientId == ingredientId);
+            // Gán dữ liệu lên form
+            txtIngredientId.Text = selected.IngredientId;
+            cboIngredientName.SelectedValue = selected.IngredientId;
+            cboSupplier.SelectedValue = selected.SupplierId;
+            cboUnit.SelectedValue = selected.StandardUnitId;
 
-                nmrExpieryDay.Text = selectedRow.Cells["ExpiryDay"].Value.ToString();
-
-                var supplierName = selectedRow.Cells["SupplierName"].Value.ToString();
-                cboSupplier.SelectedIndex = cboSupplier.FindStringExact(supplierName);
-
-                var unit = selectedRow.Cells["StandardUnit"].Value.ToString();
-                cboUnit.SelectedIndex = cboUnit.FindStringExact(unit);
-            }
+            txtIngredientPrice.Text = selected.UnitPrice?.ToString() ?? "";
+            dtpProducedDate.Value = selected.ProducedDate.HasValue ? selected.ProducedDate.Value.ToDateTime(TimeOnly.MinValue) : DateTime.Now;
+            nmrExpieryDay.Value = selected.ExpiryDay ?? 0;
         }
 
         private void btnAddIng_Click(object sender, EventArgs e)
@@ -585,6 +556,7 @@ namespace GUI
                     SupplierId = cboSupplier.SelectedValue.ToString(),
                     UnitPrice = price,
                     StandardUnitId = unit,
+                    ProducedDate = DateOnly.FromDateTime(dtpProducedDate.Value),
                     ExpiryDay = exp,
 
                 };
@@ -665,6 +637,7 @@ namespace GUI
                     SupplierId = txtSupplierID.Text,
                     UnitPrice = price,
                     StandardUnitId = unit,
+                    ProducedDate = DateOnly.FromDateTime(dtpProducedDate.Value),
                     ExpiryDay = exp,
 
                 };
@@ -685,6 +658,17 @@ namespace GUI
             DialogResult rs = MessageBox.Show("Bạn có chắc muốn xóa dữ liệu nguyên liệu của nhà cung cấp này không?\nNếu xóa nguyên liệu của nhà cung cấp này sẽ biết mất hoàn toàn", "Lưu ý", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (DialogResult.No == rs)
                 return;
+            try
+            {
+                bLL_SupplierIngredient.Delete(txtSupplierID.Text, txtIngredientId.Text);
+                LoadDgvIngredient(txtSupplierName.Text);
+                RefreshDgvIngredient();
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Xóa nguyên liệu của nhà cung cấp thất bại.\nChi tiết lỗi: " + inner);
+            }
         }
 
         private void cboSupplier_SelectedIndexChanged(object sender, EventArgs e)
@@ -692,7 +676,7 @@ namespace GUI
             if (cboSupplier.SelectedIndex >= 0)
             {
                 txtSupplierID.Text = cboSupplier.SelectedValue.ToString();
-                LoadDgvIngredient(txtSupplierID.Text);  
+                //LoadDgvIngredient(txtSupplierID.Text);  
             }
         }
 
