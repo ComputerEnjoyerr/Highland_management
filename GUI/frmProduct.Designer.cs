@@ -116,16 +116,16 @@
             // 
             // tpProduct
             // 
+            tpProduct.BackColor = Color.FromArgb(249, 245, 238);
             tpProduct.Controls.Add(dgvProduct);
             tpProduct.Controls.Add(groupBox3);
             tpProduct.Controls.Add(panel1);
-            tpProduct.Location = new Point(4, 32);
+            tpProduct.Location = new Point(4, 26);
             tpProduct.Name = "tpProduct";
             tpProduct.Padding = new Padding(3);
-            tpProduct.Size = new Size(1684, 953);
+            tpProduct.Size = new Size(1684, 959);
             tpProduct.TabIndex = 0;
             tpProduct.Text = "Sản phẩm";
-            tpProduct.UseVisualStyleBackColor = true;
             // 
             // dgvProduct
             // 
@@ -135,7 +135,7 @@
             dgvProduct.Location = new Point(566, 64);
             dgvProduct.Name = "dgvProduct";
             dgvProduct.RowHeadersWidth = 51;
-            dgvProduct.Size = new Size(1115, 886);
+            dgvProduct.Size = new Size(1115, 892);
             dgvProduct.TabIndex = 4;
             dgvProduct.CellClick += dgvProduct_CellClick;
             dgvProduct.CellDoubleClick += dgvProduct_CellDoubleClick;
@@ -156,7 +156,7 @@
             // 
             txtFindProduct.Location = new Point(113, 24);
             txtFindProduct.Name = "txtFindProduct";
-            txtFindProduct.Size = new Size(379, 30);
+            txtFindProduct.Size = new Size(379, 25);
             txtFindProduct.TabIndex = 6;
             txtFindProduct.TextChanged += txtFindProduct_TextChanged;
             // 
@@ -165,7 +165,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(10, 27);
             label5.Name = "label5";
-            label5.Size = new Size(91, 23);
+            label5.Size = new Size(75, 19);
             label5.TabIndex = 4;
             label5.Text = "Tìm kiếm:";
             // 
@@ -176,7 +176,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(563, 947);
+            panel1.Size = new Size(563, 953);
             panel1.TabIndex = 0;
             // 
             // groupBox2
@@ -185,7 +185,7 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 456);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(563, 491);
+            groupBox2.Size = new Size(563, 497);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Chi tiết Công thức";
@@ -195,10 +195,10 @@
             dgvRecipe1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRecipe1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecipe1.Dock = DockStyle.Fill;
-            dgvRecipe1.Location = new Point(3, 26);
+            dgvRecipe1.Location = new Point(3, 21);
             dgvRecipe1.Name = "dgvRecipe1";
             dgvRecipe1.RowHeadersWidth = 51;
-            dgvRecipe1.Size = new Size(557, 462);
+            dgvRecipe1.Size = new Size(557, 473);
             dgvRecipe1.TabIndex = 2;
             // 
             // groupBox1
@@ -325,7 +325,7 @@
             cboStatus.FormattingEnabled = true;
             cboStatus.Location = new Point(115, 173);
             cboStatus.Name = "cboStatus";
-            cboStatus.Size = new Size(392, 31);
+            cboStatus.Size = new Size(392, 25);
             cboStatus.TabIndex = 7;
             // 
             // cboCategory
@@ -334,7 +334,7 @@
             cboCategory.FormattingEnabled = true;
             cboCategory.Location = new Point(115, 100);
             cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(392, 31);
+            cboCategory.Size = new Size(392, 25);
             cboCategory.TabIndex = 7;
             // 
             // label15
@@ -342,16 +342,16 @@
             label15.AutoSize = true;
             label15.Location = new Point(12, 176);
             label15.Name = "label15";
-            label15.Size = new Size(97, 23);
+            label15.Size = new Size(80, 19);
             label15.TabIndex = 4;
             label15.Text = "Trạng thái:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(26, 210);
+            label4.Location = new Point(12, 210);
             label4.Name = "label4";
-            label4.Size = new Size(87, 23);
+            label4.Size = new Size(72, 19);
             label4.TabIndex = 4;
             label4.Text = "Hình ảnh:";
             // 
@@ -360,7 +360,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(12, 103);
             label3.Name = "label3";
-            label3.Size = new Size(48, 23);
+            label3.Size = new Size(41, 19);
             label3.TabIndex = 4;
             label3.Text = "Loại:";
             // 
@@ -369,7 +369,7 @@
             txtPrice.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtPrice.Location = new Point(115, 137);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(392, 30);
+            txtPrice.Size = new Size(392, 25);
             txtPrice.TabIndex = 6;
             // 
             // label13
@@ -377,7 +377,7 @@
             label13.AutoSize = true;
             label13.Location = new Point(12, 140);
             label13.Name = "label13";
-            label13.Size = new Size(76, 23);
+            label13.Size = new Size(64, 19);
             label13.TabIndex = 4;
             label13.Text = "Giá bán:";
             // 
@@ -386,7 +386,7 @@
             txtProductName1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtProductName1.Location = new Point(115, 64);
             txtProductName1.Name = "txtProductName1";
-            txtProductName1.Size = new Size(392, 30);
+            txtProductName1.Size = new Size(392, 25);
             txtProductName1.TabIndex = 6;
             // 
             // label2
@@ -394,7 +394,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(12, 67);
             label2.Name = "label2";
-            label2.Size = new Size(67, 23);
+            label2.Size = new Size(57, 19);
             label2.TabIndex = 4;
             label2.Text = "Tên SP:";
             // 
@@ -404,7 +404,7 @@
             txtProductId1.Location = new Point(115, 28);
             txtProductId1.Name = "txtProductId1";
             txtProductId1.ReadOnly = true;
-            txtProductId1.Size = new Size(392, 30);
+            txtProductId1.Size = new Size(392, 25);
             txtProductId1.TabIndex = 6;
             // 
             // label1
@@ -412,20 +412,20 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 31);
             label1.Name = "label1";
-            label1.Size = new Size(65, 23);
+            label1.Size = new Size(55, 19);
             label1.TabIndex = 4;
             label1.Text = "Mã SP:";
             // 
             // tpRecipe
             // 
+            tpRecipe.BackColor = Color.FromArgb(249, 245, 238);
             tpRecipe.Controls.Add(panel4);
-            tpRecipe.Location = new Point(4, 32);
+            tpRecipe.Location = new Point(4, 24);
             tpRecipe.Name = "tpRecipe";
             tpRecipe.Padding = new Padding(3);
-            tpRecipe.Size = new Size(1684, 953);
+            tpRecipe.Size = new Size(1684, 961);
             tpRecipe.TabIndex = 1;
             tpRecipe.Text = "Quản lý công thức";
-            tpRecipe.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -434,7 +434,7 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(3, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1678, 947);
+            panel4.Size = new Size(1678, 955);
             panel4.TabIndex = 1;
             // 
             // panel5
@@ -444,7 +444,7 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(960, 947);
+            panel5.Size = new Size(960, 955);
             panel5.TabIndex = 1;
             // 
             // dgvRecipe2
@@ -455,7 +455,7 @@
             dgvRecipe2.Location = new Point(5, 421);
             dgvRecipe2.Name = "dgvRecipe2";
             dgvRecipe2.RowHeadersWidth = 51;
-            dgvRecipe2.Size = new Size(949, 521);
+            dgvRecipe2.Size = new Size(949, 529);
             dgvRecipe2.TabIndex = 1;
             dgvRecipe2.CellClick += dgvRecipe2_CellClick;
             // 
@@ -493,7 +493,7 @@
             cboProductName.FormattingEnabled = true;
             cboProductName.Location = new Point(171, 126);
             cboProductName.Name = "cboProductName";
-            cboProductName.Size = new Size(635, 31);
+            cboProductName.Size = new Size(635, 25);
             cboProductName.TabIndex = 76;
             cboProductName.SelectedIndexChanged += cboProductName_SelectedIndexChanged;
             // 
@@ -559,7 +559,7 @@
             txtIngredientId.Location = new Point(171, 163);
             txtIngredientId.Name = "txtIngredientId";
             txtIngredientId.ReadOnly = true;
-            txtIngredientId.Size = new Size(635, 30);
+            txtIngredientId.Size = new Size(635, 25);
             txtIngredientId.TabIndex = 69;
             // 
             // label7
@@ -567,7 +567,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(13, 167);
             label7.Name = "label7";
-            label7.Size = new Size(138, 23);
+            label7.Size = new Size(115, 19);
             label7.TabIndex = 66;
             label7.Text = "Mã nguyên liệu:";
             // 
@@ -576,7 +576,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(13, 131);
             label9.Name = "label9";
-            label9.Size = new Size(124, 23);
+            label9.Size = new Size(104, 19);
             label9.TabIndex = 67;
             label9.Text = "Tên sản phẩm:";
             // 
@@ -586,7 +586,7 @@
             txtRecipeId.Location = new Point(171, 54);
             txtRecipeId.Name = "txtRecipeId";
             txtRecipeId.ReadOnly = true;
-            txtRecipeId.Size = new Size(635, 30);
+            txtRecipeId.Size = new Size(635, 25);
             txtRecipeId.TabIndex = 71;
             // 
             // label14
@@ -594,7 +594,7 @@
             label14.AutoSize = true;
             label14.Location = new Point(13, 57);
             label14.Name = "label14";
-            label14.Size = new Size(125, 23);
+            label14.Size = new Size(104, 19);
             label14.TabIndex = 68;
             label14.Text = "Mã công thức:";
             // 
@@ -604,7 +604,7 @@
             txtProductId2.Location = new Point(171, 90);
             txtProductId2.Name = "txtProductId2";
             txtProductId2.ReadOnly = true;
-            txtProductId2.Size = new Size(635, 30);
+            txtProductId2.Size = new Size(635, 25);
             txtProductId2.TabIndex = 71;
             txtProductId2.TextChanged += txtProductId2_TextChanged;
             // 
@@ -613,7 +613,7 @@
             label10.AutoSize = true;
             label10.Location = new Point(13, 93);
             label10.Name = "label10";
-            label10.Size = new Size(122, 23);
+            label10.Size = new Size(102, 19);
             label10.TabIndex = 68;
             label10.Text = "Mã sản phẩm:";
             // 
@@ -623,7 +623,7 @@
             cboIngredientUnit.FormattingEnabled = true;
             cboIngredientUnit.Location = new Point(171, 271);
             cboIngredientUnit.Name = "cboIngredientUnit";
-            cboIngredientUnit.Size = new Size(270, 31);
+            cboIngredientUnit.Size = new Size(270, 25);
             cboIngredientUnit.TabIndex = 65;
             // 
             // label12
@@ -631,7 +631,7 @@
             label12.AutoSize = true;
             label12.Location = new Point(13, 277);
             label12.Name = "label12";
-            label12.Size = new Size(105, 23);
+            label12.Size = new Size(85, 19);
             label12.TabIndex = 60;
             label12.Text = "Đơn vị tính:";
             // 
@@ -640,7 +640,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(13, 238);
             label6.Name = "label6";
-            label6.Size = new Size(88, 23);
+            label6.Size = new Size(73, 19);
             label6.TabIndex = 61;
             label6.Text = "Số lượng:";
             // 
@@ -649,7 +649,7 @@
             txtIngredientQty.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtIngredientQty.Location = new Point(171, 235);
             txtIngredientQty.Name = "txtIngredientQty";
-            txtIngredientQty.Size = new Size(270, 30);
+            txtIngredientQty.Size = new Size(270, 25);
             txtIngredientQty.TabIndex = 63;
             // 
             // txtIngredientName
@@ -658,7 +658,7 @@
             txtIngredientName.Location = new Point(171, 199);
             txtIngredientName.Name = "txtIngredientName";
             txtIngredientName.ReadOnly = true;
-            txtIngredientName.Size = new Size(635, 30);
+            txtIngredientName.Size = new Size(635, 25);
             txtIngredientName.TabIndex = 64;
             // 
             // label8
@@ -666,7 +666,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(13, 202);
             label8.Name = "label8";
-            label8.Size = new Size(140, 23);
+            label8.Size = new Size(117, 19);
             label8.TabIndex = 62;
             label8.Text = "Tên nguyên liệu:";
             // 
@@ -677,7 +677,7 @@
             panel3.Dock = DockStyle.Right;
             panel3.Location = new Point(960, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(718, 947);
+            panel3.Size = new Size(718, 955);
             panel3.TabIndex = 0;
             // 
             // dgvIngredient
@@ -688,7 +688,7 @@
             dgvIngredient.Location = new Point(0, 68);
             dgvIngredient.Name = "dgvIngredient";
             dgvIngredient.RowHeadersWidth = 51;
-            dgvIngredient.Size = new Size(718, 879);
+            dgvIngredient.Size = new Size(718, 887);
             dgvIngredient.TabIndex = 1;
             dgvIngredient.CellClick += dgvIngredient_CellClick;
             // 
@@ -708,7 +708,7 @@
             // 
             txtFindIngredient.Location = new Point(110, 27);
             txtFindIngredient.Name = "txtFindIngredient";
-            txtFindIngredient.Size = new Size(408, 30);
+            txtFindIngredient.Size = new Size(408, 25);
             txtFindIngredient.TabIndex = 69;
             txtFindIngredient.TextChanged += txtFindIngredient_TextChanged;
             // 
@@ -717,13 +717,14 @@
             label11.AutoSize = true;
             label11.Location = new Point(13, 31);
             label11.Name = "label11";
-            label11.Size = new Size(91, 23);
+            label11.Size = new Size(75, 19);
             label11.TabIndex = 66;
             label11.Text = "Tìm kiếm:";
             // 
             // frmProduct
             // 
             AutoScaleMode = AutoScaleMode.None;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(1692, 989);
             Controls.Add(tcMain);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
