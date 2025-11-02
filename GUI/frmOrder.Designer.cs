@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrder));
             tabMain = new TabControl();
             tpTable = new TabPage();
+            panel26 = new Panel();
             flpBanAn = new FlowLayoutPanel();
             button15 = new Button();
             button16 = new Button();
@@ -157,9 +158,9 @@
             button9 = new Button();
             panel10 = new Panel();
             button10 = new Button();
-            panel26 = new Panel();
             tabMain.SuspendLayout();
             tpTable.SuspendLayout();
+            panel26.SuspendLayout();
             flpBanAn.SuspendLayout();
             tpOrder.SuspendLayout();
             panel11.SuspendLayout();
@@ -240,15 +241,23 @@
             // tpTable
             // 
             tpTable.Controls.Add(panel26);
-            tpTable.Controls.Add(flpBanAn);
             tpTable.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            tpTable.Location = new Point(4, 32);
+            tpTable.Location = new Point(4, 26);
             tpTable.Name = "tpTable";
             tpTable.Padding = new Padding(3);
-            tpTable.Size = new Size(1684, 953);
+            tpTable.Size = new Size(1684, 959);
             tpTable.TabIndex = 1;
             tpTable.Text = "Bàn ăn";
             tpTable.UseVisualStyleBackColor = true;
+            // 
+            // panel26
+            // 
+            panel26.Controls.Add(flpBanAn);
+            panel26.Dock = DockStyle.Fill;
+            panel26.Location = new Point(3, 3);
+            panel26.Name = "panel26";
+            panel26.Size = new Size(1678, 953);
+            panel26.TabIndex = 1;
             // 
             // flpBanAn
             // 
@@ -260,10 +269,10 @@
             flpBanAn.Controls.Add(button18);
             flpBanAn.Controls.Add(button19);
             flpBanAn.Controls.Add(button26);
-            flpBanAn.Dock = DockStyle.Left;
-            flpBanAn.Location = new Point(3, 3);
+            flpBanAn.Dock = DockStyle.Fill;
+            flpBanAn.Location = new Point(0, 0);
             flpBanAn.Name = "flpBanAn";
-            flpBanAn.Size = new Size(957, 947);
+            flpBanAn.Size = new Size(1678, 953);
             flpBanAn.TabIndex = 0;
             // 
             // button15
@@ -337,10 +346,10 @@
             tpOrder.Controls.Add(panel11);
             tpOrder.Controls.Add(flpSideBar);
             tpOrder.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            tpOrder.Location = new Point(4, 32);
+            tpOrder.Location = new Point(4, 26);
             tpOrder.Name = "tpOrder";
             tpOrder.Padding = new Padding(3);
-            tpOrder.Size = new Size(1684, 953);
+            tpOrder.Size = new Size(1684, 959);
             tpOrder.TabIndex = 2;
             tpOrder.Text = "Đặt món";
             tpOrder.UseVisualStyleBackColor = true;
@@ -354,7 +363,7 @@
             panel11.Dock = DockStyle.Fill;
             panel11.Location = new Point(179, 3);
             panel11.Name = "panel11";
-            panel11.Size = new Size(1502, 947);
+            panel11.Size = new Size(1502, 953);
             panel11.TabIndex = 4;
             // 
             // flowLayoutPanel1
@@ -378,7 +387,7 @@
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 60);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1061, 887);
+            flowLayoutPanel1.Size = new Size(952, 893);
             flowLayoutPanel1.TabIndex = 2;
             // 
             // panel13
@@ -400,7 +409,7 @@
             label3.ForeColor = Color.FromArgb(168, 34, 43);
             label3.Location = new Point(3, 181);
             label3.Name = "label3";
-            label3.Size = new Size(65, 23);
+            label3.Size = new Size(53, 19);
             label3.TabIndex = 3;
             label3.Text = "29.000";
             // 
@@ -409,7 +418,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(3, 153);
             label2.Name = "label2";
-            label2.Size = new Size(102, 23);
+            label2.Size = new Size(86, 19);
             label2.TabIndex = 2;
             label2.Text = "Phin sữa đá";
             // 
@@ -452,7 +461,7 @@
             label4.ForeColor = Color.FromArgb(168, 34, 43);
             label4.Location = new Point(3, 181);
             label4.Name = "label4";
-            label4.Size = new Size(65, 23);
+            label4.Size = new Size(53, 19);
             label4.TabIndex = 3;
             label4.Text = "29.000";
             // 
@@ -461,7 +470,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(3, 153);
             label5.Name = "label5";
-            label5.Size = new Size(102, 23);
+            label5.Size = new Size(86, 19);
             label5.TabIndex = 2;
             label5.Text = "Phin sữa đá";
             // 
@@ -504,7 +513,7 @@
             label6.ForeColor = Color.FromArgb(168, 34, 43);
             label6.Location = new Point(3, 181);
             label6.Name = "label6";
-            label6.Size = new Size(65, 23);
+            label6.Size = new Size(53, 19);
             label6.TabIndex = 3;
             label6.Text = "29.000";
             // 
@@ -513,7 +522,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(3, 153);
             label7.Name = "label7";
-            label7.Size = new Size(102, 23);
+            label7.Size = new Size(86, 19);
             label7.TabIndex = 2;
             label7.Text = "Phin sữa đá";
             // 
@@ -556,7 +565,7 @@
             label8.ForeColor = Color.FromArgb(168, 34, 43);
             label8.Location = new Point(3, 181);
             label8.Name = "label8";
-            label8.Size = new Size(65, 23);
+            label8.Size = new Size(53, 19);
             label8.TabIndex = 3;
             label8.Text = "29.000";
             // 
@@ -565,7 +574,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(3, 153);
             label9.Name = "label9";
-            label9.Size = new Size(102, 23);
+            label9.Size = new Size(86, 19);
             label9.TabIndex = 2;
             label9.Text = "Phin sữa đá";
             // 
@@ -608,7 +617,7 @@
             label10.ForeColor = Color.FromArgb(168, 34, 43);
             label10.Location = new Point(3, 181);
             label10.Name = "label10";
-            label10.Size = new Size(65, 23);
+            label10.Size = new Size(53, 19);
             label10.TabIndex = 3;
             label10.Text = "29.000";
             // 
@@ -617,7 +626,7 @@
             label11.AutoSize = true;
             label11.Location = new Point(3, 153);
             label11.Name = "label11";
-            label11.Size = new Size(102, 23);
+            label11.Size = new Size(86, 19);
             label11.TabIndex = 2;
             label11.Text = "Phin sữa đá";
             // 
@@ -660,7 +669,7 @@
             label12.ForeColor = Color.FromArgb(168, 34, 43);
             label12.Location = new Point(3, 181);
             label12.Name = "label12";
-            label12.Size = new Size(65, 23);
+            label12.Size = new Size(53, 19);
             label12.TabIndex = 3;
             label12.Text = "29.000";
             // 
@@ -669,7 +678,7 @@
             label13.AutoSize = true;
             label13.Location = new Point(3, 153);
             label13.Name = "label13";
-            label13.Size = new Size(102, 23);
+            label13.Size = new Size(86, 19);
             label13.TabIndex = 2;
             label13.Text = "Phin sữa đá";
             // 
@@ -712,7 +721,7 @@
             label14.ForeColor = Color.FromArgb(168, 34, 43);
             label14.Location = new Point(3, 181);
             label14.Name = "label14";
-            label14.Size = new Size(65, 23);
+            label14.Size = new Size(53, 19);
             label14.TabIndex = 3;
             label14.Text = "29.000";
             // 
@@ -721,7 +730,7 @@
             label15.AutoSize = true;
             label15.Location = new Point(3, 153);
             label15.Name = "label15";
-            label15.Size = new Size(102, 23);
+            label15.Size = new Size(86, 19);
             label15.TabIndex = 2;
             label15.Text = "Phin sữa đá";
             // 
@@ -764,7 +773,7 @@
             label16.ForeColor = Color.FromArgb(168, 34, 43);
             label16.Location = new Point(3, 181);
             label16.Name = "label16";
-            label16.Size = new Size(65, 23);
+            label16.Size = new Size(53, 19);
             label16.TabIndex = 3;
             label16.Text = "29.000";
             // 
@@ -773,7 +782,7 @@
             label17.AutoSize = true;
             label17.Location = new Point(3, 153);
             label17.Name = "label17";
-            label17.Size = new Size(102, 23);
+            label17.Size = new Size(86, 19);
             label17.TabIndex = 2;
             label17.Text = "Phin sữa đá";
             // 
@@ -816,7 +825,7 @@
             label18.ForeColor = Color.FromArgb(168, 34, 43);
             label18.Location = new Point(3, 181);
             label18.Name = "label18";
-            label18.Size = new Size(65, 23);
+            label18.Size = new Size(53, 19);
             label18.TabIndex = 3;
             label18.Text = "29.000";
             // 
@@ -825,7 +834,7 @@
             label19.AutoSize = true;
             label19.Location = new Point(3, 153);
             label19.Name = "label19";
-            label19.Size = new Size(102, 23);
+            label19.Size = new Size(86, 19);
             label19.TabIndex = 2;
             label19.Text = "Phin sữa đá";
             // 
@@ -868,7 +877,7 @@
             label20.ForeColor = Color.FromArgb(168, 34, 43);
             label20.Location = new Point(3, 181);
             label20.Name = "label20";
-            label20.Size = new Size(65, 23);
+            label20.Size = new Size(53, 19);
             label20.TabIndex = 3;
             label20.Text = "29.000";
             // 
@@ -877,7 +886,7 @@
             label21.AutoSize = true;
             label21.Location = new Point(3, 153);
             label21.Name = "label21";
-            label21.Size = new Size(102, 23);
+            label21.Size = new Size(86, 19);
             label21.TabIndex = 2;
             label21.Text = "Phin sữa đá";
             // 
@@ -920,7 +929,7 @@
             label30.ForeColor = Color.FromArgb(168, 34, 43);
             label30.Location = new Point(3, 181);
             label30.Name = "label30";
-            label30.Size = new Size(65, 23);
+            label30.Size = new Size(53, 19);
             label30.TabIndex = 3;
             label30.Text = "29.000";
             // 
@@ -929,7 +938,7 @@
             label31.AutoSize = true;
             label31.Location = new Point(3, 153);
             label31.Name = "label31";
-            label31.Size = new Size(102, 23);
+            label31.Size = new Size(86, 19);
             label31.TabIndex = 2;
             label31.Text = "Phin sữa đá";
             // 
@@ -972,7 +981,7 @@
             label34.ForeColor = Color.FromArgb(168, 34, 43);
             label34.Location = new Point(3, 181);
             label34.Name = "label34";
-            label34.Size = new Size(65, 23);
+            label34.Size = new Size(53, 19);
             label34.TabIndex = 3;
             label34.Text = "29.000";
             // 
@@ -981,7 +990,7 @@
             label35.AutoSize = true;
             label35.Location = new Point(3, 153);
             label35.Name = "label35";
-            label35.Size = new Size(102, 23);
+            label35.Size = new Size(86, 19);
             label35.TabIndex = 2;
             label35.Text = "Phin sữa đá";
             // 
@@ -1024,7 +1033,7 @@
             label32.ForeColor = Color.FromArgb(168, 34, 43);
             label32.Location = new Point(3, 181);
             label32.Name = "label32";
-            label32.Size = new Size(65, 23);
+            label32.Size = new Size(53, 19);
             label32.TabIndex = 3;
             label32.Text = "29.000";
             // 
@@ -1033,7 +1042,7 @@
             label33.AutoSize = true;
             label33.Location = new Point(3, 153);
             label33.Name = "label33";
-            label33.Size = new Size(102, 23);
+            label33.Size = new Size(86, 19);
             label33.TabIndex = 2;
             label33.Text = "Phin sữa đá";
             // 
@@ -1064,14 +1073,14 @@
             panel12.Dock = DockStyle.Top;
             panel12.Location = new Point(0, 0);
             panel12.Name = "panel12";
-            panel12.Size = new Size(1061, 60);
+            panel12.Size = new Size(952, 60);
             panel12.TabIndex = 1;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(106, 15);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(213, 30);
+            textBox1.Size = new Size(213, 25);
             textBox1.TabIndex = 1;
             // 
             // label1
@@ -1079,7 +1088,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(13, 18);
             label1.Name = "label1";
-            label1.Size = new Size(87, 23);
+            label1.Size = new Size(72, 19);
             label1.TabIndex = 0;
             label1.Text = "Tìm món:";
             // 
@@ -1088,10 +1097,10 @@
             tabControl2.Controls.Add(tpOrderNCheckOut);
             tabControl2.Controls.Add(tpCheckout);
             tabControl2.Dock = DockStyle.Right;
-            tabControl2.Location = new Point(1061, 0);
+            tabControl2.Location = new Point(952, 0);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(441, 947);
+            tabControl2.Size = new Size(550, 953);
             tabControl2.TabIndex = 0;
             // 
             // tpOrderNCheckOut
@@ -1108,10 +1117,10 @@
             tpOrderNCheckOut.Controls.Add(label23);
             tpOrderNCheckOut.Controls.Add(label22);
             tpOrderNCheckOut.Controls.Add(dataGridView1);
-            tpOrderNCheckOut.Location = new Point(4, 32);
+            tpOrderNCheckOut.Location = new Point(4, 26);
             tpOrderNCheckOut.Name = "tpOrderNCheckOut";
             tpOrderNCheckOut.Padding = new Padding(3);
-            tpOrderNCheckOut.Size = new Size(433, 911);
+            tpOrderNCheckOut.Size = new Size(542, 923);
             tpOrderNCheckOut.TabIndex = 0;
             tpOrderNCheckOut.Text = "Đặt món";
             // 
@@ -1119,7 +1128,7 @@
             // 
             button13.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button13.BackColor = Color.FromArgb(169, 65, 65);
-            button13.Location = new Point(164, 837);
+            button13.Location = new Point(164, 849);
             button13.Name = "button13";
             button13.Size = new Size(145, 60);
             button13.TabIndex = 4;
@@ -1131,7 +1140,7 @@
             button12.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button12.BackColor = Color.FromArgb(104, 176, 145);
             button12.FlatAppearance.BorderSize = 0;
-            button12.Location = new Point(11, 837);
+            button12.Location = new Point(11, 849);
             button12.Name = "button12";
             button12.Size = new Size(145, 60);
             button12.TabIndex = 4;
@@ -1152,7 +1161,7 @@
             // 
             numericUpDown1.Location = new Point(136, 133);
             numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(91, 30);
+            numericUpDown1.Size = new Size(91, 25);
             numericUpDown1.TabIndex = 3;
             // 
             // label25
@@ -1160,7 +1169,7 @@
             label25.AutoSize = true;
             label25.Location = new Point(14, 135);
             label25.Name = "label25";
-            label25.Size = new Size(129, 23);
+            label25.Size = new Size(107, 19);
             label25.TabIndex = 2;
             label25.Text = "Số lượng món:";
             // 
@@ -1169,7 +1178,7 @@
             textBox3.Location = new Point(136, 101);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
-            textBox3.Size = new Size(191, 30);
+            textBox3.Size = new Size(191, 25);
             textBox3.TabIndex = 1;
             // 
             // label24
@@ -1177,7 +1186,7 @@
             label24.AutoSize = true;
             label24.Location = new Point(14, 104);
             label24.Name = "label24";
-            label24.Size = new Size(83, 23);
+            label24.Size = new Size(70, 19);
             label24.TabIndex = 2;
             label24.Text = "Tên món:";
             // 
@@ -1186,7 +1195,7 @@
             textBox2.Location = new Point(136, 70);
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
-            textBox2.Size = new Size(191, 30);
+            textBox2.Size = new Size(191, 25);
             textBox2.TabIndex = 1;
             // 
             // label23
@@ -1194,7 +1203,7 @@
             label23.AutoSize = true;
             label23.Location = new Point(14, 73);
             label23.Name = "label23";
-            label23.Size = new Size(108, 23);
+            label23.Size = new Size(90, 19);
             label23.TabIndex = 2;
             label23.Text = "Khách hàng:";
             // 
@@ -1204,7 +1213,7 @@
             label22.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             label22.Location = new Point(11, 12);
             label22.Name = "label22";
-            label22.Size = new Size(110, 46);
+            label22.Size = new Size(88, 37);
             label22.TabIndex = 1;
             label22.Text = "Bàn 1";
             // 
@@ -1216,7 +1225,7 @@
             dataGridView1.Margin = new Padding(0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(419, 659);
+            dataGridView1.Size = new Size(528, 671);
             dataGridView1.TabIndex = 0;
             // 
             // tpCheckout
@@ -1232,10 +1241,10 @@
             tpCheckout.Controls.Add(label29);
             tpCheckout.Controls.Add(label26);
             tpCheckout.Controls.Add(dataGridView2);
-            tpCheckout.Location = new Point(4, 32);
+            tpCheckout.Location = new Point(4, 26);
             tpCheckout.Name = "tpCheckout";
             tpCheckout.Padding = new Padding(3);
-            tpCheckout.Size = new Size(433, 911);
+            tpCheckout.Size = new Size(542, 923);
             tpCheckout.TabIndex = 1;
             tpCheckout.Text = "Thanh toán";
             // 
@@ -1245,9 +1254,9 @@
             checkBox1.AutoSize = true;
             checkBox1.Checked = true;
             checkBox1.CheckState = CheckState.Checked;
-            checkBox1.Location = new Point(159, 859);
+            checkBox1.Location = new Point(159, 875);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(118, 27);
+            checkBox1.Size = new Size(99, 23);
             checkBox1.TabIndex = 6;
             checkBox1.Text = "In hóa đơn";
             checkBox1.UseVisualStyleBackColor = true;
@@ -1257,7 +1266,7 @@
             button20.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button20.BackColor = Color.FromArgb(104, 176, 145);
             button20.FlatAppearance.BorderSize = 0;
-            button20.Location = new Point(8, 844);
+            button20.Location = new Point(8, 856);
             button20.Name = "button20";
             button20.Size = new Size(145, 52);
             button20.TabIndex = 5;
@@ -1268,10 +1277,10 @@
             // 
             textBox6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             textBox6.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            textBox6.Location = new Point(182, 803);
+            textBox6.Location = new Point(182, 815);
             textBox6.Name = "textBox6";
             textBox6.ReadOnly = true;
-            textBox6.Size = new Size(230, 39);
+            textBox6.Size = new Size(284, 32);
             textBox6.TabIndex = 2;
             // 
             // label28
@@ -1279,38 +1288,38 @@
             label28.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label28.AutoSize = true;
             label28.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            label28.Location = new Point(6, 798);
+            label28.Location = new Point(6, 810);
             label28.Name = "label28";
-            label28.Size = new Size(183, 46);
+            label28.Size = new Size(147, 37);
             label28.TabIndex = 1;
             label28.Text = "Tổng tiền:";
             // 
             // textBox5
             // 
             textBox5.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            textBox5.Location = new Point(117, 764);
+            textBox5.Location = new Point(117, 776);
             textBox5.Name = "textBox5";
             textBox5.ReadOnly = true;
-            textBox5.Size = new Size(192, 30);
+            textBox5.Size = new Size(246, 25);
             textBox5.TabIndex = 2;
             // 
             // label27
             // 
             label27.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label27.AutoSize = true;
-            label27.Location = new Point(6, 767);
+            label27.Location = new Point(6, 779);
             label27.Name = "label27";
-            label27.Size = new Size(109, 23);
+            label27.Size = new Size(91, 19);
             label27.TabIndex = 1;
             label27.Text = "Khuyến mãi:";
             // 
             // textBox4
             // 
             textBox4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            textBox4.Location = new Point(117, 733);
+            textBox4.Location = new Point(117, 745);
             textBox4.Name = "textBox4";
             textBox4.ReadOnly = true;
-            textBox4.Size = new Size(192, 30);
+            textBox4.Size = new Size(246, 25);
             textBox4.TabIndex = 2;
             // 
             // label29
@@ -1319,7 +1328,7 @@
             label29.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             label29.Location = new Point(6, 15);
             label29.Name = "label29";
-            label29.Size = new Size(273, 46);
+            label29.Size = new Size(219, 37);
             label29.TabIndex = 1;
             label29.Text = "Danh sách món:";
             // 
@@ -1327,9 +1336,9 @@
             // 
             label26.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label26.AutoSize = true;
-            label26.Location = new Point(6, 736);
+            label26.Location = new Point(6, 748);
             label26.Name = "label26";
-            label26.Size = new Size(100, 23);
+            label26.Size = new Size(82, 19);
             label26.TabIndex = 1;
             label26.Text = "Thành tiền:";
             // 
@@ -1340,7 +1349,7 @@
             dataGridView2.Location = new Point(6, 55);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(421, 668);
+            dataGridView2.Size = new Size(530, 680);
             dataGridView2.TabIndex = 0;
             // 
             // flpSideBar
@@ -1361,7 +1370,7 @@
             flpSideBar.Dock = DockStyle.Left;
             flpSideBar.Location = new Point(3, 3);
             flpSideBar.Name = "flpSideBar";
-            flpSideBar.Size = new Size(176, 947);
+            flpSideBar.Size = new Size(176, 953);
             flpSideBar.TabIndex = 2;
             // 
             // pnNotification
@@ -1632,14 +1641,6 @@
             button10.TextAlign = ContentAlignment.MiddleLeft;
             button10.UseVisualStyleBackColor = false;
             // 
-            // panel26
-            // 
-            panel26.Dock = DockStyle.Fill;
-            panel26.Location = new Point(960, 3);
-            panel26.Name = "panel26";
-            panel26.Size = new Size(721, 947);
-            panel26.TabIndex = 1;
-            // 
             // frmOrder
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -1651,6 +1652,7 @@
             Load += frmOrder_Load;
             tabMain.ResumeLayout(false);
             tpTable.ResumeLayout(false);
+            panel26.ResumeLayout(false);
             flpBanAn.ResumeLayout(false);
             tpOrder.ResumeLayout(false);
             panel11.ResumeLayout(false);

@@ -1,16 +1,18 @@
-﻿using System.Runtime.InteropServices;
+﻿using DTO;
+using System.Runtime.InteropServices;
 
 namespace GUI
 {
     public partial class frmMain : Form
     {
-        public frmMain()
+        bool sideBarExpand = true;
+        private Employee employee = new(); // Nhân viên/Quản lý đăng nhập vào tìa khoản
+
+        public frmMain(Employee em)
         {
             InitializeComponent();
+            employee = em;
         }
-
-        bool sideBarExpand = true;
-
 
         // Gọi API xử lý sự kiện kéo
         [DllImport("user32.dll")]
@@ -81,7 +83,7 @@ namespace GUI
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
-            frmOrder fr = new frmOrder();
+            frmOrder fr = new frmOrder(employee);
 
             button.BackColor = ColorTranslator.FromHtml("#3B3030");
             button.ForeColor = ColorTranslator.FromHtml("#F9F5EE");
