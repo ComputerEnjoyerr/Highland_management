@@ -30,6 +30,10 @@ namespace BLL
         public void Add(Branch branch)
         {
             ValidateBranch(branch);
+
+            if (!ValidateInput(branch).IsValid)
+                throw new Exception($"{ValidateInput(branch).Message}");
+
             dAL_Branch.Add(branch);
         }
 
@@ -43,6 +47,10 @@ namespace BLL
                 throw new Exception("Thiếu ID chi nhánh khi cập nhật.");
             if (string.IsNullOrWhiteSpace(branch.BranchName))
                 throw new Exception("Tên chi nhánh không được để trống.");
+
+            if (!ValidateInput(branch).IsValid)
+                throw new Exception($"{ValidateInput(branch).Message}");
+
             dAL_Branch.Update(branch);
         }
 
@@ -116,6 +124,23 @@ namespace BLL
                 return null;
             }
             return existingPhone;
+        }
+
+        private (bool IsValid, string Message) ValidateInput(Branch b)
+        {
+            if (!ValidationData.IsValidName(b.BranchName))
+                return (false, "Tên chi nhánh không hợp lệ.");
+
+            if (!ValidationData.IsValidPhone(b.Phone))
+                return (false, "Số điện thoại không hợp lệ.");
+
+            if (!ValidationData.IsValidAddress(b.AddressId))
+                return (false, "Địa chỉ chi nhánh không hợp lệ.");
+
+            if (!ValidationData.IsValidTimeRange(b.OpenTime?.ToTimeSpan() ?? TimeSpan.Zero, b.CloseTime?.ToTimeSpan() ?? TimeSpan.Zero))
+                return (false, "Khoảng thời gian mở - đóng cửa không hợp lệ.");
+
+            return (true, "Dữ liệu hợp lệ.");
         }
     }
 }
