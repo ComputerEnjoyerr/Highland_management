@@ -74,93 +74,93 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(38, 58);
+            label6.Location = new Point(36, 51);
             label6.Name = "label6";
-            label6.Size = new Size(69, 23);
+            label6.Size = new Size(58, 19);
             label6.TabIndex = 26;
             label6.Text = "Mã KH:";
             // 
             // txtId
             // 
-            txtId.Location = new Point(146, 52);
+            txtId.Location = new Point(144, 45);
             txtId.Name = "txtId";
             txtId.ReadOnly = true;
-            txtId.Size = new Size(480, 30);
+            txtId.Size = new Size(480, 25);
             txtId.TabIndex = 30;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(38, 95);
+            label5.Location = new Point(36, 88);
             label5.Name = "label5";
-            label5.Size = new Size(69, 23);
+            label5.Size = new Size(58, 19);
             label5.TabIndex = 25;
             label5.Text = "Họ tên:";
             // 
             // txtName
             // 
-            txtName.Location = new Point(146, 89);
+            txtName.Location = new Point(144, 82);
             txtName.Name = "txtName";
-            txtName.Size = new Size(480, 30);
+            txtName.Size = new Size(480, 25);
             txtName.TabIndex = 29;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label4.AutoSize = true;
-            label4.Location = new Point(40, 393);
+            label4.Location = new Point(35, 403);
             label4.Name = "label4";
-            label4.Size = new Size(144, 23);
+            label4.Size = new Size(119, 19);
             label4.TabIndex = 25;
             label4.Text = "Tìm Khách hàng:";
             // 
             // txtFindCustomer
             // 
             txtFindCustomer.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            txtFindCustomer.Location = new Point(190, 390);
+            txtFindCustomer.Location = new Point(185, 400);
             txtFindCustomer.Name = "txtFindCustomer";
-            txtFindCustomer.Size = new Size(743, 30);
+            txtFindCustomer.Size = new Size(743, 25);
             txtFindCustomer.TabIndex = 29;
             txtFindCustomer.TextChanged += textBox2_TextChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(37, 164);
+            label8.Location = new Point(35, 157);
             label8.Name = "label8";
-            label8.Size = new Size(59, 23);
+            label8.Size = new Size(49, 19);
             label8.TabIndex = 23;
             label8.Text = "Email:";
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(145, 161);
+            txtEmail.Location = new Point(143, 154);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(480, 30);
+            txtEmail.Size = new Size(480, 25);
             txtEmail.TabIndex = 27;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(37, 131);
+            label3.Location = new Point(35, 124);
             label3.Name = "label3";
-            label3.Size = new Size(48, 23);
+            label3.Size = new Size(39, 19);
             label3.TabIndex = 23;
             label3.Text = "SĐT:";
             // 
             // txtPhone
             // 
-            txtPhone.Location = new Point(145, 125);
+            txtPhone.Location = new Point(143, 118);
             txtPhone.Name = "txtPhone";
-            txtPhone.Size = new Size(480, 30);
+            txtPhone.Size = new Size(480, 25);
             txtPhone.TabIndex = 27;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(747, 130);
+            label2.Location = new Point(745, 123);
             label2.Name = "label2";
-            label2.Size = new Size(58, 23);
+            label2.Size = new Size(49, 19);
             label2.TabIndex = 22;
             label2.Text = "Hạng:";
             // 
@@ -168,9 +168,9 @@
             // 
             cboTier.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboTier.FormattingEnabled = true;
-            cboTier.Location = new Point(839, 124);
+            cboTier.Location = new Point(837, 117);
             cboTier.Name = "cboTier";
-            cboTier.Size = new Size(21, 31);
+            cboTier.Size = new Size(21, 25);
             cboTier.TabIndex = 31;
             cboTier.SelectedIndexChanged += cboTier_SelectedIndexChanged;
             // 
@@ -179,7 +179,7 @@
             btnDelete.BackColor = SystemColors.Control;
             btnDelete.Image = Properties.Resources.delete;
             btnDelete.ImageAlign = ContentAlignment.MiddleRight;
-            btnDelete.Location = new Point(208, 260);
+            btnDelete.Location = new Point(206, 253);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(144, 57);
             btnDelete.TabIndex = 33;
@@ -193,7 +193,7 @@
             btnAdd.BackColor = SystemColors.Control;
             btnAdd.Image = Properties.Resources.plus;
             btnAdd.ImageAlign = ContentAlignment.MiddleRight;
-            btnAdd.Location = new Point(37, 260);
+            btnAdd.Location = new Point(35, 253);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(144, 57);
             btnAdd.TabIndex = 32;
@@ -207,7 +207,7 @@
             btnClear.BackColor = SystemColors.Control;
             btnClear.Image = Properties.Resources.arrow;
             btnClear.ImageAlign = ContentAlignment.MiddleRight;
-            btnClear.Location = new Point(544, 260);
+            btnClear.Location = new Point(542, 253);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(144, 57);
             btnClear.TabIndex = 33;
@@ -221,7 +221,7 @@
             btnUpdate.BackColor = SystemColors.Control;
             btnUpdate.Image = Properties.Resources.pen;
             btnUpdate.ImageAlign = ContentAlignment.MiddleRight;
-            btnUpdate.Location = new Point(377, 260);
+            btnUpdate.Location = new Point(375, 253);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(144, 57);
             btnUpdate.TabIndex = 32;
@@ -232,6 +232,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(249, 245, 238);
             panel1.Controls.Add(dtpDOB);
             panel1.Controls.Add(nmrPoint);
             panel1.Controls.Add(nmrDrips);
@@ -265,73 +266,73 @@
             // dtpDOB
             // 
             dtpDOB.Format = DateTimePickerFormat.Short;
-            dtpDOB.Location = new Point(145, 197);
+            dtpDOB.Location = new Point(143, 190);
             dtpDOB.Name = "dtpDOB";
-            dtpDOB.Size = new Size(156, 30);
+            dtpDOB.Size = new Size(156, 25);
             dtpDOB.TabIndex = 35;
             // 
             // nmrPoint
             // 
             nmrPoint.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            nmrPoint.Location = new Point(840, 51);
+            nmrPoint.Location = new Point(838, 44);
             nmrPoint.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             nmrPoint.Name = "nmrPoint";
-            nmrPoint.Size = new Size(21, 30);
+            nmrPoint.Size = new Size(21, 25);
             nmrPoint.TabIndex = 34;
             nmrPoint.ValueChanged += nmrPoint_ValueChanged;
             // 
             // nmrDrips
             // 
             nmrDrips.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            nmrDrips.Location = new Point(840, 87);
+            nmrDrips.Location = new Point(838, 80);
             nmrDrips.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             nmrDrips.Name = "nmrDrips";
-            nmrDrips.Size = new Size(21, 30);
+            nmrDrips.Size = new Size(21, 25);
             nmrDrips.TabIndex = 34;
             // 
             // cboGender
             // 
             cboGender.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboGender.FormattingEnabled = true;
-            cboGender.Location = new Point(839, 160);
+            cboGender.Location = new Point(837, 153);
             cboGender.Name = "cboGender";
-            cboGender.Size = new Size(21, 31);
+            cboGender.Size = new Size(21, 25);
             cboGender.TabIndex = 31;
             cboGender.SelectedIndexChanged += cboTier_SelectedIndexChanged;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(747, 166);
+            label7.Location = new Point(745, 159);
             label7.Name = "label7";
-            label7.Size = new Size(85, 23);
+            label7.Size = new Size(69, 19);
             label7.TabIndex = 22;
             label7.Text = "Giới tính:";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(748, 94);
+            label9.Location = new Point(746, 87);
             label9.Name = "label9";
-            label9.Size = new Size(58, 23);
+            label9.Size = new Size(48, 19);
             label9.TabIndex = 23;
             label9.Text = "Drips:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(748, 54);
+            label1.Location = new Point(746, 47);
             label1.Name = "label1";
-            label1.Size = new Size(58, 23);
+            label1.Size = new Size(48, 19);
             label1.TabIndex = 23;
             label1.Text = "Điểm:";
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(36, 203);
+            label10.Location = new Point(34, 196);
             label10.Name = "label10";
-            label10.Size = new Size(94, 23);
+            label10.Size = new Size(79, 19);
             label10.TabIndex = 23;
             label10.Text = "Ngày sinh:";
             // 

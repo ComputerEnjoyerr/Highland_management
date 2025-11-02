@@ -59,8 +59,11 @@
             dgvBanchEmployee = new DataGridView();
             panel3 = new Panel();
             groupBox2 = new GroupBox();
+            dtpDateOfBirth = new DateTimePicker();
             txtESalaryPerHour = new TextBox();
             label19 = new Label();
+            cboEmployeeStatus = new ComboBox();
+            cboGender = new ComboBox();
             cboERole = new ComboBox();
             cboEProvince = new ComboBox();
             label3 = new Label();
@@ -68,9 +71,14 @@
             label4 = new Label();
             txtEPhone = new TextBox();
             label5 = new Label();
+            label22 = new Label();
+            label23 = new Label();
             txtEAddress = new TextBox();
+            label21 = new Label();
             label6 = new Label();
             label13 = new Label();
+            txtCitizenId = new TextBox();
+            label20 = new Label();
             txtEName = new TextBox();
             label14 = new Label();
             txtEId = new TextBox();
@@ -81,14 +89,6 @@
             btnEDelete = new Button();
             txtEFind = new TextBox();
             label12 = new Label();
-            label20 = new Label();
-            txtCitizenId = new TextBox();
-            label21 = new Label();
-            cboGender = new ComboBox();
-            label22 = new Label();
-            dtpDateOfBirth = new DateTimePicker();
-            label23 = new Label();
-            cboEmployeeStatus = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvBranch).BeginInit();
             panel2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -159,7 +159,7 @@
             cboStatus.FormattingEnabled = true;
             cboStatus.Location = new Point(644, 111);
             cboStatus.Name = "cboStatus";
-            cboStatus.Size = new Size(185, 31);
+            cboStatus.Size = new Size(185, 25);
             cboStatus.TabIndex = 65;
             // 
             // label16
@@ -167,7 +167,7 @@
             label16.AutoSize = true;
             label16.Location = new Point(515, 119);
             label16.Name = "label16";
-            label16.Size = new Size(97, 23);
+            label16.Size = new Size(80, 19);
             label16.TabIndex = 64;
             label16.Text = "Trạng thái:";
             // 
@@ -178,7 +178,7 @@
             dtpCloseTime.Location = new Point(644, 74);
             dtpCloseTime.Name = "dtpCloseTime";
             dtpCloseTime.ShowUpDown = true;
-            dtpCloseTime.Size = new Size(145, 30);
+            dtpCloseTime.Size = new Size(145, 25);
             dtpCloseTime.TabIndex = 63;
             // 
             // dtpOpenTime
@@ -188,7 +188,7 @@
             dtpOpenTime.Location = new Point(644, 38);
             dtpOpenTime.Name = "dtpOpenTime";
             dtpOpenTime.ShowUpDown = true;
-            dtpOpenTime.Size = new Size(145, 30);
+            dtpOpenTime.Size = new Size(145, 25);
             dtpOpenTime.TabIndex = 62;
             // 
             // label18
@@ -196,7 +196,7 @@
             label18.AutoSize = true;
             label18.Location = new Point(515, 77);
             label18.Name = "label18";
-            label18.Size = new Size(123, 23);
+            label18.Size = new Size(103, 19);
             label18.TabIndex = 60;
             label18.Text = "Giờ đóng cửa:";
             // 
@@ -205,7 +205,7 @@
             label17.AutoSize = true;
             label17.Location = new Point(515, 41);
             label17.Name = "label17";
-            label17.Size = new Size(108, 23);
+            label17.Size = new Size(90, 19);
             label17.TabIndex = 61;
             label17.Text = "Giờ mở cửa:";
             // 
@@ -267,10 +267,9 @@
             // 
             // txtPhone
             // 
-            txtPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtPhone.Location = new Point(135, 133);
             txtPhone.Name = "txtPhone";
-            txtPhone.Size = new Size(313, 30);
+            txtPhone.Size = new Size(313, 25);
             txtPhone.TabIndex = 41;
             // 
             // label7
@@ -278,13 +277,12 @@
             label7.AutoSize = true;
             label7.Location = new Point(24, 137);
             label7.Name = "label7";
-            label7.Size = new Size(48, 23);
+            label7.Size = new Size(39, 19);
             label7.TabIndex = 38;
             label7.Text = "SĐT:";
             // 
             // txtBName
             // 
-            txtBName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtBName.Location = new Point(135, 74);
             txtBName.Multiline = true;
             txtBName.Name = "txtBName";
@@ -296,17 +294,16 @@
             label9.AutoSize = true;
             label9.Location = new Point(24, 77);
             label9.Name = "label9";
-            label9.Size = new Size(71, 23);
+            label9.Size = new Size(60, 19);
             label9.TabIndex = 39;
             label9.Text = "Tên CN:";
             // 
             // txtBId
             // 
-            txtBId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtBId.Location = new Point(135, 38);
             txtBId.Name = "txtBId";
             txtBId.ReadOnly = true;
-            txtBId.Size = new Size(313, 30);
+            txtBId.Size = new Size(313, 25);
             txtBId.TabIndex = 43;
             // 
             // label10
@@ -314,18 +311,17 @@
             label10.AutoSize = true;
             label10.Location = new Point(24, 41);
             label10.Name = "label10";
-            label10.Size = new Size(69, 23);
+            label10.Size = new Size(58, 19);
             label10.TabIndex = 40;
             label10.Text = "Mã CN:";
             // 
             // cboProvince
             // 
-            cboProvince.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboProvince.DropDownStyle = ComboBoxStyle.DropDownList;
             cboProvince.FormattingEnabled = true;
             cboProvince.Location = new Point(135, 242);
             cboProvince.Name = "cboProvince";
-            cboProvince.Size = new Size(313, 31);
+            cboProvince.Size = new Size(313, 25);
             cboProvince.TabIndex = 36;
             cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
             // 
@@ -334,18 +330,17 @@
             label2.AutoSize = true;
             label2.Location = new Point(24, 248);
             label2.Name = "label2";
-            label2.Size = new Size(78, 23);
+            label2.Size = new Size(64, 19);
             label2.TabIndex = 32;
             label2.Text = "Tỉnh/TP:";
             // 
             // cboWard
             // 
-            cboWard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboWard.DropDownStyle = ComboBoxStyle.DropDownList;
             cboWard.FormattingEnabled = true;
             cboWard.Location = new Point(135, 204);
             cboWard.Name = "cboWard";
-            cboWard.Size = new Size(313, 31);
+            cboWard.Size = new Size(313, 25);
             cboWard.TabIndex = 37;
             // 
             // label1
@@ -353,7 +348,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(24, 210);
             label1.Name = "label1";
-            label1.Size = new Size(106, 23);
+            label1.Size = new Size(88, 19);
             label1.TabIndex = 33;
             label1.Text = "Xã/Phường:";
             // 
@@ -362,7 +357,7 @@
             txtFindBranch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             txtFindBranch.Location = new Point(121, 444);
             txtFindBranch.Name = "txtFindBranch";
-            txtFindBranch.Size = new Size(597, 30);
+            txtFindBranch.Size = new Size(597, 25);
             txtFindBranch.TabIndex = 35;
             txtFindBranch.TextChanged += txtFindBranch_TextChanged;
             // 
@@ -372,16 +367,15 @@
             label11.AutoSize = true;
             label11.Location = new Point(24, 447);
             label11.Name = "label11";
-            label11.Size = new Size(91, 23);
+            label11.Size = new Size(75, 19);
             label11.TabIndex = 34;
             label11.Text = "Tìm kiếm:";
             // 
             // txtAddress
             // 
-            txtAddress.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtAddress.Location = new Point(135, 169);
             txtAddress.Name = "txtAddress";
-            txtAddress.Size = new Size(313, 30);
+            txtAddress.Size = new Size(313, 25);
             txtAddress.TabIndex = 35;
             // 
             // label8
@@ -389,7 +383,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(24, 172);
             label8.Name = "label8";
-            label8.Size = new Size(70, 23);
+            label8.Size = new Size(58, 19);
             label8.TabIndex = 34;
             label8.Text = "Địa chỉ:";
             // 
@@ -463,11 +457,19 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Nhân viên chi nhánh";
             // 
+            // dtpDateOfBirth
+            // 
+            dtpDateOfBirth.Format = DateTimePickerFormat.Short;
+            dtpDateOfBirth.Location = new Point(566, 184);
+            dtpDateOfBirth.Name = "dtpDateOfBirth";
+            dtpDateOfBirth.Size = new Size(208, 25);
+            dtpDateOfBirth.TabIndex = 60;
+            // 
             // txtESalaryPerHour
             // 
             txtESalaryPerHour.Location = new Point(551, 108);
             txtESalaryPerHour.Name = "txtESalaryPerHour";
-            txtESalaryPerHour.Size = new Size(223, 30);
+            txtESalaryPerHour.Size = new Size(223, 25);
             txtESalaryPerHour.TabIndex = 59;
             // 
             // label19
@@ -475,9 +477,27 @@
             label19.AutoSize = true;
             label19.Location = new Point(466, 111);
             label19.Name = "label19";
-            label19.Size = new Size(67, 23);
+            label19.Size = new Size(55, 19);
             label19.TabIndex = 58;
             label19.Text = "Lương:";
+            // 
+            // cboEmployeeStatus
+            // 
+            cboEmployeeStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboEmployeeStatus.FormattingEnabled = true;
+            cboEmployeeStatus.Location = new Point(152, 253);
+            cboEmployeeStatus.Name = "cboEmployeeStatus";
+            cboEmployeeStatus.Size = new Size(216, 25);
+            cboEmployeeStatus.TabIndex = 55;
+            // 
+            // cboGender
+            // 
+            cboGender.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboGender.FormattingEnabled = true;
+            cboGender.Location = new Point(551, 146);
+            cboGender.Name = "cboGender";
+            cboGender.Size = new Size(223, 25);
+            cboGender.TabIndex = 55;
             // 
             // cboERole
             // 
@@ -485,7 +505,7 @@
             cboERole.FormattingEnabled = true;
             cboERole.Location = new Point(551, 35);
             cboERole.Name = "cboERole";
-            cboERole.Size = new Size(223, 31);
+            cboERole.Size = new Size(223, 25);
             cboERole.TabIndex = 55;
             // 
             // cboEProvince
@@ -494,7 +514,7 @@
             cboEProvince.FormattingEnabled = true;
             cboEProvince.Location = new Point(152, 216);
             cboEProvince.Name = "cboEProvince";
-            cboEProvince.Size = new Size(276, 31);
+            cboEProvince.Size = new Size(276, 25);
             cboEProvince.TabIndex = 56;
             // 
             // label3
@@ -502,7 +522,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(28, 222);
             label3.Name = "label3";
-            label3.Size = new Size(78, 23);
+            label3.Size = new Size(64, 19);
             label3.TabIndex = 44;
             label3.Text = "Tỉnh/TP:";
             // 
@@ -512,7 +532,7 @@
             cboEWard.FormattingEnabled = true;
             cboEWard.Location = new Point(152, 179);
             cboEWard.Name = "cboEWard";
-            cboEWard.Size = new Size(276, 31);
+            cboEWard.Size = new Size(276, 25);
             cboEWard.TabIndex = 57;
             // 
             // label4
@@ -520,7 +540,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(28, 185);
             label4.Name = "label4";
-            label4.Size = new Size(106, 23);
+            label4.Size = new Size(88, 19);
             label4.TabIndex = 45;
             label4.Text = "Xã/Phường:";
             // 
@@ -528,7 +548,7 @@
             // 
             txtEPhone.Location = new Point(551, 72);
             txtEPhone.Name = "txtEPhone";
-            txtEPhone.Size = new Size(223, 30);
+            txtEPhone.Size = new Size(223, 25);
             txtEPhone.TabIndex = 51;
             // 
             // label5
@@ -536,23 +556,50 @@
             label5.AutoSize = true;
             label5.Location = new Point(466, 78);
             label5.Name = "label5";
-            label5.Size = new Size(48, 23);
+            label5.Size = new Size(39, 19);
             label5.TabIndex = 46;
             label5.Text = "SĐT:";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(466, 190);
+            label22.Name = "label22";
+            label22.Size = new Size(79, 19);
+            label22.TabIndex = 48;
+            label22.Text = "Ngày sinh:";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(27, 261);
+            label23.Name = "label23";
+            label23.Size = new Size(80, 19);
+            label23.TabIndex = 48;
+            label23.Text = "Trạng thái:";
             // 
             // txtEAddress
             // 
             txtEAddress.Location = new Point(152, 143);
             txtEAddress.Name = "txtEAddress";
-            txtEAddress.Size = new Size(276, 30);
+            txtEAddress.Size = new Size(276, 25);
             txtEAddress.TabIndex = 52;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(466, 152);
+            label21.Name = "label21";
+            label21.Size = new Size(69, 19);
+            label21.TabIndex = 48;
+            label21.Text = "Giới tính:";
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Location = new Point(27, 149);
             label6.Name = "label6";
-            label6.Size = new Size(70, 23);
+            label6.Size = new Size(58, 19);
             label6.TabIndex = 47;
             label6.Text = "Địa chỉ:";
             // 
@@ -561,15 +608,32 @@
             label13.AutoSize = true;
             label13.Location = new Point(466, 41);
             label13.Name = "label13";
-            label13.Size = new Size(79, 23);
+            label13.Size = new Size(66, 19);
             label13.TabIndex = 48;
             label13.Text = "Chức vụ:";
+            // 
+            // txtCitizenId
+            // 
+            txtCitizenId.Location = new Point(152, 71);
+            txtCitizenId.Name = "txtCitizenId";
+            txtCitizenId.Size = new Size(276, 25);
+            txtCitizenId.TabIndex = 53;
+            txtCitizenId.Leave += txtEName_Leave;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(27, 77);
+            label20.Name = "label20";
+            label20.Size = new Size(99, 19);
+            label20.TabIndex = 49;
+            label20.Text = "CCCD/CMND:";
             // 
             // txtEName
             // 
             txtEName.Location = new Point(152, 107);
             txtEName.Name = "txtEName";
-            txtEName.Size = new Size(276, 30);
+            txtEName.Size = new Size(276, 25);
             txtEName.TabIndex = 53;
             txtEName.Leave += txtEName_Leave;
             // 
@@ -578,7 +642,7 @@
             label14.AutoSize = true;
             label14.Location = new Point(27, 113);
             label14.Name = "label14";
-            label14.Size = new Size(69, 23);
+            label14.Size = new Size(58, 19);
             label14.TabIndex = 49;
             label14.Text = "Họ tên:";
             // 
@@ -587,7 +651,7 @@
             txtEId.Location = new Point(152, 35);
             txtEId.Name = "txtEId";
             txtEId.ReadOnly = true;
-            txtEId.Size = new Size(276, 30);
+            txtEId.Size = new Size(276, 25);
             txtEId.TabIndex = 54;
             // 
             // label15
@@ -595,7 +659,7 @@
             label15.AutoSize = true;
             label15.Location = new Point(27, 41);
             label15.Name = "label15";
-            label15.Size = new Size(69, 23);
+            label15.Size = new Size(58, 19);
             label15.TabIndex = 50;
             label15.Text = "Mã NV:";
             // 
@@ -660,7 +724,7 @@
             txtEFind.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             txtEFind.Location = new Point(110, 404);
             txtEFind.Name = "txtEFind";
-            txtEFind.Size = new Size(527, 30);
+            txtEFind.Size = new Size(527, 25);
             txtEFind.TabIndex = 35;
             txtEFind.TextChanged += txtEFind_TextChanged;
             // 
@@ -670,79 +734,9 @@
             label12.AutoSize = true;
             label12.Location = new Point(18, 407);
             label12.Name = "label12";
-            label12.Size = new Size(91, 23);
+            label12.Size = new Size(75, 19);
             label12.TabIndex = 34;
             label12.Text = "Tìm kiếm:";
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Location = new Point(27, 77);
-            label20.Name = "label20";
-            label20.Size = new Size(120, 23);
-            label20.TabIndex = 49;
-            label20.Text = "CCCD/CMND:";
-            // 
-            // txtCitizenId
-            // 
-            txtCitizenId.Location = new Point(152, 71);
-            txtCitizenId.Name = "txtCitizenId";
-            txtCitizenId.Size = new Size(276, 30);
-            txtCitizenId.TabIndex = 53;
-            txtCitizenId.Leave += txtEName_Leave;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Location = new Point(466, 152);
-            label21.Name = "label21";
-            label21.Size = new Size(85, 23);
-            label21.TabIndex = 48;
-            label21.Text = "Giới tính:";
-            // 
-            // cboGender
-            // 
-            cboGender.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboGender.FormattingEnabled = true;
-            cboGender.Location = new Point(551, 146);
-            cboGender.Name = "cboGender";
-            cboGender.Size = new Size(223, 31);
-            cboGender.TabIndex = 55;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Location = new Point(466, 190);
-            label22.Name = "label22";
-            label22.Size = new Size(94, 23);
-            label22.TabIndex = 48;
-            label22.Text = "Ngày sinh:";
-            // 
-            // dtpDateOfBirth
-            // 
-            dtpDateOfBirth.Format = DateTimePickerFormat.Short;
-            dtpDateOfBirth.Location = new Point(566, 184);
-            dtpDateOfBirth.Name = "dtpDateOfBirth";
-            dtpDateOfBirth.Size = new Size(208, 30);
-            dtpDateOfBirth.TabIndex = 60;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new Point(27, 261);
-            label23.Name = "label23";
-            label23.Size = new Size(97, 23);
-            label23.TabIndex = 48;
-            label23.Text = "Trạng thái:";
-            // 
-            // cboEmployeeStatus
-            // 
-            cboEmployeeStatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboEmployeeStatus.FormattingEnabled = true;
-            cboEmployeeStatus.Location = new Point(152, 253);
-            cboEmployeeStatus.Name = "cboEmployeeStatus";
-            cboEmployeeStatus.Size = new Size(216, 31);
-            cboEmployeeStatus.TabIndex = 55;
             // 
             // frmBranch
             // 
