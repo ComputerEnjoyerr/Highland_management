@@ -19,6 +19,8 @@ namespace DAL
                 .Include(e => e.Address)
                 .ThenInclude(e => e.Ward)
                 .ThenInclude(e => e.Province)
+                .Include(e => e.ShiftAssignments)
+                .ThenInclude(s => s.Shift)
                 .ToList();
         }
 
