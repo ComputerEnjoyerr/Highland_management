@@ -19,7 +19,7 @@ public partial class WorkShift
 
     public virtual ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
 
-    public virtual WorkSchedule? Schedule { get; set; }
+    public virtual WorkSchedule? WorkSchedule { get; set; }
 
     public virtual ICollection<ShiftAssignment> ShiftAssignments { get; set; } = new List<ShiftAssignment>();
 }
