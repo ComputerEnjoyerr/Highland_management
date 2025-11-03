@@ -64,4 +64,4 @@ namespace DAL
         {
             return _context.Promotions.Any(p => p.PromotionName == name);
         }
-}}
+}   }
