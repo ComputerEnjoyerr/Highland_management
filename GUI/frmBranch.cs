@@ -158,6 +158,8 @@ namespace GUI
             LoadProvince();
             LoadStatus();
             LoadRole();
+            LoadEmployeeStatus();
+            LoadGender();
         }
 
         private void cboProvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -444,13 +446,17 @@ namespace GUI
         private void ClearEmployeeData()
         {
             txtEId.Clear();
+            txtCitizenId.Clear();
             txtEName.Clear();
             txtEPhone.Clear();
             txtEAddress.Clear();
             cboEWard.SelectedIndex = -1;
             cboEProvince.SelectedIndex = -1;
             cboERole.SelectedIndex = -1;
+            cboGender.SelectedIndex = -1;
             txtESalaryPerHour.Clear();
+            dtpDateOfBirth.Value = DateTime.Today.AddYears(-16); // Mặc định 16 tuổi
+            cboEmployeeStatus.SelectedIndex = -1;
         }
 
         // Hàm load nhân viên chi nhánh
@@ -468,6 +474,7 @@ namespace GUI
                     .Select(e => new
                     {
                         e.Id,
+                        e.CitizenId,
                         e.EmployeeName,
                         e.Phone,
                         //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
@@ -475,8 +482,8 @@ namespace GUI
                         Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
                         Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
                         e.HireDate,
-                        e.SalaryPerHour,
-                        e.Role
+                        e.Role,
+                        e.CurrentStatus
                     }).ToList();
                 dgvBanchEmployee.DataSource = filteredList;
                 return;
@@ -486,15 +493,16 @@ namespace GUI
             var employees = bLL_Employee.GetEmployeesByBranchId(branchId).Select(e => new
             {
                 e.Id,
+                e.CitizenId,
                 e.EmployeeName,
                 e.Phone,
                 //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
                 Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
-                Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
+                Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
                 e.HireDate,
-                e.SalaryPerHour,
-                e.Role
+                e.Role,
+                e.CurrentStatus
             }).ToList();
             dgvBanchEmployee.DataSource = employees;
 
@@ -525,6 +533,7 @@ namespace GUI
             dgvBanchEmployee.BorderStyle = BorderStyle.None;
         }
 
+        // Hàm load vai trò nhân viên
         private void LoadRole()
         {
             cboERole.Items.Clear();
@@ -532,6 +541,25 @@ namespace GUI
             cboERole.Items.Add("Thời vụ");
             cboERole.Items.Add("Quản lý");
             cboERole.SelectedIndex = 0;
+        }
+
+        // Hàm load trạng thái nhân viên
+        private void LoadEmployeeStatus()
+        {
+            cboEmployeeStatus.Items.Clear();
+            cboEmployeeStatus.Items.Add("Đang làm việc");
+            cboEmployeeStatus.Items.Add("Đã nghỉ");
+            cboEmployeeStatus.SelectedIndex = 0;
+        }
+
+        // Hàm load giới tính nhân viên
+        private void LoadGender()
+        {
+            cboGender.Items.Clear();
+            cboGender.Items.Add("Nam");
+            cboGender.Items.Add("Nữ");
+            cboGender.Items.Add("Khác");
+            cboGender.SelectedIndex = 0;
         }
 
         private void btnEReset_Click(object sender, EventArgs e)
@@ -562,23 +590,34 @@ namespace GUI
 
         private void dgvBanchEmployee_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var selectedRow = dgvBanchEmployee.Rows[e.RowIndex];
+            if (e.RowIndex < 0) return;
 
-                txtEName.Text = selectedRow.Cells["EmployeeName"].Value.ToString();
-                txtEPhone.Text = selectedRow.Cells["Phone"].Value.ToString();
-                txtEAddress.Text = selectedRow.Cells["Address"].Value.ToString();
-                var province = selectedRow.Cells["Province"].Value.ToString();
-                cboEProvince.SelectedIndex = cboEProvince.FindStringExact(province);
-                var ward = selectedRow.Cells["Ward"].Value.ToString();
-                cboEWard.SelectedIndex = cboEWard.FindStringExact(ward);
-                var role = selectedRow.Cells["Role"].Value.ToString();
-                cboERole.SelectedIndex = cboERole.FindStringExact(role);
-                txtESalaryPerHour.Text = selectedRow.Cells["SalaryPerHour"].Value.ToString();
-                txtEId.Text = selectedRow.Cells["Id"].Value.ToString();
-            }
+            // Lấy ID của nhân viên
+            var employeeId = dgvBanchEmployee.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+
+            // Gọi lại tầng nghiệp vụ (BLL) để lấy thông tin đầy đủ
+            var employee = bLL_Employee.GetById(employeeId);
+            if (employee == null) return;
+
+            // Gán dữ liệu cho các TextBox, ComboBox, DateTimePicker
+            txtEId.Text = employee.Id;
+            txtCitizenId.Text = employee.CitizenId;
+            txtEName.Text = employee.EmployeeName;
+            txtEPhone.Text = employee.Phone;
+            txtEAddress.Text = employee.Address?.Name ?? "";
+            txtESalaryPerHour.Text = employee.SalaryPerHour.ToString();
+
+            cboERole.SelectedIndex = cboERole.FindStringExact(employee.Role);
+            cboEProvince.SelectedIndex = cboEProvince.FindStringExact(employee.Address?.Ward?.Province?.ProvinceName ?? "");
+            cboEWard.SelectedIndex = cboEWard.FindStringExact(employee.Address?.Ward?.WardName ?? "");
+            cboEmployeeStatus.SelectedIndex = cboEmployeeStatus.FindStringExact(employee.CurrentStatus);
+
+            cboGender.SelectedIndex = cboGender.FindStringExact(employee.Gender ?? "");
+            dtpDateOfBirth.Value = employee.DateOfBirth != default
+            ? employee.DateOfBirth.ToDateTime(TimeOnly.MinValue)
+            : DateTime.Now;
         }
+
 
         private void txtEName_Leave(object sender, EventArgs e)
         {
@@ -599,21 +638,25 @@ namespace GUI
             if (name.Length > 30)
             {
                 MessageBox.Show("Tên nhân viên không được vượt quá 30 ký tự!",
-                                "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                "Lỗi nhập dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEName.Clear();
                 txtEName.Focus();
                 return;
             }
 
-            // Kiểm tra trùng tên
-            if (bLL_Employee.IsEmployeeNameExists(name))
+            // Kiểm tra trùng tên (trừ chính nhân viên đang chỉnh sửa)
+            var existingEmployee = bLL_Employee.GetAll()
+                .FirstOrDefault(e => e.EmployeeName.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingEmployee != null && existingEmployee.Id != txtEId.Text)
             {
-                MessageBox.Show("Tên chương trình khuyến mãi này đã tồn tại!",
+                MessageBox.Show("Tên nhân viên này đã tồn tại!",
                                 "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtEName.Clear();
                 txtEName.Focus();
                 return;
             }
+
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -624,8 +667,11 @@ namespace GUI
                 return;
             }
 
-            // Nếu hợp lệ -> tạo mã mới
-            txtEId.Text = bLL_Employee.GenerateEmployeeId();
+            // Nếu hợp lệ -> chỉ tạo mã nếu chưa có
+            if (string.IsNullOrWhiteSpace(txtEId.Text))
+            {
+                txtEId.Text = bLL_Employee.GenerateEmployeeId();
+            }
         }
 
         private void btnEAdd_Click(object sender, EventArgs e)
@@ -633,18 +679,19 @@ namespace GUI
             if (string.IsNullOrEmpty(txtEName.Text) ||
                 string.IsNullOrEmpty(txtEPhone.Text) ||
                 string.IsNullOrEmpty(txtEAddress.Text) ||
+                string.IsNullOrEmpty(txtCitizenId.Text) ||
                 string.IsNullOrEmpty(txtESalaryPerHour.Text))
             {
                 MessageBox.Show("Thông tin nhân viên không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtEPhone.Text, @"^0\d{9}$"))
-            {
-                MessageBox.Show("Số điện thoại không hợp lệ! Phải gồm 10 chữ số và bắt đầu bằng 0.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEPhone.Clear();
-                txtEPhone.Focus();
-                return;
-            }
+            //if (!System.Text.RegularExpressions.Regex.IsMatch(txtEPhone.Text, @"^0\d{9}$"))
+            //{
+            //    MessageBox.Show("Số điện thoại không hợp lệ! Phải gồm 10 chữ số và bắt đầu bằng 0.", "Lỗi nhập dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    txtEPhone.Clear();
+            //    txtEPhone.Focus();
+            //    return;
+            //}
             var existingPhone = bLL_Employee.GetEmployeeByPhone(txtEPhone.Text);
             if (existingPhone != null)
             {
@@ -690,12 +737,16 @@ namespace GUI
                 var employee = new Employee
                 {
                     Id = employeeId,
+                    CitizenId = txtCitizenId.Text,
                     EmployeeName = txtEName.Text,
                     Phone = txtEPhone.Text,
                     AddressId = address.Id,
                     HireDate = DateOnly.FromDateTime(DateTime.Today),
+                    DateOfBirth = DateOnly.FromDateTime(dtpDateOfBirth.Value),
+                    Gender = cboGender.SelectedItem.ToString(),
                     SalaryPerHour = decimal.Parse(txtESalaryPerHour.Text),
                     Role = cboERole.SelectedItem.ToString(),
+                    CurrentStatus = cboEmployeeStatus.SelectedItem.ToString(),
                     BranchId = txtBId.Text
                 };
                 bLL_Employee.Add(employee);
@@ -752,18 +803,19 @@ namespace GUI
                 if (string.IsNullOrEmpty(txtEName.Text) ||
                     string.IsNullOrEmpty(txtEPhone.Text) ||
                     string.IsNullOrEmpty(txtEAddress.Text) ||
+                    string.IsNullOrEmpty(txtCitizenId.Text) ||
                     string.IsNullOrEmpty(txtESalaryPerHour.Text))
                 {
                     MessageBox.Show("Thông tin nhân viên không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                if (!System.Text.RegularExpressions.Regex.IsMatch(txtEPhone.Text, @"^0\d{9}$"))
-                {
-                    MessageBox.Show("Số điện thoại không hợp lệ! Phải gồm 10 chữ số và bắt đầu bằng 0.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtEPhone.Clear();
-                    txtEPhone.Focus();
-                    return;
-                }
+                //if (!System.Text.RegularExpressions.Regex.IsMatch(txtEPhone.Text, @"^0\d{9}$"))
+                //{
+                //    MessageBox.Show("Số điện thoại không hợp lệ! Phải gồm 10 chữ số và bắt đầu bằng 0.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    txtEPhone.Clear();
+                //    txtEPhone.Focus();
+                //    return;
+                //}
                 if (cboEProvince.SelectedValue == null)
                 {
                     MessageBox.Show("Tỉnh/Thành phố không được để trống", "Thông báo");
@@ -809,10 +861,14 @@ namespace GUI
 
 
                 employee.EmployeeName = txtEName.Text;
+                employee.CitizenId = txtCitizenId.Text;
                 employee.Phone = txtEPhone.Text;
                 employee.HireDate = DateOnly.FromDateTime(DateTime.Today);
+                employee.DateOfBirth = DateOnly.FromDateTime(dtpDateOfBirth.Value);
+                employee.Gender = cboGender.SelectedItem.ToString();
                 employee.SalaryPerHour = decimal.Parse(txtESalaryPerHour.Text);
                 employee.Role = cboERole.SelectedItem.ToString();
+                employee.CurrentStatus = cboEmployeeStatus.SelectedItem.ToString();
                 employee.BranchId = txtBId.Text;
 
                 bLL_Employee.Update(employee);
