@@ -51,13 +51,17 @@ namespace DAL
             var existing = _context.Employees.FirstOrDefault(e => e.Id == employee.Id);
             if (existing != null)
             {
+                existing.CitizenId = employee.CitizenId;
                 existing.EmployeeName = employee.EmployeeName;
                 existing.Phone = employee.Phone;
                 existing.BranchId = employee.BranchId;
                 existing.AddressId = employee.AddressId;
+                existing.DateOfBirth = employee.DateOfBirth;
+                existing.Gender = employee.Gender;
                 existing.HireDate = employee.HireDate;
                 existing.SalaryPerHour = employee.SalaryPerHour;
                 existing.Role = employee.Role;
+                existing.CurrentStatus = employee.CurrentStatus;
                 _context.SaveChanges();
             }
         }

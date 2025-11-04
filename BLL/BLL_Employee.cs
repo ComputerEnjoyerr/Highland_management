@@ -23,6 +23,8 @@ namespace BLL
         public void Add(Employee employee)
         {
             ValidateEmployee(employee);
+            if (!ValidateInput(employee).IsValid)
+                throw new Exception($"{ValidateInput(employee).Message}");
             dAL_Employee.Add(employee);
         }
 
@@ -33,6 +35,9 @@ namespace BLL
 
         public void Update(Employee employee)
         {
+            if (!ValidateInput(employee).IsValid)
+                throw new Exception($"{ValidateInput(employee).Message}");
+
             // Kiểm tra tên nhân viên
             if (string.IsNullOrWhiteSpace(employee.EmployeeName))
                 throw new Exception("Tên nhân viên không được để trống.");
@@ -154,6 +159,38 @@ namespace BLL
                 return null;
             }
             return existingPhone;
+        }
+
+        private (bool IsValid, string Message) ValidateInput(Employee e)
+        {
+            if (!ValidationData.IsValidName(e.EmployeeName))
+                return (false, "Tên nhân viên không hợp lệ.");
+
+            if (!ValidationData.IsValidCitizenId(e.CitizenId))
+                return (false, "Căn cước công dân của nhân viên không hợp lệ.");
+
+            if (!ValidationData.IsValidPhone(e.Phone))
+                return (false, "Số điện thoại không hợp lệ.");
+
+            if (!ValidationData.IsValidAddress(e.AddressId))
+                return (false, "Địa chỉ nhân viên không hợp lệ.");
+
+            if (!ValidationData.IsValidGender(e.Gender))
+                return (false, "Giới tính không hợp lệ");
+
+            if (!ValidationData.IsValidDateOfBirth(e.DateOfBirth))
+                return (false, "Ngày sinh không hợp lệ.");
+
+            if (!ValidationData.IsValidRole(e.Role))
+                return (false, "Chức vụ không hợp lệ.");
+
+            if (!ValidationData.IsValidDecimal(e.SalaryPerHour))
+                return (false, "Lương nhân viên không hợp lệ.");
+
+            if (!ValidationData.IsValidStatus(e.CurrentStatus))
+                return (false, "Trạng thái nhân viên không hợp lệ.");
+
+            return (true, "Dữ liệu hợp lệ.");
         }
     }
 }

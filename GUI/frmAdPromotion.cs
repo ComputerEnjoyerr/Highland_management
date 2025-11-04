@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -118,8 +119,7 @@ namespace GUI
             // Kiểm tra dữ liệu nhập vào
             if (string.IsNullOrEmpty(txtPPName.Text) ||
             string.IsNullOrEmpty(txtPPDescription.Text) ||
-            string.IsNullOrEmpty(txtPPValue.Text) ||
-            string.IsNullOrEmpty(txtPPMaxDiscount.Text))
+            string.IsNullOrEmpty(txtPPValue.Text))
             {
                 MessageBox.Show("Thông tin chương trình khuyến mãi không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -134,14 +134,21 @@ namespace GUI
                 return; // Dừng lại, không tiếp tục tạo promotion
             }
 
-            decimal maxDiscount;
-            if (!decimal.TryParse(txtPPMaxDiscount.Text, out maxDiscount))
+            decimal? maxDiscount = null;
+            // Chỉ kiểm tra khi người dùng có nhập dữ liệu
+            if (!string.IsNullOrEmpty(txtPPMaxDiscount.Text.Trim()))
             {
-                MessageBox.Show("Giá trị giảm giá tối đa không hợp lệ (phải là số > 0)!", "Lỗi");
-                txtPPMaxDiscount.Clear();
-                txtPPMaxDiscount.Focus();
-                return; // Dừng lại, không tiếp tục tạo promotion
+                if (!decimal.TryParse(txtPPMaxDiscount.Text, out var parsedValue) || parsedValue <= 0)
+                {
+                    MessageBox.Show("Giá trị giảm giá tối đa không hợp lệ (phải là số > 0)!", "Lỗi");
+                    txtPPMaxDiscount.Clear();
+                    txtPPMaxDiscount.Focus();
+                    return;
+                }
+
+                maxDiscount = parsedValue;
             }
+
 
             if (cboPPDiscountType.SelectedValue == null)
             {
@@ -258,12 +265,12 @@ namespace GUI
                 txtPPId.Text = selectedRow.Cells["Id"].Value.ToString();
                 txtPPName.Text = selectedRow.Cells["PromotionName"].Value.ToString();
                 txtPPDescription.Text = selectedRow.Cells["Description"].Value.ToString();
-                var categoryName = selectedRow.Cells["Category"].Value.ToString();
+                //var categoryName = selectedRow.Cells["Category"].Value.ToString();
                 //cboPPCategory.SelectedIndex = cboPPCategory.FindStringExact(categoryName);
                 var discountType = selectedRow.Cells["DiscountType"].Value.ToString();
                 cboPPDiscountType.SelectedIndex = cboPPDiscountType.FindStringExact(discountType);
                 txtPPValue.Text = selectedRow.Cells["Value"].Value.ToString();
-                txtPPMaxDiscount.Text = selectedRow.Cells["MaxDiscount"].Value.ToString();
+                txtPPMaxDiscount.Text = selectedRow.Cells["MaxDiscount"].Value?.ToString() ?? "";
                 if (DateTime.TryParse(selectedRow.Cells["StartDate"].Value.ToString(), out DateTime startDate))
                 {
                     dtpPPStartDate.Value = startDate;
@@ -327,7 +334,7 @@ namespace GUI
             if (description.Length > 200)
             {
                 MessageBox.Show("Mô tả không được vượt quá 200 ký tự!",
-                                "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                "Lỗi nhập dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPPDescription.Clear();
                 txtPPDescription.Focus();
                 return;
@@ -398,29 +405,45 @@ namespace GUI
             // Kiểm tra dữ liệu nhập vào
             if (string.IsNullOrEmpty(txtPPName.Text) ||
             string.IsNullOrEmpty(txtPPDescription.Text) ||
-            string.IsNullOrEmpty(txtPPValue.Text) ||
-            string.IsNullOrEmpty(txtPPMaxDiscount.Text))
+            string.IsNullOrEmpty(txtPPValue.Text))
             {
                 MessageBox.Show("Thông tin chương trình khuyến mãi không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Kiểm tra giá trị giảm giá
             decimal value;
-            if (!decimal.TryParse(txtPPValue.Text, out value))
+            string input = txtPPValue.Text.Trim().Replace(",", ".");
+
+            if (!string.IsNullOrEmpty(input))
             {
-                MessageBox.Show("Giá trị giảm giá không hợp lệ (phải là số > 0)!", "Thông báo");
-                txtPPValue.Clear();
-                txtPPValue.Focus();
-                return; // Dừng lại, không tiếp tục tạo promotion
+                if (!decimal.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out value) || value <= 0)
+                {
+                    MessageBox.Show("Giá trị giảm giá không hợp lệ (phải là số > 0)!", "Thông báo");
+                    txtPPValue.Focus();
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng nhập giá trị giảm giá!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            decimal maxDiscount;
-            if (!decimal.TryParse(txtPPMaxDiscount.Text, out maxDiscount) || maxDiscount < 0)
+
+            decimal? maxDiscount = null;
+            // Chỉ kiểm tra khi người dùng có nhập dữ liệu
+            if (!string.IsNullOrEmpty(txtPPMaxDiscount.Text.Trim()))
             {
-                MessageBox.Show("Giá trị giảm giá tối đa không hợp lệ (phải là số > 0)!", "Lỗi");
-                txtPPMaxDiscount.Clear();
-                txtPPMaxDiscount.Focus();
-                return; // Dừng lại, không tiếp tục tạo promotion
+                if (!decimal.TryParse(txtPPMaxDiscount.Text, out var parsedValue) || parsedValue <= 0)
+                {
+                    MessageBox.Show("Giá trị giảm giá tối đa không hợp lệ (phải là số > 0)!", "Lỗi");
+                    txtPPMaxDiscount.Clear();
+                    txtPPMaxDiscount.Focus();
+                    return;
+                }
+
+                maxDiscount = parsedValue;
             }
 
             if (cboPPDiscountType.SelectedValue == null)
@@ -435,14 +458,14 @@ namespace GUI
             //    cboPPCategory.Focus();
             //    return;
             //}
-            int test;
-            if (!int.TryParse(txtPPValue.Text, out test) || test < 0)
-            {
-                MessageBox.Show("Giá trị giảm giá phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPPValue.Clear();
-                txtPPValue.Focus();
-                return;
-            }
+            //int test;
+            //if (!int.TryParse(txtPPValue.Text, out test) || test < 0)
+            //{
+            //    MessageBox.Show("Giá trị giảm giá phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    txtPPValue.Clear();
+            //    txtPPValue.Focus();
+            //    return;
+            //}
             if (!int.TryParse(nmrPPRequiringPoint.Text, out int requiringPoint) || requiringPoint < 0)
             {
                 MessageBox.Show("Điểm yêu cầu phải là số >= 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -469,8 +492,8 @@ namespace GUI
                 promotion.PromotionName = txtPPName.Text;
                 promotion.Description = txtPPDescription.Text;
                 promotion.DiscountType = cboPPDiscountType.SelectedItem.ToString();
-                promotion.Value = decimal.Parse(txtPPValue.Text);
-                promotion.MaxDiscount = decimal.Parse(txtPPMaxDiscount.Text);
+                promotion.Value = value;
+                promotion.MaxDiscount = maxDiscount;
                 promotion.RequiringPoint = (int)nmrPPRequiringPoint.Value;
                 promotion.ExpiryDay = (int)nmrPPExpiryDay.Value;
                 // Update thông tin PromotionProgram
