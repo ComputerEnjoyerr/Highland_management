@@ -15,7 +15,7 @@ public partial class Promotion
 
     public string DiscountType { get; set; } = null!;
 
-    public decimal? Value { get; set; }
+    public decimal Value { get; set; }
 
     public decimal? MaxDiscount { get; set; }
 

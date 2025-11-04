@@ -12,10 +12,10 @@ namespace DAL
     {
         private readonly HighlandsContext context = new();
 
-        public List<Table> GetByBranch(Branch branch)
+        public List<Table> GetByBranch(string branchId)
         {
             return context.Tables
-                .Where(t =>  t.BranchId == branch.Id)
+                .Where(t =>  t.BranchId == branchId)
                 .Include(t => t.Branch)
                 .ToList();
         }
