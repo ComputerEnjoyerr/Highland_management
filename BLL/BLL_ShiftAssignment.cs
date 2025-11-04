@@ -38,5 +38,11 @@ namespace BLL
         {
             dAL_ShiftAssignment.Update(shiftAssignment);
         }
+
+        // Lấy ca làm việc theo ngày và ca
+        public List<ShiftAssignment> GetByDateAndShift(int day, int month, int year, string shift)
+        {
+            return dAL_ShiftAssignment.GetByDateAndShift(day, month, year, shift);
+        }
     }
 }

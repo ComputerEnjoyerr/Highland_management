@@ -55,5 +55,20 @@ namespace DAL
                 _context.SaveChanges();
             }
         }
+
+        // Lấy ca làm việc theo ngày và ca
+        public List<ShiftAssignment> GetByDateAndShift(int day, int month, int year, string shift)
+        {
+            return _context.ShiftAssignments
+                .Include(sA => sA.Employee)
+                .Include(sA => sA.Shift)
+                .Where(sA =>
+                    sA.Shift != null &&
+                    sA.Shift.WorkDate.Day == day &&
+                    sA.Shift.WorkDate.Month == month &&
+                    sA.Shift.WorkDate.Year == year &&
+                    sA.Shift.ShiftType == shift)
+                .ToList();
+        }
     }
 }
