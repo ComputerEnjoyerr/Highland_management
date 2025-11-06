@@ -130,7 +130,7 @@ namespace GUI
 
         private void btnInventory_Click(object sender, EventArgs e)
         {
-            frmInventory frm = new frmInventory();
+            frmInventory frm = new frmInventory(employee);
             button.BackColor = ColorTranslator.FromHtml("#3B3030");
             button.ForeColor = ColorTranslator.FromHtml("#F9F5EE");
             btnInventory.BackColor = ColorTranslator.FromHtml("#F9F5EE");

@@ -24,8 +24,8 @@ namespace BLL
             if (!ValidationData.IsNotEmpty(p.ProductName))
                 return (false, "Tên sản phẩm không được bỏ trống");
 
-            if (!ValidationData.IsValidName(p.ProductName))
-                return (false, "Tên sản phẩm không hợp lệ");
+            //if (!ValidationData.IsValidName(p.ProductName))
+            //    return (false, "Tên sản phẩm không hợp lệ");
 
             if (!ValidationData.IsValidStatus(p.Status))
                 return (false, "Trạng thái sản phẩm không hợp lệ");
@@ -81,6 +81,11 @@ namespace BLL
             if (string.IsNullOrWhiteSpace(id))
                 throw new Exception("Thiếu Id sản phẩm, không thể xóa");
             dAL_Product.Delete(id); 
+        }
+
+        public List<Product> GetByCategory(string id)
+        {
+            return dAL_Product.GetAll().Where(p => p.CategoryId == id).ToList();
         }
     }
 }
