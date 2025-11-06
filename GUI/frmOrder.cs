@@ -171,92 +171,108 @@ namespace GUI
             }
         }
 
-        private void LoadProduct(string categoryId = null)
+        private async void LoadProduct(string categoryId = null)
         {
-            // Lấy danh sách tất cả sản phẩm hoặc theo danh mục 
-            var products = string.IsNullOrEmpty(categoryId) ?
-                bLL_Product.GetAll() :
-                bLL_Product.GetByCategory(categoryId);
-
-            flpProducts.Controls.Clear();
-            foreach (var product in products)
+            try
             {
-                var image = new Bitmap(1, 1);
-                if (!string.IsNullOrEmpty(product.Image))
-                {
-                    var imagePath = Path.Combine(Application.StartupPath, @"..\..\..\Images\Product", product.Image);
-                    if (File.Exists(imagePath))
-                    {
-                        using (var img = Image.FromFile(imagePath))
-                        {
-                            image = new Bitmap(img);
-                        }
-                    }
-                }
-                else
-                {
-                    // Sử dụng hình ảnh mặc định nếu không có
-                    var imagePath = Path.Combine(Application.StartupPath, @"..\..\..\Images\Product", "noImage.png");
-                    if (File.Exists(imagePath))
-                    {
-                        using (var img = Image.FromFile(imagePath))
-                        {
-                            image = new Bitmap(img);
-                        }
-                    }
-                }
+                flpProducts.Controls.Clear();
 
-                Panel pnl = new()
+                // Lấy danh sách sản phẩm ở thread nền
+                var products = await Task.Run(() =>
                 {
-                    Width = 150,
-                    Height = 243,
-                    BackColor = ColorTranslator.FromHtml("#F9F5EE"),
-                    Text = product.ProductName + Environment.NewLine + product.Price.ToString("C0"),
-                    Font = new Font("Arial", 10, FontStyle.Bold),
-                    Tag = product // Lưu thông tin sản phẩm vào thuộc tính Tag của nút
-                };
-                PictureBox pb = new()
-                {
-                    Width = 150,
-                    Height = 150,
-                    SizeMode = PictureBoxSizeMode.Zoom,
-                    Image = image,
-                    Location = new Point(0, 0),
-                    Margin = new Padding(0),
-                    Tag = product // Lưu thông tin sản phẩm vào thuộc tính Tag của nút
-                };
-                Label name = new()
-                {
-                    Text = product.ProductName,
-                    Location = new Point(3, 160),
-                    Width = 125,
-                    Height = 47,
-                    AllowDrop = true,
-                    Font = new Font("Arial", 10, FontStyle.Bold),
-                    Tag = product // Lưu thông tin sản phẩm vào thuộc tính Tag của nút
-                };
-                Label price = new()
-                {
-                    Text = product.Price.ToString("C0"),
-                    Location = new Point(3, 210),
-                    ForeColor = ColorTranslator.FromHtml("#A8222B"),
-                    Width = 150,
-                    Height = 25,
-                    Font = new Font("Arial", 10, FontStyle.Bold),
-                    Tag = product // Lưu thông tin sản phẩm vào thuộc tính Tag của nút
-                };
-                // Thêm các thông tin vào panel
-                pnl.Controls.Add(pb);
-                pnl.Controls.Add(name);
-                pnl.Controls.Add(price);
+                    return string.IsNullOrEmpty(categoryId)
+                        ? bLL_Product.GetAll()
+                        : bLL_Product.GetByCategory(categoryId);
+                });
 
-                pb.Click += ProductPanel_Click;
-                name.Click += ProductPanel_Click;
-                price.Click += ProductPanel_Click;
-                pnl.Click += ProductPanel_Click;
-                flpProducts.Controls.Add(pnl); // Thêm nút vào flpProducts
+                // Duyệt từng sản phẩm song song (giúp load ảnh nhanh hơn)
+                var tasks = products.Select(async product =>
+                {
+                    Bitmap image = await Task.Run(() =>
+                    {
+                        string imageFile = !string.IsNullOrEmpty(product.Image)
+                            ? product.Image
+                            : "noImage.png";
+
+                        string imagePath = Path.Combine(Application.StartupPath, @"..\..\..\Images\Product", imageFile);
+                        if (File.Exists(imagePath))
+                        {
+                            using var img = Image.FromFile(imagePath);
+                            return new Bitmap(img);
+                        }
+                        else
+                        {
+                            return new Bitmap(1, 1);
+                        }
+                    });
+
+                    // Tạo từng control sản phẩm
+                    Panel pnl = new()
+                    {
+                        Width = 150,
+                        Height = 243,
+                        BackColor = ColorTranslator.FromHtml("#F9F5EE"),
+                        Font = new Font("Arial", 10, FontStyle.Bold),
+                        Tag = product
+                    };
+
+                    PictureBox pb = new()
+                    {
+                        Width = 150,
+                        Height = 150,
+                        SizeMode = PictureBoxSizeMode.Zoom,
+                        Image = image,
+                        Location = new Point(0, 0),
+                        Margin = new Padding(0),
+                        Tag = product
+                    };
+
+                    Label name = new()
+                    {
+                        Text = product.ProductName,
+                        Location = new Point(3, 160),
+                        Width = 125,
+                        Height = 47,
+                        AllowDrop = true,
+                        Font = new Font("Arial", 10, FontStyle.Bold),
+                        Tag = product
+                    };
+
+                    Label price = new()
+                    {
+                        Text = product.Price.ToString("C0"),
+                        Location = new Point(3, 210),
+                        ForeColor = ColorTranslator.FromHtml("#A8222B"),
+                        Width = 150,
+                        Height = 25,
+                        Font = new Font("Arial", 10, FontStyle.Bold),
+                        Tag = product
+                    };
+
+                    pnl.Controls.Add(pb);
+                    pnl.Controls.Add(name);
+                    pnl.Controls.Add(price);
+
+                    pb.Click += ProductPanel_Click;
+                    name.Click += ProductPanel_Click;
+                    price.Click += ProductPanel_Click;
+                    pnl.Click += ProductPanel_Click;
+
+                    // Cập nhật sản phẩm sau khi load xong
+                    flpProducts.Invoke(new Action(() =>
+                    {
+                        flpProducts.Controls.Add(pnl);
+                    }));
+                });
+
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải sản phẩm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void CalculateTotalPrice()
         {
@@ -559,7 +575,7 @@ namespace GUI
                 // Cập nhật trạng thái bàn
                 selectedTable.Status = 0; // Trống
                 bLL_Table.Update(selectedTable);
-                MessageBox.Show($"Thanh toán hóa đơn thành công\nThành tiền: {totalPrice}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Thanh toán hóa đơn thành công\nThành tiền: {totalPrice.ToString("C0")}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadBillInfo();
                 LoadBtnTable();
                 RefreshInput();
