@@ -30,8 +30,9 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            dataGridView1 = new DataGridView();
+            dgvSupplierIngredient = new DataGridView();
             panel3 = new Panel();
+            button4 = new Button();
             numericUpDown1 = new NumericUpDown();
             comboBox2 = new ComboBox();
             textBox10 = new TextBox();
@@ -51,18 +52,17 @@
             textBox3 = new TextBox();
             label26 = new Label();
             button1 = new Button();
-            dataGridView2 = new DataGridView();
+            dgvStockReceipt = new DataGridView();
             button2 = new Button();
             label6 = new Label();
             tabPage4 = new TabPage();
-            dataGridView3 = new DataGridView();
-            clA = new DataGridViewTextBoxColumn();
-            cl2 = new DataGridViewTextBoxColumn();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
+            dtpCreatedDate = new DateTimePicker();
+            label15 = new Label();
+            dgvStockHistory = new DataGridView();
             label7 = new Label();
             tabPage2 = new TabPage();
             panel2 = new Panel();
+            comboBox1 = new ComboBox();
             button3 = new Button();
             dateTimePicker1 = new DateTimePicker();
             label8 = new Label();
@@ -70,28 +70,28 @@
             label10 = new Label();
             textBox7 = new TextBox();
             label13 = new Label();
-            textBox8 = new TextBox();
             textBox9 = new TextBox();
             textBox4 = new TextBox();
             label11 = new Label();
             textBox6 = new TextBox();
             label12 = new Label();
-            dataGridView4 = new DataGridView();
-            button4 = new Button();
+            dgvInventory = new DataGridView();
+            label16 = new Label();
+            textBox8 = new TextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSupplierIngredient).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             panel1.SuspendLayout();
             tabControl2.SuspendLayout();
             tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStockReceipt).BeginInit();
             tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStockHistory).BeginInit();
             tabPage2.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -102,41 +102,43 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(992, 710);
+            tabControl1.Size = new Size(1692, 989);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(dataGridView1);
+            tabPage1.BackColor = Color.FromArgb(249, 245, 238);
+            tabPage1.Controls.Add(dgvSupplierIngredient);
             tabPage1.Controls.Add(panel3);
             tabPage1.Controls.Add(panel1);
             tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(984, 674);
+            tabPage1.Size = new Size(1684, 953);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Phiếu nhập kho";
-            tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvSupplierIngredient
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 182);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(597, 489);
-            dataGridView1.TabIndex = 2;
+            dgvSupplierIngredient.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSupplierIngredient.Dock = DockStyle.Fill;
+            dgvSupplierIngredient.Location = new Point(3, 314);
+            dgvSupplierIngredient.Name = "dgvSupplierIngredient";
+            dgvSupplierIngredient.RowHeadersWidth = 51;
+            dgvSupplierIngredient.Size = new Size(952, 636);
+            dgvSupplierIngredient.TabIndex = 2;
             // 
             // panel3
             // 
             panel3.Controls.Add(button4);
             panel3.Controls.Add(numericUpDown1);
             panel3.Controls.Add(comboBox2);
+            panel3.Controls.Add(textBox8);
             panel3.Controls.Add(textBox10);
             panel3.Controls.Add(textBox5);
             panel3.Controls.Add(button12);
             panel3.Controls.Add(label5);
+            panel3.Controls.Add(label16);
             panel3.Controls.Add(label4);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(textBox2);
@@ -147,12 +149,25 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(597, 179);
+            panel3.Size = new Size(952, 311);
             panel3.TabIndex = 1;
+            // 
+            // button4
+            // 
+            button4.BackColor = SystemColors.Control;
+            button4.Image = Properties.Resources.pen;
+            button4.ImageAlign = ContentAlignment.MiddleRight;
+            button4.Location = new Point(250, 160);
+            button4.Name = "button4";
+            button4.Size = new Size(145, 53);
+            button4.TabIndex = 33;
+            button4.Text = "Lưu";
+            button4.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button4.UseVisualStyleBackColor = false;
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(93, 78);
+            numericUpDown1.Location = new Point(117, 102);
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(156, 30);
             numericUpDown1.TabIndex = 21;
@@ -160,21 +175,21 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(379, 78);
+            comboBox2.Location = new Point(569, 103);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(209, 31);
             comboBox2.TabIndex = 17;
             // 
             // textBox10
             // 
-            textBox10.Location = new Point(379, 15);
+            textBox10.Location = new Point(569, 31);
             textBox10.Name = "textBox10";
-            textBox10.Size = new Size(209, 30);
+            textBox10.Size = new Size(327, 30);
             textBox10.TabIndex = 14;
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(379, 47);
+            textBox5.Location = new Point(569, 67);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(209, 30);
             textBox5.TabIndex = 14;
@@ -182,19 +197,22 @@
             // button12
             // 
             button12.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button12.BackColor = Color.FromArgb(104, 176, 145);
+            button12.BackColor = SystemColors.Control;
             button12.FlatAppearance.BorderSize = 0;
-            button12.Location = new Point(9, 117);
+            button12.Image = Properties.Resources.plus;
+            button12.ImageAlign = ContentAlignment.MiddleRight;
+            button12.Location = new Point(21, 160);
             button12.Name = "button12";
-            button12.Size = new Size(145, 56);
+            button12.Size = new Size(194, 56);
             button12.TabIndex = 20;
             button12.Text = "Thêm nguyên liệu";
+            button12.TextImageRelation = TextImageRelation.ImageBeforeText;
             button12.UseVisualStyleBackColor = false;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(257, 53);
+            label5.Location = new Point(439, 73);
             label5.Name = "label5";
             label5.Size = new Size(107, 23);
             label5.TabIndex = 8;
@@ -203,7 +221,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(257, 84);
+            label4.Location = new Point(439, 109);
             label4.Name = "label4";
             label4.Size = new Size(68, 23);
             label4.TabIndex = 9;
@@ -212,7 +230,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(257, 22);
+            label3.Location = new Point(439, 38);
             label3.Name = "label3";
             label3.Size = new Size(124, 23);
             label3.TabIndex = 10;
@@ -220,15 +238,15 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(93, 47);
+            textBox2.Location = new Point(117, 66);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(156, 30);
+            textBox2.Size = new Size(278, 30);
             textBox2.TabIndex = 15;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(9, 53);
+            label2.Location = new Point(21, 73);
             label2.Name = "label2";
             label2.Size = new Size(69, 23);
             label2.TabIndex = 11;
@@ -237,7 +255,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(9, 84);
+            label14.Location = new Point(21, 109);
             label14.Name = "label14";
             label14.Size = new Size(88, 23);
             label14.TabIndex = 12;
@@ -245,15 +263,15 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(93, 16);
+            textBox1.Location = new Point(117, 31);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(156, 30);
+            textBox1.Size = new Size(278, 30);
             textBox1.TabIndex = 16;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(9, 22);
+            label1.Location = new Point(21, 38);
             label1.Name = "label1";
             label1.Size = new Size(67, 23);
             label1.TabIndex = 13;
@@ -263,9 +281,9 @@
             // 
             panel1.Controls.Add(tabControl2);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(600, 3);
+            panel1.Location = new Point(955, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(381, 668);
+            panel1.Size = new Size(726, 947);
             panel1.TabIndex = 0;
             // 
             // tabControl2
@@ -276,33 +294,33 @@
             tabControl2.Location = new Point(0, 0);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(381, 668);
+            tabControl2.Size = new Size(726, 947);
             tabControl2.TabIndex = 0;
             // 
             // tabPage3
             // 
+            tabPage3.BackColor = Color.FromArgb(249, 245, 238);
             tabPage3.Controls.Add(textBox3);
             tabPage3.Controls.Add(label26);
             tabPage3.Controls.Add(button1);
-            tabPage3.Controls.Add(dataGridView2);
+            tabPage3.Controls.Add(dgvStockReceipt);
             tabPage3.Controls.Add(button2);
             tabPage3.Controls.Add(label6);
             tabPage3.Location = new Point(4, 32);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(373, 632);
+            tabPage3.Size = new Size(718, 911);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "Phiếu nhập";
-            tabPage3.UseVisualStyleBackColor = true;
             // 
             // textBox3
             // 
             textBox3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             textBox3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            textBox3.Location = new Point(124, 515);
+            textBox3.Location = new Point(131, 758);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
-            textBox3.Size = new Size(243, 34);
+            textBox3.Size = new Size(373, 34);
             textBox3.TabIndex = 7;
             // 
             // label26
@@ -310,7 +328,7 @@
             label26.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label26.Location = new Point(6, 518);
+            label26.Location = new Point(6, 764);
             label26.Name = "label26";
             label26.Size = new Size(119, 28);
             label26.TabIndex = 6;
@@ -319,33 +337,39 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button1.BackColor = Color.FromArgb(104, 176, 145);
-            button1.Location = new Point(6, 568);
+            button1.BackColor = SystemColors.Control;
+            button1.Image = Properties.Resources.plus;
+            button1.ImageAlign = ContentAlignment.MiddleRight;
+            button1.Location = new Point(6, 847);
             button1.Name = "button1";
             button1.Size = new Size(145, 55);
             button1.TabIndex = 5;
             button1.Text = "Xuất phiếu";
+            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
             button1.UseVisualStyleBackColor = false;
             // 
-            // dataGridView2
+            // dgvStockReceipt
             // 
-            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(6, 38);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(361, 471);
-            dataGridView2.TabIndex = 0;
+            dgvStockReceipt.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvStockReceipt.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStockReceipt.Location = new Point(6, 46);
+            dgvStockReceipt.Name = "dgvStockReceipt";
+            dgvStockReceipt.RowHeadersWidth = 51;
+            dgvStockReceipt.Size = new Size(706, 706);
+            dgvStockReceipt.TabIndex = 0;
             // 
             // button2
             // 
             button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button2.BackColor = Color.FromArgb(169, 65, 65);
-            button2.Location = new Point(157, 568);
+            button2.BackColor = SystemColors.Control;
+            button2.Image = Properties.Resources.delete;
+            button2.ImageAlign = ContentAlignment.MiddleRight;
+            button2.Location = new Point(183, 847);
             button2.Name = "button2";
-            button2.Size = new Size(145, 55);
+            button2.Size = new Size(167, 55);
             button2.TabIndex = 5;
             button2.Text = "Xóa nguyên liệu";
+            button2.TextImageRelation = TextImageRelation.ImageBeforeText;
             button2.UseVisualStyleBackColor = false;
             // 
             // label6
@@ -360,51 +384,47 @@
             // 
             // tabPage4
             // 
-            tabPage4.Controls.Add(dataGridView3);
+            tabPage4.BackColor = Color.FromArgb(249, 245, 238);
+            tabPage4.Controls.Add(dtpCreatedDate);
+            tabPage4.Controls.Add(label15);
+            tabPage4.Controls.Add(dgvStockHistory);
             tabPage4.Controls.Add(label7);
-            tabPage4.Location = new Point(4, 32);
+            tabPage4.Location = new Point(4, 29);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(373, 632);
+            tabPage4.Size = new Size(718, 914);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "Lịch sử";
-            tabPage4.UseVisualStyleBackColor = true;
             // 
-            // dataGridView3
+            // dtpCreatedDate
             // 
-            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Columns.AddRange(new DataGridViewColumn[] { clA, cl2, Column1, Column2 });
-            dataGridView3.Location = new Point(6, 38);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.RowHeadersWidth = 51;
-            dataGridView3.Size = new Size(361, 600);
-            dataGridView3.TabIndex = 3;
-            dataGridView3.CellContentClick += dataGridView3_CellContentClick;
+            dtpCreatedDate.Format = DateTimePickerFormat.Short;
+            dtpCreatedDate.Location = new Point(176, 74);
+            dtpCreatedDate.Name = "dtpCreatedDate";
+            dtpCreatedDate.Size = new Size(179, 30);
+            dtpCreatedDate.TabIndex = 9;
             // 
-            // clA
+            // label15
             // 
-            clA.HeaderText = "Mã PN";
-            clA.MinimumWidth = 6;
-            clA.Name = "clA";
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label15.Location = new Point(9, 75);
+            label15.Name = "label15";
+            label15.Size = new Size(161, 28);
+            label15.TabIndex = 8;
+            label15.Text = "Ngày lập phiếu:";
             // 
-            // cl2
+            // dgvStockHistory
             // 
-            cl2.HeaderText = "Ngày tạo";
-            cl2.MinimumWidth = 6;
-            cl2.Name = "cl2";
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Người tạo";
-            Column1.MinimumWidth = 6;
-            Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "Tổng tiền";
-            Column2.MinimumWidth = 6;
-            Column2.Name = "Column2";
+            dgvStockHistory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvStockHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvStockHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStockHistory.Location = new Point(6, 109);
+            dgvStockHistory.Name = "dgvStockHistory";
+            dgvStockHistory.RowHeadersWidth = 51;
+            dgvStockHistory.Size = new Size(706, 799);
+            dgvStockHistory.TabIndex = 3;
+            dgvStockHistory.CellContentClick += dataGridView3_CellContentClick;
             // 
             // label7
             // 
@@ -418,18 +438,19 @@
             // 
             // tabPage2
             // 
+            tabPage2.BackColor = Color.FromArgb(249, 245, 238);
             tabPage2.Controls.Add(panel2);
-            tabPage2.Controls.Add(dataGridView4);
+            tabPage2.Controls.Add(dgvInventory);
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(984, 677);
+            tabPage2.Size = new Size(1684, 956);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Kho hàng";
-            tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
+            panel2.Controls.Add(comboBox1);
             panel2.Controls.Add(button3);
             panel2.Controls.Add(dateTimePicker1);
             panel2.Controls.Add(label8);
@@ -437,7 +458,6 @@
             panel2.Controls.Add(label10);
             panel2.Controls.Add(textBox7);
             panel2.Controls.Add(label13);
-            panel2.Controls.Add(textBox8);
             panel2.Controls.Add(textBox9);
             panel2.Controls.Add(textBox4);
             panel2.Controls.Add(label11);
@@ -446,30 +466,42 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(978, 178);
+            panel2.Size = new Size(1678, 244);
             panel2.TabIndex = 1;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(107, 109);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(165, 31);
+            comboBox1.TabIndex = 15;
             // 
             // button3
             // 
-            button3.Location = new Point(743, 16);
+            button3.BackColor = SystemColors.Control;
+            button3.Image = Properties.Resources.printer;
+            button3.ImageAlign = ContentAlignment.MiddleRight;
+            button3.Location = new Point(753, 115);
             button3.Name = "button3";
-            button3.Size = new Size(87, 39);
+            button3.Size = new Size(143, 53);
             button3.TabIndex = 14;
             button3.Text = "In báo cáo";
-            button3.UseVisualStyleBackColor = true;
+            button3.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button3.UseVisualStyleBackColor = false;
             // 
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(468, 47);
+            dateTimePicker1.Location = new Point(880, 72);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(250, 30);
+            dateTimePicker1.Size = new Size(143, 30);
             dateTimePicker1.TabIndex = 13;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(341, 53);
+            label8.Location = new Point(753, 78);
             label8.Name = "label8";
             label8.Size = new Size(122, 23);
             label8.TabIndex = 5;
@@ -478,7 +510,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(13, 84);
+            label9.Location = new Point(28, 115);
             label9.Name = "label9";
             label9.Size = new Size(68, 23);
             label9.TabIndex = 6;
@@ -487,7 +519,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(341, 22);
+            label10.Location = new Point(753, 42);
             label10.Name = "label10";
             label10.Size = new Size(124, 23);
             label10.TabIndex = 7;
@@ -495,45 +527,38 @@
             // 
             // textBox7
             // 
-            textBox7.Location = new Point(152, 135);
+            textBox7.Location = new Point(169, 204);
             textBox7.Name = "textBox7";
-            textBox7.Size = new Size(319, 30);
+            textBox7.Size = new Size(667, 30);
             textBox7.TabIndex = 11;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(13, 141);
+            label13.Location = new Point(19, 207);
             label13.Name = "label13";
             label13.Size = new Size(144, 23);
             label13.TabIndex = 8;
             label13.Text = "Tìm nguyên liệu:";
             // 
-            // textBox8
-            // 
-            textBox8.Location = new Point(92, 78);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(226, 30);
-            textBox8.TabIndex = 11;
-            // 
             // textBox9
             // 
-            textBox9.Location = new Point(468, 16);
+            textBox9.Location = new Point(880, 36);
             textBox9.Name = "textBox9";
-            textBox9.Size = new Size(250, 30);
+            textBox9.Size = new Size(457, 30);
             textBox9.TabIndex = 11;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(92, 47);
+            textBox4.Location = new Point(107, 73);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(226, 30);
+            textBox4.Size = new Size(454, 30);
             textBox4.TabIndex = 11;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(13, 53);
+            label11.Location = new Point(28, 79);
             label11.Name = "label11";
             label11.Size = new Size(69, 23);
             label11.TabIndex = 8;
@@ -541,52 +566,59 @@
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(92, 16);
+            textBox6.Location = new Point(107, 37);
             textBox6.Name = "textBox6";
             textBox6.ReadOnly = true;
-            textBox6.Size = new Size(226, 30);
+            textBox6.Size = new Size(454, 30);
             textBox6.TabIndex = 12;
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(13, 22);
+            label12.Location = new Point(28, 43);
             label12.Name = "label12";
             label12.Size = new Size(67, 23);
             label12.TabIndex = 9;
             label12.Text = "Mã NL:";
             // 
-            // dataGridView4
+            // dgvInventory
             // 
-            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView4.Dock = DockStyle.Fill;
-            dataGridView4.Location = new Point(3, 3);
-            dataGridView4.Name = "dataGridView4";
-            dataGridView4.RowHeadersWidth = 51;
-            dataGridView4.Size = new Size(978, 671);
-            dataGridView4.TabIndex = 0;
+            dgvInventory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvInventory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInventory.Location = new Point(3, 253);
+            dgvInventory.Name = "dgvInventory";
+            dgvInventory.RowHeadersWidth = 51;
+            dgvInventory.Size = new Size(1678, 677);
+            dgvInventory.TabIndex = 0;
             // 
-            // button4
+            // label16
             // 
-            button4.BackColor = Color.FromArgb(230, 181, 56);
-            button4.Location = new Point(160, 117);
-            button4.Name = "button4";
-            button4.Size = new Size(145, 53);
-            button4.TabIndex = 33;
-            button4.Text = "Sửa";
-            button4.UseVisualStyleBackColor = false;
+            label16.AutoSize = true;
+            label16.Location = new Point(30, 282);
+            label16.Name = "label16";
+            label16.Size = new Size(91, 23);
+            label16.TabIndex = 10;
+            label16.Text = "Tìm kiếm:";
+            // 
+            // textBox8
+            // 
+            textBox8.Location = new Point(127, 275);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(618, 30);
+            textBox8.TabIndex = 14;
             // 
             // frmInventory
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1692, 989);
             Controls.Add(tabControl1);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "frmInventory";
             Text = "frmInventory";
+            Load += frmInventory_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSupplierIngredient).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
@@ -594,14 +626,14 @@
             tabControl2.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStockReceipt).EndInit();
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStockHistory).EndInit();
             tabPage2.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).EndInit();
             ResumeLayout(false);
         }
 
@@ -613,14 +645,14 @@
         private Panel panel1;
         private TabControl tabControl2;
         private TabPage tabPage3;
-        private DataGridView dataGridView2;
+        private DataGridView dgvStockReceipt;
         private TabPage tabPage4;
         private Label label6;
-        private DataGridView dataGridView3;
+        private DataGridView dgvStockHistory;
         private Label label7;
         private Button button1;
         private Button button2;
-        private DataGridView dataGridView4;
+        private DataGridView dgvInventory;
         private Panel panel2;
         private Label label8;
         private Label label9;
@@ -632,9 +664,8 @@
         private TextBox textBox6;
         private Label label12;
         private DateTimePicker dateTimePicker1;
-        private TextBox textBox8;
         private TextBox textBox9;
-        private DataGridView dataGridView1;
+        private DataGridView dgvSupplierIngredient;
         private Panel panel3;
         private NumericUpDown numericUpDown1;
         private ComboBox comboBox2;
@@ -650,12 +681,13 @@
         private Label label1;
         private TextBox textBox3;
         private Label label26;
-        private DataGridViewTextBoxColumn clA;
-        private DataGridViewTextBoxColumn cl2;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
         private Button button3;
         private TextBox textBox10;
         private Button button4;
+        private DateTimePicker dtpCreatedDate;
+        private Label label15;
+        private ComboBox comboBox1;
+        private TextBox textBox8;
+        private Label label16;
     }
 }

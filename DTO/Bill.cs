@@ -19,6 +19,8 @@ public partial class Bill
 
     public int? Status { get; set; }
 
+    public decimal TotalPrice { get; set; } = 0;
+
     public virtual ICollection<Billinfo> Billinfos { get; set; } = new List<Billinfo>();
 
     public virtual Branch Branch { get; set; } = null!;
