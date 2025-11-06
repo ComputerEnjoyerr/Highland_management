@@ -9,9 +9,9 @@ public partial class SupplierIngredient
 
     public string IngredientId { get; set; } = null!;
 
-    public decimal? UnitPrice { get; set; }
+    public decimal UnitPrice { get; set; }
 
-    public int? StandardUnitId { get; set; }
+    public int StandardUnitId { get; set; }
 
     public DateOnly? ProducedDate { get; set; }
 

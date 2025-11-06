@@ -54,5 +54,14 @@ namespace BLL
                 throw new Exception("Thiếu Id phiếu nhập, không thể xóa");
             dAL_StockReceipt.Delete(id);
         }
+
+        public string GenerateNewId()
+        {
+            // SR250924074101 (SR/yy/mm/dd/hh/mm/ss)
+            string prefix = "SR";
+            string dateTimePart = DateTime.Now.ToString("yyMMddHHmmss");
+            string randomString = Guid.NewGuid().ToString("N").Substring(0, 4).ToUpper();
+            return $"{prefix}{dateTimePart}{randomString}";
+        }
     }
 }
