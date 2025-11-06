@@ -55,6 +55,16 @@ namespace GUI
         }
         private void frmAttendance_Load(object sender, EventArgs e)
         {
+            dgvEmployee.MultiSelect = false;
+            dgvEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEmployee.ReadOnly = true;
+            dgvEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvAttendance.MultiSelect = false;
+            dgvAttendance.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAttendance.ReadOnly = true;
+            dgvAttendance.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             LoadStatus();
             LoadDgvEmployee();
         }

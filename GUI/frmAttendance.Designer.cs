@@ -119,25 +119,31 @@
             // button13
             // 
             button13.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button13.BackColor = Color.FromArgb(169, 65, 65);
+            button13.BackColor = SystemColors.Control;
+            button13.Image = Properties.Resources.x_button;
+            button13.ImageAlign = ContentAlignment.MiddleRight;
             button13.Location = new Point(385, 198);
             button13.Name = "button13";
             button13.Size = new Size(145, 56);
             button13.TabIndex = 21;
             button13.Text = "Đánh vắng";
+            button13.TextImageRelation = TextImageRelation.ImageBeforeText;
             button13.UseVisualStyleBackColor = false;
             button13.Click += button13_Click;
             // 
             // button12
             // 
             button12.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button12.BackColor = Color.FromArgb(104, 176, 145);
+            button12.BackColor = SystemColors.Control;
             button12.FlatAppearance.BorderSize = 0;
+            button12.Image = Properties.Resources._checked;
+            button12.ImageAlign = ContentAlignment.MiddleRight;
             button12.Location = new Point(385, 136);
             button12.Name = "button12";
             button12.Size = new Size(145, 56);
             button12.TabIndex = 22;
             button12.Text = "Điểm danh";
+            button12.TextImageRelation = TextImageRelation.ImageBeforeText;
             button12.UseVisualStyleBackColor = false;
             button12.Click += button12_Click;
             // 
