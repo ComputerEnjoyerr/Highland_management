@@ -30,6 +30,7 @@ namespace GUI
         private string selectedImageName = null;   
 
         private List<Product> productList = new List<Product>();
+        private Product selectedProduct = new Product();
 
         public frmProduct()
         {
@@ -256,7 +257,7 @@ namespace GUI
                     return;
 
                 bLL_Product.Add(product);
-                LoaddgvProduct();
+                LoaddgvProduct(txtFindProduct.Text);
                 RefreshProduct();
             }
             catch (Exception ex)
@@ -280,7 +281,7 @@ namespace GUI
             try
             {
                 bLL_Product.Delete(txtProductId1.Text);
-                LoaddgvProduct();
+                LoaddgvProduct(txtFindProduct.Text);
                 RefreshProduct();
             }
             catch (Exception ex)
@@ -317,7 +318,7 @@ namespace GUI
                     return;
 
                 bLL_Product.Update(product);
-                LoaddgvProduct();
+                LoaddgvProduct(txtFindProduct.Text);
                 RefreshProduct();
             }
             catch (Exception ex)
@@ -379,6 +380,7 @@ namespace GUI
                 LoaddgvRecipe(txtProductId1.Text);
                 // Hiển thị ảnh sản phẩm
                 var product = bLL_Product.GetById(txtProductId1.Text);
+                selectedProduct = product;
                 if (product != null)
                     DisplayImage(product);
             }
@@ -620,7 +622,8 @@ namespace GUI
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Title = "Chọn ảnh sản phẩm";
+                
+                openFileDialog.Title = $"Chọn ảnh sản phẩm: {selectedProduct.ProductName}";
                 openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)

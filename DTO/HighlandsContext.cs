@@ -620,7 +620,7 @@ public partial class HighlandsContext : DbContext
             entity.Property(e => e.BranchId).HasMaxLength(20);
             entity.Property(e => e.CreatedBy).HasMaxLength(20);
             entity.Property(e => e.IngredientId).HasMaxLength(20);
-            entity.Property(e => e.ReceiptkDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.ReceiptDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.SupplierId).HasMaxLength(20);
             entity.Property(e => e.TotalPrice)
                 .HasComputedColumnSql("([Quantity]*[UnitPrice])", false)
