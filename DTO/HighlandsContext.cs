@@ -772,7 +772,7 @@ public partial class HighlandsContext : DbContext
             entity.Property(e => e.ScheduleId).HasMaxLength(20);
             entity.Property(e => e.ShiftType).HasMaxLength(20);
 
-            entity.HasOne(d => d.Schedule).WithMany(p => p.WorkShifts)
+            entity.HasOne(d => d.WorkSchedule).WithMany(p => p.WorkShifts)
                 .HasForeignKey(d => d.ScheduleId)
                 .HasConstraintName("FK__WORK_SHIF__Sched__40F9A68C");
         });
