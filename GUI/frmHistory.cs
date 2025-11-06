@@ -162,6 +162,18 @@ namespace GUI
 
         private void frmHistory_Load(object sender, EventArgs e)
         {
+            dgvBill.MultiSelect = false;
+            dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBill.ReadOnly = true;
+            dgvBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dgvHistoryBill.MultiSelect = false;
+            dgvHistoryBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvHistoryBill.ReadOnly = true;
+            dgvHistoryBill.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
+
             LoadHistoryBill();
 
             //Hiển thị định dạng giờ phút giây

@@ -63,12 +63,12 @@
             // 
             // dgvHistoryBill
             // 
-            dgvHistoryBill.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvHistoryBill.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHistoryBill.Location = new Point(3, 111);
+            dgvHistoryBill.Dock = DockStyle.Fill;
+            dgvHistoryBill.Location = new Point(0, 238);
             dgvHistoryBill.Name = "dgvHistoryBill";
             dgvHistoryBill.RowHeadersWidth = 51;
-            dgvHistoryBill.Size = new Size(591, 596);
+            dgvHistoryBill.Size = new Size(947, 751);
             dgvHistoryBill.TabIndex = 12;
             dgvHistoryBill.CellContentClick += dgvHistoryBill_CellContentClick;
             dgvHistoryBill.DoubleClick += dgvHistoryBill_DoubleClick;
@@ -79,12 +79,11 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(600, 105);
+            panel1.Size = new Size(947, 238);
             panel1.TabIndex = 11;
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(btnChooseCustomer);
             groupBox2.Controls.Add(btnClean);
             groupBox2.Controls.Add(btnChooseEmployee);
@@ -92,54 +91,64 @@
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(txtFindEmployee);
             groupBox2.Controls.Add(label1);
-            groupBox2.Location = new Point(3, 0);
+            groupBox2.Dock = DockStyle.Fill;
+            groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(591, 102);
+            groupBox2.Size = new Size(947, 238);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Tìm kiếm";
             // 
             // btnChooseCustomer
             // 
-            btnChooseCustomer.Location = new Point(328, 60);
+            btnChooseCustomer.Image = Properties.Resources.pen;
+            btnChooseCustomer.ImageAlign = ContentAlignment.MiddleRight;
+            btnChooseCustomer.Location = new Point(181, 117);
             btnChooseCustomer.Name = "btnChooseCustomer";
-            btnChooseCustomer.Size = new Size(89, 39);
+            btnChooseCustomer.Size = new Size(117, 46);
             btnChooseCustomer.TabIndex = 13;
             btnChooseCustomer.Text = "Chọn KH";
+            btnChooseCustomer.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnChooseCustomer.UseVisualStyleBackColor = true;
             btnChooseCustomer.Click += button2_Click;
             // 
             // btnClean
             // 
-            btnClean.Location = new Point(433, 20);
+            btnClean.Image = Properties.Resources.arrow;
+            btnClean.ImageAlign = ContentAlignment.MiddleRight;
+            btnClean.Location = new Point(333, 117);
             btnClean.Name = "btnClean";
-            btnClean.Size = new Size(89, 39);
+            btnClean.Size = new Size(117, 46);
             btnClean.TabIndex = 14;
             btnClean.Text = "Hoàn tác";
+            btnClean.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnClean.UseVisualStyleBackColor = true;
             btnClean.Click += btnClean_Click;
             // 
             // btnChooseEmployee
             // 
-            btnChooseEmployee.Location = new Point(328, 20);
+            btnChooseEmployee.Image = Properties.Resources.pen;
+            btnChooseEmployee.ImageAlign = ContentAlignment.MiddleRight;
+            btnChooseEmployee.Location = new Point(31, 117);
             btnChooseEmployee.Name = "btnChooseEmployee";
-            btnChooseEmployee.Size = new Size(89, 39);
+            btnChooseEmployee.Size = new Size(117, 46);
             btnChooseEmployee.TabIndex = 15;
             btnChooseEmployee.Text = "Chọn NV";
+            btnChooseEmployee.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnChooseEmployee.UseVisualStyleBackColor = true;
             btnChooseEmployee.Click += button1_Click;
             // 
             // txtFindCustomer
             // 
-            txtFindCustomer.Location = new Point(113, 60);
+            txtFindCustomer.Location = new Point(151, 68);
             txtFindCustomer.Name = "txtFindCustomer";
-            txtFindCustomer.Size = new Size(209, 30);
+            txtFindCustomer.Size = new Size(546, 30);
             txtFindCustomer.TabIndex = 11;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 63);
+            label2.Location = new Point(31, 71);
             label2.Name = "label2";
             label2.Size = new Size(108, 23);
             label2.TabIndex = 9;
@@ -147,15 +156,15 @@
             // 
             // txtFindEmployee
             // 
-            txtFindEmployee.Location = new Point(113, 29);
+            txtFindEmployee.Location = new Point(151, 32);
             txtFindEmployee.Name = "txtFindEmployee";
-            txtFindEmployee.Size = new Size(209, 30);
+            txtFindEmployee.Size = new Size(546, 30);
             txtFindEmployee.TabIndex = 12;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 32);
+            label1.Location = new Point(31, 35);
             label1.Name = "label1";
             label1.Size = new Size(95, 23);
             label1.TabIndex = 10;
@@ -166,19 +175,19 @@
             panel2.Controls.Add(dgvBill);
             panel2.Controls.Add(groupBox1);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(600, 0);
+            panel2.Location = new Point(947, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(392, 710);
+            panel2.Size = new Size(745, 989);
             panel2.TabIndex = 10;
             // 
             // dgvBill
             // 
+            dgvBill.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvBill.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBill.Dock = DockStyle.Fill;
-            dgvBill.Location = new Point(0, 224);
+            dgvBill.Location = new Point(6, 261);
             dgvBill.Name = "dgvBill";
             dgvBill.RowHeadersWidth = 51;
-            dgvBill.Size = new Size(392, 486);
+            dgvBill.Size = new Size(733, 725);
             dgvBill.TabIndex = 2;
             // 
             // groupBox1
@@ -198,7 +207,7 @@
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(392, 224);
+            groupBox1.Size = new Size(745, 255);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Chi tiết hóa đơn";
@@ -206,7 +215,7 @@
             // dtCreateDate
             // 
             dtCreateDate.Format = DateTimePickerFormat.Time;
-            dtCreateDate.Location = new Point(140, 187);
+            dtCreateDate.Location = new Point(147, 209);
             dtCreateDate.Name = "dtCreateDate";
             dtCreateDate.Size = new Size(171, 30);
             dtCreateDate.TabIndex = 16;
@@ -214,7 +223,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(31, 193);
+            label8.Location = new Point(31, 215);
             label8.Name = "label8";
             label8.Size = new Size(88, 23);
             label8.TabIndex = 6;
@@ -223,7 +232,7 @@
             // dtCreateTime
             // 
             dtCreateTime.Format = DateTimePickerFormat.Time;
-            dtCreateTime.Location = new Point(140, 156);
+            dtCreateTime.Location = new Point(147, 173);
             dtCreateTime.Name = "dtCreateTime";
             dtCreateTime.Size = new Size(171, 30);
             dtCreateTime.TabIndex = 17;
@@ -231,7 +240,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(31, 162);
+            label7.Location = new Point(31, 179);
             label7.Name = "label7";
             label7.Size = new Size(91, 23);
             label7.TabIndex = 7;
@@ -239,15 +248,15 @@
             // 
             // txtTable
             // 
-            txtTable.Location = new Point(140, 122);
+            txtTable.Location = new Point(147, 137);
             txtTable.Name = "txtTable";
-            txtTable.Size = new Size(225, 30);
+            txtTable.Size = new Size(417, 30);
             txtTable.TabIndex = 12;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(31, 125);
+            label6.Location = new Point(31, 140);
             label6.Name = "label6";
             label6.Size = new Size(69, 23);
             label6.TabIndex = 8;
@@ -255,15 +264,15 @@
             // 
             // txtCustomerName
             // 
-            txtCustomerName.Location = new Point(140, 91);
+            txtCustomerName.Location = new Point(147, 101);
             txtCustomerName.Name = "txtCustomerName";
-            txtCustomerName.Size = new Size(225, 30);
+            txtCustomerName.Size = new Size(417, 30);
             txtCustomerName.TabIndex = 13;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(31, 94);
+            label5.Location = new Point(31, 104);
             label5.Name = "label5";
             label5.Size = new Size(108, 23);
             label5.TabIndex = 9;
@@ -271,15 +280,15 @@
             // 
             // txtEmployeeName
             // 
-            txtEmployeeName.Location = new Point(140, 60);
+            txtEmployeeName.Location = new Point(147, 65);
             txtEmployeeName.Name = "txtEmployeeName";
-            txtEmployeeName.Size = new Size(225, 30);
+            txtEmployeeName.Size = new Size(417, 30);
             txtEmployeeName.TabIndex = 14;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(31, 63);
+            label4.Location = new Point(31, 68);
             label4.Name = "label4";
             label4.Size = new Size(95, 23);
             label4.TabIndex = 10;
@@ -287,9 +296,9 @@
             // 
             // txtBillId
             // 
-            txtBillId.Location = new Point(140, 29);
+            txtBillId.Location = new Point(147, 29);
             txtBillId.Name = "txtBillId";
-            txtBillId.Size = new Size(225, 30);
+            txtBillId.Size = new Size(417, 30);
             txtBillId.TabIndex = 15;
             // 
             // label3
@@ -304,7 +313,7 @@
             // frmHistory
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1692, 989);
             Controls.Add(dgvHistoryBill);
             Controls.Add(panel1);
             Controls.Add(panel2);
