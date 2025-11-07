@@ -61,7 +61,7 @@
             tabControl2 = new TabControl();
             tabPage3 = new TabPage();
             label21 = new Label();
-            txtTotalPrice = new TextBox();
+            txtFinalPrice = new TextBox();
             label26 = new Label();
             btnCheckoutReceipt = new Button();
             dgvStockReceipt = new DataGridView();
@@ -432,7 +432,7 @@
             // 
             tabPage3.BackColor = Color.FromArgb(249, 245, 238);
             tabPage3.Controls.Add(label21);
-            tabPage3.Controls.Add(txtTotalPrice);
+            tabPage3.Controls.Add(txtFinalPrice);
             tabPage3.Controls.Add(label26);
             tabPage3.Controls.Add(btnCheckoutReceipt);
             tabPage3.Controls.Add(dgvStockReceipt);
@@ -455,14 +455,14 @@
             label21.TabIndex = 11;
             label21.Text = "Thành tiền:";
             // 
-            // txtTotalPrice
+            // txtFinalPrice
             // 
-            txtTotalPrice.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            txtTotalPrice.Location = new Point(135, 764);
-            txtTotalPrice.Name = "txtTotalPrice";
-            txtTotalPrice.ReadOnly = true;
-            txtTotalPrice.Size = new Size(373, 34);
-            txtTotalPrice.TabIndex = 7;
+            txtFinalPrice.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            txtFinalPrice.Location = new Point(135, 764);
+            txtFinalPrice.Name = "txtFinalPrice";
+            txtFinalPrice.ReadOnly = true;
+            txtFinalPrice.Size = new Size(373, 34);
+            txtFinalPrice.TabIndex = 7;
             // 
             // label26
             // 
@@ -480,7 +480,7 @@
             btnCheckoutReceipt.BackColor = SystemColors.Control;
             btnCheckoutReceipt.Image = Properties.Resources.plus;
             btnCheckoutReceipt.ImageAlign = ContentAlignment.MiddleRight;
-            btnCheckoutReceipt.Location = new Point(6, 850);
+            btnCheckoutReceipt.Location = new Point(6, 816);
             btnCheckoutReceipt.Name = "btnCheckoutReceipt";
             btnCheckoutReceipt.Size = new Size(145, 55);
             btnCheckoutReceipt.TabIndex = 5;
@@ -525,10 +525,10 @@
             tabPage2.Controls.Add(dgvInventory);
             tabPage2.Controls.Add(panel4);
             tabPage2.Controls.Add(panel2);
-            tabPage2.Location = new Point(4, 32);
+            tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1684, 953);
+            tabPage2.Size = new Size(1684, 956);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Kho hàng";
             // 
@@ -539,7 +539,7 @@
             dgvInventory.Location = new Point(810, 84);
             dgvInventory.Name = "dgvInventory";
             dgvInventory.RowHeadersWidth = 51;
-            dgvInventory.Size = new Size(871, 866);
+            dgvInventory.Size = new Size(871, 869);
             dgvInventory.TabIndex = 3;
             dgvInventory.CellClick += dgvInventory_CellClick;
             // 
@@ -576,7 +576,7 @@
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(807, 947);
+            panel2.Size = new Size(807, 950);
             panel2.TabIndex = 1;
             // 
             // groupBox2
@@ -587,7 +587,7 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 321);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(807, 626);
+            groupBox2.Size = new Size(807, 629);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Lịch sử nhập kho";
@@ -619,7 +619,7 @@
             dgvStockHistory.Location = new Point(0, 78);
             dgvStockHistory.Name = "dgvStockHistory";
             dgvStockHistory.RowHeadersWidth = 51;
-            dgvStockHistory.Size = new Size(801, 542);
+            dgvStockHistory.Size = new Size(801, 545);
             dgvStockHistory.TabIndex = 30;
             // 
             // groupBox1
@@ -841,7 +841,7 @@
         private Label label6;
         private Label label7;
         private Label label21;
-        private TextBox txtTotalPrice;
+        private TextBox txtFinalPrice;
         private Button btnCheckoutReceipt;
         private TextBox txtInvQty;
         private Label label22;

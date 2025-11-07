@@ -77,7 +77,7 @@
             dgvAttendance.Location = new Point(3, 325);
             dgvAttendance.Name = "dgvAttendance";
             dgvAttendance.RowHeadersWidth = 51;
-            dgvAttendance.Size = new Size(591, 385);
+            dgvAttendance.Size = new Size(955, 664);
             dgvAttendance.TabIndex = 15;
             dgvAttendance.CellClick += dgvAttendance_CellClick;
             // 
@@ -87,7 +87,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(600, 319);
+            panel1.Size = new Size(964, 319);
             panel1.TabIndex = 14;
             // 
             // groupBox2
@@ -111,7 +111,7 @@
             groupBox2.Controls.Add(label8);
             groupBox2.Location = new Point(3, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(591, 316);
+            groupBox2.Size = new Size(955, 316);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Điểm danh";
@@ -122,7 +122,7 @@
             button13.BackColor = SystemColors.Control;
             button13.Image = Properties.Resources.x_button;
             button13.ImageAlign = ContentAlignment.MiddleRight;
-            button13.Location = new Point(385, 198);
+            button13.Location = new Point(557, 201);
             button13.Name = "button13";
             button13.Size = new Size(145, 56);
             button13.TabIndex = 21;
@@ -138,7 +138,7 @@
             button12.FlatAppearance.BorderSize = 0;
             button12.Image = Properties.Resources._checked;
             button12.ImageAlign = ContentAlignment.MiddleRight;
-            button12.Location = new Point(385, 136);
+            button12.Location = new Point(557, 139);
             button12.Name = "button12";
             button12.Size = new Size(145, 56);
             button12.TabIndex = 22;
@@ -150,7 +150,7 @@
             // cbStatus
             // 
             cbStatus.FormattingEnabled = true;
-            cbStatus.Location = new Point(121, 133);
+            cbStatus.Location = new Point(149, 136);
             cbStatus.Name = "cbStatus";
             cbStatus.Size = new Size(224, 31);
             cbStatus.TabIndex = 17;
@@ -158,7 +158,7 @@
             // dateTimePicker3
             // 
             dateTimePicker3.Format = DateTimePickerFormat.Short;
-            dateTimePicker3.Location = new Point(121, 280);
+            dateTimePicker3.Location = new Point(149, 283);
             dateTimePicker3.Name = "dateTimePicker3";
             dateTimePicker3.Size = new Size(224, 30);
             dateTimePicker3.TabIndex = 16;
@@ -166,7 +166,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(10, 136);
+            label12.Location = new Point(38, 139);
             label12.Name = "label12";
             label12.Size = new Size(97, 23);
             label12.TabIndex = 9;
@@ -175,7 +175,7 @@
             // dtCheckOut
             // 
             dtCheckOut.Format = DateTimePickerFormat.Time;
-            dtCheckOut.Location = new Point(121, 203);
+            dtCheckOut.Location = new Point(149, 206);
             dtCheckOut.Name = "dtCheckOut";
             dtCheckOut.Size = new Size(224, 30);
             dtCheckOut.TabIndex = 16;
@@ -183,7 +183,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(10, 100);
+            label11.Location = new Point(38, 103);
             label11.Name = "label11";
             label11.Size = new Size(103, 23);
             label11.TabIndex = 9;
@@ -192,7 +192,7 @@
             // dtCheckIn
             // 
             dtCheckIn.Format = DateTimePickerFormat.Time;
-            dtCheckIn.Location = new Point(121, 170);
+            dtCheckIn.Location = new Point(149, 173);
             dtCheckIn.Name = "dtCheckIn";
             dtCheckIn.Size = new Size(224, 30);
             dtCheckIn.TabIndex = 16;
@@ -200,7 +200,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(10, 286);
+            label10.Location = new Point(38, 289);
             label10.Name = "label10";
             label10.Size = new Size(92, 23);
             label10.TabIndex = 9;
@@ -209,7 +209,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(10, 209);
+            label9.Location = new Point(38, 212);
             label9.Name = "label9";
             label9.Size = new Size(63, 23);
             label9.TabIndex = 9;
@@ -218,7 +218,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(10, 176);
+            label2.Location = new Point(38, 179);
             label2.Name = "label2";
             label2.Size = new Size(75, 23);
             label2.TabIndex = 9;
@@ -226,23 +226,23 @@
             // 
             // txtNote
             // 
-            txtNote.Location = new Point(121, 98);
+            txtNote.Location = new Point(149, 101);
             txtNote.Name = "txtNote";
-            txtNote.Size = new Size(409, 30);
+            txtNote.Size = new Size(553, 30);
             txtNote.TabIndex = 12;
             // 
             // txtShift
             // 
-            txtShift.Location = new Point(121, 62);
+            txtShift.Location = new Point(149, 65);
             txtShift.Name = "txtShift";
             txtShift.ReadOnly = true;
-            txtShift.Size = new Size(409, 30);
+            txtShift.Size = new Size(553, 30);
             txtShift.TabIndex = 12;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(10, 65);
+            label1.Location = new Point(38, 68);
             label1.Name = "label1";
             label1.Size = new Size(106, 23);
             label1.TabIndex = 10;
@@ -250,16 +250,16 @@
             // 
             // txtId
             // 
-            txtId.Location = new Point(121, 29);
+            txtId.Location = new Point(149, 32);
             txtId.Name = "txtId";
             txtId.ReadOnly = true;
-            txtId.Size = new Size(409, 30);
+            txtId.Size = new Size(553, 30);
             txtId.TabIndex = 15;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(10, 31);
+            label8.Location = new Point(38, 34);
             label8.Name = "label8";
             label8.Size = new Size(40, 23);
             label8.TabIndex = 11;
@@ -270,9 +270,9 @@
             panel2.Controls.Add(groupBox1);
             panel2.Controls.Add(dgvEmployee);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(600, 0);
+            panel2.Location = new Point(964, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(392, 710);
+            panel2.Size = new Size(728, 989);
             panel2.TabIndex = 13;
             // 
             // groupBox1
@@ -292,7 +292,7 @@
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(392, 233);
+            groupBox1.Size = new Size(728, 274);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin nhân viên";
@@ -302,7 +302,7 @@
             txtPhone.Location = new Point(140, 155);
             txtPhone.Name = "txtPhone";
             txtPhone.ReadOnly = true;
-            txtPhone.Size = new Size(225, 30);
+            txtPhone.Size = new Size(444, 30);
             txtPhone.TabIndex = 12;
             // 
             // label7
@@ -319,13 +319,13 @@
             txtSalaryPerHour.Location = new Point(140, 122);
             txtSalaryPerHour.Name = "txtSalaryPerHour";
             txtSalaryPerHour.ReadOnly = true;
-            txtSalaryPerHour.Size = new Size(225, 30);
+            txtSalaryPerHour.Size = new Size(444, 30);
             txtSalaryPerHour.TabIndex = 12;
             // 
             // dateTimePicker4
             // 
             dateTimePicker4.Format = DateTimePickerFormat.Short;
-            dateTimePicker4.Location = new Point(140, 191);
+            dateTimePicker4.Location = new Point(140, 224);
             dateTimePicker4.Name = "dateTimePicker4";
             dateTimePicker4.Size = new Size(166, 30);
             dateTimePicker4.TabIndex = 16;
@@ -344,7 +344,7 @@
             txtRole.Location = new Point(140, 91);
             txtRole.Name = "txtRole";
             txtRole.ReadOnly = true;
-            txtRole.Size = new Size(225, 30);
+            txtRole.Size = new Size(444, 30);
             txtRole.TabIndex = 13;
             // 
             // label5
@@ -361,13 +361,13 @@
             txtEnployeeName.Location = new Point(140, 60);
             txtEnployeeName.Name = "txtEnployeeName";
             txtEnployeeName.ReadOnly = true;
-            txtEnployeeName.Size = new Size(225, 30);
+            txtEnployeeName.Size = new Size(444, 30);
             txtEnployeeName.TabIndex = 14;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(29, 197);
+            label13.Location = new Point(29, 230);
             label13.Name = "label13";
             label13.Size = new Size(92, 23);
             label13.TabIndex = 9;
@@ -387,7 +387,7 @@
             txtEmployeeId.Location = new Point(140, 29);
             txtEmployeeId.Name = "txtEmployeeId";
             txtEmployeeId.ReadOnly = true;
-            txtEmployeeId.Size = new Size(225, 30);
+            txtEmployeeId.Size = new Size(444, 30);
             txtEmployeeId.TabIndex = 15;
             // 
             // label3
@@ -406,13 +406,13 @@
             dgvEmployee.Location = new Point(0, 0);
             dgvEmployee.Name = "dgvEmployee";
             dgvEmployee.RowHeadersWidth = 51;
-            dgvEmployee.Size = new Size(392, 710);
+            dgvEmployee.Size = new Size(728, 989);
             dgvEmployee.TabIndex = 2;
             // 
             // frmAttendance
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1692, 989);
             Controls.Add(dgvAttendance);
             Controls.Add(panel1);
             Controls.Add(panel2);
