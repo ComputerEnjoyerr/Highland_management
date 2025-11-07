@@ -174,10 +174,19 @@
             // 
             // textBox5
             // 
+<<<<<<< Updated upstream
             textBox5.Location = new Point(379, 47);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(209, 30);
             textBox5.TabIndex = 14;
+=======
+            txtFind1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtFind1.Location = new Point(127, 357);
+            txtFind1.Name = "txtFind1";
+            txtFind1.Size = new Size(618, 30);
+            txtFind1.TabIndex = 14;
+            txtFind1.TextChanged += txtFind1_TextChanged;
+>>>>>>> Stashed changes
             // 
             // button12
             // 
@@ -419,6 +428,7 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(panel2);
+<<<<<<< Updated upstream
             tabPage2.Controls.Add(dataGridView4);
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
@@ -427,6 +437,52 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Kho hàng";
             tabPage2.UseVisualStyleBackColor = true;
+=======
+            tabPage2.Location = new Point(4, 32);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(1684, 953);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Kho hàng";
+            // 
+            // dgvInventory
+            // 
+            dgvInventory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInventory.Dock = DockStyle.Fill;
+            dgvInventory.Location = new Point(881, 84);
+            dgvInventory.Name = "dgvInventory";
+            dgvInventory.RowHeadersWidth = 51;
+            dgvInventory.Size = new Size(800, 866);
+            dgvInventory.TabIndex = 3;
+            dgvInventory.CellClick += dgvInventory_CellClick;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(txtFind2);
+            panel4.Controls.Add(label13);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(881, 3);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(800, 81);
+            panel4.TabIndex = 2;
+            // 
+            // txtFind2
+            // 
+            txtFind2.Location = new Point(162, 36);
+            txtFind2.Name = "txtFind2";
+            txtFind2.Size = new Size(581, 30);
+            txtFind2.TabIndex = 11;
+            txtFind2.TextChanged += txtFind2_TextChanged;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(12, 39);
+            label13.Name = "label13";
+            label13.Size = new Size(144, 23);
+            label13.TabIndex = 8;
+            label13.Text = "Tìm nguyên liệu:";
+>>>>>>> Stashed changes
             // 
             // panel2
             // 
@@ -446,25 +502,111 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
+<<<<<<< Updated upstream
             panel2.Size = new Size(978, 178);
+=======
+            panel2.Size = new Size(878, 947);
+>>>>>>> Stashed changes
             panel2.TabIndex = 1;
             // 
             // button3
             // 
+<<<<<<< Updated upstream
             button3.Location = new Point(743, 16);
             button3.Name = "button3";
             button3.Size = new Size(87, 39);
             button3.TabIndex = 14;
             button3.Text = "In báo cáo";
             button3.UseVisualStyleBackColor = true;
+=======
+            groupBox2.Controls.Add(dtpFindStockByDate);
+            groupBox2.Controls.Add(label15);
+            groupBox2.Controls.Add(dgvStockHistory);
+            groupBox2.Dock = DockStyle.Fill;
+            groupBox2.Location = new Point(0, 321);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(878, 626);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Lịch sử nhập kho";
+>>>>>>> Stashed changes
             // 
             // dateTimePicker1
             // 
+<<<<<<< Updated upstream
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(468, 47);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(250, 30);
             dateTimePicker1.TabIndex = 13;
+=======
+            dtpFindStockByDate.Format = DateTimePickerFormat.Short;
+            dtpFindStockByDate.Location = new Point(160, 42);
+            dtpFindStockByDate.Name = "dtpFindStockByDate";
+            dtpFindStockByDate.Size = new Size(179, 30);
+            dtpFindStockByDate.TabIndex = 32;
+            dtpFindStockByDate.ValueChanged += dtpFindStockByDate_ValueChanged;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label15.Location = new Point(17, 49);
+            label15.Name = "label15";
+            label15.Size = new Size(137, 23);
+            label15.TabIndex = 31;
+            label15.Text = "Ngày lập phiếu:";
+            // 
+            // dgvStockHistory
+            // 
+            dgvStockHistory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvStockHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvStockHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStockHistory.Location = new Point(0, 78);
+            dgvStockHistory.Name = "dgvStockHistory";
+            dgvStockHistory.RowHeadersWidth = 51;
+            dgvStockHistory.Size = new Size(872, 542);
+            dgvStockHistory.TabIndex = 30;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(cboUnit2);
+            groupBox1.Controls.Add(dtpExpiryDate);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(label10);
+            groupBox1.Controls.Add(txtSupplierName2);
+            groupBox1.Controls.Add(txtInvQty);
+            groupBox1.Controls.Add(label22);
+            groupBox1.Controls.Add(txtIngreName2);
+            groupBox1.Controls.Add(label11);
+            groupBox1.Controls.Add(txtIngreId2);
+            groupBox1.Controls.Add(label12);
+            groupBox1.Dock = DockStyle.Top;
+            groupBox1.Location = new Point(0, 0);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(878, 321);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Thông tin nguyên liệu";
+            // 
+            // cboUnit2
+            // 
+            cboUnit2.FormattingEnabled = true;
+            cboUnit2.Location = new Point(160, 122);
+            cboUnit2.Name = "cboUnit2";
+            cboUnit2.Size = new Size(179, 31);
+            cboUnit2.TabIndex = 26;
+            // 
+            // dtpExpiryDate
+            // 
+            dtpExpiryDate.Enabled = false;
+            dtpExpiryDate.Format = DateTimePickerFormat.Short;
+            dtpExpiryDate.Location = new Point(160, 271);
+            dtpExpiryDate.Name = "dtpExpiryDate";
+            dtpExpiryDate.Size = new Size(179, 30);
+            dtpExpiryDate.TabIndex = 24;
+>>>>>>> Stashed changes
             // 
             // label8
             // 

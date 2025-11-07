@@ -143,10 +143,110 @@
             // 
             // textBox20
             // 
+<<<<<<< Updated upstream
             textBox20.Location = new Point(141, 112);
             textBox20.Name = "textBox20";
             textBox20.Size = new Size(357, 30);
             textBox20.TabIndex = 25;
+=======
+            label3.AutoSize = true;
+            label3.Location = new Point(306, 43);
+            label3.Name = "label3";
+            label3.Size = new Size(106, 23);
+            label3.TabIndex = 38;
+            label3.Text = "Ca làm việc:";
+            // 
+            // txtAddressEvening
+            // 
+            txtAddressEvening.Location = new Point(414, 6);
+            txtAddressEvening.Name = "txtAddressEvening";
+            txtAddressEvening.ReadOnly = true;
+            txtAddressEvening.Size = new Size(371, 30);
+            txtAddressEvening.TabIndex = 43;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(306, 12);
+            label20.Name = "label20";
+            label20.Size = new Size(70, 23);
+            label20.TabIndex = 39;
+            label20.Text = "Địa chỉ:";
+            // 
+            // txtRoleEvening
+            // 
+            txtRoleEvening.Location = new Point(89, 68);
+            txtRoleEvening.Name = "txtRoleEvening";
+            txtRoleEvening.ReadOnly = true;
+            txtRoleEvening.Size = new Size(204, 30);
+            txtRoleEvening.TabIndex = 44;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(9, 74);
+            label21.Name = "label21";
+            label21.Size = new Size(79, 23);
+            label21.TabIndex = 40;
+            label21.Text = "Chức vụ:";
+            // 
+            // txtNameEvening
+            // 
+            txtNameEvening.Location = new Point(89, 37);
+            txtNameEvening.Name = "txtNameEvening";
+            txtNameEvening.ReadOnly = true;
+            txtNameEvening.Size = new Size(204, 30);
+            txtNameEvening.TabIndex = 45;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(9, 43);
+            label22.Name = "label22";
+            label22.Size = new Size(69, 23);
+            label22.TabIndex = 41;
+            label22.Text = "Họ tên:";
+            // 
+            // txtIdEvening
+            // 
+            txtIdEvening.Location = new Point(89, 6);
+            txtIdEvening.Name = "txtIdEvening";
+            txtIdEvening.ReadOnly = true;
+            txtIdEvening.Size = new Size(204, 30);
+            txtIdEvening.TabIndex = 46;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(9, 12);
+            label23.Name = "label23";
+            label23.Size = new Size(69, 23);
+            label23.TabIndex = 42;
+            label23.Text = "Mã NV:";
+            // 
+            // btnCancelEvening
+            // 
+            btnCancelEvening.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCancelEvening.BackColor = SystemColors.Control;
+            btnCancelEvening.Image = Properties.Resources.delete;
+            btnCancelEvening.ImageAlign = ContentAlignment.MiddleRight;
+            btnCancelEvening.Location = new Point(640, 63);
+            btnCancelEvening.Name = "btnCancelEvening";
+            btnCancelEvening.Size = new Size(145, 45);
+            btnCancelEvening.TabIndex = 37;
+            btnCancelEvening.Text = "Hủy ca";
+            btnCancelEvening.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnCancelEvening.UseVisualStyleBackColor = false;
+            btnCancelEvening.Click += btnCancelEvening_Click;
+            // 
+            // txtFindEvening
+            // 
+            txtFindEvening.Location = new Point(141, 112);
+            txtFindEvening.Name = "txtFindEvening";
+            txtFindEvening.Size = new Size(357, 30);
+            txtFindEvening.TabIndex = 25;
+            txtFindEvening.TextChanged += txtFindEvening_TextChanged;
+>>>>>>> Stashed changes
             // 
             // label24
             // 
@@ -203,10 +303,110 @@
             // 
             // textBox16
             // 
+<<<<<<< Updated upstream
             textBox16.Location = new Point(141, 112);
             textBox16.Name = "textBox16";
             textBox16.Size = new Size(357, 30);
             textBox16.TabIndex = 25;
+=======
+            label2.AutoSize = true;
+            label2.Location = new Point(304, 43);
+            label2.Name = "label2";
+            label2.Size = new Size(106, 23);
+            label2.TabIndex = 38;
+            label2.Text = "Ca làm việc:";
+            // 
+            // txtAddressAfternoon
+            // 
+            txtAddressAfternoon.Location = new Point(412, 6);
+            txtAddressAfternoon.Name = "txtAddressAfternoon";
+            txtAddressAfternoon.ReadOnly = true;
+            txtAddressAfternoon.Size = new Size(371, 30);
+            txtAddressAfternoon.TabIndex = 43;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(304, 12);
+            label15.Name = "label15";
+            label15.Size = new Size(70, 23);
+            label15.TabIndex = 39;
+            label15.Text = "Địa chỉ:";
+            // 
+            // txtRoleAfternoon
+            // 
+            txtRoleAfternoon.Location = new Point(87, 68);
+            txtRoleAfternoon.Name = "txtRoleAfternoon";
+            txtRoleAfternoon.ReadOnly = true;
+            txtRoleAfternoon.Size = new Size(204, 30);
+            txtRoleAfternoon.TabIndex = 44;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(7, 74);
+            label16.Name = "label16";
+            label16.Size = new Size(79, 23);
+            label16.TabIndex = 40;
+            label16.Text = "Chức vụ:";
+            // 
+            // txtNameAfternoon
+            // 
+            txtNameAfternoon.Location = new Point(87, 37);
+            txtNameAfternoon.Name = "txtNameAfternoon";
+            txtNameAfternoon.ReadOnly = true;
+            txtNameAfternoon.Size = new Size(204, 30);
+            txtNameAfternoon.TabIndex = 45;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(7, 43);
+            label17.Name = "label17";
+            label17.Size = new Size(69, 23);
+            label17.TabIndex = 41;
+            label17.Text = "Họ tên:";
+            // 
+            // txtIdAfternoon
+            // 
+            txtIdAfternoon.Location = new Point(87, 6);
+            txtIdAfternoon.Name = "txtIdAfternoon";
+            txtIdAfternoon.ReadOnly = true;
+            txtIdAfternoon.Size = new Size(204, 30);
+            txtIdAfternoon.TabIndex = 46;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(7, 12);
+            label18.Name = "label18";
+            label18.Size = new Size(69, 23);
+            label18.TabIndex = 42;
+            label18.Text = "Mã NV:";
+            // 
+            // btnCancelAfternoon
+            // 
+            btnCancelAfternoon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCancelAfternoon.BackColor = SystemColors.Control;
+            btnCancelAfternoon.Image = Properties.Resources.delete;
+            btnCancelAfternoon.ImageAlign = ContentAlignment.MiddleRight;
+            btnCancelAfternoon.Location = new Point(638, 60);
+            btnCancelAfternoon.Name = "btnCancelAfternoon";
+            btnCancelAfternoon.Size = new Size(145, 45);
+            btnCancelAfternoon.TabIndex = 37;
+            btnCancelAfternoon.Text = "Hủy ca";
+            btnCancelAfternoon.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnCancelAfternoon.UseVisualStyleBackColor = false;
+            btnCancelAfternoon.Click += btnCancelAfternoon_Click;
+            // 
+            // txtFindAfternoon
+            // 
+            txtFindAfternoon.Location = new Point(141, 112);
+            txtFindAfternoon.Name = "txtFindAfternoon";
+            txtFindAfternoon.Size = new Size(357, 30);
+            txtFindAfternoon.TabIndex = 25;
+            txtFindAfternoon.TextChanged += txtFindAfternoon_TextChanged;
+>>>>>>> Stashed changes
             // 
             // label19
             // 
@@ -264,10 +464,110 @@
             // 
             // textBox12
             // 
+<<<<<<< Updated upstream
             textBox12.Location = new Point(141, 114);
             textBox12.Name = "textBox12";
             textBox12.Size = new Size(357, 30);
             textBox12.TabIndex = 25;
+=======
+            label1.AutoSize = true;
+            label1.Location = new Point(309, 43);
+            label1.Name = "label1";
+            label1.Size = new Size(106, 23);
+            label1.TabIndex = 37;
+            label1.Text = "Ca làm việc:";
+            // 
+            // txtAddressMorning
+            // 
+            txtAddressMorning.Location = new Point(417, 6);
+            txtAddressMorning.Name = "txtAddressMorning";
+            txtAddressMorning.ReadOnly = true;
+            txtAddressMorning.Size = new Size(371, 30);
+            txtAddressMorning.TabIndex = 42;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(309, 12);
+            label10.Name = "label10";
+            label10.Size = new Size(70, 23);
+            label10.TabIndex = 38;
+            label10.Text = "Địa chỉ:";
+            // 
+            // txtRoleMorning
+            // 
+            txtRoleMorning.Location = new Point(92, 68);
+            txtRoleMorning.Name = "txtRoleMorning";
+            txtRoleMorning.ReadOnly = true;
+            txtRoleMorning.Size = new Size(204, 30);
+            txtRoleMorning.TabIndex = 43;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(12, 74);
+            label11.Name = "label11";
+            label11.Size = new Size(79, 23);
+            label11.TabIndex = 39;
+            label11.Text = "Chức vụ:";
+            // 
+            // txtNameMorning
+            // 
+            txtNameMorning.Location = new Point(92, 37);
+            txtNameMorning.Name = "txtNameMorning";
+            txtNameMorning.ReadOnly = true;
+            txtNameMorning.Size = new Size(204, 30);
+            txtNameMorning.TabIndex = 44;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(12, 43);
+            label12.Name = "label12";
+            label12.Size = new Size(69, 23);
+            label12.TabIndex = 40;
+            label12.Text = "Họ tên:";
+            // 
+            // txtIdMorning
+            // 
+            txtIdMorning.Location = new Point(92, 6);
+            txtIdMorning.Name = "txtIdMorning";
+            txtIdMorning.ReadOnly = true;
+            txtIdMorning.Size = new Size(204, 30);
+            txtIdMorning.TabIndex = 45;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(12, 12);
+            label13.Name = "label13";
+            label13.Size = new Size(69, 23);
+            label13.TabIndex = 41;
+            label13.Text = "Mã NV:";
+            // 
+            // btnCancelMorning
+            // 
+            btnCancelMorning.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCancelMorning.BackColor = SystemColors.Control;
+            btnCancelMorning.Image = Properties.Resources.delete;
+            btnCancelMorning.ImageAlign = ContentAlignment.MiddleRight;
+            btnCancelMorning.Location = new Point(643, 60);
+            btnCancelMorning.Name = "btnCancelMorning";
+            btnCancelMorning.Size = new Size(145, 45);
+            btnCancelMorning.TabIndex = 36;
+            btnCancelMorning.Text = "Hủy ca";
+            btnCancelMorning.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnCancelMorning.UseVisualStyleBackColor = false;
+            btnCancelMorning.Click += btnCancelMorning_Click;
+            // 
+            // txtFindMorning
+            // 
+            txtFindMorning.Location = new Point(141, 114);
+            txtFindMorning.Name = "txtFindMorning";
+            txtFindMorning.Size = new Size(357, 30);
+            txtFindMorning.TabIndex = 25;
+            txtFindMorning.TextChanged += txtFindMorning_TextChanged;
+>>>>>>> Stashed changes
             // 
             // label14
             // 
@@ -337,11 +637,42 @@
             // 
             // comboBox1
             // 
+<<<<<<< Updated upstream
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(413, 41);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(121, 31);
             comboBox1.TabIndex = 21;
+=======
+            txtNote.Location = new Point(413, 75);
+            txtNote.Name = "txtNote";
+            txtNote.Size = new Size(371, 30);
+            txtNote.TabIndex = 23;
+            // 
+            // btnRegister
+            // 
+            btnRegister.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnRegister.BackColor = SystemColors.Control;
+            btnRegister.Image = Properties.Resources.pen;
+            btnRegister.ImageAlign = ContentAlignment.MiddleRight;
+            btnRegister.Location = new Point(639, 111);
+            btnRegister.Name = "btnRegister";
+            btnRegister.Size = new Size(145, 45);
+            btnRegister.TabIndex = 22;
+            btnRegister.Text = "Đăng kí";
+            btnRegister.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnRegister.UseVisualStyleBackColor = false;
+            btnRegister.Click += btnRegister_Click;
+            // 
+            // cboEmployeeShift
+            // 
+            cboEmployeeShift.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboEmployeeShift.FormattingEnabled = true;
+            cboEmployeeShift.Location = new Point(413, 41);
+            cboEmployeeShift.Name = "cboEmployeeShift";
+            cboEmployeeShift.Size = new Size(121, 31);
+            cboEmployeeShift.TabIndex = 21;
+>>>>>>> Stashed changes
             // 
             // label9
             // 
@@ -422,15 +753,25 @@
             // 
             // textBox4
             // 
+<<<<<<< Updated upstream
             textBox4.Location = new Point(142, 113);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(357, 30);
             textBox4.TabIndex = 9;
+=======
+            txtEmployeeFind.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtEmployeeFind.Location = new Point(140, 191);
+            txtEmployeeFind.Name = "txtEmployeeFind";
+            txtEmployeeFind.Size = new Size(488, 30);
+            txtEmployeeFind.TabIndex = 9;
+            txtEmployeeFind.TextChanged += txtEmployeeFind_TextChanged;
+>>>>>>> Stashed changes
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label4.AutoSize = true;
-            label4.Location = new Point(8, 120);
+            label4.Location = new Point(6, 198);
             label4.Name = "label4";
             label4.Size = new Size(128, 23);
             label4.TabIndex = 8;
@@ -438,6 +779,7 @@
             // 
             // dataGridView4
             // 
+<<<<<<< Updated upstream
             dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView4.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
@@ -732,6 +1074,17 @@
             label23.Size = new Size(69, 23);
             label23.TabIndex = 42;
             label23.Text = "Mã NV:";
+=======
+            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSchedule.Location = new Point(6, 227);
+            dgvSchedule.Name = "dgvSchedule";
+            dgvSchedule.RowHeadersWidth = 51;
+            dgvSchedule.Size = new Size(900, 284);
+            dgvSchedule.TabIndex = 0;
+            dgvSchedule.CellClick += dgvSchedule_CellClick;
+            dgvSchedule.CellContentDoubleClick += dvgSchedule_CellContentDoubleClick;
+>>>>>>> Stashed changes
             // 
             // frmScheduleInfo
             // 
@@ -742,6 +1095,8 @@
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmScheduleInfo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Danh sách nhân viên làm việc";
