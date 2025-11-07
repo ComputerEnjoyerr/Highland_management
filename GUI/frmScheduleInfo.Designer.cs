@@ -30,54 +30,56 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmScheduleInfo));
             tabPage3 = new TabPage();
-            comboBox4 = new ComboBox();
+            cboShiftEvening = new ComboBox();
             label3 = new Label();
-            textBox3 = new TextBox();
+            txtAddressEvening = new TextBox();
             label20 = new Label();
-            textBox17 = new TextBox();
+            txtRoleEvening = new TextBox();
             label21 = new Label();
-            textBox18 = new TextBox();
+            txtNameEvening = new TextBox();
             label22 = new Label();
-            textBox19 = new TextBox();
+            txtIdEvening = new TextBox();
             label23 = new Label();
-            button4 = new Button();
-            textBox20 = new TextBox();
+            btnCancelEvening = new Button();
+            txtFindEvening = new TextBox();
             label24 = new Label();
-            dataGridView3 = new DataGridView();
+            dgvShiftEvening = new DataGridView();
             tabPage2 = new TabPage();
-            comboBox3 = new ComboBox();
+            cboShiftAfternoon = new ComboBox();
             label2 = new Label();
-            textBox2 = new TextBox();
+            txtAddressAfternoon = new TextBox();
             label15 = new Label();
-            textBox13 = new TextBox();
+            txtRoleAfternoon = new TextBox();
             label16 = new Label();
-            textBox14 = new TextBox();
+            txtNameAfternoon = new TextBox();
             label17 = new Label();
-            textBox15 = new TextBox();
+            txtIdAfternoon = new TextBox();
             label18 = new Label();
-            button3 = new Button();
-            textBox16 = new TextBox();
+            btnCancelAfternoon = new Button();
+            txtFindAfternoon = new TextBox();
             label19 = new Label();
-            dataGridView2 = new DataGridView();
+            dgvShiftAfternoon = new DataGridView();
             tabPage1 = new TabPage();
-            comboBox2 = new ComboBox();
+            cboShiftMorning = new ComboBox();
             label1 = new Label();
-            textBox1 = new TextBox();
+            txtAddressMorning = new TextBox();
             label10 = new Label();
-            textBox9 = new TextBox();
+            txtRoleMorning = new TextBox();
             label11 = new Label();
-            textBox10 = new TextBox();
+            txtNameMorning = new TextBox();
             label12 = new Label();
-            textBox11 = new TextBox();
+            txtIdMorning = new TextBox();
             label13 = new Label();
-            button2 = new Button();
-            textBox12 = new TextBox();
+            btnCancelMorning = new Button();
+            txtFindMorning = new TextBox();
             label14 = new Label();
-            dataGridView1 = new DataGridView();
+            dgvShiftMorning = new DataGridView();
             tabControl1 = new TabControl();
             tabPage4 = new TabPage();
+            label25 = new Label();
+            txtNote = new TextBox();
             btnRegister = new Button();
-            comboBox1 = new ComboBox();
+            cboEmployeeShift = new ComboBox();
             label9 = new Label();
             txtEmployeeAddress = new TextBox();
             label8 = new Label();
@@ -87,56 +89,52 @@
             label5 = new Label();
             txtEmployeeId = new TextBox();
             label6 = new Label();
-            txtFind = new TextBox();
+            txtEmployeeFind = new TextBox();
             label4 = new Label();
-            dvgSchedule = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
-            Column5 = new DataGridViewTextBoxColumn();
+            dgvSchedule = new DataGridView();
             tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvShiftEvening).BeginInit();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvShiftAfternoon).BeginInit();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvShiftMorning).BeginInit();
             tabControl1.SuspendLayout();
             tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dvgSchedule).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSchedule).BeginInit();
             SuspendLayout();
             // 
             // tabPage3
             // 
             tabPage3.BackColor = Color.FromArgb(249, 245, 238);
-            tabPage3.Controls.Add(comboBox4);
+            tabPage3.Controls.Add(cboShiftEvening);
             tabPage3.Controls.Add(label3);
-            tabPage3.Controls.Add(textBox3);
+            tabPage3.Controls.Add(txtAddressEvening);
             tabPage3.Controls.Add(label20);
-            tabPage3.Controls.Add(textBox17);
+            tabPage3.Controls.Add(txtRoleEvening);
             tabPage3.Controls.Add(label21);
-            tabPage3.Controls.Add(textBox18);
+            tabPage3.Controls.Add(txtNameEvening);
             tabPage3.Controls.Add(label22);
-            tabPage3.Controls.Add(textBox19);
+            tabPage3.Controls.Add(txtIdEvening);
             tabPage3.Controls.Add(label23);
-            tabPage3.Controls.Add(button4);
-            tabPage3.Controls.Add(textBox20);
+            tabPage3.Controls.Add(btnCancelEvening);
+            tabPage3.Controls.Add(txtFindEvening);
             tabPage3.Controls.Add(label24);
-            tabPage3.Controls.Add(dataGridView3);
-            tabPage3.Location = new Point(4, 29);
+            tabPage3.Controls.Add(dgvShiftEvening);
+            tabPage3.Location = new Point(4, 32);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(906, 517);
+            tabPage3.Size = new Size(906, 514);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Ca tối";
             // 
-            // comboBox4
+            // cboShiftEvening
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(414, 37);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(121, 31);
-            comboBox4.TabIndex = 47;
+            cboShiftEvening.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboShiftEvening.FormattingEnabled = true;
+            cboShiftEvening.Location = new Point(414, 37);
+            cboShiftEvening.Name = "cboShiftEvening";
+            cboShiftEvening.Size = new Size(121, 31);
+            cboShiftEvening.TabIndex = 47;
             // 
             // label3
             // 
@@ -147,13 +145,13 @@
             label3.TabIndex = 38;
             label3.Text = "Ca làm việc:";
             // 
-            // textBox3
+            // txtAddressEvening
             // 
-            textBox3.Location = new Point(414, 6);
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.Size = new Size(371, 30);
-            textBox3.TabIndex = 43;
+            txtAddressEvening.Location = new Point(414, 6);
+            txtAddressEvening.Name = "txtAddressEvening";
+            txtAddressEvening.ReadOnly = true;
+            txtAddressEvening.Size = new Size(371, 30);
+            txtAddressEvening.TabIndex = 43;
             // 
             // label20
             // 
@@ -164,13 +162,13 @@
             label20.TabIndex = 39;
             label20.Text = "Địa chỉ:";
             // 
-            // textBox17
+            // txtRoleEvening
             // 
-            textBox17.Location = new Point(89, 68);
-            textBox17.Name = "textBox17";
-            textBox17.ReadOnly = true;
-            textBox17.Size = new Size(204, 30);
-            textBox17.TabIndex = 44;
+            txtRoleEvening.Location = new Point(89, 68);
+            txtRoleEvening.Name = "txtRoleEvening";
+            txtRoleEvening.ReadOnly = true;
+            txtRoleEvening.Size = new Size(204, 30);
+            txtRoleEvening.TabIndex = 44;
             // 
             // label21
             // 
@@ -181,13 +179,13 @@
             label21.TabIndex = 40;
             label21.Text = "Chức vụ:";
             // 
-            // textBox18
+            // txtNameEvening
             // 
-            textBox18.Location = new Point(89, 37);
-            textBox18.Name = "textBox18";
-            textBox18.ReadOnly = true;
-            textBox18.Size = new Size(204, 30);
-            textBox18.TabIndex = 45;
+            txtNameEvening.Location = new Point(89, 37);
+            txtNameEvening.Name = "txtNameEvening";
+            txtNameEvening.ReadOnly = true;
+            txtNameEvening.Size = new Size(204, 30);
+            txtNameEvening.TabIndex = 45;
             // 
             // label22
             // 
@@ -198,13 +196,13 @@
             label22.TabIndex = 41;
             label22.Text = "Họ tên:";
             // 
-            // textBox19
+            // txtIdEvening
             // 
-            textBox19.Location = new Point(89, 6);
-            textBox19.Name = "textBox19";
-            textBox19.ReadOnly = true;
-            textBox19.Size = new Size(204, 30);
-            textBox19.TabIndex = 46;
+            txtIdEvening.Location = new Point(89, 6);
+            txtIdEvening.Name = "txtIdEvening";
+            txtIdEvening.ReadOnly = true;
+            txtIdEvening.Size = new Size(204, 30);
+            txtIdEvening.TabIndex = 46;
             // 
             // label23
             // 
@@ -215,23 +213,25 @@
             label23.TabIndex = 42;
             label23.Text = "Mã NV:";
             // 
-            // button4
+            // btnCancelEvening
             // 
-            button4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button4.BackColor = Color.FromArgb(169, 65, 65);
-            button4.Location = new Point(640, 43);
-            button4.Name = "button4";
-            button4.Size = new Size(145, 45);
-            button4.TabIndex = 37;
-            button4.Text = "Hủy ca";
-            button4.UseVisualStyleBackColor = false;
+            btnCancelEvening.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCancelEvening.BackColor = Color.FromArgb(169, 65, 65);
+            btnCancelEvening.Location = new Point(640, 39);
+            btnCancelEvening.Name = "btnCancelEvening";
+            btnCancelEvening.Size = new Size(145, 45);
+            btnCancelEvening.TabIndex = 37;
+            btnCancelEvening.Text = "Hủy ca";
+            btnCancelEvening.UseVisualStyleBackColor = false;
+            btnCancelEvening.Click += btnCancelEvening_Click;
             // 
-            // textBox20
+            // txtFindEvening
             // 
-            textBox20.Location = new Point(141, 112);
-            textBox20.Name = "textBox20";
-            textBox20.Size = new Size(357, 30);
-            textBox20.TabIndex = 25;
+            txtFindEvening.Location = new Point(141, 112);
+            txtFindEvening.Name = "txtFindEvening";
+            txtFindEvening.Size = new Size(357, 30);
+            txtFindEvening.TabIndex = 25;
+            txtFindEvening.TextChanged += txtFindEvening_TextChanged;
             // 
             // label24
             // 
@@ -242,46 +242,48 @@
             label24.TabIndex = 24;
             label24.Text = "Tìm nhân viên:";
             // 
-            // dataGridView3
+            // dgvShiftEvening
             // 
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(7, 146);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.RowHeadersWidth = 51;
-            dataGridView3.Size = new Size(892, 365);
-            dataGridView3.TabIndex = 23;
+            dgvShiftEvening.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvShiftEvening.Location = new Point(7, 146);
+            dgvShiftEvening.Name = "dgvShiftEvening";
+            dgvShiftEvening.RowHeadersWidth = 51;
+            dgvShiftEvening.Size = new Size(892, 365);
+            dgvShiftEvening.TabIndex = 23;
+            dgvShiftEvening.CellClick += dgvShiftEvening_CellClick;
             // 
             // tabPage2
             // 
             tabPage2.BackColor = Color.FromArgb(249, 245, 238);
-            tabPage2.Controls.Add(comboBox3);
+            tabPage2.Controls.Add(cboShiftAfternoon);
             tabPage2.Controls.Add(label2);
-            tabPage2.Controls.Add(textBox2);
+            tabPage2.Controls.Add(txtAddressAfternoon);
             tabPage2.Controls.Add(label15);
-            tabPage2.Controls.Add(textBox13);
+            tabPage2.Controls.Add(txtRoleAfternoon);
             tabPage2.Controls.Add(label16);
-            tabPage2.Controls.Add(textBox14);
+            tabPage2.Controls.Add(txtNameAfternoon);
             tabPage2.Controls.Add(label17);
-            tabPage2.Controls.Add(textBox15);
+            tabPage2.Controls.Add(txtIdAfternoon);
             tabPage2.Controls.Add(label18);
-            tabPage2.Controls.Add(button3);
-            tabPage2.Controls.Add(textBox16);
+            tabPage2.Controls.Add(btnCancelAfternoon);
+            tabPage2.Controls.Add(txtFindAfternoon);
             tabPage2.Controls.Add(label19);
-            tabPage2.Controls.Add(dataGridView2);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Controls.Add(dgvShiftAfternoon);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(906, 517);
+            tabPage2.Size = new Size(906, 514);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Ca chiều";
             // 
-            // comboBox3
+            // cboShiftAfternoon
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(412, 37);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(121, 31);
-            comboBox3.TabIndex = 47;
+            cboShiftAfternoon.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboShiftAfternoon.FormattingEnabled = true;
+            cboShiftAfternoon.Location = new Point(412, 37);
+            cboShiftAfternoon.Name = "cboShiftAfternoon";
+            cboShiftAfternoon.Size = new Size(121, 31);
+            cboShiftAfternoon.TabIndex = 47;
             // 
             // label2
             // 
@@ -292,13 +294,13 @@
             label2.TabIndex = 38;
             label2.Text = "Ca làm việc:";
             // 
-            // textBox2
+            // txtAddressAfternoon
             // 
-            textBox2.Location = new Point(412, 6);
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.Size = new Size(371, 30);
-            textBox2.TabIndex = 43;
+            txtAddressAfternoon.Location = new Point(412, 6);
+            txtAddressAfternoon.Name = "txtAddressAfternoon";
+            txtAddressAfternoon.ReadOnly = true;
+            txtAddressAfternoon.Size = new Size(371, 30);
+            txtAddressAfternoon.TabIndex = 43;
             // 
             // label15
             // 
@@ -309,13 +311,13 @@
             label15.TabIndex = 39;
             label15.Text = "Địa chỉ:";
             // 
-            // textBox13
+            // txtRoleAfternoon
             // 
-            textBox13.Location = new Point(87, 68);
-            textBox13.Name = "textBox13";
-            textBox13.ReadOnly = true;
-            textBox13.Size = new Size(204, 30);
-            textBox13.TabIndex = 44;
+            txtRoleAfternoon.Location = new Point(87, 68);
+            txtRoleAfternoon.Name = "txtRoleAfternoon";
+            txtRoleAfternoon.ReadOnly = true;
+            txtRoleAfternoon.Size = new Size(204, 30);
+            txtRoleAfternoon.TabIndex = 44;
             // 
             // label16
             // 
@@ -326,13 +328,13 @@
             label16.TabIndex = 40;
             label16.Text = "Chức vụ:";
             // 
-            // textBox14
+            // txtNameAfternoon
             // 
-            textBox14.Location = new Point(87, 37);
-            textBox14.Name = "textBox14";
-            textBox14.ReadOnly = true;
-            textBox14.Size = new Size(204, 30);
-            textBox14.TabIndex = 45;
+            txtNameAfternoon.Location = new Point(87, 37);
+            txtNameAfternoon.Name = "txtNameAfternoon";
+            txtNameAfternoon.ReadOnly = true;
+            txtNameAfternoon.Size = new Size(204, 30);
+            txtNameAfternoon.TabIndex = 45;
             // 
             // label17
             // 
@@ -343,13 +345,13 @@
             label17.TabIndex = 41;
             label17.Text = "Họ tên:";
             // 
-            // textBox15
+            // txtIdAfternoon
             // 
-            textBox15.Location = new Point(87, 6);
-            textBox15.Name = "textBox15";
-            textBox15.ReadOnly = true;
-            textBox15.Size = new Size(204, 30);
-            textBox15.TabIndex = 46;
+            txtIdAfternoon.Location = new Point(87, 6);
+            txtIdAfternoon.Name = "txtIdAfternoon";
+            txtIdAfternoon.ReadOnly = true;
+            txtIdAfternoon.Size = new Size(204, 30);
+            txtIdAfternoon.TabIndex = 46;
             // 
             // label18
             // 
@@ -360,23 +362,25 @@
             label18.TabIndex = 42;
             label18.Text = "Mã NV:";
             // 
-            // button3
+            // btnCancelAfternoon
             // 
-            button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button3.BackColor = Color.FromArgb(169, 65, 65);
-            button3.Location = new Point(638, 42);
-            button3.Name = "button3";
-            button3.Size = new Size(145, 45);
-            button3.TabIndex = 37;
-            button3.Text = "Hủy ca";
-            button3.UseVisualStyleBackColor = false;
+            btnCancelAfternoon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCancelAfternoon.BackColor = Color.FromArgb(169, 65, 65);
+            btnCancelAfternoon.Location = new Point(638, 41);
+            btnCancelAfternoon.Name = "btnCancelAfternoon";
+            btnCancelAfternoon.Size = new Size(145, 45);
+            btnCancelAfternoon.TabIndex = 37;
+            btnCancelAfternoon.Text = "Hủy ca";
+            btnCancelAfternoon.UseVisualStyleBackColor = false;
+            btnCancelAfternoon.Click += btnCancelAfternoon_Click;
             // 
-            // textBox16
+            // txtFindAfternoon
             // 
-            textBox16.Location = new Point(141, 112);
-            textBox16.Name = "textBox16";
-            textBox16.Size = new Size(357, 30);
-            textBox16.TabIndex = 25;
+            txtFindAfternoon.Location = new Point(141, 112);
+            txtFindAfternoon.Name = "txtFindAfternoon";
+            txtFindAfternoon.Size = new Size(357, 30);
+            txtFindAfternoon.TabIndex = 25;
+            txtFindAfternoon.TextChanged += txtFindAfternoon_TextChanged;
             // 
             // label19
             // 
@@ -387,47 +391,48 @@
             label19.TabIndex = 24;
             label19.Text = "Tìm nhân viên:";
             // 
-            // dataGridView2
+            // dgvShiftAfternoon
             // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(7, 146);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(892, 365);
-            dataGridView2.TabIndex = 23;
-            dataGridView2.CellDoubleClick += dataGridView2_CellDoubleClick;
+            dgvShiftAfternoon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvShiftAfternoon.Location = new Point(7, 146);
+            dgvShiftAfternoon.Name = "dgvShiftAfternoon";
+            dgvShiftAfternoon.RowHeadersWidth = 51;
+            dgvShiftAfternoon.Size = new Size(892, 365);
+            dgvShiftAfternoon.TabIndex = 23;
+            dgvShiftAfternoon.CellClick += dgvShiftAfternoon_CellClick;
             // 
             // tabPage1
             // 
             tabPage1.BackColor = Color.FromArgb(249, 245, 238);
-            tabPage1.Controls.Add(comboBox2);
+            tabPage1.Controls.Add(cboShiftMorning);
             tabPage1.Controls.Add(label1);
-            tabPage1.Controls.Add(textBox1);
+            tabPage1.Controls.Add(txtAddressMorning);
             tabPage1.Controls.Add(label10);
-            tabPage1.Controls.Add(textBox9);
+            tabPage1.Controls.Add(txtRoleMorning);
             tabPage1.Controls.Add(label11);
-            tabPage1.Controls.Add(textBox10);
+            tabPage1.Controls.Add(txtNameMorning);
             tabPage1.Controls.Add(label12);
-            tabPage1.Controls.Add(textBox11);
+            tabPage1.Controls.Add(txtIdMorning);
             tabPage1.Controls.Add(label13);
-            tabPage1.Controls.Add(button2);
-            tabPage1.Controls.Add(textBox12);
+            tabPage1.Controls.Add(btnCancelMorning);
+            tabPage1.Controls.Add(txtFindMorning);
             tabPage1.Controls.Add(label14);
-            tabPage1.Controls.Add(dataGridView1);
-            tabPage1.Location = new Point(4, 29);
+            tabPage1.Controls.Add(dgvShiftMorning);
+            tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(906, 517);
+            tabPage1.Size = new Size(906, 514);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ca sáng";
             // 
-            // comboBox2
+            // cboShiftMorning
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(417, 37);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(121, 31);
-            comboBox2.TabIndex = 46;
+            cboShiftMorning.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboShiftMorning.FormattingEnabled = true;
+            cboShiftMorning.Location = new Point(417, 37);
+            cboShiftMorning.Name = "cboShiftMorning";
+            cboShiftMorning.Size = new Size(121, 31);
+            cboShiftMorning.TabIndex = 46;
             // 
             // label1
             // 
@@ -438,13 +443,13 @@
             label1.TabIndex = 37;
             label1.Text = "Ca làm việc:";
             // 
-            // textBox1
+            // txtAddressMorning
             // 
-            textBox1.Location = new Point(417, 6);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(371, 30);
-            textBox1.TabIndex = 42;
+            txtAddressMorning.Location = new Point(417, 6);
+            txtAddressMorning.Name = "txtAddressMorning";
+            txtAddressMorning.ReadOnly = true;
+            txtAddressMorning.Size = new Size(371, 30);
+            txtAddressMorning.TabIndex = 42;
             // 
             // label10
             // 
@@ -455,13 +460,13 @@
             label10.TabIndex = 38;
             label10.Text = "Địa chỉ:";
             // 
-            // textBox9
+            // txtRoleMorning
             // 
-            textBox9.Location = new Point(92, 68);
-            textBox9.Name = "textBox9";
-            textBox9.ReadOnly = true;
-            textBox9.Size = new Size(204, 30);
-            textBox9.TabIndex = 43;
+            txtRoleMorning.Location = new Point(92, 68);
+            txtRoleMorning.Name = "txtRoleMorning";
+            txtRoleMorning.ReadOnly = true;
+            txtRoleMorning.Size = new Size(204, 30);
+            txtRoleMorning.TabIndex = 43;
             // 
             // label11
             // 
@@ -472,13 +477,13 @@
             label11.TabIndex = 39;
             label11.Text = "Chức vụ:";
             // 
-            // textBox10
+            // txtNameMorning
             // 
-            textBox10.Location = new Point(92, 37);
-            textBox10.Name = "textBox10";
-            textBox10.ReadOnly = true;
-            textBox10.Size = new Size(204, 30);
-            textBox10.TabIndex = 44;
+            txtNameMorning.Location = new Point(92, 37);
+            txtNameMorning.Name = "txtNameMorning";
+            txtNameMorning.ReadOnly = true;
+            txtNameMorning.Size = new Size(204, 30);
+            txtNameMorning.TabIndex = 44;
             // 
             // label12
             // 
@@ -489,13 +494,13 @@
             label12.TabIndex = 40;
             label12.Text = "Họ tên:";
             // 
-            // textBox11
+            // txtIdMorning
             // 
-            textBox11.Location = new Point(92, 6);
-            textBox11.Name = "textBox11";
-            textBox11.ReadOnly = true;
-            textBox11.Size = new Size(204, 30);
-            textBox11.TabIndex = 45;
+            txtIdMorning.Location = new Point(92, 6);
+            txtIdMorning.Name = "txtIdMorning";
+            txtIdMorning.ReadOnly = true;
+            txtIdMorning.Size = new Size(204, 30);
+            txtIdMorning.TabIndex = 45;
             // 
             // label13
             // 
@@ -506,23 +511,25 @@
             label13.TabIndex = 41;
             label13.Text = "Mã NV:";
             // 
-            // button2
+            // btnCancelMorning
             // 
-            button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button2.BackColor = Color.FromArgb(169, 65, 65);
-            button2.Location = new Point(643, 43);
-            button2.Name = "button2";
-            button2.Size = new Size(145, 45);
-            button2.TabIndex = 36;
-            button2.Text = "Hủy ca";
-            button2.UseVisualStyleBackColor = false;
+            btnCancelMorning.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCancelMorning.BackColor = Color.FromArgb(169, 65, 65);
+            btnCancelMorning.Location = new Point(643, 40);
+            btnCancelMorning.Name = "btnCancelMorning";
+            btnCancelMorning.Size = new Size(145, 45);
+            btnCancelMorning.TabIndex = 36;
+            btnCancelMorning.Text = "Hủy ca";
+            btnCancelMorning.UseVisualStyleBackColor = false;
+            btnCancelMorning.Click += btnCancelMorning_Click;
             // 
-            // textBox12
+            // txtFindMorning
             // 
-            textBox12.Location = new Point(141, 114);
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(357, 30);
-            textBox12.TabIndex = 25;
+            txtFindMorning.Location = new Point(141, 114);
+            txtFindMorning.Name = "txtFindMorning";
+            txtFindMorning.Size = new Size(357, 30);
+            txtFindMorning.TabIndex = 25;
+            txtFindMorning.TextChanged += txtFindMorning_TextChanged;
             // 
             // label14
             // 
@@ -533,14 +540,15 @@
             label14.TabIndex = 24;
             label14.Text = "Tìm nhân viên:";
             // 
-            // dataGridView1
+            // dgvShiftMorning
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(7, 146);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(892, 365);
-            dataGridView1.TabIndex = 23;
+            dgvShiftMorning.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvShiftMorning.Location = new Point(7, 146);
+            dgvShiftMorning.Name = "dgvShiftMorning";
+            dgvShiftMorning.RowHeadersWidth = 51;
+            dgvShiftMorning.Size = new Size(892, 365);
+            dgvShiftMorning.TabIndex = 23;
+            dgvShiftMorning.CellClick += dgvShiftMorning_CellClick;
             // 
             // tabControl1
             // 
@@ -558,8 +566,10 @@
             // tabPage4
             // 
             tabPage4.BackColor = Color.FromArgb(249, 245, 238);
+            tabPage4.Controls.Add(label25);
+            tabPage4.Controls.Add(txtNote);
             tabPage4.Controls.Add(btnRegister);
-            tabPage4.Controls.Add(comboBox1);
+            tabPage4.Controls.Add(cboEmployeeShift);
             tabPage4.Controls.Add(label9);
             tabPage4.Controls.Add(txtEmployeeAddress);
             tabPage4.Controls.Add(label8);
@@ -569,9 +579,9 @@
             tabPage4.Controls.Add(label5);
             tabPage4.Controls.Add(txtEmployeeId);
             tabPage4.Controls.Add(label6);
-            tabPage4.Controls.Add(txtFind);
+            tabPage4.Controls.Add(txtEmployeeFind);
             tabPage4.Controls.Add(label4);
-            tabPage4.Controls.Add(dvgSchedule);
+            tabPage4.Controls.Add(dgvSchedule);
             tabPage4.Location = new Point(4, 32);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
@@ -579,24 +589,42 @@
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Quản lý ca";
             // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(305, 79);
+            label25.Name = "label25";
+            label25.Size = new Size(75, 23);
+            label25.TabIndex = 24;
+            label25.Text = "Ghi chú:";
+            // 
+            // txtNote
+            // 
+            txtNote.Location = new Point(413, 75);
+            txtNote.Name = "txtNote";
+            txtNote.Size = new Size(336, 30);
+            txtNote.TabIndex = 23;
+            // 
             // btnRegister
             // 
             btnRegister.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnRegister.BackColor = Color.FromArgb(104, 176, 145);
-            btnRegister.Location = new Point(639, 44);
+            btnRegister.Location = new Point(755, 42);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(145, 45);
             btnRegister.TabIndex = 22;
             btnRegister.Text = "Đăng kí";
             btnRegister.UseVisualStyleBackColor = false;
+            btnRegister.Click += btnRegister_Click;
             // 
-            // comboBox1
+            // cboEmployeeShift
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(413, 41);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 31);
-            comboBox1.TabIndex = 21;
+            cboEmployeeShift.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboEmployeeShift.FormattingEnabled = true;
+            cboEmployeeShift.Location = new Point(413, 41);
+            cboEmployeeShift.Name = "cboEmployeeShift";
+            cboEmployeeShift.Size = new Size(121, 31);
+            cboEmployeeShift.TabIndex = 21;
             // 
             // label9
             // 
@@ -675,12 +703,13 @@
             label6.TabIndex = 18;
             label6.Text = "Mã NV:";
             // 
-            // txtFind
+            // txtEmployeeFind
             // 
-            txtFind.Location = new Point(142, 113);
-            txtFind.Name = "txtFind";
-            txtFind.Size = new Size(357, 30);
-            txtFind.TabIndex = 9;
+            txtEmployeeFind.Location = new Point(142, 113);
+            txtEmployeeFind.Name = "txtEmployeeFind";
+            txtEmployeeFind.Size = new Size(357, 30);
+            txtEmployeeFind.TabIndex = 9;
+            txtEmployeeFind.TextChanged += txtEmployeeFind_TextChanged;
             // 
             // label4
             // 
@@ -691,47 +720,17 @@
             label4.TabIndex = 8;
             label4.Text = "Tìm nhân viên:";
             // 
-            // dvgSchedule
+            // dgvSchedule
             // 
-            dvgSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dvgSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dvgSchedule.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
-            dvgSchedule.Location = new Point(8, 147);
-            dvgSchedule.Name = "dvgSchedule";
-            dvgSchedule.RowHeadersWidth = 51;
-            dvgSchedule.Size = new Size(892, 365);
-            dvgSchedule.TabIndex = 0;
-            dvgSchedule.CellContentDoubleClick += dataGridView4_CellContentDoubleClick;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Mã NV";
-            Column1.MinimumWidth = 6;
-            Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "Họ và tên";
-            Column2.MinimumWidth = 6;
-            Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            Column3.HeaderText = "Sđt";
-            Column3.MinimumWidth = 6;
-            Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            Column4.HeaderText = "Chức vụ";
-            Column4.MinimumWidth = 6;
-            Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            Column5.HeaderText = "Ngày vào làm";
-            Column5.MinimumWidth = 6;
-            Column5.Name = "Column5";
+            dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSchedule.Location = new Point(14, 146);
+            dgvSchedule.Name = "dgvSchedule";
+            dgvSchedule.RowHeadersWidth = 51;
+            dgvSchedule.Size = new Size(892, 365);
+            dgvSchedule.TabIndex = 0;
+            dgvSchedule.CellClick += dgvSchedule_CellClick;
+            dgvSchedule.CellContentDoubleClick += dvgSchedule_CellContentDoubleClick;
             // 
             // frmScheduleInfo
             // 
@@ -748,17 +747,17 @@
             Load += frmScheduleInfo_Load;
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvShiftEvening).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvShiftAfternoon).EndInit();
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvShiftMorning).EndInit();
             tabControl1.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dvgSchedule).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSchedule).EndInit();
             ResumeLayout(false);
         }
 
@@ -768,9 +767,9 @@
         private TabPage tabPage1;
         private TabControl tabControl1;
         private TabPage tabPage4;
-        private TextBox txtFind;
+        private TextBox txtEmployeeFind;
         private Label label4;
-        private DataGridView dvgSchedule;
+        private DataGridView dgvSchedule;
         private TextBox txtEmployeeAddress;
         private Label label8;
         private TextBox txtEmployeeRole;
@@ -779,55 +778,52 @@
         private Label label5;
         private TextBox txtEmployeeId;
         private Label label6;
-        private ComboBox comboBox1;
+        private ComboBox cboEmployeeShift;
         private Label label9;
         private Button btnRegister;
-        private TextBox textBox20;
+        private TextBox txtFindEvening;
         private Label label24;
-        private DataGridView dataGridView3;
-        private TextBox textBox16;
+        private DataGridView dgvShiftEvening;
+        private TextBox txtFindAfternoon;
         private Label label19;
-        private DataGridView dataGridView2;
-        private Button button2;
-        private TextBox textBox12;
+        private DataGridView dgvShiftAfternoon;
+        private Button btnCancelMorning;
+        private TextBox txtFindMorning;
         private Label label14;
-        private DataGridView dataGridView1;
-        private Button button4;
-        private Button button3;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
-        private DataGridViewTextBoxColumn Column5;
-        private ComboBox comboBox4;
+        private DataGridView dgvShiftMorning;
+        private Button btnCancelEvening;
+        private Button btnCancelAfternoon;
+        private ComboBox cboShiftEvening;
         private Label label3;
-        private TextBox textBox3;
+        private TextBox txtAddressEvening;
         private Label label20;
-        private TextBox textBox17;
+        private TextBox txtRoleEvening;
         private Label label21;
-        private TextBox textBox18;
+        private TextBox txtNameEvening;
         private Label label22;
-        private TextBox textBox19;
+        private TextBox txtIdEvening;
         private Label label23;
-        private ComboBox comboBox3;
+        private ComboBox cboShiftAfternoon;
         private Label label2;
-        private TextBox textBox2;
+        private TextBox txtAddressAfternoon;
         private Label label15;
-        private TextBox textBox13;
+        private TextBox txtRoleAfternoon;
         private Label label16;
-        private TextBox textBox14;
+        private TextBox txtNameAfternoon;
         private Label label17;
-        private TextBox textBox15;
+        private TextBox txtIdAfternoon;
         private Label label18;
-        private ComboBox comboBox2;
+        private ComboBox cboShiftMorning;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txtAddressMorning;
         private Label label10;
-        private TextBox textBox9;
+        private TextBox txtRoleMorning;
         private Label label11;
-        private TextBox textBox10;
+        private TextBox txtNameMorning;
         private Label label12;
-        private TextBox textBox11;
+        private TextBox txtIdMorning;
         private Label label13;
+        private Label label25;
+        private TextBox txtNote;
     }
 }

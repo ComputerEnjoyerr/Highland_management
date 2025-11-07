@@ -31,5 +31,32 @@ namespace BLL
         {
             dAL_WorkSchedule.Delete(id);
         }
+
+        // Lấy lịch làm việc theo chi nhánh và tuần
+        public WorkSchedule? GetByBranchAndWeek(string branchId, DateOnly weekStart, DateOnly weekEnd)
+        {
+            return dAL_WorkSchedule.GetByBranchAndWeek(branchId, weekStart, weekEnd);
+        }
+
+        // Hàm tạo mã tự động
+        public string GenerateScheduleId()
+        {
+            string prefix = "WS" + DateTime.Now.ToString("yyMM");
+
+            var all = dAL_WorkSchedule.GetAll()
+                .Where(s => s.Id.StartsWith(prefix))
+                .OrderByDescending(s => s.Id)
+                .ToList();
+
+            int nextNumber = 1;
+            if (all.Any())
+            {
+                string lastId = all.First().Id;
+                if (int.TryParse(lastId.Substring(6, 4), out int current))
+                    nextNumber = current + 1;
+            }
+
+            return $"{prefix}{nextNumber:D4}";
+        }
     }
 }

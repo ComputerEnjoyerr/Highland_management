@@ -6,7 +6,7 @@ namespace GUI
     public partial class frmMain : Form
     {
         bool sideBarExpand = true;
-        private Employee employee = new(); // Nhân viên/Quản lý đăng nhập vào tìa khoản
+        private Employee employee = new(); // Nhân viên/Quản lý đăng nhập vào tài khoản
 
         public frmMain(Employee em)
         {
@@ -119,7 +119,7 @@ namespace GUI
 
         private void btnSchedule_Click(object sender, EventArgs e)
         {
-            frmSchedule fr = new frmSchedule();
+            frmSchedule fr = new frmSchedule(employee);
             button.BackColor = ColorTranslator.FromHtml("#3B3030");
             button.ForeColor = ColorTranslator.FromHtml("#F9F5EE");
             btnSchedule.BackColor = ColorTranslator.FromHtml("#F9F5EE");
