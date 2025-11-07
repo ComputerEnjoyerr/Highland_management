@@ -22,36 +22,46 @@ namespace GUI
             InitializeComponent();
         }
 
-        private void LoadStatus()
+        private void LoaddgvAttendance(string key = "")
         {
-            var status = new List<string>
-            {
-                "Đúng giờ",
-                "Đi muộn",
-                "Về sớm",
-                "Vắng mặt",
-                "Nghỉ phép"
-            };
-            cbStatus.DataSource = status;
-            cbStatus.SelectedIndex = 0;
+            DateOnly selectedDate = DateOnly.FromDateTime(dateTimePicker3.Value);
 
+            var attendances = bLL_Attendance.GetAll()
+                .Where(a => a.Shift != null && a.Shift.WorkDate == selectedDate)
+                .Select(a => new
+                {
+                    Id = a.Id,
+                    EmployeeId = a.EmployeeId,  // ✅ thêm dòng này
+                    EmployeeName = a.Employee?.EmployeeName ?? "Không rõ",
+                    ShiftType = a.Shift?.ShiftType ?? "",
+                    Status = a.Status ?? "",
+                    CheckIn = a.CheckIn.HasValue ? a.CheckIn.Value.ToString("yyyy-MM-dd HH:mm:ss") : "",
+                    CheckOut = a.CheckOut.HasValue ? a.CheckOut.Value.ToString("yyyy-MM-dd HH:mm:ss") : "",
+                    WorkDate = a.Shift?.WorkDate.ToString("dd/MM/yyyy") ?? ""
+                })
+                .ToList();
+
+            dgvAttendance.DataSource = attendances;
         }
-    
-        private void LoadDgvEmployee(string key = "")
+
+        private void LoaddgvAttendanceByDate(DateOnly workDate)
         {
-                var today = DateTime.Now;
+            var attendances = bLL_Attendance.GetAll()
+                .Where(a => a.Shift != null && a.Shift.WorkDate == workDate)
+                .Select(a => new
+                {
+                    Id = a.Id,
+                    EmployeeId = a.EmployeeId,  // ✅ thêm dòng này
+                    EmployeeName = a.Employee?.EmployeeName ?? "Không rõ",
+                    ShiftType = a.Shift?.ShiftType ?? "",
+                    Status = a.Status ?? "",
+                    CheckIn = a.CheckIn.HasValue ? a.CheckIn.Value.ToString("yyyy-MM-dd HH:mm:ss") : "",
+                    CheckOut = a.CheckOut.HasValue ? a.CheckOut.Value.ToString("yyyy-MM-dd HH:mm:ss") : "",
+                    WorkDate = a.Shift?.WorkDate.ToString("dd/MM/yyyy") ?? ""
+                })
+                .ToList();
 
-                var filtered = bLL_ShiftAssignment.GetAll()
-                    .Where(s => s.Shift != null && s.Shift.WorkDate == DateOnly.FromDateTime(today))
-                    .Select(s => new
-                    {
-                        s.EmployeeId,
-                        Name = s.Employee != null ? s.Employee.EmployeeName : "Lỗi hiển thị",
-                        Role = s.Employee != null ? s.Employee.Role : "Lỗi hiển thị",
-
-
-                    }).ToList();
-                dgvEmployee.DataSource = filtered;
+            dgvAttendance.DataSource = attendances;
         }
         private void frmAttendance_Load(object sender, EventArgs e)
         {
@@ -65,54 +75,10 @@ namespace GUI
             dgvAttendance.ReadOnly = true;
             dgvAttendance.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            LoadStatus();
-            LoadDgvEmployee();
+            LoaddgvAttendance();
         }
 
-        private void LoaddgvAttendance(string key = null)
-        {
-            if (!string.IsNullOrEmpty(key))
-            {
-                var filtered = bLL_Attendance.GetAll()
-                    .Where(a => a.Employee.EmployeeName.Contains(key, StringComparison.OrdinalIgnoreCase)
-                             || a.Branch.BranchName.Contains(key, StringComparison.OrdinalIgnoreCase)
-                             || a.ShiftId.Contains(key, StringComparison.OrdinalIgnoreCase))
-                    .Select(a => new
-                    {
-                        a.Id,
-                        EmployeeName = a.Employee.EmployeeName,
-                        a.ShiftId,
-                        BranchName = a.Branch.BranchName,
-                        a.CheckIn,
-                        a.CheckOut,
-                        a.OvertimeHours,
-                        a.Status,
-                        a.Method,
-                        a.ApprovedBy,
-                        a.Note
-                    });
-                dgvAttendance.DataSource = filtered;
-                return;
-            }
-
-            var attendanceList = bLL_Attendance.GetAll()
-                .Select(a => new
-                {
-                    a.Id,
-                    EmployeeName = a.Employee.EmployeeName,
-                    a.ShiftId,
-                    BranchName = a.Branch.BranchName,
-                    a.CheckIn,
-                    a.CheckOut,
-                    a.OvertimeHours,
-                    a.Status,
-                    a.Method,
-                    a.ApprovedBy,
-                    a.Note
-                });
-            dgvAttendance.DataSource = attendanceList;
-
-        }
+       
 
         private void button12_Click(object sender, EventArgs e)
         {
