@@ -48,7 +48,7 @@ namespace GUI
                 return new
                 {
                     Ingredient = i.Ingredient != null ? i.Ingredient.IngredientName : "Lỗi hiển thị",
-                    i.CurrentQuantity,
+                    CurrentQuantity = i.CurrentQuantity.ToString("0.###"),
                     Unit = i.Unit != null ? i.Unit.UnitName : "Lỗi hiển thị",
                     Supplier = latestReceipt != null && latestReceipt.Supplier != null ? latestReceipt.Supplier.Name : "Chưa có",
                     LatestExpiryDate = latestReceipt != null ? latestReceipt.ExpiryDate.ToString("dd/MM/yyyy") : "Chưa có",
@@ -177,6 +177,20 @@ namespace GUI
             }
         }
 
+        private void CalculateFinalPrice()
+        {
+            // Tính tổng giá tiền dựa trên số lượng và giá đơn vị của danh sách phiếu nhập
+
+            decimal finalPrice = 0;
+            foreach (var stock in currentStockList)
+            {
+                //MessageBox.Show($"Cộng thêm : {stock.TotalPrice}");
+                finalPrice += stock.TotalPrice;
+            }
+            // Hiển thị tổng giá tiền
+            txtFinalPrice.Text = finalPrice.ToString("C0");
+        }
+
         private void RefreshInput1()
         {
             // Đặt lại null cho các biến được chọn
@@ -232,6 +246,7 @@ namespace GUI
             LoadStock();
             LoadUnit();
             LoadSupplierIngredient();
+            CalculateFinalPrice();
             LoadInventory();
             FindStockByDate();
         }
@@ -310,6 +325,7 @@ namespace GUI
                 bLL_StockReceipt.Add(stockItem);
                 LoadStock();
                 RefreshInput1();
+                CalculateFinalPrice();
             }
             catch (Exception ex)
             {
@@ -368,6 +384,7 @@ namespace GUI
                 bLL_StockReceipt.Update(selectedStockReceipt);
                 LoadStock();
                 RefreshInput1();
+                CalculateFinalPrice();
 
             }
             catch (Exception ex)
@@ -442,6 +459,7 @@ namespace GUI
                 LoadStock();
                 RefreshInput1();
                 LoadInventory();
+                CalculateFinalPrice();
             }
             catch (Exception ex)
             {
