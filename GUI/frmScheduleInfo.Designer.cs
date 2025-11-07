@@ -120,10 +120,10 @@
             tabPage3.Controls.Add(txtFindEvening);
             tabPage3.Controls.Add(label24);
             tabPage3.Controls.Add(dgvShiftEvening);
-            tabPage3.Location = new Point(4, 32);
+            tabPage3.Location = new Point(4, 29);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(906, 514);
+            tabPage3.Size = new Size(906, 517);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Ca tối";
             // 
@@ -219,7 +219,7 @@
             btnCancelEvening.BackColor = SystemColors.Control;
             btnCancelEvening.Image = Properties.Resources.delete;
             btnCancelEvening.ImageAlign = ContentAlignment.MiddleRight;
-            btnCancelEvening.Location = new Point(640, 47);
+            btnCancelEvening.Location = new Point(640, 44);
             btnCancelEvening.Name = "btnCancelEvening";
             btnCancelEvening.Size = new Size(145, 45);
             btnCancelEvening.TabIndex = 37;
@@ -601,7 +601,7 @@
             // label25
             // 
             label25.AutoSize = true;
-            label25.Location = new Point(305, 87);
+            label25.Location = new Point(402, 80);
             label25.Name = "label25";
             label25.Size = new Size(75, 23);
             label25.TabIndex = 24;
@@ -609,9 +609,10 @@
             // 
             // txtNote
             // 
-            txtNote.Location = new Point(413, 83);
+            txtNote.Location = new Point(478, 72);
+            txtNote.Multiline = true;
             txtNote.Name = "txtNote";
-            txtNote.Size = new Size(371, 30);
+            txtNote.Size = new Size(371, 60);
             txtNote.TabIndex = 23;
             // 
             // btnRegister
@@ -620,7 +621,7 @@
             btnRegister.BackColor = SystemColors.Control;
             btnRegister.Image = Properties.Resources.pen;
             btnRegister.ImageAlign = ContentAlignment.MiddleRight;
-            btnRegister.Location = new Point(639, 113);
+            btnRegister.Location = new Point(10, 168);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(145, 45);
             btnRegister.TabIndex = 22;
@@ -633,15 +634,15 @@
             // 
             cboEmployeeShift.DropDownStyle = ComboBoxStyle.DropDownList;
             cboEmployeeShift.FormattingEnabled = true;
-            cboEmployeeShift.Location = new Point(413, 46);
+            cboEmployeeShift.Location = new Point(118, 118);
             cboEmployeeShift.Name = "cboEmployeeShift";
-            cboEmployeeShift.Size = new Size(121, 31);
+            cboEmployeeShift.Size = new Size(251, 31);
             cboEmployeeShift.TabIndex = 21;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(305, 52);
+            label9.Location = new Point(10, 124);
             label9.Name = "label9";
             label9.Size = new Size(106, 23);
             label9.TabIndex = 17;
@@ -649,16 +650,17 @@
             // 
             // txtEmployeeAddress
             // 
-            txtEmployeeAddress.Location = new Point(413, 10);
+            txtEmployeeAddress.Location = new Point(478, 6);
+            txtEmployeeAddress.Multiline = true;
             txtEmployeeAddress.Name = "txtEmployeeAddress";
             txtEmployeeAddress.ReadOnly = true;
-            txtEmployeeAddress.Size = new Size(371, 30);
+            txtEmployeeAddress.Size = new Size(371, 60);
             txtEmployeeAddress.TabIndex = 19;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(305, 16);
+            label8.Location = new Point(402, 16);
             label8.Name = "label8";
             label8.Size = new Size(70, 23);
             label8.TabIndex = 17;
@@ -666,16 +668,16 @@
             // 
             // txtEmployeeRole
             // 
-            txtEmployeeRole.Location = new Point(88, 80);
+            txtEmployeeRole.Location = new Point(88, 82);
             txtEmployeeRole.Name = "txtEmployeeRole";
             txtEmployeeRole.ReadOnly = true;
-            txtEmployeeRole.Size = new Size(204, 30);
+            txtEmployeeRole.Size = new Size(281, 30);
             txtEmployeeRole.TabIndex = 19;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(8, 86);
+            label7.Location = new Point(8, 88);
             label7.Name = "label7";
             label7.Size = new Size(79, 23);
             label7.TabIndex = 17;
@@ -686,7 +688,7 @@
             txtEmployeeName.Location = new Point(88, 46);
             txtEmployeeName.Name = "txtEmployeeName";
             txtEmployeeName.ReadOnly = true;
-            txtEmployeeName.Size = new Size(204, 30);
+            txtEmployeeName.Size = new Size(281, 30);
             txtEmployeeName.TabIndex = 19;
             // 
             // label5
@@ -703,7 +705,7 @@
             txtEmployeeId.Location = new Point(88, 10);
             txtEmployeeId.Name = "txtEmployeeId";
             txtEmployeeId.ReadOnly = true;
-            txtEmployeeId.Size = new Size(204, 30);
+            txtEmployeeId.Size = new Size(281, 30);
             txtEmployeeId.TabIndex = 20;
             // 
             // label6
@@ -717,16 +719,16 @@
             // 
             // txtEmployeeFind
             // 
-            txtEmployeeFind.Location = new Point(149, 187);
+            txtEmployeeFind.Location = new Point(149, 242);
             txtEmployeeFind.Name = "txtEmployeeFind";
-            txtEmployeeFind.Size = new Size(357, 30);
+            txtEmployeeFind.Size = new Size(622, 30);
             txtEmployeeFind.TabIndex = 9;
             txtEmployeeFind.TextChanged += txtEmployeeFind_TextChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(15, 194);
+            label4.Location = new Point(15, 249);
             label4.Name = "label4";
             label4.Size = new Size(128, 23);
             label4.TabIndex = 8;
@@ -736,10 +738,10 @@
             // 
             dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSchedule.Location = new Point(14, 223);
+            dgvSchedule.Location = new Point(14, 278);
             dgvSchedule.Name = "dgvSchedule";
             dgvSchedule.RowHeadersWidth = 51;
-            dgvSchedule.Size = new Size(892, 288);
+            dgvSchedule.Size = new Size(892, 233);
             dgvSchedule.TabIndex = 0;
             dgvSchedule.CellClick += dgvSchedule_CellClick;
             dgvSchedule.CellContentDoubleClick += dvgSchedule_CellContentDoubleClick;
