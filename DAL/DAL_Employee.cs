@@ -27,6 +27,8 @@ namespace DAL
             return _context.Employees
                 .Include(e => e.Branch)
                 .Include(e => e.Address)
+                .ThenInclude(a => a.Ward)
+                .ThenInclude(w => w.Province)
                 .FirstOrDefault(e => e.Id == id);
         }
 

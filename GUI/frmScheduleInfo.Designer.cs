@@ -76,6 +76,8 @@
             dgvShiftMorning = new DataGridView();
             tabControl1 = new TabControl();
             tabPage4 = new TabPage();
+            label25 = new Label();
+            txtNote = new TextBox();
             btnRegister = new Button();
             cboEmployeeShift = new ComboBox();
             label9 = new Label();
@@ -215,12 +217,13 @@
             // 
             btnCancelEvening.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnCancelEvening.BackColor = Color.FromArgb(169, 65, 65);
-            btnCancelEvening.Location = new Point(640, 42);
+            btnCancelEvening.Location = new Point(640, 39);
             btnCancelEvening.Name = "btnCancelEvening";
             btnCancelEvening.Size = new Size(145, 45);
             btnCancelEvening.TabIndex = 37;
             btnCancelEvening.Text = "Hủy ca";
             btnCancelEvening.UseVisualStyleBackColor = false;
+            btnCancelEvening.Click += btnCancelEvening_Click;
             // 
             // txtFindEvening
             // 
@@ -247,6 +250,7 @@
             dgvShiftEvening.RowHeadersWidth = 51;
             dgvShiftEvening.Size = new Size(892, 365);
             dgvShiftEvening.TabIndex = 23;
+            dgvShiftEvening.CellClick += dgvShiftEvening_CellClick;
             // 
             // tabPage2
             // 
@@ -362,12 +366,13 @@
             // 
             btnCancelAfternoon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnCancelAfternoon.BackColor = Color.FromArgb(169, 65, 65);
-            btnCancelAfternoon.Location = new Point(638, 42);
+            btnCancelAfternoon.Location = new Point(638, 41);
             btnCancelAfternoon.Name = "btnCancelAfternoon";
             btnCancelAfternoon.Size = new Size(145, 45);
             btnCancelAfternoon.TabIndex = 37;
             btnCancelAfternoon.Text = "Hủy ca";
             btnCancelAfternoon.UseVisualStyleBackColor = false;
+            btnCancelAfternoon.Click += btnCancelAfternoon_Click;
             // 
             // txtFindAfternoon
             // 
@@ -394,6 +399,7 @@
             dgvShiftAfternoon.RowHeadersWidth = 51;
             dgvShiftAfternoon.Size = new Size(892, 365);
             dgvShiftAfternoon.TabIndex = 23;
+            dgvShiftAfternoon.CellClick += dgvShiftAfternoon_CellClick;
             // 
             // tabPage1
             // 
@@ -509,12 +515,13 @@
             // 
             btnCancelMorning.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnCancelMorning.BackColor = Color.FromArgb(169, 65, 65);
-            btnCancelMorning.Location = new Point(643, 42);
+            btnCancelMorning.Location = new Point(643, 40);
             btnCancelMorning.Name = "btnCancelMorning";
             btnCancelMorning.Size = new Size(145, 45);
             btnCancelMorning.TabIndex = 36;
             btnCancelMorning.Text = "Hủy ca";
             btnCancelMorning.UseVisualStyleBackColor = false;
+            btnCancelMorning.Click += btnCancelMorning_Click;
             // 
             // txtFindMorning
             // 
@@ -541,6 +548,7 @@
             dgvShiftMorning.RowHeadersWidth = 51;
             dgvShiftMorning.Size = new Size(892, 365);
             dgvShiftMorning.TabIndex = 23;
+            dgvShiftMorning.CellClick += dgvShiftMorning_CellClick;
             // 
             // tabControl1
             // 
@@ -558,6 +566,8 @@
             // tabPage4
             // 
             tabPage4.BackColor = Color.FromArgb(249, 245, 238);
+            tabPage4.Controls.Add(label25);
+            tabPage4.Controls.Add(txtNote);
             tabPage4.Controls.Add(btnRegister);
             tabPage4.Controls.Add(cboEmployeeShift);
             tabPage4.Controls.Add(label9);
@@ -579,11 +589,27 @@
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Quản lý ca";
             // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(305, 79);
+            label25.Name = "label25";
+            label25.Size = new Size(75, 23);
+            label25.TabIndex = 24;
+            label25.Text = "Ghi chú:";
+            // 
+            // txtNote
+            // 
+            txtNote.Location = new Point(413, 75);
+            txtNote.Name = "txtNote";
+            txtNote.Size = new Size(336, 30);
+            txtNote.TabIndex = 23;
+            // 
             // btnRegister
             // 
             btnRegister.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnRegister.BackColor = Color.FromArgb(104, 176, 145);
-            btnRegister.Location = new Point(639, 46);
+            btnRegister.Location = new Point(755, 42);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(145, 45);
             btnRegister.TabIndex = 22;
@@ -703,6 +729,7 @@
             dgvSchedule.RowHeadersWidth = 51;
             dgvSchedule.Size = new Size(892, 365);
             dgvSchedule.TabIndex = 0;
+            dgvSchedule.CellClick += dgvSchedule_CellClick;
             dgvSchedule.CellContentDoubleClick += dvgSchedule_CellContentDoubleClick;
             // 
             // frmScheduleInfo
@@ -796,5 +823,7 @@
         private Label label12;
         private TextBox txtIdMorning;
         private Label label13;
+        private Label label25;
+        private TextBox txtNote;
     }
 }

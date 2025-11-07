@@ -53,5 +53,18 @@ namespace DAL
                 .Include(wS => wS.WorkSchedule)
             .FirstOrDefault(wS => wS.Id == id);
         }
+
+        // Lấy ca làm việc theo ngày và ca
+        public WorkShift? GetShiftByDateAndType(DateOnly workDate, string shiftType, string branchId)
+        {
+            return _context.WorkShifts
+                .Include(ws => ws.WorkSchedule)
+                .AsEnumerable()
+                .FirstOrDefault(ws =>
+                    ws.WorkDate == workDate &&
+                    ws.ShiftType == shiftType &&
+                    ws.WorkSchedule != null &&
+                    ws.WorkSchedule.BranchId == branchId);
+        }
     }
 }

@@ -32,5 +32,29 @@ namespace BLL
         {
             dAL_WorkShift.Delete(workShift);
         }
+
+        // Lấy ca làm việc theo ngày và ca
+        public WorkShift? GetShiftByDateAndType(DateOnly workDate, string shiftType, string branchId)
+        {
+            return dAL_WorkShift.GetShiftByDateAndType(workDate, shiftType, branchId);
+        }
+
+        // Hàm tạo mã tự động
+        public string GenerateShiftId()
+        {
+            string prefix = "WSH" + DateTime.Now.ToString("yyMM");
+            var all = dAL_WorkShift.GetAll()
+                .Where(s => s.Id.StartsWith(prefix))
+                .OrderByDescending(s => s.Id)
+                .ToList();
+            int nextNumber = 1;
+            if (all.Any())
+            {
+                string lastId = all.First().Id;
+                if (int.TryParse(lastId.Substring(7, 4), out int current))
+                    nextNumber = current + 1;
+            }
+            return $"{prefix}{nextNumber:D4}";
+        }
     }
 }

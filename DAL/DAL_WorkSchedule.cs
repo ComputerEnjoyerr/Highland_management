@@ -57,5 +57,16 @@ namespace DAL
                 .Include(wS => wS.WorkShifts)
             .FirstOrDefault(wS => wS.Id == id);
         }
+
+        // Lấy lịch làm việc theo chi nhánh và tuần
+        public WorkSchedule? GetByBranchAndWeek(string branchId, DateOnly weekStart, DateOnly weekEnd)
+        {
+            return _context.WorkSchedules
+                .Include(wS => wS.Branch)
+                .Include(wS => wS.WorkShifts)
+                .FirstOrDefault(wS => wS.BranchId == branchId &&
+                                wS.WeekStart == weekStart &&
+                                wS.WeekEnd == weekEnd);
+        }
     }
 }

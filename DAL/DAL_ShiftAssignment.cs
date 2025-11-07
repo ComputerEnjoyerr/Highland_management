@@ -15,16 +15,16 @@ namespace DAL
         public List<ShiftAssignment> GetAll()
         {
             return _context.ShiftAssignments
-                .Include(sA => sA.Employee)
-                .Include(sA => sA.Shift)
-                .ToList();
+            .Include(sA => sA.Shift)
+            .Include(sA => sA.Employee)
+            .ToList();
         }
 
         public ShiftAssignment? GetById(string id)
         {
             return _context.ShiftAssignments
-            .Include(sA => sA.Employee)
             .Include(sA => sA.Shift)
+            .Include(sA => sA.Employee)
             .FirstOrDefault(sA => sA.Id == id);
         }
 
@@ -62,12 +62,28 @@ namespace DAL
             return _context.ShiftAssignments
                 .Include(sA => sA.Employee)
                 .Include(sA => sA.Shift)
+                .ThenInclude(s => s.WorkSchedule)
                 .Where(sA =>
                     sA.Shift != null &&
                     sA.Shift.WorkDate.Day == day &&
                     sA.Shift.WorkDate.Month == month &&
                     sA.Shift.WorkDate.Year == year &&
-                    sA.Shift.ShiftType == shift)
+                    sA.Shift.ShiftType == shift &&
+                    sA.Shift.WorkSchedule != null)
+                .ToList();
+        }
+
+        // Hàm lấy lịch sử phân công ca làm việc của nhân viên theo ID nhân viên
+        public List<ShiftAssignment> GetByEmployeeId(string employeeId)
+        {
+            return _context.ShiftAssignments
+                .Include(sA => sA.Employee)
+                .Include(sa => sa.Shift)
+                    .ThenInclude(s => s.WorkSchedule)
+                        .ThenInclude(ws => ws.Branch)
+                .Where(sa => sa.EmployeeId == employeeId)
+                .OrderBy(sa => sa.Shift.WorkDate)
+                .ThenBy(sa => sa.Shift.ShiftType)
                 .ToList();
         }
     }

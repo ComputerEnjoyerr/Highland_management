@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +14,12 @@ namespace GUI
 {
     public partial class frmSchedule : Form
     {
-        public frmSchedule()
+        private Employee employee = new(); // Nhân viên/Quản lý đăng nhập vào tìa khoản
+
+        public frmSchedule(Employee em)
         {
             InitializeComponent();
+            this.employee = em;
         }
         public int month, year;
 
@@ -68,7 +72,7 @@ namespace GUI
             if (dayBox != null && !string.IsNullOrEmpty(dayBox.DayText))
             {
 
-                frmScheduleInfo fr = new frmScheduleInfo(dayBox.DayText, dayBox.Month.ToString("##"), dayBox.Year);
+                frmScheduleInfo fr = new frmScheduleInfo(employee ,dayBox.DayText, dayBox.Month.ToString("##"), dayBox.Year);
                 fr.ShowDialog();
             }
         }
