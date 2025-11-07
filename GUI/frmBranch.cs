@@ -646,12 +646,16 @@ namespace GUI
 
             // Kiểm tra trùng tên (trừ chính nhân viên đang chỉnh sửa)
             var existingEmployee = bLL_Employee.GetAll()
-                .FirstOrDefault(e => e.EmployeeName.Equals(name, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(e => e.EmployeeName.Equals(name, StringComparison.OrdinalIgnoreCase)
+                                  && e.BranchId == txtBId.Text
+                                  && e.Id != txtEId.Text);
 
-            if (existingEmployee != null && existingEmployee.Id != txtEId.Text)
+            if (existingEmployee != null)
             {
-                MessageBox.Show("Tên nhân viên này đã tồn tại!",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tên nhân viên này đã tồn tại trong chi nhánh này!",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
                 txtEName.Clear();
                 txtEName.Focus();
                 return;
@@ -712,9 +716,12 @@ namespace GUI
                 cboEWard.Focus();
                 return;
             }
-            if (bLL_Employee.IsEmployeeNameExists(txtEName.Text.Trim()))
+            if (bLL_Employee.GetAll()
+                .Any(e => e.EmployeeName.Equals(txtEName.Text.Trim(), StringComparison.OrdinalIgnoreCase)
+                       && e.BranchId == txtBId.Text))
             {
-                MessageBox.Show("Tên nhân viên đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Tên nhân viên đã tồn tại trong chi nhánh này!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

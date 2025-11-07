@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace BLL
     public class BLL_Employee
     {
         private readonly DAL_Employee dAL_Employee = new();
+        private readonly DAL_ShiftAssignment dAL_ShiftAssignment = new();
+        private readonly DAL_Account dAL_Account = new();
         public List<Employee> GetAll()
         {
             return dAL_Employee.GetAll();
@@ -30,6 +33,24 @@ namespace BLL
 
         public void Delete(string id)
         {
+            // Kiểm tra xem nhân viên này có đang được phân ca làm việc hay không
+            var hasShift = dAL_ShiftAssignment
+                .GetAll()
+                .Any(sa => sa.EmployeeId == id);
+
+            if (hasShift)
+                throw new Exception("Không thể xóa nhân viên đang đăng ký lịch làm việc!");
+
+            // Kiểm tra nhân viên có tài khoản đăng nhập
+            bool hasAccount = dAL_Account.GetAll().Any(a => a.EmployeeId == id);
+            if (hasAccount)
+                throw new Exception("Không thể xóa nhân viên đang có tài khoản hệ thống (Admin, Nhân viên hoặc Quản lý)!");
+
+            // Nếu không có lịch làm việc -> cho phép xóa
+            var emp = dAL_Employee.GetById(id);
+            if (emp == null)
+                throw new Exception("Không tìm thấy nhân viên cần xóa!");
+
             dAL_Employee.Delete(id);
         }
 
@@ -78,8 +99,8 @@ namespace BLL
             // Kiểm tra tên nhân viên
             if (string.IsNullOrWhiteSpace(employee.EmployeeName))
                 throw new Exception("Tên nhân viên không được để trống.");
-            if (dAL_Employee.IsEmployeeNameExists(employee.EmployeeName))
-                throw new Exception("Tên nhân viên đã tồn tại.");
+            //if (dAL_Employee.IsEmployeeNameExists(employee.EmployeeName))
+            //    throw new Exception("Tên nhân viên đã tồn tại.");
             if (employee.EmployeeName.Length > 30)
                 throw new Exception("Tên nhân viên không được vượt quá 30 ký tự.");
 
@@ -105,6 +126,15 @@ namespace BLL
             var allEmployee = dAL_Employee.GetAll();
             if (allEmployee.Any(e => e.Phone == employee.Phone && e.Id != employee.Id))
                 throw new Exception("Số điện thoại này đã được nhân viên khác sử dụng!");
+
+            // Kiểm tra CMND/CCCD
+            if (string.IsNullOrWhiteSpace(employee.CitizenId))
+                throw new Exception("Căn cước công dân không được để trống.");
+            if (employee.CitizenId.Length > 20)
+                throw new Exception("Căn cước công dân không được vượt quá 20 ký tự.");
+            var allEmployees = dAL_Employee.GetAll();
+            if (allEmployees.Any(e => e.CitizenId == employee.CitizenId && e.Id != employee.Id))
+                throw new Exception("Căn cước công dân này đã được nhân viên khác sử dụng!");
         }
 
         // Hàm tạo mã cho nhân viên mới (định dạng: NVyyMMxxxx)
