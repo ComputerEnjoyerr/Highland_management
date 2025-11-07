@@ -9,9 +9,9 @@ public partial class Inventory
 
     public string IngredientId { get; set; } = null!;
 
-    public decimal? CurrentQuantity { get; set; }
+    public decimal CurrentQuantity { get; set; }
 
-    public int? UnitId { get; set; }
+    public int UnitId { get; set; }
 
     public virtual Branch Branch { get; set; } = null!;
 

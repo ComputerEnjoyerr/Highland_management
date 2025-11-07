@@ -1,4 +1,5 @@
 ﻿using DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,13 @@ namespace DAL
 
         public List<StockReceipt> GetAll()
         {
-            return context.StockReceipts.ToList();
+            return context.StockReceipts
+                .Include(s => s.Branch)
+                .Include(s => s.CreatedByNavigation)
+                .Include(s => s.Ingredient)
+                .Include(s => s.PurchasedUnit)
+                .Include(s => s.Supplier)
+                .ToList();
         }
 
         public void Add(StockReceipt stockReceipt)
