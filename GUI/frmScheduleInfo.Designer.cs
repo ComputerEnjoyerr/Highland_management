@@ -216,12 +216,15 @@
             // btnCancelEvening
             // 
             btnCancelEvening.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCancelEvening.BackColor = Color.FromArgb(169, 65, 65);
-            btnCancelEvening.Location = new Point(640, 39);
+            btnCancelEvening.BackColor = SystemColors.Control;
+            btnCancelEvening.Image = Properties.Resources.delete;
+            btnCancelEvening.ImageAlign = ContentAlignment.MiddleRight;
+            btnCancelEvening.Location = new Point(640, 47);
             btnCancelEvening.Name = "btnCancelEvening";
             btnCancelEvening.Size = new Size(145, 45);
             btnCancelEvening.TabIndex = 37;
             btnCancelEvening.Text = "Hủy ca";
+            btnCancelEvening.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnCancelEvening.UseVisualStyleBackColor = false;
             btnCancelEvening.Click += btnCancelEvening_Click;
             // 
@@ -269,10 +272,10 @@
             tabPage2.Controls.Add(txtFindAfternoon);
             tabPage2.Controls.Add(label19);
             tabPage2.Controls.Add(dgvShiftAfternoon);
-            tabPage2.Location = new Point(4, 32);
+            tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(906, 514);
+            tabPage2.Size = new Size(906, 517);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Ca chiều";
             // 
@@ -365,12 +368,15 @@
             // btnCancelAfternoon
             // 
             btnCancelAfternoon.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCancelAfternoon.BackColor = Color.FromArgb(169, 65, 65);
-            btnCancelAfternoon.Location = new Point(638, 41);
+            btnCancelAfternoon.BackColor = SystemColors.Control;
+            btnCancelAfternoon.Image = Properties.Resources.delete;
+            btnCancelAfternoon.ImageAlign = ContentAlignment.MiddleRight;
+            btnCancelAfternoon.Location = new Point(638, 53);
             btnCancelAfternoon.Name = "btnCancelAfternoon";
             btnCancelAfternoon.Size = new Size(145, 45);
             btnCancelAfternoon.TabIndex = 37;
             btnCancelAfternoon.Text = "Hủy ca";
+            btnCancelAfternoon.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnCancelAfternoon.UseVisualStyleBackColor = false;
             btnCancelAfternoon.Click += btnCancelAfternoon_Click;
             // 
@@ -418,10 +424,10 @@
             tabPage1.Controls.Add(txtFindMorning);
             tabPage1.Controls.Add(label14);
             tabPage1.Controls.Add(dgvShiftMorning);
-            tabPage1.Location = new Point(4, 32);
+            tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(906, 514);
+            tabPage1.Size = new Size(906, 517);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ca sáng";
             // 
@@ -514,12 +520,15 @@
             // btnCancelMorning
             // 
             btnCancelMorning.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCancelMorning.BackColor = Color.FromArgb(169, 65, 65);
-            btnCancelMorning.Location = new Point(643, 40);
+            btnCancelMorning.BackColor = SystemColors.Control;
+            btnCancelMorning.Image = Properties.Resources.delete;
+            btnCancelMorning.ImageAlign = ContentAlignment.MiddleRight;
+            btnCancelMorning.Location = new Point(643, 53);
             btnCancelMorning.Name = "btnCancelMorning";
             btnCancelMorning.Size = new Size(145, 45);
             btnCancelMorning.TabIndex = 36;
             btnCancelMorning.Text = "Hủy ca";
+            btnCancelMorning.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnCancelMorning.UseVisualStyleBackColor = false;
             btnCancelMorning.Click += btnCancelMorning_Click;
             // 
@@ -592,7 +601,7 @@
             // label25
             // 
             label25.AutoSize = true;
-            label25.Location = new Point(305, 79);
+            label25.Location = new Point(305, 87);
             label25.Name = "label25";
             label25.Size = new Size(75, 23);
             label25.TabIndex = 24;
@@ -600,20 +609,23 @@
             // 
             // txtNote
             // 
-            txtNote.Location = new Point(413, 75);
+            txtNote.Location = new Point(413, 83);
             txtNote.Name = "txtNote";
-            txtNote.Size = new Size(336, 30);
+            txtNote.Size = new Size(371, 30);
             txtNote.TabIndex = 23;
             // 
             // btnRegister
             // 
             btnRegister.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnRegister.BackColor = Color.FromArgb(104, 176, 145);
-            btnRegister.Location = new Point(755, 42);
+            btnRegister.BackColor = SystemColors.Control;
+            btnRegister.Image = Properties.Resources.pen;
+            btnRegister.ImageAlign = ContentAlignment.MiddleRight;
+            btnRegister.Location = new Point(639, 113);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(145, 45);
             btnRegister.TabIndex = 22;
             btnRegister.Text = "Đăng kí";
+            btnRegister.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click;
             // 
@@ -621,7 +633,7 @@
             // 
             cboEmployeeShift.DropDownStyle = ComboBoxStyle.DropDownList;
             cboEmployeeShift.FormattingEnabled = true;
-            cboEmployeeShift.Location = new Point(413, 41);
+            cboEmployeeShift.Location = new Point(413, 46);
             cboEmployeeShift.Name = "cboEmployeeShift";
             cboEmployeeShift.Size = new Size(121, 31);
             cboEmployeeShift.TabIndex = 21;
@@ -629,7 +641,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(305, 47);
+            label9.Location = new Point(305, 52);
             label9.Name = "label9";
             label9.Size = new Size(106, 23);
             label9.TabIndex = 17;
@@ -654,7 +666,7 @@
             // 
             // txtEmployeeRole
             // 
-            txtEmployeeRole.Location = new Point(88, 72);
+            txtEmployeeRole.Location = new Point(88, 80);
             txtEmployeeRole.Name = "txtEmployeeRole";
             txtEmployeeRole.ReadOnly = true;
             txtEmployeeRole.Size = new Size(204, 30);
@@ -663,7 +675,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(8, 78);
+            label7.Location = new Point(8, 86);
             label7.Name = "label7";
             label7.Size = new Size(79, 23);
             label7.TabIndex = 17;
@@ -671,7 +683,7 @@
             // 
             // txtEmployeeName
             // 
-            txtEmployeeName.Location = new Point(88, 41);
+            txtEmployeeName.Location = new Point(88, 46);
             txtEmployeeName.Name = "txtEmployeeName";
             txtEmployeeName.ReadOnly = true;
             txtEmployeeName.Size = new Size(204, 30);
@@ -680,7 +692,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(8, 47);
+            label5.Location = new Point(8, 52);
             label5.Name = "label5";
             label5.Size = new Size(69, 23);
             label5.TabIndex = 17;
@@ -705,7 +717,7 @@
             // 
             // txtEmployeeFind
             // 
-            txtEmployeeFind.Location = new Point(142, 113);
+            txtEmployeeFind.Location = new Point(149, 187);
             txtEmployeeFind.Name = "txtEmployeeFind";
             txtEmployeeFind.Size = new Size(357, 30);
             txtEmployeeFind.TabIndex = 9;
@@ -714,7 +726,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(8, 120);
+            label4.Location = new Point(15, 194);
             label4.Name = "label4";
             label4.Size = new Size(128, 23);
             label4.TabIndex = 8;
@@ -724,10 +736,10 @@
             // 
             dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSchedule.Location = new Point(14, 146);
+            dgvSchedule.Location = new Point(14, 223);
             dgvSchedule.Name = "dgvSchedule";
             dgvSchedule.RowHeadersWidth = 51;
-            dgvSchedule.Size = new Size(892, 365);
+            dgvSchedule.Size = new Size(892, 288);
             dgvSchedule.TabIndex = 0;
             dgvSchedule.CellClick += dgvSchedule_CellClick;
             dgvSchedule.CellContentDoubleClick += dvgSchedule_CellContentDoubleClick;
@@ -741,6 +753,8 @@
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmScheduleInfo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Danh sách nhân viên làm việc";
