@@ -30,5 +30,15 @@ namespace BLL
         {
             dAL_Attendance.Delete(id);
         }
+
+        public string GenerateId()
+        {
+            string prefix = "AT";
+            string timeTamp = DateTime.Now.ToString("yyMMddHHmmss");
+            string ranDomString = Guid.NewGuid().ToString("N").Substring(0, 4).ToUpper();
+
+            string attendanceId = $"{prefix}{timeTamp}{ranDomString}";
+            return attendanceId.Length > 20 ? attendanceId.Substring(0, 20) : attendanceId;
+        }
     }
 }

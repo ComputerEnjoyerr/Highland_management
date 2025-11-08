@@ -31,6 +31,7 @@
             dgvAttendance = new DataGridView();
             panel1 = new Panel();
             groupBox2 = new GroupBox();
+            button1 = new Button();
             button13 = new Button();
             button12 = new Button();
             cbStatus = new ComboBox();
@@ -48,6 +49,7 @@
             txtId = new TextBox();
             label8 = new Label();
             panel2 = new Panel();
+            dgvEmployee = new DataGridView();
             groupBox1 = new GroupBox();
             txtPhone = new TextBox();
             label7 = new Label();
@@ -61,13 +63,12 @@
             label4 = new Label();
             txtEmployeeId = new TextBox();
             label3 = new Label();
-            dgvEmployee = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvAttendance).BeginInit();
             panel1.SuspendLayout();
             groupBox2.SuspendLayout();
             panel2.SuspendLayout();
-            groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEmployee).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvAttendance
@@ -77,7 +78,7 @@
             dgvAttendance.Location = new Point(3, 325);
             dgvAttendance.Name = "dgvAttendance";
             dgvAttendance.RowHeadersWidth = 51;
-            dgvAttendance.Size = new Size(591, 385);
+            dgvAttendance.Size = new Size(883, 385);
             dgvAttendance.TabIndex = 15;
             dgvAttendance.CellClick += dgvAttendance_CellClick;
             // 
@@ -87,12 +88,13 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(600, 319);
+            panel1.Size = new Size(892, 319);
             panel1.TabIndex = 14;
             // 
             // groupBox2
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Controls.Add(button1);
             groupBox2.Controls.Add(button13);
             groupBox2.Controls.Add(button12);
             groupBox2.Controls.Add(cbStatus);
@@ -111,10 +113,27 @@
             groupBox2.Controls.Add(label8);
             groupBox2.Location = new Point(3, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(591, 316);
+            groupBox2.Size = new Size(883, 316);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Điểm danh";
+            groupBox2.Enter += groupBox2_Enter;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            button1.BackColor = SystemColors.Control;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.Image = Properties.Resources._checked;
+            button1.ImageAlign = ContentAlignment.MiddleRight;
+            button1.Location = new Point(552, 136);
+            button1.Name = "button1";
+            button1.Size = new Size(145, 56);
+            button1.TabIndex = 23;
+            button1.Text = "Check Out";
+            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button13
             // 
@@ -142,7 +161,7 @@
             button12.Name = "button12";
             button12.Size = new Size(145, 56);
             button12.TabIndex = 22;
-            button12.Text = "Điểm danh";
+            button12.Text = "Check In";
             button12.TextImageRelation = TextImageRelation.ImageBeforeText;
             button12.UseVisualStyleBackColor = false;
             button12.Click += button12_Click;
@@ -162,6 +181,7 @@
             dateTimePicker3.Name = "dateTimePicker3";
             dateTimePicker3.Size = new Size(224, 30);
             dateTimePicker3.TabIndex = 16;
+            dateTimePicker3.ValueChanged += dateTimePicker3_ValueChanged;
             // 
             // label12
             // 
@@ -267,13 +287,25 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(groupBox1);
             panel2.Controls.Add(dgvEmployee);
+            panel2.Controls.Add(groupBox1);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(600, 0);
+            panel2.Location = new Point(892, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(392, 710);
             panel2.TabIndex = 13;
+            // 
+            // dgvEmployee
+            // 
+            dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEmployee.Dock = DockStyle.Fill;
+            dgvEmployee.Location = new Point(0, 233);
+            dgvEmployee.Name = "dgvEmployee";
+            dgvEmployee.RowHeadersWidth = 51;
+            dgvEmployee.Size = new Size(392, 477);
+            dgvEmployee.TabIndex = 2;
+            dgvEmployee.CellClick += dgvEmployee_CellClick;
+            dgvEmployee.CellContentClick += dgvEmployee_CellContentClick;
             // 
             // groupBox1
             // 
@@ -329,6 +361,7 @@
             dateTimePicker4.Name = "dateTimePicker4";
             dateTimePicker4.Size = new Size(166, 30);
             dateTimePicker4.TabIndex = 16;
+            dateTimePicker4.ValueChanged += dateTimePicker4_ValueChanged;
             // 
             // label6
             // 
@@ -399,20 +432,10 @@
             label3.TabIndex = 11;
             label3.Text = "Mã:";
             // 
-            // dgvEmployee
-            // 
-            dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEmployee.Dock = DockStyle.Fill;
-            dgvEmployee.Location = new Point(0, 0);
-            dgvEmployee.Name = "dgvEmployee";
-            dgvEmployee.RowHeadersWidth = 51;
-            dgvEmployee.Size = new Size(392, 710);
-            dgvEmployee.TabIndex = 2;
-            // 
             // frmAttendance
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1284, 710);
             Controls.Add(dgvAttendance);
             Controls.Add(panel1);
             Controls.Add(panel2);
@@ -425,9 +448,9 @@
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvEmployee).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEmployee).EndInit();
             ResumeLayout(false);
         }
 
@@ -467,5 +490,6 @@
         private TextBox txtNote;
         private DateTimePicker dateTimePicker4;
         private Label label13;
+        private Button button1;
     }
 }
