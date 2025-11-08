@@ -87,8 +87,8 @@ namespace GUI
 
         private void button12_Click(object sender, EventArgs e)
         {
+                
 
-            
             try
             {
                 if (string.IsNullOrWhiteSpace(txtEmployeeId.Text))
@@ -119,7 +119,7 @@ namespace GUI
                 DateTime selectedCheckInTime = dateTimePicker3.Value.Date + dtCheckIn.Value.TimeOfDay;
                 TimeOnly checkInOnly = TimeOnly.FromDateTime(selectedCheckInTime);
                 TimeOnly startTime = shiftAssign.Shift.StartTime;
-                
+
 
                 var employee = bLL_Employee.GetById(txtEmployeeId.Text);
                 if (string.IsNullOrEmpty(employee?.BranchId))
@@ -259,7 +259,7 @@ namespace GUI
             txtEnployeeName.Text = row.Cells["EmployeeName"].Value?.ToString() ?? "";
             txtShift.Text = row.Cells["ShiftType"].Value?.ToString() ?? "";
             cbStatus.Text = row.Cells["Status"].Value?.ToString() ?? "";
-            
+
             // === SỬA TẠI ĐÂY: KIỂM TRA null TRƯỚC KHI GÁN ===
             string checkInStr = row.Cells["CheckIn"].Value?.ToString() ?? "";
             if (!string.IsNullOrEmpty(checkInStr) && DateTime.TryParse(checkInStr, out DateTime checkIn))
@@ -318,7 +318,7 @@ namespace GUI
 
         private void dgvEmployee_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
 
             if (e.RowIndex < 0) return;
 
@@ -347,7 +347,7 @@ namespace GUI
             {
                 txtId.Text = bLL_Attendance.GenerateId();
                 cbStatus.Text = "";
-                
+
                 txtNote.Clear();
             }
 
@@ -379,7 +379,7 @@ namespace GUI
                     CheckIn = a.CheckIn.HasValue ? a.CheckIn.Value.ToString("HH:mm") : "",
                     CheckOut = a.CheckOut.HasValue ? a.CheckOut.Value.ToString("HH:mm") : "",
                     WorkDate = a.Shift?.WorkDate.ToString("dd/MM/yyyy") ?? "",
-                    Note = a.Note ?? "Không phép" 
+                    Note = a.Note ?? "Không phép"
                 })
                 .ToList();
 
@@ -391,11 +391,13 @@ namespace GUI
         private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
         {
             LoadAttendanceByAttendanceDate();
+            dateTimePicker4.Value = dateTimePicker3.Value;
         }
 
         private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
         {
             LoadEmployeeByShiftDate();
+            dateTimePicker3.Value = dateTimePicker4.Value;
         }
 
 
@@ -447,7 +449,7 @@ namespace GUI
 
         private void LoadAttendanceByAttendanceDate()
         {
-            
+
 
             DateOnly attendanceDate = DateOnly.FromDateTime(dateTimePicker3.Value);
             var attendances = bLL_Attendance.GetAll()
@@ -551,7 +553,7 @@ namespace GUI
                 if (workedHours > shiftHours)
                 {
                     overtime = (decimal)(workedHours - shiftHours);
-                    status += " (OT)";
+                    //status += "";
                 }
 
                 // CẬP NHẬT ATTENDANCE
@@ -643,6 +645,11 @@ namespace GUI
                 dtCheckIn.Value = attendance.CheckIn.Value;
                 dtCheckOut.Value = attendance.CheckOut.Value;
             }
+        }
+
+        private void dtCheckIn_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

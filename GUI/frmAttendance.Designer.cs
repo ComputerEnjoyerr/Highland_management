@@ -216,6 +216,7 @@
             dtCheckIn.Name = "dtCheckIn";
             dtCheckIn.Size = new Size(224, 30);
             dtCheckIn.TabIndex = 16;
+            dtCheckIn.ValueChanged += dtCheckIn_ValueChanged;
             // 
             // label10
             // 
