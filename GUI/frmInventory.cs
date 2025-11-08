@@ -33,11 +33,19 @@ namespace GUI
             selectedEmployee = em;
         }
 
-        private void LoadInventory()
+        private void LoadInventory(string keyword = "")
         {
-            inventoryList = bLL_Inventory.GetAllByBranch(selectedEmployee.BranchId);
+            // Lọc danh sách kho theo từ khóa
+            var filteredList = bLL_Inventory.GetAllByBranch(selectedEmployee.BranchId)
+                .Where(i => i.Ingredient != null &&
+                            i.Ingredient.IngredientName.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            inventoryList = filteredList; // Gán vào list cục bộ
+
+            // Hiển thị danh sách kho
             var displayList = inventoryList.Select(i =>
             {
+                // Lấy phiếu nhập gần nhất của nguyên liệu này
                 var stockReceipts = bLL_StockReceipt.GetAll()
                     .Where(s => s.BranchId == selectedEmployee.BranchId &&
                                 s.IngredientId == i.IngredientId &&
@@ -48,7 +56,7 @@ namespace GUI
                 return new
                 {
                     Ingredient = i.Ingredient != null ? i.Ingredient.IngredientName : "Lỗi hiển thị",
-                    i.CurrentQuantity,
+                    CurrentQuantity = i.CurrentQuantity.ToString("0.###"),
                     Unit = i.Unit != null ? i.Unit.UnitName : "Lỗi hiển thị",
                     Supplier = latestReceipt != null && latestReceipt.Supplier != null ? latestReceipt.Supplier.Name : "Chưa có",
                     LatestExpiryDate = latestReceipt != null ? latestReceipt.ExpiryDate.ToString("dd/MM/yyyy") : "Chưa có",
@@ -177,6 +185,20 @@ namespace GUI
             }
         }
 
+        private void CalculateFinalPrice()
+        {
+            // Tính tổng giá tiền dựa trên số lượng và giá đơn vị của danh sách phiếu nhập
+
+            decimal finalPrice = 0;
+            foreach (var stock in currentStockList)
+            {
+                //MessageBox.Show($"Cộng thêm : {stock.TotalPrice}");
+                finalPrice += stock.TotalPrice;
+            }
+            // Hiển thị tổng giá tiền
+            txtFinalPrice.Text = finalPrice.ToString("C0");
+        }
+
         private void RefreshInput1()
         {
             // Đặt lại null cho các biến được chọn
@@ -232,6 +254,7 @@ namespace GUI
             LoadStock();
             LoadUnit();
             LoadSupplierIngredient();
+            CalculateFinalPrice();
             LoadInventory();
             FindStockByDate();
         }
@@ -310,6 +333,7 @@ namespace GUI
                 bLL_StockReceipt.Add(stockItem);
                 LoadStock();
                 RefreshInput1();
+                CalculateFinalPrice();
             }
             catch (Exception ex)
             {
@@ -368,6 +392,7 @@ namespace GUI
                 bLL_StockReceipt.Update(selectedStockReceipt);
                 LoadStock();
                 RefreshInput1();
+                CalculateFinalPrice();
 
             }
             catch (Exception ex)
@@ -442,6 +467,8 @@ namespace GUI
                 LoadStock();
                 RefreshInput1();
                 LoadInventory();
+                CalculateFinalPrice();
+                FindStockByDate();
             }
             catch (Exception ex)
             {
@@ -479,6 +506,49 @@ namespace GUI
                     txtSupplierName2.Text = latestReceipt != null && latestReceipt.Supplier != null ? latestReceipt.Supplier.Name : "";
                     dtpExpiryDate.Text = latestReceipt != null ? latestReceipt.ExpiryDate.ToString("dd/MM/yyyy") : "";
                 }
+            }
+        }
+
+        // Biến để theo dõi thao tác nhập liệu
+        private CancellationTokenSource _cts = new();
+
+        private async void txtFind1_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtFind1.Text;
+
+            // Hủy thao tác trước đó nếu người dùng vẫn đang nhập
+            _cts?.Cancel();
+            _cts = new CancellationTokenSource();
+
+            try
+            {
+                // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
+                await Task.Delay(500, _cts.Token);
+                LoadSupplierIngredient(input);
+            }
+            catch (TaskCanceledException)
+            {
+                // Người dùng vẫn đang nhập, bỏ qua
+            }
+        }
+
+        private async void txtFind2_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtFind2.Text;
+
+            // Hủy thao tác trước đó nếu người dùng vẫn đang nhập
+            _cts?.Cancel();
+            _cts = new CancellationTokenSource();
+
+            try
+            {
+                // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
+                await Task.Delay(500, _cts.Token);
+                LoadInventory(input);
+            }
+            catch (TaskCanceledException)
+            {
+                // Người dùng vẫn đang nhập, bỏ qua
             }
         }
     }

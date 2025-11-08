@@ -108,7 +108,7 @@ namespace GUI
                         r.Id,
                         r.IngredientId,
                         Ingredient = r.Ingredient != null ? r.Ingredient.IngredientName : "Lỗi hiển thị",
-                        r.Quantity,
+                        Quantity = r.Quantity.ToString("0.###"),
                         RecipeUnit = r.RecipeUnit != null ? r.RecipeUnit.UnitName : "Lỗi hiển thị"
                     }).ToList();
                 dgvRecipe1.DataSource = filteredList;
@@ -121,7 +121,7 @@ namespace GUI
                     r.Id,
                     r.IngredientId,
                     Ingredient = r.Ingredient != null ? r.Ingredient.IngredientName : "Lỗi hiển thị",
-                    r.Quantity,
+                    Quantity = r.Quantity.ToString("0.###"),
                     RecipeUnit = r.RecipeUnit != null ? r.RecipeUnit.UnitName : "Lỗi hiển thị"
                 }).ToList();
             dgvRecipe1.DataSource = displayList;

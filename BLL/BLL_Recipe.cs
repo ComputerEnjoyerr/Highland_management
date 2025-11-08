@@ -20,5 +20,10 @@ namespace BLL
         public void Delete(string id) { dAL_Recipe.Delete(id); }
         public void Update(Recipe recipe) { dAL_Recipe.Update(recipe); }
         public string GenerateId() { return dAL_Recipe.GenerateId(); }
+
+        public List<Recipe> GetByProductId(string productId)
+        {
+            return dAL_Recipe.GetAll().Where(r => r.ProductId == productId).ToList();
+        }
     }
 }

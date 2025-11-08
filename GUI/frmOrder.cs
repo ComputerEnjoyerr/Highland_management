@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,10 @@ namespace GUI
         private readonly BLL_Promotion bLL_Promotion = new();
         private readonly BLL_PromotionProgram bLL_PromotionProgram = new();
         private readonly BLL_PromotionVoucher bLL_PromotionVoucher = new();
+        private readonly BLL_Inventory bLL_Inventory = new();
+        private readonly BLL_Ingredient bLL_Ingredient = new();
+        private readonly BLL_Unit bLL_Unit = new();
+        private readonly BLL_Recipe bLL_Recipe = new();
 
         private Employee employee = new(); // Nhân viên đang đăng nhập
         private List<Table> tables = new(); // Danh sách bàn ăn của chi nhánh
@@ -33,11 +38,77 @@ namespace GUI
         private Bill selectedBill; // Hóa đơn hiện tại
         private List<Billinfo> billInfoList = new(); // Danh sách chi tiết hóa đơn hiển thị
         private decimal totalPrice = 0; // Tổng tiền trước khuyến mãi
+        private List<Inventory> selectedInventory = new(); // Danh sách tồn kho hiện tại
+
         public frmOrder(Employee em)
         {
             InitializeComponent();
             employee = em;
+            selectedInventory = bLL_Inventory.GetAllByBranch(employee.BranchId);
+            if (selectedInventory == null || !selectedInventory.Any())
+            {
+                MessageBox.Show("Cảnh báo: Kho hàng của chi nhánh hiện đang trống\nVui lòng kiểm tra lại tồn kho trước khi tiếp tục.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
+
+        // Hàm kiểm tra chi nhánh có đủ nguyên liệu để làm món không (trước khi thêm món)
+        private bool HasEnoughIngredients(Product product, int quantity)
+        {
+            var recipeList = bLL_Recipe.GetByProductId(product.Id);
+            foreach (var recipe in recipeList)
+            {
+                // Tìm nguyên liệu trong kho
+                var inventoryItem = selectedInventory.FirstOrDefault(i => i.IngredientId == recipe.IngredientId);
+                if (inventoryItem == null || inventoryItem.CurrentQuantity < recipe.Quantity * quantity)
+                {
+                    return false; // Không đủ nguyên liệu
+                }
+            }
+            return true; // Đủ nguyên liệu
+        }
+
+        // Hàm khi thanh toán sản phẩm thì trừ nguyên liệu trong kho
+        private void UpdateInventory(Billinfo billInfo)
+        {
+            try
+            {
+                var recipeList = bLL_Recipe.GetByProductId(billInfo.ProductId);
+                var issuedIngredients = new List<String>();
+                foreach (var recipe in recipeList)
+                {
+                    // Tìm nguyên liệu trong kho
+                    var inventoryItem = selectedInventory.FirstOrDefault(i => i.IngredientId == recipe.IngredientId);
+                    
+                    if (inventoryItem != null)
+                    {
+                        if (inventoryItem.CurrentQuantity < recipe.Quantity * billInfo.Quantity)
+                        {
+                            // Nếu không đủ nguyên liệu thì đặt về 0
+                            inventoryItem.CurrentQuantity = 0;
+                            issuedIngredients.Add(inventoryItem.Ingredient.IngredientName);
+                        } else
+                        {
+                            // Trừ số lượng nguyên liệu theo công thức và số lượng sản phẩm trong hóa đơn
+                            decimal totalQuantityToDeduct = recipe.Quantity * billInfo.Quantity;
+                            inventoryItem.CurrentQuantity -= totalQuantityToDeduct;
+                        }
+                        bLL_Inventory.Update(inventoryItem); // Cập nhật theo bất đồng bộ để ko bị lag
+                    }
+                }
+                if (issuedIngredients.Any())
+                {
+                    string ingredientNames = string.Join(". \n", issuedIngredients);
+                    MessageBox.Show($"Cảnh báo: Nguyên liệu sau đã hết kho khi thanh toán món {bLL_Product.GetById(billInfo.ProductId).ProductName}:\n{ingredientNames}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            } catch (Exception ex)
+            {
+                // Lấy chi tiết lỗi từ InnerException
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Cập nhật tồn kho thất bại.\nChi tiết lỗi: " + inner);
+            }
+        }
+
 
         private void RefreshInput()
         {
@@ -185,9 +256,14 @@ namespace GUI
                         : bLL_Product.GetByCategory(categoryId);
                 });
 
-                // Duyệt từng sản phẩm song song (giúp load ảnh nhanh hơn)
+                // Duyệt từng sản phẩm song song (để load nhanh hơn)
                 var tasks = products.Select(async product =>
                 {
+                    if (bLL_Product.HasRecipe(product.Id) == false)
+                    {
+                        // Nếu sản phẩm chưa có công thức thì bỏ qua
+                        return;
+                    }
                     Bitmap image = await Task.Run(() =>
                     {
                         string imageFile = !string.IsNullOrEmpty(product.Image)
@@ -272,7 +348,6 @@ namespace GUI
                 MessageBox.Show($"Lỗi khi tải sản phẩm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void CalculateTotalPrice()
         {
@@ -392,6 +467,9 @@ namespace GUI
             dgvBillInfoCheckout.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvBillInfoCheckout.ReadOnly = true;
 
+            nmrProductQty.Minimum = 1;
+            nmrProductQty.Maximum = decimal.MaxValue;
+
             LoadBtnTable();
             LoadCategory();
             LoadProduct();
@@ -426,6 +504,20 @@ namespace GUI
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
+            if (nmrProductQty.Value <= 0)
+            {
+                MessageBox.Show("Số lượng món phải lớn hơn 0.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra sản phẩm đang chọn và trong danh sách có đủ nguyên liệu không
+            if (!HasEnoughIngredients(selectedProduct, (int)nmrProductQty.Value))
+            {
+                DialogResult rs = MessageBox.Show("Không đủ nguyên liệu để làm món này.\nBạn có chắc muốn thêm sản phẩm vào danh sách?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (rs == DialogResult.No)
+                    return;
+            }
+
             if (selectedProduct == null)
             {
                 MessageBox.Show("Vui lòng chọn sản phẩm trước khi đặt món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -435,12 +527,6 @@ namespace GUI
             if (selectedCustomer == null)
             {
                 MessageBox.Show("Vui lòng chọn khách hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (nmrProductQty.Value <= 0)
-            {
-                MessageBox.Show("Số lượng món phải lớn hơn 0.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -496,6 +582,17 @@ namespace GUI
                 }
                 else // Nếu đã có sản phẩm thì cộng thêm số lượng
                 {
+                    if (selectedProduct == null)
+                    {
+                        MessageBox.Show("Không tìm thấy sản phẩm hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (!HasEnoughIngredients(selectedProduct, existingBillInfo.Quantity + (int)nmrProductQty.Value))
+                    {
+                        DialogResult rs = MessageBox.Show("Không đủ nguyên liệu để làm món này với số lượng hiện tại.\nBạn có chắc muốn thêm sản phẩm vào danh sách?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (rs == DialogResult.No)
+                            return;
+                    }
                     existingBillInfo.Quantity += (int)nmrProductQty.Value;
                     bLL_BillInfo.Update(existingBillInfo);
                 }
@@ -571,6 +668,14 @@ namespace GUI
                 selectedBill.Status = 1; // Đã thanh toán
                 selectedBill.CreateDate = DateTime.Now;
                 selectedBill.TotalPrice = totalPrice;
+
+                var billInfos = bLL_BillInfo.GetByBillId(selectedBill.Id);
+                // Cập nhật tồn kho
+                foreach (var billInfo in billInfos)
+                {
+                    UpdateInventory(billInfo);
+                }
+
                 bLL_Bill.Update(selectedBill);
                 // Cập nhật trạng thái bàn
                 selectedTable.Status = 0; // Trống

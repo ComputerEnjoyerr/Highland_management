@@ -11,7 +11,7 @@ public partial class Recipe
 
     public string ProductId { get; set; } = null!;
 
-    public decimal? Quantity { get; set; }
+    public decimal Quantity { get; set; }
 
     public int RecipeUnitId { get; set; }
 
