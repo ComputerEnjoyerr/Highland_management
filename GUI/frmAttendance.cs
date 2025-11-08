@@ -48,6 +48,8 @@ namespace GUI
             dgvEmployee.ReadOnly = true;
             dgvEmployee.AllowUserToAddRows = false;
             dgvEmployee.RowHeadersVisible = true; // tạm bật để thấy
+            dgvEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
 
 
             // Cấu hình dgvAttendance
@@ -57,6 +59,7 @@ namespace GUI
             dgvAttendance.ReadOnly = true;
             dgvAttendance.AllowUserToAddRows = false;
             dgvAttendance.RowHeadersVisible = true;
+            dgvAttendance.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             // Gán sự kiện
             dgvAttendance.CellClick += dgvAttendance_CellClick;
