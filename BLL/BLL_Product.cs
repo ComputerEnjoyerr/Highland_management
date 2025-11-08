@@ -7,6 +7,14 @@ namespace BLL
     {
         private readonly DAL_Product dAL_Product = new();
 
+        // Hàm kiểm tra sản phẩm có công thức chưa, nếu chưa có chặn ko cho lấy
+        public bool HasRecipe(string productId)
+        {
+            var bll_Recipe = new BLL_Recipe();
+            var recipes = bll_Recipe.GetByProductId(productId);
+            return recipes.Count > 0;
+        }
+
         public List<Product> GetAll() { return dAL_Product.GetAll(); }
 
         public Product GetById(string id)

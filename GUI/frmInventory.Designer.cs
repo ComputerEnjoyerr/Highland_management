@@ -214,6 +214,7 @@
             txtFind1.Name = "txtFind1";
             txtFind1.Size = new Size(618, 30);
             txtFind1.TabIndex = 14;
+            txtFind1.TextChanged += txtFind1_TextChanged;
             // 
             // btnDeleteIngredient
             // 
@@ -525,10 +526,10 @@
             tabPage2.Controls.Add(dgvInventory);
             tabPage2.Controls.Add(panel4);
             tabPage2.Controls.Add(panel2);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1684, 956);
+            tabPage2.Size = new Size(1684, 953);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Kho hàng";
             // 
@@ -539,7 +540,7 @@
             dgvInventory.Location = new Point(810, 84);
             dgvInventory.Name = "dgvInventory";
             dgvInventory.RowHeadersWidth = 51;
-            dgvInventory.Size = new Size(871, 869);
+            dgvInventory.Size = new Size(871, 866);
             dgvInventory.TabIndex = 3;
             dgvInventory.CellClick += dgvInventory_CellClick;
             // 
@@ -559,6 +560,7 @@
             txtFind2.Name = "txtFind2";
             txtFind2.Size = new Size(581, 30);
             txtFind2.TabIndex = 11;
+            txtFind2.TextChanged += txtFind2_TextChanged;
             // 
             // label13
             // 
@@ -576,7 +578,7 @@
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(807, 950);
+            panel2.Size = new Size(807, 947);
             panel2.TabIndex = 1;
             // 
             // groupBox2
@@ -587,7 +589,7 @@
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Location = new Point(0, 321);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(807, 629);
+            groupBox2.Size = new Size(807, 626);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Lịch sử nhập kho";
@@ -619,7 +621,7 @@
             dgvStockHistory.Location = new Point(0, 78);
             dgvStockHistory.Name = "dgvStockHistory";
             dgvStockHistory.RowHeadersWidth = 51;
-            dgvStockHistory.Size = new Size(801, 545);
+            dgvStockHistory.Size = new Size(801, 542);
             dgvStockHistory.TabIndex = 30;
             // 
             // groupBox1
