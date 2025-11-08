@@ -50,7 +50,9 @@ namespace GUI
                 }
                 else
                 {
+                    
                     MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng.\nVui lòng kiểm tra lại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Danh sách tài khoản mẫu:\n1. Tên đăng nhập: admin | Mật khẩu: admin123 (Quyền: Quản trị viên)\n2. Tên đăng nhập: nguyenvana | Mật khẩu: 123456", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtPass.Clear();
                     txtPass.Focus();
                 }
