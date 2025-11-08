@@ -58,6 +58,7 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(btnPrintReport);
             panel2.Controls.Add(pbNext);
             panel2.Controls.Add(pbPrev);
             panel2.Controls.Add(lbMonthDisplay);

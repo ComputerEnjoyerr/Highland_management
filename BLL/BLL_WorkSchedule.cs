@@ -1,7 +1,10 @@
 ﻿using DAL;
 using DTO;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +60,11 @@ namespace BLL
             }
 
             return $"{prefix}{nextNumber:D4}";
+        }
+
+        public DataTable GetScheduleByDate(DateTime selectedDate)
+        {
+            return dAL_WorkSchedule.GetScheduleByDate(selectedDate);
         }
     }
 }
