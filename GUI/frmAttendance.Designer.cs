@@ -121,12 +121,11 @@
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button1.BackColor = SystemColors.Control;
             button1.FlatAppearance.BorderSize = 0;
             button1.Image = Properties.Resources._checked;
             button1.ImageAlign = ContentAlignment.MiddleRight;
-            button1.Location = new Point(546, 136);
+            button1.Location = new Point(557, 142);
             button1.Name = "button1";
             button1.Size = new Size(145, 56);
             button1.TabIndex = 23;
@@ -137,11 +136,10 @@
             // 
             // button13
             // 
-            button13.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button13.BackColor = SystemColors.Control;
             button13.Image = Properties.Resources.x_button;
             button13.ImageAlign = ContentAlignment.MiddleRight;
-            button13.Location = new Point(557, 201);
+            button13.Location = new Point(406, 204);
             button13.Name = "button13";
             button13.Size = new Size(145, 56);
             button13.TabIndex = 21;
@@ -152,12 +150,11 @@
             // 
             // button12
             // 
-            button12.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button12.BackColor = SystemColors.Control;
             button12.FlatAppearance.BorderSize = 0;
             button12.Image = Properties.Resources._checked;
             button12.ImageAlign = ContentAlignment.MiddleRight;
-            button12.Location = new Point(557, 139);
+            button12.Location = new Point(406, 142);
             button12.Name = "button12";
             button12.Size = new Size(145, 56);
             button12.TabIndex = 22;
@@ -249,7 +246,7 @@
             // 
             txtNote.Location = new Point(149, 101);
             txtNote.Name = "txtNote";
-            txtNote.Size = new Size(553, 30);
+            txtNote.Size = new Size(553, 25);
             txtNote.TabIndex = 12;
             // 
             // txtShift
@@ -257,7 +254,7 @@
             txtShift.Location = new Point(149, 65);
             txtShift.Name = "txtShift";
             txtShift.ReadOnly = true;
-            txtShift.Size = new Size(553, 30);
+            txtShift.Size = new Size(553, 25);
             txtShift.TabIndex = 12;
             // 
             // label1
@@ -274,7 +271,7 @@
             txtId.Location = new Point(149, 32);
             txtId.Name = "txtId";
             txtId.ReadOnly = true;
-            txtId.Size = new Size(553, 30);
+            txtId.Size = new Size(553, 25);
             txtId.TabIndex = 15;
             // 
             // label8
@@ -300,10 +297,10 @@
             // 
             dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEmployee.Dock = DockStyle.Fill;
-            dgvEmployee.Location = new Point(0, 233);
+            dgvEmployee.Location = new Point(0, 274);
             dgvEmployee.Name = "dgvEmployee";
             dgvEmployee.RowHeadersWidth = 51;
-            dgvEmployee.Size = new Size(578, 477);
+            dgvEmployee.Size = new Size(728, 715);
             dgvEmployee.TabIndex = 2;
             dgvEmployee.CellClick += dgvEmployee_CellClick;
             dgvEmployee.CellContentClick += dgvEmployee_CellContentClick;
@@ -335,7 +332,7 @@
             txtPhone.Location = new Point(140, 155);
             txtPhone.Name = "txtPhone";
             txtPhone.ReadOnly = true;
-            txtPhone.Size = new Size(444, 30);
+            txtPhone.Size = new Size(444, 25);
             txtPhone.TabIndex = 12;
             // 
             // label7
@@ -352,7 +349,7 @@
             txtSalaryPerHour.Location = new Point(140, 122);
             txtSalaryPerHour.Name = "txtSalaryPerHour";
             txtSalaryPerHour.ReadOnly = true;
-            txtSalaryPerHour.Size = new Size(444, 30);
+            txtSalaryPerHour.Size = new Size(444, 25);
             txtSalaryPerHour.TabIndex = 12;
             // 
             // dateTimePicker4
@@ -378,7 +375,7 @@
             txtRole.Location = new Point(140, 91);
             txtRole.Name = "txtRole";
             txtRole.ReadOnly = true;
-            txtRole.Size = new Size(444, 30);
+            txtRole.Size = new Size(444, 25);
             txtRole.TabIndex = 13;
             // 
             // label5
@@ -395,7 +392,7 @@
             txtEnployeeName.Location = new Point(140, 60);
             txtEnployeeName.Name = "txtEnployeeName";
             txtEnployeeName.ReadOnly = true;
-            txtEnployeeName.Size = new Size(444, 30);
+            txtEnployeeName.Size = new Size(444, 25);
             txtEnployeeName.TabIndex = 14;
             // 
             // label13
@@ -421,7 +418,7 @@
             txtEmployeeId.Location = new Point(140, 29);
             txtEmployeeId.Name = "txtEmployeeId";
             txtEmployeeId.ReadOnly = true;
-            txtEmployeeId.Size = new Size(444, 30);
+            txtEmployeeId.Size = new Size(444, 25);
             txtEmployeeId.TabIndex = 15;
             // 
             // label3
@@ -432,16 +429,6 @@
             label3.Size = new Size(34, 19);
             label3.TabIndex = 11;
             label3.Text = "Mã:";
-            // 
-            // dgvEmployee
-            // 
-            dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEmployee.Dock = DockStyle.Fill;
-            dgvEmployee.Location = new Point(0, 0);
-            dgvEmployee.Name = "dgvEmployee";
-            dgvEmployee.RowHeadersWidth = 51;
-            dgvEmployee.Size = new Size(728, 989);
-            dgvEmployee.TabIndex = 2;
             // 
             // frmAttendance
             // 
