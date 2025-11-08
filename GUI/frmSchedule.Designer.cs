@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSchedule));
             panel2 = new Panel();
+            btnPrintReport = new Button();
             pbNext = new PictureBox();
             pbPrev = new PictureBox();
             lbMonthDisplay = new Label();
@@ -37,18 +38,18 @@
             label1 = new Label();
             label7 = new Label();
             flpSchedule = new FlowLayoutPanel();
+            panel3 = new Panel();
+            panel5 = new Panel();
+            panel6 = new Panel();
+            panel4 = new Panel();
+            panel7 = new Panel();
+            panel8 = new Panel();
+            panel9 = new Panel();
             label6 = new Label();
             label2 = new Label();
             label5 = new Label();
             label3 = new Label();
             label4 = new Label();
-            panel3 = new Panel();
-            panel4 = new Panel();
-            panel5 = new Panel();
-            panel6 = new Panel();
-            panel7 = new Panel();
-            panel8 = new Panel();
-            panel9 = new Panel();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbNext).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbPrev).BeginInit();
@@ -67,6 +68,19 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1692, 95);
             panel2.TabIndex = 15;
+            // 
+            // btnPrintReport
+            // 
+            btnPrintReport.Image = Properties.Resources.printer;
+            btnPrintReport.ImageAlign = ContentAlignment.MiddleRight;
+            btnPrintReport.Location = new Point(1483, 33);
+            btnPrintReport.Name = "btnPrintReport";
+            btnPrintReport.Size = new Size(142, 38);
+            btnPrintReport.TabIndex = 17;
+            btnPrintReport.Text = "In Lịch làm việc";
+            btnPrintReport.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnPrintReport.UseVisualStyleBackColor = true;
+            btnPrintReport.Click += btnPrintReport_Click;
             // 
             // pbNext
             // 
@@ -124,7 +138,7 @@
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label1.Location = new Point(12, 15);
             label1.Name = "label1";
-            label1.Size = new Size(67, 28);
+            label1.Size = new Size(53, 21);
             label1.TabIndex = 13;
             label1.Text = "Thứ 2";
             // 
@@ -134,7 +148,7 @@
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.Location = new Point(1400, 16);
             label7.Name = "label7";
-            label7.Size = new Size(97, 28);
+            label7.Size = new Size(79, 21);
             label7.TabIndex = 14;
             label7.Text = "Chủ nhật";
             // 
@@ -154,69 +168,12 @@
             flpSchedule.Size = new Size(1671, 840);
             flpSchedule.TabIndex = 12;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label6.Location = new Point(1169, 16);
-            label6.Name = "label6";
-            label6.Size = new Size(67, 28);
-            label6.TabIndex = 15;
-            label6.Text = "Thứ 7";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.Location = new Point(245, 15);
-            label2.Name = "label2";
-            label2.Size = new Size(67, 28);
-            label2.TabIndex = 16;
-            label2.Text = "Thứ 3";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label5.Location = new Point(938, 16);
-            label5.Name = "label5";
-            label5.Size = new Size(67, 28);
-            label5.TabIndex = 17;
-            label5.Text = "Thứ 6";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label3.Location = new Point(476, 16);
-            label3.Name = "label3";
-            label3.Size = new Size(67, 28);
-            label3.TabIndex = 18;
-            label3.Text = "Thứ 4";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label4.Location = new Point(707, 16);
-            label4.Name = "label4";
-            label4.Size = new Size(67, 28);
-            label4.TabIndex = 19;
-            label4.Text = "Thứ 5";
-            // 
             // panel3
             // 
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(225, 130);
             panel3.TabIndex = 0;
-            // 
-            // panel4
-            // 
-            panel4.Location = new Point(696, 3);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(225, 130);
-            panel4.TabIndex = 0;
             // 
             // panel5
             // 
@@ -231,6 +188,13 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(225, 130);
             panel6.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            panel4.Location = new Point(696, 3);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(225, 130);
+            panel4.TabIndex = 0;
             // 
             // panel7
             // 
@@ -252,6 +216,56 @@
             panel9.Name = "panel9";
             panel9.Size = new Size(225, 130);
             panel9.TabIndex = 0;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label6.Location = new Point(1169, 16);
+            label6.Name = "label6";
+            label6.Size = new Size(53, 21);
+            label6.TabIndex = 15;
+            label6.Text = "Thứ 7";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label2.Location = new Point(245, 15);
+            label2.Name = "label2";
+            label2.Size = new Size(53, 21);
+            label2.TabIndex = 16;
+            label2.Text = "Thứ 3";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label5.Location = new Point(938, 16);
+            label5.Name = "label5";
+            label5.Size = new Size(53, 21);
+            label5.TabIndex = 17;
+            label5.Text = "Thứ 6";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label3.Location = new Point(476, 16);
+            label3.Name = "label3";
+            label3.Size = new Size(53, 21);
+            label3.TabIndex = 18;
+            label3.Text = "Thứ 4";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label4.Location = new Point(707, 16);
+            label4.Name = "label4";
+            label4.Size = new Size(53, 21);
+            label4.TabIndex = 19;
+            label4.Text = "Thứ 5";
             // 
             // frmSchedule
             // 
@@ -295,5 +309,6 @@
         private Panel panel7;
         private Panel panel8;
         private Panel panel9;
+        private Button btnPrintReport;
     }
 }
