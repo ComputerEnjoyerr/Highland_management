@@ -50,9 +50,9 @@
             // 
             // txtFind
             // 
-            txtFind.Location = new Point(100, 12);
+            txtFind.Location = new Point(116, 12);
             txtFind.Name = "txtFind";
-            txtFind.Size = new Size(316, 30);
+            txtFind.Size = new Size(634, 30);
             txtFind.TabIndex = 1;
             txtFind.TextChanged += txtFind_TextChanged;
             // 
@@ -85,6 +85,8 @@
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmEmployeeSchedule";
             Text = "Các ca làm việc của nhân viên";
             Load += frmEmployeeSchedule_Load;

@@ -99,6 +99,38 @@ namespace GUI
             dgvBranch.BorderStyle = BorderStyle.None;
         }
 
+
+        // Hàm lấy địa chỉ
+        private void UpdateAddressFromCombos(ComboBox cboProvince, ComboBox cboWard, TextBox txtAddress)
+        {
+            if (cboProvince.SelectedItem == null || cboWard.SelectedItem == null)
+                return; // Không làm gì nếu chưa chọn đủ
+
+            var province = (Province)cboProvince.SelectedItem;
+            var ward = (Ward)cboWard.SelectedItem;
+
+            string provinceName = province.ProvinceName;
+            string wardName = ward.WardName;
+
+            string currentText = txtAddress.Text.Trim();
+
+            // Nếu textbox đang rỗng hoặc chưa chứa thông tin tỉnh/phường thì cập nhật
+            if (string.IsNullOrWhiteSpace(currentText) ||
+                !currentText.Contains(wardName) || !currentText.Contains(provinceName))
+            {
+                // Giữ lại phần tên đường nếu người dùng đã nhập
+                string streetName = "";
+
+                if (currentText.Contains(",")) // Nếu người dùng nhập trước đó, tách phần đầu
+                    streetName = currentText.Split(',')[0].Trim();
+
+                if (!string.IsNullOrEmpty(streetName))
+                    txtAddress.Text = $"{streetName}, {wardName}, {provinceName}";
+                else
+                    txtAddress.Text = $"{wardName}, {provinceName}";
+            }
+        }
+
         private void LoadProvince()
         {
             var provinces = bLL_Province.GetAllProvinces();
@@ -181,6 +213,9 @@ namespace GUI
             {
                 txtBId.Clear();
             }
+
+            // Cập nhật địa chỉ hiển thị
+            UpdateAddressFromCombos(cboProvince, cboWard, txtAddress);
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -889,6 +924,12 @@ namespace GUI
                 var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
                 MessageBox.Show("Cập nhật nhân viên thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
             }
+        }
+
+        private void cboWard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Cập nhật địa chỉ khi thay đổi phường/xã
+            UpdateAddressFromCombos(cboProvince, cboWard, txtAddress);
         }
     }
 }
