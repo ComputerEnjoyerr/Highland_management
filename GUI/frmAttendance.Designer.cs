@@ -31,6 +31,7 @@
             dgvAttendance = new DataGridView();
             panel1 = new Panel();
             groupBox2 = new GroupBox();
+            button1 = new Button();
             button13 = new Button();
             button12 = new Button();
             cbStatus = new ComboBox();
@@ -48,6 +49,7 @@
             txtId = new TextBox();
             label8 = new Label();
             panel2 = new Panel();
+            dgvEmployee = new DataGridView();
             groupBox1 = new GroupBox();
             txtPhone = new TextBox();
             label7 = new Label();
@@ -61,13 +63,12 @@
             label4 = new Label();
             txtEmployeeId = new TextBox();
             label3 = new Label();
-            dgvEmployee = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvAttendance).BeginInit();
             panel1.SuspendLayout();
             groupBox2.SuspendLayout();
             panel2.SuspendLayout();
-            groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEmployee).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvAttendance
@@ -93,6 +94,7 @@
             // groupBox2
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Controls.Add(button1);
             groupBox2.Controls.Add(button13);
             groupBox2.Controls.Add(button12);
             groupBox2.Controls.Add(cbStatus);
@@ -115,6 +117,23 @@
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Điểm danh";
+            groupBox2.Enter += groupBox2_Enter;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            button1.BackColor = SystemColors.Control;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.Image = Properties.Resources._checked;
+            button1.ImageAlign = ContentAlignment.MiddleRight;
+            button1.Location = new Point(546, 136);
+            button1.Name = "button1";
+            button1.Size = new Size(145, 56);
+            button1.TabIndex = 23;
+            button1.Text = "Check Out";
+            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button13
             // 
@@ -142,7 +161,7 @@
             button12.Name = "button12";
             button12.Size = new Size(145, 56);
             button12.TabIndex = 22;
-            button12.Text = "Điểm danh";
+            button12.Text = "Check In";
             button12.TextImageRelation = TextImageRelation.ImageBeforeText;
             button12.UseVisualStyleBackColor = false;
             button12.Click += button12_Click;
@@ -152,7 +171,7 @@
             cbStatus.FormattingEnabled = true;
             cbStatus.Location = new Point(149, 136);
             cbStatus.Name = "cbStatus";
-            cbStatus.Size = new Size(224, 31);
+            cbStatus.Size = new Size(224, 25);
             cbStatus.TabIndex = 17;
             // 
             // dateTimePicker3
@@ -160,15 +179,16 @@
             dateTimePicker3.Format = DateTimePickerFormat.Short;
             dateTimePicker3.Location = new Point(149, 283);
             dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new Size(224, 30);
+            dateTimePicker3.Size = new Size(224, 25);
             dateTimePicker3.TabIndex = 16;
+            dateTimePicker3.ValueChanged += dateTimePicker3_ValueChanged;
             // 
             // label12
             // 
             label12.AutoSize = true;
             label12.Location = new Point(38, 139);
             label12.Name = "label12";
-            label12.Size = new Size(97, 23);
+            label12.Size = new Size(80, 19);
             label12.TabIndex = 9;
             label12.Text = "Trạng thái:";
             // 
@@ -177,7 +197,7 @@
             dtCheckOut.Format = DateTimePickerFormat.Time;
             dtCheckOut.Location = new Point(149, 206);
             dtCheckOut.Name = "dtCheckOut";
-            dtCheckOut.Size = new Size(224, 30);
+            dtCheckOut.Size = new Size(224, 25);
             dtCheckOut.TabIndex = 16;
             // 
             // label11
@@ -185,7 +205,7 @@
             label11.AutoSize = true;
             label11.Location = new Point(38, 103);
             label11.Name = "label11";
-            label11.Size = new Size(103, 23);
+            label11.Size = new Size(87, 19);
             label11.TabIndex = 9;
             label11.Text = "Lý do vắng:";
             // 
@@ -194,15 +214,16 @@
             dtCheckIn.Format = DateTimePickerFormat.Time;
             dtCheckIn.Location = new Point(149, 173);
             dtCheckIn.Name = "dtCheckIn";
-            dtCheckIn.Size = new Size(224, 30);
+            dtCheckIn.Size = new Size(224, 25);
             dtCheckIn.TabIndex = 16;
+            dtCheckIn.ValueChanged += dtCheckIn_ValueChanged;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Location = new Point(38, 289);
             label10.Name = "label10";
-            label10.Size = new Size(92, 23);
+            label10.Size = new Size(78, 19);
             label10.TabIndex = 9;
             label10.Text = "Ngày làm:";
             // 
@@ -211,7 +232,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(38, 212);
             label9.Name = "label9";
-            label9.Size = new Size(63, 23);
+            label9.Size = new Size(53, 19);
             label9.TabIndex = 9;
             label9.Text = "Lúc ra:";
             // 
@@ -220,7 +241,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(38, 179);
             label2.Name = "label2";
-            label2.Size = new Size(75, 23);
+            label2.Size = new Size(64, 19);
             label2.TabIndex = 9;
             label2.Text = "Lúc vào:";
             // 
@@ -244,7 +265,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(38, 68);
             label1.Name = "label1";
-            label1.Size = new Size(106, 23);
+            label1.Size = new Size(90, 19);
             label1.TabIndex = 10;
             label1.Text = "Ca làm việc:";
             // 
@@ -261,19 +282,31 @@
             label8.AutoSize = true;
             label8.Location = new Point(38, 34);
             label8.Name = "label8";
-            label8.Size = new Size(40, 23);
+            label8.Size = new Size(34, 19);
             label8.TabIndex = 11;
             label8.Text = "Mã:";
             // 
             // panel2
             // 
-            panel2.Controls.Add(groupBox1);
             panel2.Controls.Add(dgvEmployee);
+            panel2.Controls.Add(groupBox1);
             panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(964, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(728, 989);
             panel2.TabIndex = 13;
+            // 
+            // dgvEmployee
+            // 
+            dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEmployee.Dock = DockStyle.Fill;
+            dgvEmployee.Location = new Point(0, 233);
+            dgvEmployee.Name = "dgvEmployee";
+            dgvEmployee.RowHeadersWidth = 51;
+            dgvEmployee.Size = new Size(578, 477);
+            dgvEmployee.TabIndex = 2;
+            dgvEmployee.CellClick += dgvEmployee_CellClick;
+            dgvEmployee.CellContentClick += dgvEmployee_CellContentClick;
             // 
             // groupBox1
             // 
@@ -310,7 +343,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(31, 158);
             label7.Name = "label7";
-            label7.Size = new Size(48, 23);
+            label7.Size = new Size(39, 19);
             label7.TabIndex = 8;
             label7.Text = "SĐT:";
             // 
@@ -327,15 +360,16 @@
             dateTimePicker4.Format = DateTimePickerFormat.Short;
             dateTimePicker4.Location = new Point(140, 224);
             dateTimePicker4.Name = "dateTimePicker4";
-            dateTimePicker4.Size = new Size(166, 30);
+            dateTimePicker4.Size = new Size(166, 25);
             dateTimePicker4.TabIndex = 16;
+            dateTimePicker4.ValueChanged += dateTimePicker4_ValueChanged;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Location = new Point(31, 125);
             label6.Name = "label6";
-            label6.Size = new Size(103, 23);
+            label6.Size = new Size(84, 19);
             label6.TabIndex = 8;
             label6.Text = "Lương/Giờ:";
             // 
@@ -352,7 +386,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(31, 94);
             label5.Name = "label5";
-            label5.Size = new Size(79, 23);
+            label5.Size = new Size(66, 19);
             label5.TabIndex = 9;
             label5.Text = "Chức vụ:";
             // 
@@ -369,7 +403,7 @@
             label13.AutoSize = true;
             label13.Location = new Point(29, 230);
             label13.Name = "label13";
-            label13.Size = new Size(92, 23);
+            label13.Size = new Size(78, 19);
             label13.TabIndex = 9;
             label13.Text = "Ngày làm:";
             // 
@@ -378,7 +412,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(31, 63);
             label4.Name = "label4";
-            label4.Size = new Size(69, 23);
+            label4.Size = new Size(58, 19);
             label4.TabIndex = 10;
             label4.Text = "Họ tên:";
             // 
@@ -395,7 +429,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(31, 32);
             label3.Name = "label3";
-            label3.Size = new Size(40, 23);
+            label3.Size = new Size(34, 19);
             label3.TabIndex = 11;
             label3.Text = "Mã:";
             // 
@@ -425,9 +459,9 @@
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvEmployee).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEmployee).EndInit();
             ResumeLayout(false);
         }
 
@@ -467,5 +501,6 @@
         private TextBox txtNote;
         private DateTimePicker dateTimePicker4;
         private Label label13;
+        private Button button1;
     }
 }

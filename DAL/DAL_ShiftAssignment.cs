@@ -86,5 +86,17 @@ namespace DAL
                 .ThenBy(sa => sa.Shift.ShiftType)
                 .ToList();
         }
+
+        public List<ShiftAssignment> GetShiftAssignmentsForToday()
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+
+            return _context.ShiftAssignments
+                .Include(sa => sa.Employee)
+                .Include(sa => sa.Shift)
+                .ThenInclude(s => s.WorkSchedule)
+                .Where(sa => sa.Shift.WorkDate >= today && sa.Shift.WorkDate < today.AddDays(1))
+                .ToList();
+        }
     }
 }
