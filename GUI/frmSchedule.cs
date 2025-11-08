@@ -72,7 +72,7 @@ namespace GUI
             if (dayBox != null && !string.IsNullOrEmpty(dayBox.DayText))
             {
 
-                frmScheduleInfo fr = new frmScheduleInfo(employee ,dayBox.DayText, dayBox.Month.ToString("##"), dayBox.Year);
+                frmScheduleInfo fr = new frmScheduleInfo(employee, dayBox.DayText, dayBox.Month.ToString("##"), dayBox.Year);
                 fr.ShowDialog();
             }
         }
@@ -97,6 +97,12 @@ namespace GUI
                 this.year++;
             }
             showDay(this.month, this.year);
+        }
+
+        private void btnPrintReport_Click(object sender, EventArgs e)
+        {
+            frmScheduleReport fr = new frmScheduleReport();
+            fr.ShowDialog();
         }
     }
 }

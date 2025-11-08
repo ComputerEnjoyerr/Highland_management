@@ -42,6 +42,7 @@
             label5 = new Label();
             label3 = new Label();
             label4 = new Label();
+            btnPrintReport = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbNext).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbPrev).BeginInit();
@@ -50,6 +51,7 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(btnPrintReport);
             panel2.Controls.Add(pbNext);
             panel2.Controls.Add(pbPrev);
             panel2.Controls.Add(lbMonthDisplay);
@@ -115,7 +117,7 @@
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label1.Location = new Point(16, 18);
             label1.Name = "label1";
-            label1.Size = new Size(53, 21);
+            label1.Size = new Size(67, 28);
             label1.TabIndex = 13;
             label1.Text = "Thứ 2";
             // 
@@ -125,7 +127,7 @@
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.Location = new Point(848, 18);
             label7.Name = "label7";
-            label7.Size = new Size(79, 21);
+            label7.Size = new Size(97, 28);
             label7.TabIndex = 14;
             label7.Text = "Chủ nhật";
             // 
@@ -144,7 +146,7 @@
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.Location = new Point(710, 18);
             label6.Name = "label6";
-            label6.Size = new Size(53, 21);
+            label6.Size = new Size(67, 28);
             label6.TabIndex = 15;
             label6.Text = "Thứ 7";
             // 
@@ -154,7 +156,7 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.Location = new Point(155, 18);
             label2.Name = "label2";
-            label2.Size = new Size(53, 21);
+            label2.Size = new Size(67, 28);
             label2.TabIndex = 16;
             label2.Text = "Thứ 3";
             // 
@@ -164,7 +166,7 @@
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.Location = new Point(572, 18);
             label5.Name = "label5";
-            label5.Size = new Size(53, 21);
+            label5.Size = new Size(67, 28);
             label5.TabIndex = 17;
             label5.Text = "Thứ 6";
             // 
@@ -174,7 +176,7 @@
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label3.Location = new Point(294, 18);
             label3.Name = "label3";
-            label3.Size = new Size(53, 21);
+            label3.Size = new Size(67, 28);
             label3.TabIndex = 18;
             label3.Text = "Thứ 4";
             // 
@@ -184,9 +186,22 @@
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.Location = new Point(433, 18);
             label4.Name = "label4";
-            label4.Size = new Size(53, 21);
+            label4.Size = new Size(67, 28);
             label4.TabIndex = 19;
             label4.Text = "Thứ 5";
+            // 
+            // btnPrintReport
+            // 
+            btnPrintReport.Image = Properties.Resources.printer;
+            btnPrintReport.ImageAlign = ContentAlignment.MiddleRight;
+            btnPrintReport.Location = new Point(784, 28);
+            btnPrintReport.Name = "btnPrintReport";
+            btnPrintReport.Size = new Size(161, 40);
+            btnPrintReport.TabIndex = 17;
+            btnPrintReport.Text = "In Lịch làm việc";
+            btnPrintReport.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnPrintReport.UseVisualStyleBackColor = true;
+            btnPrintReport.Click += btnPrintReport_Click;
             // 
             // frmSchedule
             // 
@@ -222,5 +237,6 @@
         private Label label5;
         private Label label3;
         private Label label4;
+        private Button btnPrintReport;
     }
 }
