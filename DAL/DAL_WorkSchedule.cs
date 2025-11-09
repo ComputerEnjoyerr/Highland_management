@@ -75,7 +75,9 @@ namespace DAL
         public DataTable GetScheduleByDate(DateTime selectedDate)
         {
             var sql = @"
-            SET DATEFIRST 1;
+            -- Query Schedule
+            SET DATEFIRST 1; -- Thứ hai là ngày đầu tuần
+
             WITH Params AS (
                 SELECT 
                     CAST(@SelectedDate AS DATE) AS SelectedDate,
@@ -91,16 +93,28 @@ namespace DAL
             )
             SELECT 
                 WD.WorkDate,
-                CASE DATEPART(WEEKDAY, WD.WorkDate)
-                    WHEN 1 THEN N'Chủ nhật'
-                    WHEN 2 THEN N'Thứ hai'
-                    WHEN 3 THEN N'Thứ ba'
-                    WHEN 4 THEN N'Thứ tư'
-                    WHEN 5 THEN N'Thứ năm'
-                    WHEN 6 THEN N'Thứ sáu'
-                    WHEN 7 THEN N'Thứ bảy'
+
+                -- Thứ tiếng Việt
+                CASE DATENAME(WEEKDAY, WD.WorkDate)
+                    WHEN 'Monday' THEN N'Thứ hai'
+                    WHEN 'Tuesday' THEN N'Thứ ba'
+                    WHEN 'Wednesday' THEN N'Thứ tư'
+                    WHEN 'Thursday' THEN N'Thứ năm'
+                    WHEN 'Friday' THEN N'Thứ sáu'
+                    WHEN 'Saturday' THEN N'Thứ bảy'
+                    WHEN 'Sunday' THEN N'Chủ nhật'
                 END AS ThuTrongTuan,
-                DATEPART(WEEKDAY, WD.WorkDate) AS ThuSo,
+
+                -- Thứ số để sắp xếp chuẩn
+                CASE DATENAME(WEEKDAY, WD.WorkDate)
+                    WHEN 'Monday' THEN 1
+                    WHEN 'Tuesday' THEN 2
+                    WHEN 'Wednesday' THEN 3
+                    WHEN 'Thursday' THEN 4
+                    WHEN 'Friday' THEN 5
+                    WHEN 'Saturday' THEN 6
+                    WHEN 'Sunday' THEN 7
+                END AS ThuSo,
 
                 P.WeekStart,
                 P.WeekEnd,
@@ -108,7 +122,7 @@ namespace DAL
                 ISNULL(E.Id, N'Không có nhân viên làm việc') AS Id,
                 E.EmployeeName,
                 B.BranchName,
-                A.Name,
+                A.Name AS AddressName,
                 WSHIFT.ShiftType,
                 WSHIFT.StartTime,
                 WSHIFT.EndTime,
@@ -125,7 +139,7 @@ namespace DAL
             LEFT JOIN ADDRESS A ON A.Id = B.AddressId
             LEFT JOIN EMPLOYEE M ON WS.CreatedBy = M.Id
 
-            ORDER BY WD.WorkDate, WSHIFT.ShiftType, E.EmployeeName
+            ORDER BY ThuSo, WSHIFT.ShiftType, E.EmployeeName
             OPTION (MAXRECURSION 0);";
 
             // Thực thi bằng Entity Framework (DataTable)
