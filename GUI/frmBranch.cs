@@ -138,7 +138,11 @@ namespace GUI
             cboProvince.DisplayMember = "ProvinceName";
             cboProvince.ValueMember = "Id";
             cboProvince.SelectedIndex = -1;
+        }
 
+        private void LoadEProvince()
+        {
+            var provinces = bLL_Province.GetAllProvinces();
             // Load cho phần nhân viên chi nhánh
             cboEProvince.DataSource = provinces;
             cboEProvince.DisplayMember = "ProvinceName";
@@ -153,7 +157,11 @@ namespace GUI
             cboWard.DisplayMember = "WardName";
             cboWard.ValueMember = "Id";
             cboWard.SelectedIndex = -1;
+        }
 
+        private void LoadEWard(string provinceId)
+        {
+            var wards = bLL_Ward.GetWardByProvinceId(provinceId);
             // Load cho phần nhân viên chi nhánh
             cboEWard.DataSource = wards;
             cboEWard.DisplayMember = "WardName";
@@ -192,6 +200,7 @@ namespace GUI
             LoadRole();
             LoadEmployeeStatus();
             LoadGender();
+            LoadEProvince();
         }
 
         private void cboProvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -930,6 +939,55 @@ namespace GUI
         {
             // Cập nhật địa chỉ khi thay đổi phường/xã
             UpdateAddressFromCombos(cboProvince, cboWard, txtAddress);
+        }
+
+        private void cboEProvince_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboEProvince.SelectedIndex != -1)
+            {
+                string provinceId = cboEProvince.SelectedValue.ToString();
+                LoadEWard(provinceId);
+            }
+
+            // Cập nhật địa chỉ hiển thị
+            UpdateEAddressFromCombos(cboEProvince, cboEWard, txtEAddress);
+        }
+
+        // Hàm lấy địa chỉ cho nhân viên
+        private void UpdateEAddressFromCombos(ComboBox cboProvince, ComboBox cboWard, TextBox txtAddress)
+        {
+            if (cboProvince.SelectedItem == null || cboWard.SelectedItem == null)
+                return; // Không làm gì nếu chưa chọn đủ
+
+            var province = (Province)cboProvince.SelectedItem;
+            var ward = (Ward)cboWard.SelectedItem;
+
+            string provinceName = province.ProvinceName;
+            string wardName = ward.WardName;
+
+            string currentText = txtEAddress.Text.Trim();
+
+            // Nếu textbox đang rỗng hoặc chưa chứa thông tin tỉnh/phường thì cập nhật
+            if (string.IsNullOrWhiteSpace(currentText) ||
+                !currentText.Contains(wardName) || !currentText.Contains(provinceName))
+            {
+                // Giữ lại phần tên đường nếu người dùng đã nhập
+                string streetName = "";
+
+                if (currentText.Contains(",")) // Nếu người dùng nhập trước đó, tách phần đầu
+                    streetName = currentText.Split(',')[0].Trim();
+
+                if (!string.IsNullOrEmpty(streetName))
+                    txtAddress.Text = $"{streetName}, {wardName}, {provinceName}";
+                else
+                    txtAddress.Text = $"{wardName}, {provinceName}";
+            }
+        }
+
+        private void cboEWard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Cập nhật địa chỉ hiển thị
+            UpdateEAddressFromCombos(cboEProvince, cboEWard, txtEAddress);
         }
     }
 }
