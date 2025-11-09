@@ -2,6 +2,7 @@
 using DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -141,6 +142,12 @@ namespace BLL
                 return (false, "Khoảng thời gian mở - đóng cửa không hợp lệ.");
 
             return (true, "Dữ liệu hợp lệ.");
+        }
+
+        // Hàm in repport chi nhánh
+        public DataTable GetBranchByFilter(string? provinceName, string? wardName)
+        {
+            return dAL_Branch.GetBranchByFilter(provinceName, wardName);
         }
     }
 }

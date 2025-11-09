@@ -931,5 +931,11 @@ namespace GUI
             // Cập nhật địa chỉ khi thay đổi phường/xã
             UpdateAddressFromCombos(cboProvince, cboWard, txtAddress);
         }
+
+        private void btnPrintReport_Click(object sender, EventArgs e)
+        {
+            frmBranchReport frm = new frmBranchReport();
+            frm.ShowDialog();
+        }
     }
 }

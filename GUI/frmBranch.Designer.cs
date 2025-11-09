@@ -89,6 +89,7 @@
             btnEDelete = new Button();
             txtEFind = new TextBox();
             label12 = new Label();
+            btnPrintReport = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvBranch).BeginInit();
             panel2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -120,6 +121,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnPrintReport);
             groupBox1.Controls.Add(cboStatus);
             groupBox1.Controls.Add(label16);
             groupBox1.Controls.Add(dtpCloseTime);
@@ -739,6 +741,19 @@
             label12.TabIndex = 34;
             label12.Text = "Tìm kiếm:";
             // 
+            // btnPrintReport
+            // 
+            btnPrintReport.Image = Properties.Resources.printer;
+            btnPrintReport.ImageAlign = ContentAlignment.MiddleRight;
+            btnPrintReport.Location = new Point(515, 236);
+            btnPrintReport.Name = "btnPrintReport";
+            btnPrintReport.Size = new Size(237, 47);
+            btnPrintReport.TabIndex = 66;
+            btnPrintReport.Text = "In Thông Tin Chi Nhánh";
+            btnPrintReport.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnPrintReport.UseVisualStyleBackColor = true;
+            btnPrintReport.Click += btnPrintReport_Click;
+            // 
             // frmBranch
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -825,5 +840,6 @@
         private Label label22;
         private ComboBox cboEmployeeStatus;
         private Label label23;
+        private Button btnPrintReport;
     }
 }

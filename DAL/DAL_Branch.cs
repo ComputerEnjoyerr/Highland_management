@@ -1,7 +1,9 @@
 ﻿using DTO;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,6 +71,55 @@ namespace DAL
         public bool IsPhoneExists(string phone)
         {
             return _context.Branches.Any(b => b.Phone == phone);
+        }
+
+        // Hàm in report chi nhánh
+        public DataTable GetBranchByFilter(string? provinceName, string? wardName)
+        {
+            var sql = @"
+            SELECT 
+                B.Id AS BranchId,
+                B.BranchName,
+                B.Phone,
+                B.OpenTime,
+                B.CloseTime,
+                B.Status,
+                A.Name AS AddressName,
+                W.WardName,
+                P.ProvinceName,
+                P.CodeName
+            FROM BRANCH B
+            JOIN ADDRESS A ON B.AddressId = A.Id
+            JOIN WARD W ON A.WardId = W.Id
+            JOIN PROVINCE P ON W.ProvinceId = P.Id
+            WHERE
+                (@ProvinceName IS NULL OR P.ProvinceName = @ProvinceName)
+                AND (@WardName IS NULL OR W.WardName = @WardName)
+            ORDER BY 
+                P.ProvinceName, 
+                W.WardName, 
+                B.BranchName;";
+
+            using (var cmd = _context.Database.GetDbConnection().CreateCommand())
+            {
+                cmd.CommandText = sql;
+
+                // Thêm tham số vào lệnh
+                cmd.Parameters.Add(new SqlParameter("@ProvinceName",
+                    string.IsNullOrEmpty(provinceName) ? DBNull.Value : provinceName));
+                cmd.Parameters.Add(new SqlParameter("@WardName",
+                    string.IsNullOrEmpty(wardName) ? DBNull.Value : wardName));
+
+                // Mở kết nối
+                _context.Database.OpenConnection();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var dt = new DataTable();
+                    dt.Load(reader);
+                    return dt;
+                }
+            }
         }
     }
 }
