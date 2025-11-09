@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,45 @@ namespace BLL
             string randomString = Guid.NewGuid().ToString("N").Substring(0, 4).ToUpper();
             return $"BILL{datePart}{randomString}";
 
+        }
+
+        public DataTable GetBillHeader(string billId)
+        {
+            try
+            {
+                var headerTable = dAL_Bill.GetBillHeader(billId);
+                if (headerTable == null || headerTable.Rows.Count == 0)
+                {
+                    throw new Exception("Không tìm thấy thông tin header cho BillId: " + billId);
+                }
+                return headerTable;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy thông tin header cho BillId {billId}: {ex.Message}", ex);
+            }
+        }
+
+        public DataTable GetBillDetail(string billId)
+        {
+            try
+            {
+                var detailTable = dAL_Bill.GetBillDetail(billId);
+                if (detailTable == null || detailTable.Rows.Count == 0)
+                {
+                    throw new Exception("Không tìm thấy thông tin chi tiết cho BillId: " + billId);
+                }
+                return detailTable;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy thông tin chi tiết cho BillId {billId}: {ex.Message}", ex);
+            }
+        }
+
+        public DataSet GetBillForPrint(string billId)
+        {
+            return dAL_Bill.GetBillForPrint(billId);
         }
     }
 }

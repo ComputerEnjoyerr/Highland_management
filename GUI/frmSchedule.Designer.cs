@@ -73,9 +73,9 @@
             // 
             btnPrintReport.Image = Properties.Resources.printer;
             btnPrintReport.ImageAlign = ContentAlignment.MiddleRight;
-            btnPrintReport.Location = new Point(1483, 33);
+            btnPrintReport.Location = new Point(1454, 33);
             btnPrintReport.Name = "btnPrintReport";
-            btnPrintReport.Size = new Size(142, 38);
+            btnPrintReport.Size = new Size(171, 38);
             btnPrintReport.TabIndex = 17;
             btnPrintReport.Text = "In Lịch làm việc";
             btnPrintReport.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -138,7 +138,7 @@
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label1.Location = new Point(12, 15);
             label1.Name = "label1";
-            label1.Size = new Size(53, 21);
+            label1.Size = new Size(67, 28);
             label1.TabIndex = 13;
             label1.Text = "Thứ 2";
             // 
@@ -148,7 +148,7 @@
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.Location = new Point(1400, 16);
             label7.Name = "label7";
-            label7.Size = new Size(79, 21);
+            label7.Size = new Size(97, 28);
             label7.TabIndex = 14;
             label7.Text = "Chủ nhật";
             // 
@@ -223,7 +223,7 @@
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.Location = new Point(1169, 16);
             label6.Name = "label6";
-            label6.Size = new Size(53, 21);
+            label6.Size = new Size(67, 28);
             label6.TabIndex = 15;
             label6.Text = "Thứ 7";
             // 
@@ -233,7 +233,7 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.Location = new Point(245, 15);
             label2.Name = "label2";
-            label2.Size = new Size(53, 21);
+            label2.Size = new Size(67, 28);
             label2.TabIndex = 16;
             label2.Text = "Thứ 3";
             // 
@@ -243,7 +243,7 @@
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.Location = new Point(938, 16);
             label5.Name = "label5";
-            label5.Size = new Size(53, 21);
+            label5.Size = new Size(67, 28);
             label5.TabIndex = 17;
             label5.Text = "Thứ 6";
             // 
@@ -253,7 +253,7 @@
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label3.Location = new Point(476, 16);
             label3.Name = "label3";
-            label3.Size = new Size(53, 21);
+            label3.Size = new Size(67, 28);
             label3.TabIndex = 18;
             label3.Text = "Thứ 4";
             // 
@@ -263,7 +263,7 @@
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label4.Location = new Point(707, 16);
             label4.Name = "label4";
-            label4.Size = new Size(53, 21);
+            label4.Size = new Size(67, 28);
             label4.TabIndex = 19;
             label4.Text = "Thứ 5";
             // 
