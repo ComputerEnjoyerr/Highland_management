@@ -461,7 +461,7 @@ namespace GUI
                 txtEmployeeId.Text = selectedRow.Id;
                 txtEmployeeName.Text = selectedRow.EmployeeName;
                 txtEmployeeRole.Text = selectedRow.Role;
-                txtEmployeeAddress.Text = selectedRow.Address != null ? $"{selectedRow.Address.Name}, {selectedRow.Address.Ward?.WardName}, {selectedRow.Address.Ward?.Province?.ProvinceName}" : "";
+                txtEmployeeAddress.Text = selectedRow.Address?.Name ?? "";
             }
         }
 
@@ -475,9 +475,7 @@ namespace GUI
                 txtIdMorning.Text = selectedRow.Employee.Id;
                 txtNameMorning.Text = selectedRow.Employee.EmployeeName;
                 txtRoleMorning.Text = selectedRow.Employee.Role;
-                txtAddressMorning.Text = selectedRow.Employee.Address != null
-                    ? $"{selectedRow.Employee.Address.Name}, {selectedRow.Employee.Address.Ward?.WardName}, {selectedRow.Employee.Address.Ward?.Province?.ProvinceName}"
-                    : "";
+                txtAddressMorning.Text = selectedRow.Employee.Address?.Name ?? "";
             }
         }
 
@@ -492,9 +490,7 @@ namespace GUI
                 txtIdAfternoon.Text = selectedRow.Employee.Id;
                 txtNameAfternoon.Text = selectedRow.Employee.EmployeeName;
                 txtRoleAfternoon.Text = selectedRow.Employee.Role;
-                txtAddressAfternoon.Text = selectedRow.Employee.Address != null
-                    ? $"{selectedRow.Employee.Address.Name}, {selectedRow.Employee.Address.Ward?.WardName}, {selectedRow.Employee.Address.Ward?.Province?.ProvinceName}"
-                    : "";
+                txtAddressAfternoon.Text = selectedRow.Employee.Address?.Name ?? "";
             }
         }
 
@@ -509,9 +505,7 @@ namespace GUI
                 txtIdEvening.Text = selectedRow.Employee.Id;
                 txtNameEvening.Text = selectedRow.Employee.EmployeeName;
                 txtRoleEvening.Text = selectedRow.Employee.Role;
-                txtAddressEvening.Text = selectedRow.Employee.Address != null
-                    ? $"{selectedRow.Employee.Address.Name}, {selectedRow.Employee.Address.Ward?.WardName}, {selectedRow.Employee.Address.Ward?.Province?.ProvinceName}"
-                    : "";
+                txtAddressEvening.Text = selectedRow.Employee.Address?.Name ?? "";
             }
         }
 

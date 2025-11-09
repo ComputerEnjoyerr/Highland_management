@@ -60,7 +60,11 @@ namespace DAL
         public List<ShiftAssignment> GetByDateAndShift(int day, int month, int year, string shift)
         {
             return _context.ShiftAssignments
+                .AsNoTracking()
                 .Include(sA => sA.Employee)
+                .ThenInclude(e => e.Address)
+                .ThenInclude(a => a.Ward)          
+                .ThenInclude(w => w.Province)  
                 .Include(sA => sA.Shift)
                 .ThenInclude(s => s.WorkSchedule)
                 .Where(sA =>
