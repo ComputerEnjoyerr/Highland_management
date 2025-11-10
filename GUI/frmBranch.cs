@@ -974,7 +974,7 @@ namespace GUI
                 // Giữ lại phần tên đường nếu người dùng đã nhập
                 string streetName = "";
 
-                if (currentText.Contains(",")) // Nếu người dùng nhập trước đó, tách phần đầu
+                if (currentText.Contains(",")) // Nếu người dùng nhập trước đó, tách phần đầu 
                     streetName = currentText.Split(',')[0].Trim();
 
                 if (!string.IsNullOrEmpty(streetName))
