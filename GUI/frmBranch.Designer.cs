@@ -519,6 +519,7 @@
             cboEProvince.Name = "cboEProvince";
             cboEProvince.Size = new Size(276, 31);
             cboEProvince.TabIndex = 56;
+            cboEProvince.SelectedIndexChanged += cboEProvince_SelectedIndexChanged;
             // 
             // label3
             // 
@@ -537,6 +538,7 @@
             cboEWard.Name = "cboEWard";
             cboEWard.Size = new Size(276, 31);
             cboEWard.TabIndex = 57;
+            cboEWard.SelectedIndexChanged += cboEWard_SelectedIndexChanged;
             // 
             // label4
             // 

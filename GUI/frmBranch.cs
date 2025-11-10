@@ -138,7 +138,11 @@ namespace GUI
             cboProvince.DisplayMember = "ProvinceName";
             cboProvince.ValueMember = "Id";
             cboProvince.SelectedIndex = -1;
+        }
 
+        private void LoadEProvince()
+        {
+            var provinces = bLL_Province.GetAllProvinces();
             // Load cho phần nhân viên chi nhánh
             cboEProvince.DataSource = provinces;
             cboEProvince.DisplayMember = "ProvinceName";
@@ -153,7 +157,11 @@ namespace GUI
             cboWard.DisplayMember = "WardName";
             cboWard.ValueMember = "Id";
             cboWard.SelectedIndex = -1;
+        }
 
+        private void LoadEWard(string provinceId)
+        {
+            var wards = bLL_Ward.GetWardByProvinceId(provinceId);
             // Load cho phần nhân viên chi nhánh
             cboEWard.DataSource = wards;
             cboEWard.DisplayMember = "WardName";
@@ -192,6 +200,7 @@ namespace GUI
             LoadRole();
             LoadEmployeeStatus();
             LoadGender();
+            LoadEProvince();
         }
 
         private void cboProvince_SelectedIndexChanged(object sender, EventArgs e)
