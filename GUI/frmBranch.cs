@@ -941,8 +941,9 @@ namespace GUI
             UpdateAddressFromCombos(cboProvince, cboWard, txtAddress);
         }
 
-        private void cboEProvince_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnPrintReport_Click(object sender, EventArgs e)
         {
+
             if (cboEProvince.SelectedIndex != -1)
             {
                 string provinceId = cboEProvince.SelectedValue.ToString();
@@ -988,6 +989,10 @@ namespace GUI
         {
             // Cập nhật địa chỉ hiển thị
             UpdateEAddressFromCombos(cboEProvince, cboEWard, txtEAddress);
+
+            frmBranchReport frm = new frmBranchReport();
+            frm.ShowDialog();
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DTO;
+using FastReport;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -510,18 +511,17 @@ namespace GUI
                 return;
             }
 
+            if (selectedProduct == null)
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm trước khi đặt món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             // Kiểm tra sản phẩm đang chọn và trong danh sách có đủ nguyên liệu không
             if (!HasEnoughIngredients(selectedProduct, (int)nmrProductQty.Value))
             {
                 DialogResult rs = MessageBox.Show("Không đủ nguyên liệu để làm món này.\nBạn có chắc muốn thêm sản phẩm vào danh sách?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (rs == DialogResult.No)
                     return;
-            }
-
-            if (selectedProduct == null)
-            {
-                MessageBox.Show("Vui lòng chọn sản phẩm trước khi đặt món.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
             }
 
             if (selectedCustomer == null)
@@ -680,7 +680,15 @@ namespace GUI
                 // Cập nhật trạng thái bàn
                 selectedTable.Status = 0; // Trống
                 bLL_Table.Update(selectedTable);
-                MessageBox.Show($"Thanh toán hóa đơn thành công\nThành tiền: {totalPrice.ToString("C0")}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (cbxPrintBill.Checked)
+                {
+                    PrintBill(selectedBill.Id);
+                } else
+                {
+                    MessageBox.Show($"Thanh toán hóa đơn thành công\nThành tiền: {totalPrice.ToString("C0")}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 LoadBillInfo();
                 LoadBtnTable();
                 RefreshInput();
@@ -693,6 +701,86 @@ namespace GUI
                 var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
                 MessageBox.Show("Thanh toán hóa đơn thất bại.\nChi tiết lỗi: " + inner);
 
+            }
+        }
+
+        private void PrintBill(string billId)
+        {
+            if (string.IsNullOrEmpty(billId))
+            {
+                MessageBox.Show("Không tìm thấy hóa đơn hợp lệ để in.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                // Lấy dữ liệu
+                //var headerTable = bLL_Bill.GetBillHeader(billId);
+                var detailTable = bLL_Bill.GetBillDetail(billId);
+
+                // Kiểm tra dữ liệu
+                if (detailTable == null || detailTable.Rows.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy thông tin hóa đơn!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                MessageBox.Show($"{detailTable.Rows.Count}");
+                
+
+                // Đặt tên bảng
+                //headerTable.TableName = "BillHeader";
+                detailTable.TableName = "BillDetail";
+
+                // Tạo report
+                Report report = new Report();
+                string path = Path.Combine(Application.StartupPath, @"..\..\..\RPTOrderDetail.frx");
+
+                if (!File.Exists(path))
+                {
+                    MessageBox.Show($"Không tìm thấy file report tại:\n{path}", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                report.Load(path);
+
+                // Xóa các datasource cũ (nếu có)
+                report.Dictionary.Connections.Clear();
+
+                // Đăng ký dữ liệu mới
+                //report.RegisterData(headerTable, "BillHeader");
+                report.RegisterData(detailTable, "BillDetail");
+
+                DataBand band = report.FindObject("Data1") as DataBand;
+                if (band != null)
+                {
+                    band.DataSource = report.GetDataSource("BillDetail");
+                }
+
+                //var headerDS = report.GetDataSource("BillHeader");
+                var detailDS = report.GetDataSource("BillDetail");
+
+                //if (headerDS != null) headerDS.Enabled = true;
+                if (detailDS != null) detailDS.Enabled = true;
+
+                // Prepare và hiển thị
+                report.Prepare();
+
+                if (report.PreparedPages.Count > 0)
+                {
+                    report.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Không thể tạo báo cáo. Vui lòng kiểm tra lại dữ liệu.",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi in hóa đơn:\n{ex.Message}\n\nStack Trace:\n{ex.StackTrace}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
