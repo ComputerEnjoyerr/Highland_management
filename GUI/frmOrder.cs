@@ -662,6 +662,8 @@ namespace GUI
                 MessageBox.Show("Vui lòng chọn món ăn để thanh toán", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            DialogResult rs = MessageBox.Show("Bạn có muốn thanh toán?\nVui lòng kiểm tra lại thông tin trước khi thanh toán!","Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (rs == DialogResult.No) return;
             try
             {
                 // Cập nhật trạng thái hóa đơn
@@ -725,7 +727,7 @@ namespace GUI
                     return;
                 }
 
-                MessageBox.Show($"{detailTable.Rows.Count}");
+                //MessageBox.Show($"{detailTable.Rows.Count}");
                 
 
                 // Đặt tên bảng
