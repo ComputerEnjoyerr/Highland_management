@@ -1,4 +1,5 @@
-﻿namespace GUI
+﻿
+namespace GUI
 {
     partial class frmBranch
     {
@@ -778,6 +779,8 @@
             groupBox2.PerformLayout();
             ResumeLayout(false);
         }
+
+
 
         #endregion
 
