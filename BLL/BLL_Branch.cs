@@ -111,7 +111,7 @@ namespace BLL
         }
 
         // Hàm kt trùng số điện thoại chi nhánh
-        public Branch GetBranchByPhone(string phone, string id = null)
+        public Branch? GetBranchByPhone(string phone, string? id = null)
         {
             var existing = dAL_Branch.GetById(id);
             var existingPhone = dAL_Branch.GetAll()

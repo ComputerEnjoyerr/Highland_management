@@ -175,7 +175,7 @@ namespace BLL
         }
 
         // Hàm kt trùng số điện thoại chi nhánh
-        public Employee GetEmployeeByPhone(string phone, string id = null)
+        public Employee? GetEmployeeByPhone(string phone, string id = null)
         {
             var existing = dAL_Employee.GetById(id);
             var existingPhone = dAL_Employee.GetAll()

@@ -29,7 +29,7 @@ namespace GUI
             InitializeComponent();
         }
 
-        private void LoadBranches(string keyword = null)
+        private void LoadBranches(string? keyword = null)
         {
             dgvBranch.MultiSelect = false;
             dgvBranch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -46,8 +46,8 @@ namespace GUI
                         b.BranchName,
                         //Address = b.Address != null ? b.Address.Address1 : "Lỗi hiển thị",
                         Address = b.Address != null ? b.Address.Name : "Lỗi hiển thị",
-                        Province = b.Address.Ward.Province != null ? b.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                        Ward = b.Address.Ward != null ? b.Address.Ward.WardName : "Lỗi hiển thị",
+                        Province = b.Address?.Ward?.Province != null ? b.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                        Ward = b.Address?.Ward != null ? b.Address.Ward.WardName : "Lỗi hiển thị",
                         b.Phone,
                         b.OpenTime,
                         b.CloseTime,
@@ -63,40 +63,14 @@ namespace GUI
                 b.BranchName,
                 //Address = b.Address != null ? b.Address.Address1 : "Lỗi hiển thị",
                 Address = b.Address != null ? b.Address.Name : "Lỗi hiển thị",
-                Province = b.Address.Ward.Province != null ? b.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                Ward = b.Address.Ward != null ? b.Address.Ward.WardName : "Lỗi hiển thị",
+                Province = b.Address?.Ward?.Province != null ? b.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                Ward = b.Address?.Ward != null ? b.Address.Ward.WardName : "Lỗi hiển thị",
                 b.Phone,
                 b.OpenTime,
                 b.CloseTime,
                 b.Status,
             }).ToList();
             dgvBranch.DataSource = displayList;
-
-            // Cấu hình DataGridView hiển thị cho đẹp
-            dgvBranch.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvBranch.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvBranch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBranch.MultiSelect = false;
-            dgvBranch.ReadOnly = true;
-            dgvBranch.AllowUserToAddRows = false;
-            dgvBranch.AllowUserToDeleteRows = false;
-            dgvBranch.AllowUserToResizeRows = false;
-            dgvBranch.RowHeadersVisible = false;
-
-            // Style cho bảng
-            dgvBranch.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
-            dgvBranch.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvBranch.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvBranch.EnableHeadersVisualStyles = false;
-
-            dgvBranch.DefaultCellStyle.BackColor = Color.White;
-            dgvBranch.DefaultCellStyle.ForeColor = Color.Black;
-            dgvBranch.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
-            dgvBranch.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvBranch.DefaultCellStyle.Font = new Font("Segoe UI", 9);
-
-            dgvBranch.GridColor = Color.LightGray;
-            dgvBranch.BorderStyle = BorderStyle.None;
         }
 
 
@@ -207,7 +181,7 @@ namespace GUI
         {
             if (cboProvince.SelectedIndex != -1)
             {
-                string provinceId = cboProvince.SelectedValue.ToString();
+                string? provinceId = cboProvince.SelectedValue?.ToString();
 
                 // Chỉ sinh mã mới nếu txtBId đang trống (đang thêm mới)
                 if (string.IsNullOrWhiteSpace(txtBId.Text))
@@ -302,11 +276,11 @@ namespace GUI
 
             try
             {
-                string provinceId = cboProvince.SelectedValue.ToString();
-                string wardId = cboWard.SelectedValue.ToString();
+                string? provinceId = cboProvince.SelectedValue.ToString();
+                string? wardId = cboWard.SelectedValue.ToString();
                 var address = new Address
                 {
-                    Id = bLL_Address.GenerateAddressId(cboProvince.SelectedValue.ToString()),
+                    Id = bLL_Address.GenerateAddressId(cboProvince.SelectedValue?.ToString()),
                     WardId = cboWard.SelectedValue.ToString(),
                     //Address1 = txtAddress.Text,
                     Name = txtAddress.Text,
@@ -323,7 +297,7 @@ namespace GUI
                     AddressId = address.Id,
                     OpenTime = TimeOnly.FromDateTime(dtpOpenTime.Value),
                     CloseTime = TimeOnly.FromDateTime(dtpCloseTime.Value),
-                    Status = cboStatus.SelectedItem.ToString()
+                    Status = cboStatus.SelectedItem?.ToString()
                 };
                 bLL_Branch.Add(branch);
                 MessageBox.Show("Đã thêm chi nhánh thành công", "Thông báo");
@@ -438,7 +412,7 @@ namespace GUI
                 branch.Phone = txtPhone.Text;
                 branch.OpenTime = TimeOnly.FromDateTime(dtpOpenTime.Value);
                 branch.CloseTime = TimeOnly.FromDateTime(dtpCloseTime.Value);
-                branch.Status = cboStatus.SelectedItem.ToString();
+                branch.Status = cboStatus?.SelectedItem?.ToString();
 
                 bLL_Branch.Update(branch);
                 MessageBox.Show("Đã cập nhật thành công", "Thông báo");
@@ -473,7 +447,7 @@ namespace GUI
                 txtBId.Text = selectedRow.Cells["Id"].Value.ToString();
 
                 // Load nhân viên chi nhánh tương ứng
-                string branchId = selectedRow.Cells["Id"].Value.ToString();
+                string? branchId = selectedRow.Cells["Id"].Value.ToString();
                 LoadEmployees(branchId);
             }
         }
@@ -514,7 +488,8 @@ namespace GUI
             {
                 var filteredList = bLL_Employee.GetAll()
                     .Where(e => e.EmployeeName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                                e.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                                e.CitizenId.Contains(keyword, StringComparison.OrdinalIgnoreCase))
                     .Select(e => new
                     {
                         e.Id,
@@ -523,8 +498,8 @@ namespace GUI
                         e.Phone,
                         //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
                         Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
-                        Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                        Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
+                        Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                        Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
                         e.HireDate,
                         e.Role,
                         e.CurrentStatus
@@ -542,39 +517,13 @@ namespace GUI
                 e.Phone,
                 //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
                 Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
-                Province = e.Address.Ward.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                Ward = e.Address.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
+                Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
+                Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
                 e.HireDate,
                 e.Role,
                 e.CurrentStatus
             }).ToList();
             dgvBanchEmployee.DataSource = employees;
-
-            // Cấu hình DataGridView hiển thị cho đẹp
-            dgvBanchEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvBanchEmployee.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvBanchEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBanchEmployee.MultiSelect = false;
-            dgvBanchEmployee.ReadOnly = true;
-            dgvBanchEmployee.AllowUserToAddRows = false;
-            dgvBanchEmployee.AllowUserToDeleteRows = false;
-            dgvBanchEmployee.AllowUserToResizeRows = false;
-            dgvBanchEmployee.RowHeadersVisible = false;
-
-            // Style cho bảng
-            dgvBanchEmployee.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
-            dgvBanchEmployee.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvBanchEmployee.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvBanchEmployee.EnableHeadersVisualStyles = false;
-
-            dgvBanchEmployee.DefaultCellStyle.BackColor = Color.White;
-            dgvBanchEmployee.DefaultCellStyle.ForeColor = Color.Black;
-            dgvBanchEmployee.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
-            dgvBanchEmployee.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvBanchEmployee.DefaultCellStyle.Font = new Font("Segoe UI", 9);
-
-            dgvBanchEmployee.GridColor = Color.LightGray;
-            dgvBanchEmployee.BorderStyle = BorderStyle.None;
         }
 
         // Hàm load vai trò nhân viên
@@ -772,8 +721,8 @@ namespace GUI
             try
             {
                 string branchId = txtBId.Text;
-                string provinceId = cboEProvince.SelectedValue.ToString();
-                string wardId = cboEWard.SelectedValue.ToString();
+                string? provinceId = cboEProvince.SelectedValue.ToString();
+                string? wardId = cboEWard.SelectedValue.ToString();
                 var address = new Address
                 {
                     Id = bLL_Address.GenerateAddressId(cboEProvince.SelectedValue.ToString()),
@@ -794,10 +743,10 @@ namespace GUI
                     AddressId = address.Id,
                     HireDate = DateOnly.FromDateTime(DateTime.Today),
                     DateOfBirth = DateOnly.FromDateTime(dtpDateOfBirth.Value),
-                    Gender = cboGender.SelectedItem.ToString(),
+                    Gender = cboGender.SelectedItem?.ToString(),
                     SalaryPerHour = decimal.Parse(txtESalaryPerHour.Text),
-                    Role = cboERole.SelectedItem.ToString(),
-                    CurrentStatus = cboEmployeeStatus.SelectedItem.ToString(),
+                    Role = cboERole.SelectedItem?.ToString(),
+                    CurrentStatus = cboEmployeeStatus.SelectedItem?.ToString(),
                     BranchId = txtBId.Text
                 };
                 bLL_Employee.Add(employee);
@@ -916,10 +865,10 @@ namespace GUI
                 employee.Phone = txtEPhone.Text;
                 employee.HireDate = DateOnly.FromDateTime(DateTime.Today);
                 employee.DateOfBirth = DateOnly.FromDateTime(dtpDateOfBirth.Value);
-                employee.Gender = cboGender.SelectedItem.ToString();
+                employee.Gender = cboGender?.SelectedItem?.ToString();
                 employee.SalaryPerHour = decimal.Parse(txtESalaryPerHour.Text);
-                employee.Role = cboERole.SelectedItem.ToString();
-                employee.CurrentStatus = cboEmployeeStatus.SelectedItem.ToString();
+                employee.Role = cboERole?.SelectedItem?.ToString();
+                employee.CurrentStatus = cboEmployeeStatus?.SelectedItem?.ToString();
                 employee.BranchId = txtBId.Text;
 
                 bLL_Employee.Update(employee);
@@ -939,7 +888,7 @@ namespace GUI
         {
             if (cboEProvince.SelectedIndex != -1)
             {
-                string provinceId = cboEProvince.SelectedValue.ToString();
+                string? provinceId = cboEProvince.SelectedValue?.ToString();
                 LoadEWard(provinceId);
             }
 
