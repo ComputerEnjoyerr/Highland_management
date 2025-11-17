@@ -1,4 +1,5 @@
 ﻿using DTO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace DAL
 
         public List<Account> GetAll()
         {
-            return context.Accounts.ToList();
+            return context.Accounts
+                .Include(a => a.Employee)
+                .ToList();
         }
 
         public Account GetById(string id)

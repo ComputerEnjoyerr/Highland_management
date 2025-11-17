@@ -8,10 +8,13 @@ namespace GUI
         bool sideBarExpand = true;
         private Employee employee = new(); // Nhân viên/Quản lý đăng nhập vào tài khoản
 
-        public frmMain(Employee em)
+        private Account currentUser; // Tài khoản đăng nhập hiện tại
+
+        public frmMain(Employee em, Account acc)
         {
             InitializeComponent();
             employee = em;
+            currentUser = acc;
         }
 
         // Gọi API xử lý sự kiện kéo
@@ -141,7 +144,7 @@ namespace GUI
 
         private void btnEmployee_Click(object sender, EventArgs e)
         {
-            frmEmployee frm = new frmEmployee();
+            frmEmployee frm = new frmEmployee(currentUser);
             button.BackColor = ColorTranslator.FromHtml("#3B3030");
             button.ForeColor = ColorTranslator.FromHtml("#F9F5EE");
             btnEmployee.BackColor = ColorTranslator.FromHtml("#F9F5EE");

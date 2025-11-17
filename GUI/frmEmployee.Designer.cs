@@ -28,234 +28,359 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabControl1 = new TabControl();
+            tctEmployeeAccount = new TabControl();
             tabPage1 = new TabPage();
-            dataGridView1 = new DataGridView();
+            dgvEmployee = new DataGridView();
             panel1 = new Panel();
-            button4 = new Button();
-            button3 = new Button();
-            button1 = new Button();
-            button2 = new Button();
-            comboBox1 = new ComboBox();
-            comboBox3 = new ComboBox();
+            cboStatus = new ComboBox();
+            label23 = new Label();
+            btnSave = new Button();
+            btnReset = new Button();
+            dtpDateOfBirth = new DateTimePicker();
+            btnAdd = new Button();
+            cboGender = new ComboBox();
+            btnDelete = new Button();
+            label22 = new Label();
+            label21 = new Label();
+            txtCitizenId = new TextBox();
+            label20 = new Label();
+            cboRole = new ComboBox();
+            cboProvince = new ComboBox();
             label2 = new Label();
-            comboBox2 = new ComboBox();
+            cboWard = new ComboBox();
             label1 = new Label();
-            textBox1 = new TextBox();
+            txtPhone = new TextBox();
             label3 = new Label();
-            textBox8 = new TextBox();
+            txtSalary = new TextBox();
+            label13 = new Label();
+            txtAddress = new TextBox();
             label8 = new Label();
             label7 = new Label();
-            textBox2 = new TextBox();
+            txtFind = new TextBox();
             label4 = new Label();
-            textBox5 = new TextBox();
+            txtName = new TextBox();
             label5 = new Label();
-            textBox6 = new TextBox();
+            txtId = new TextBox();
             label6 = new Label();
             tabPage2 = new TabPage();
-            dataGridView2 = new DataGridView();
+            dgvAccount = new DataGridView();
             panel2 = new Panel();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
+            btnSaveA = new Button();
+            btnResetA = new Button();
+            btnAddA = new Button();
+            btnDeleteA = new Button();
             label10 = new Label();
-            textBox14 = new TextBox();
-            textBox4 = new TextBox();
+            txtRePassword = new TextBox();
+            txtPassword = new TextBox();
             label12 = new Label();
-            textBox10 = new TextBox();
+            txtFindA = new TextBox();
             label14 = new Label();
-            textBox11 = new TextBox();
+            txtAccount = new TextBox();
             label15 = new Label();
-            textBox9 = new TextBox();
+            txtAccountId = new TextBox();
             label11 = new Label();
-            textBox3 = new TextBox();
+            txtAId = new TextBox();
             label9 = new Label();
-            textBox12 = new TextBox();
+            txtAName = new TextBox();
             label16 = new Label();
-            label13 = new Label();
-            textBox7 = new TextBox();
-            tabControl1.SuspendLayout();
+            tctEmployeeAccount.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvEmployee).BeginInit();
             panel1.SuspendLayout();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAccount).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
-            // tabControl1
+            // tctEmployeeAccount
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Location = new Point(0, 0);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(992, 710);
-            tabControl1.TabIndex = 0;
+            tctEmployeeAccount.Controls.Add(tabPage1);
+            tctEmployeeAccount.Controls.Add(tabPage2);
+            tctEmployeeAccount.Dock = DockStyle.Fill;
+            tctEmployeeAccount.Location = new Point(0, 0);
+            tctEmployeeAccount.Name = "tctEmployeeAccount";
+            tctEmployeeAccount.SelectedIndex = 0;
+            tctEmployeeAccount.Size = new Size(1138, 710);
+            tctEmployeeAccount.TabIndex = 0;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(dataGridView1);
+            tabPage1.Controls.Add(dgvEmployee);
             tabPage1.Controls.Add(panel1);
             tabPage1.Location = new Point(4, 32);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(984, 674);
+            tabPage1.Size = new Size(1130, 674);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Nhân viên";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvEmployee
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 204);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(978, 467);
-            dataGridView1.TabIndex = 3;
+            dgvEmployee.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEmployee.Dock = DockStyle.Fill;
+            dgvEmployee.Location = new Point(3, 407);
+            dgvEmployee.Name = "dgvEmployee";
+            dgvEmployee.RowHeadersWidth = 51;
+            dgvEmployee.Size = new Size(1124, 264);
+            dgvEmployee.TabIndex = 3;
+            dgvEmployee.CellClick += dgvEmployee_CellClick;
+            dgvEmployee.CellContentDoubleClick += dgvEmployee_CellContentDoubleClick;
             // 
             // panel1
             // 
-            panel1.Controls.Add(button4);
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(comboBox1);
-            panel1.Controls.Add(comboBox3);
+            panel1.Controls.Add(cboStatus);
+            panel1.Controls.Add(label23);
+            panel1.Controls.Add(btnSave);
+            panel1.Controls.Add(btnReset);
+            panel1.Controls.Add(dtpDateOfBirth);
+            panel1.Controls.Add(btnAdd);
+            panel1.Controls.Add(cboGender);
+            panel1.Controls.Add(btnDelete);
+            panel1.Controls.Add(label22);
+            panel1.Controls.Add(label21);
+            panel1.Controls.Add(txtCitizenId);
+            panel1.Controls.Add(label20);
+            panel1.Controls.Add(cboRole);
+            panel1.Controls.Add(cboProvince);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(comboBox2);
+            panel1.Controls.Add(cboWard);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtPhone);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(textBox7);
+            panel1.Controls.Add(txtSalary);
             panel1.Controls.Add(label13);
-            panel1.Controls.Add(textBox8);
+            panel1.Controls.Add(txtAddress);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(txtFind);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox5);
+            panel1.Controls.Add(txtName);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(textBox6);
+            panel1.Controls.Add(txtId);
             panel1.Controls.Add(label6);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(978, 201);
+            panel1.Size = new Size(1124, 404);
             panel1.TabIndex = 2;
             // 
-            // button4
+            // cboStatus
             // 
-            button4.BackColor = Color.FromArgb(230, 181, 56);
-            button4.Location = new Point(638, 75);
-            button4.Name = "button4";
-            button4.Size = new Size(145, 53);
-            button4.TabIndex = 32;
-            button4.Text = "Lưu";
-            button4.UseVisualStyleBackColor = false;
+            cboStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboStatus.FormattingEnabled = true;
+            cboStatus.Location = new Point(685, 202);
+            cboStatus.Name = "cboStatus";
+            cboStatus.Size = new Size(240, 31);
+            cboStatus.TabIndex = 66;
             // 
-            // button3
+            // label23
             // 
-            button3.BackColor = Color.White;
-            button3.Location = new Point(789, 75);
-            button3.Name = "button3";
-            button3.Size = new Size(145, 53);
-            button3.TabIndex = 33;
-            button3.Text = "Hoàn tác";
-            button3.UseVisualStyleBackColor = false;
+            label23.AutoSize = true;
+            label23.Location = new Point(571, 206);
+            label23.Name = "label23";
+            label23.Size = new Size(97, 23);
+            label23.TabIndex = 65;
+            label23.Text = "Trạng thái:";
             // 
-            // button1
+            // btnSave
             // 
-            button1.BackColor = Color.FromArgb(104, 176, 145);
-            button1.Location = new Point(638, 16);
-            button1.Name = "button1";
-            button1.Size = new Size(145, 53);
-            button1.TabIndex = 32;
-            button1.Text = "Thêm";
-            button1.UseVisualStyleBackColor = false;
+            btnSave.BackColor = SystemColors.Control;
+            btnSave.Image = Properties.Resources.pen;
+            btnSave.ImageAlign = ContentAlignment.MiddleRight;
+            btnSave.Location = new Point(317, 288);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(128, 58);
+            btnSave.TabIndex = 52;
+            btnSave.Text = "Lưu";
+            btnSave.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
-            // button2
+            // btnReset
             // 
-            button2.BackColor = Color.FromArgb(169, 65, 65);
-            button2.Location = new Point(789, 16);
-            button2.Name = "button2";
-            button2.Size = new Size(145, 53);
-            button2.TabIndex = 33;
-            button2.Text = "Xóa";
-            button2.UseVisualStyleBackColor = false;
+            btnReset.BackColor = SystemColors.Control;
+            btnReset.Image = Properties.Resources.arrow;
+            btnReset.ImageAlign = ContentAlignment.MiddleRight;
+            btnReset.Location = new Point(463, 288);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(128, 58);
+            btnReset.TabIndex = 54;
+            btnReset.Text = "Hoàn tác";
+            btnReset.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnReset.UseVisualStyleBackColor = false;
+            btnReset.Click += btnReset_Click;
             // 
-            // comboBox1
+            // dtpDateOfBirth
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(104, 78);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(204, 31);
-            comboBox1.TabIndex = 31;
+            dtpDateOfBirth.Format = DateTimePickerFormat.Short;
+            dtpDateOfBirth.Location = new Point(147, 200);
+            dtpDateOfBirth.Name = "dtpDateOfBirth";
+            dtpDateOfBirth.Size = new Size(167, 30);
+            dtpDateOfBirth.TabIndex = 64;
             // 
-            // comboBox3
+            // btnAdd
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(433, 81);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(185, 31);
-            comboBox3.TabIndex = 31;
+            btnAdd.BackColor = SystemColors.Control;
+            btnAdd.Image = Properties.Resources.plus;
+            btnAdd.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdd.Location = new Point(23, 288);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(128, 58);
+            btnAdd.TabIndex = 53;
+            btnAdd.Text = "Thêm";
+            btnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // cboGender
+            // 
+            cboGender.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboGender.FormattingEnabled = true;
+            cboGender.Location = new Point(147, 163);
+            cboGender.Name = "cboGender";
+            cboGender.Size = new Size(167, 31);
+            cboGender.TabIndex = 63;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = SystemColors.Control;
+            btnDelete.Image = Properties.Resources.delete;
+            btnDelete.ImageAlign = ContentAlignment.MiddleRight;
+            btnDelete.Location = new Point(171, 288);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(128, 58);
+            btnDelete.TabIndex = 55;
+            btnDelete.Text = "Xóa";
+            btnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(29, 202);
+            label22.Name = "label22";
+            label22.Size = new Size(94, 23);
+            label22.TabIndex = 61;
+            label22.Text = "Ngày sinh:";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(29, 167);
+            label21.Name = "label21";
+            label21.Size = new Size(85, 23);
+            label21.TabIndex = 62;
+            label21.Text = "Giới tính:";
+            // 
+            // txtCitizenId
+            // 
+            txtCitizenId.Location = new Point(147, 54);
+            txtCitizenId.Name = "txtCitizenId";
+            txtCitizenId.Size = new Size(333, 30);
+            txtCitizenId.TabIndex = 55;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(23, 58);
+            label20.Name = "label20";
+            label20.Size = new Size(120, 23);
+            label20.TabIndex = 25;
+            label20.Text = "CCCD/CMND:";
+            // 
+            // cboRole
+            // 
+            cboRole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboRole.FormattingEnabled = true;
+            cboRole.Location = new Point(147, 126);
+            cboRole.Name = "cboRole";
+            cboRole.Size = new Size(333, 31);
+            cboRole.TabIndex = 31;
+            // 
+            // cboProvince
+            // 
+            cboProvince.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboProvince.FormattingEnabled = true;
+            cboProvince.Location = new Point(685, 91);
+            cboProvince.Name = "cboProvince";
+            cboProvince.Size = new Size(394, 31);
+            cboProvince.TabIndex = 31;
+            cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(322, 87);
+            label2.Location = new Point(574, 97);
             label2.Name = "label2";
             label2.Size = new Size(78, 23);
             label2.TabIndex = 22;
             label2.Text = "Tỉnh/TP:";
             // 
-            // comboBox2
+            // cboWard
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(433, 50);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(185, 31);
-            comboBox2.TabIndex = 31;
+            cboWard.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboWard.FormattingEnabled = true;
+            cboWard.Location = new Point(685, 54);
+            cboWard.Name = "cboWard";
+            cboWard.Size = new Size(394, 31);
+            cboWard.TabIndex = 31;
+            cboWard.SelectedIndexChanged += cboWard_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(322, 56);
+            label1.Location = new Point(574, 60);
             label1.Name = "label1";
             label1.Size = new Size(106, 23);
             label1.TabIndex = 22;
             label1.Text = "Xã/Phường:";
             // 
-            // textBox1
+            // txtPhone
             // 
-            textBox1.Location = new Point(104, 109);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(204, 30);
-            textBox1.TabIndex = 27;
+            txtPhone.Location = new Point(685, 164);
+            txtPhone.Name = "txtPhone";
+            txtPhone.Size = new Size(240, 30);
+            txtPhone.TabIndex = 27;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(21, 115);
+            label3.Location = new Point(574, 167);
             label3.Name = "label3";
             label3.Size = new Size(48, 23);
             label3.TabIndex = 23;
             label3.Text = "SĐT:";
             // 
-            // textBox8
+            // txtSalary
             // 
-            textBox8.Location = new Point(433, 16);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(185, 30);
-            textBox8.TabIndex = 27;
+            txtSalary.Location = new Point(685, 128);
+            txtSalary.Name = "txtSalary";
+            txtSalary.Size = new Size(240, 30);
+            txtSalary.TabIndex = 27;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(574, 131);
+            label13.Name = "label13";
+            label13.Size = new Size(103, 23);
+            label13.TabIndex = 23;
+            label13.Text = "Lương/Giờ:";
+            // 
+            // txtAddress
+            // 
+            txtAddress.Location = new Point(685, 18);
+            txtAddress.Name = "txtAddress";
+            txtAddress.Size = new Size(394, 30);
+            txtAddress.TabIndex = 27;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(322, 19);
+            label8.Location = new Point(574, 26);
             label8.Name = "label8";
             label8.Size = new Size(70, 23);
             label8.TabIndex = 23;
@@ -264,56 +389,58 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(21, 84);
+            label7.Location = new Point(23, 131);
             label7.Name = "label7";
             label7.Size = new Size(79, 23);
             label7.TabIndex = 24;
             label7.Text = "Chức vụ:";
             // 
-            // textBox2
+            // txtFind
             // 
-            textBox2.Location = new Point(81, 159);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(300, 30);
-            textBox2.TabIndex = 29;
+            txtFind.Location = new Point(89, 368);
+            txtFind.Name = "txtFind";
+            txtFind.Size = new Size(571, 30);
+            txtFind.TabIndex = 29;
+            txtFind.TextChanged += txtFind_TextChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(21, 165);
+            label4.Location = new Point(29, 374);
             label4.Name = "label4";
             label4.Size = new Size(46, 23);
             label4.TabIndex = 25;
             label4.Text = "Tìm:";
             // 
-            // textBox5
+            // txtName
             // 
-            textBox5.Location = new Point(104, 47);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(204, 30);
-            textBox5.TabIndex = 29;
+            txtName.Location = new Point(147, 90);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(333, 30);
+            txtName.TabIndex = 29;
+            txtName.Leave += txtName_Leave;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(21, 53);
+            label5.Location = new Point(23, 93);
             label5.Name = "label5";
             label5.Size = new Size(69, 23);
             label5.TabIndex = 25;
             label5.Text = "Họ tên:";
             // 
-            // textBox6
+            // txtId
             // 
-            textBox6.Location = new Point(104, 16);
-            textBox6.Name = "textBox6";
-            textBox6.ReadOnly = true;
-            textBox6.Size = new Size(204, 30);
-            textBox6.TabIndex = 30;
+            txtId.Location = new Point(147, 18);
+            txtId.Name = "txtId";
+            txtId.ReadOnly = true;
+            txtId.Size = new Size(333, 30);
+            txtId.TabIndex = 30;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(21, 22);
+            label6.Location = new Point(23, 25);
             label6.Name = "label6";
             label6.Size = new Size(69, 23);
             label6.TabIndex = 26;
@@ -321,146 +448,166 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(dataGridView2);
+            tabPage2.Controls.Add(dgvAccount);
             tabPage2.Controls.Add(panel2);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(984, 677);
+            tabPage2.Size = new Size(1130, 674);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Tài khoản nhân viên";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // dataGridView2
+            // dgvAccount
             // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 167);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(978, 507);
-            dataGridView2.TabIndex = 5;
+            dgvAccount.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAccount.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAccount.Dock = DockStyle.Fill;
+            dgvAccount.Location = new Point(3, 290);
+            dgvAccount.Name = "dgvAccount";
+            dgvAccount.RowHeadersWidth = 51;
+            dgvAccount.Size = new Size(1124, 381);
+            dgvAccount.TabIndex = 5;
+            dgvAccount.CellClick += dgvAccount_CellClick;
             // 
             // panel2
             // 
-            panel2.Controls.Add(button5);
-            panel2.Controls.Add(button6);
-            panel2.Controls.Add(button7);
-            panel2.Controls.Add(button8);
+            panel2.Controls.Add(btnSaveA);
+            panel2.Controls.Add(btnResetA);
+            panel2.Controls.Add(btnAddA);
+            panel2.Controls.Add(btnDeleteA);
             panel2.Controls.Add(label10);
-            panel2.Controls.Add(textBox14);
-            panel2.Controls.Add(textBox4);
+            panel2.Controls.Add(txtRePassword);
+            panel2.Controls.Add(txtPassword);
             panel2.Controls.Add(label12);
-            panel2.Controls.Add(textBox10);
+            panel2.Controls.Add(txtFindA);
             panel2.Controls.Add(label14);
-            panel2.Controls.Add(textBox11);
+            panel2.Controls.Add(txtAccount);
             panel2.Controls.Add(label15);
-            panel2.Controls.Add(textBox9);
+            panel2.Controls.Add(txtAccountId);
             panel2.Controls.Add(label11);
-            panel2.Controls.Add(textBox3);
+            panel2.Controls.Add(txtAId);
             panel2.Controls.Add(label9);
-            panel2.Controls.Add(textBox12);
+            panel2.Controls.Add(txtAName);
             panel2.Controls.Add(label16);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(978, 164);
+            panel2.Size = new Size(1124, 287);
             panel2.TabIndex = 4;
             // 
-            // button5
+            // btnSaveA
             // 
-            button5.BackColor = Color.FromArgb(230, 181, 56);
-            button5.Location = new Point(656, 75);
-            button5.Name = "button5";
-            button5.Size = new Size(145, 53);
-            button5.TabIndex = 34;
-            button5.Text = "Lưu";
-            button5.UseVisualStyleBackColor = false;
+            btnSaveA.BackColor = SystemColors.Control;
+            btnSaveA.Image = Properties.Resources.pen;
+            btnSaveA.ImageAlign = ContentAlignment.MiddleRight;
+            btnSaveA.Location = new Point(315, 132);
+            btnSaveA.Name = "btnSaveA";
+            btnSaveA.Size = new Size(128, 58);
+            btnSaveA.TabIndex = 56;
+            btnSaveA.Text = "Lưu";
+            btnSaveA.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnSaveA.UseVisualStyleBackColor = false;
+            btnSaveA.Click += btnSaveA_Click;
             // 
-            // button6
+            // btnResetA
             // 
-            button6.BackColor = Color.White;
-            button6.Location = new Point(807, 75);
-            button6.Name = "button6";
-            button6.Size = new Size(145, 53);
-            button6.TabIndex = 36;
-            button6.Text = "Hoàn tác";
-            button6.UseVisualStyleBackColor = false;
+            btnResetA.BackColor = SystemColors.Control;
+            btnResetA.Image = Properties.Resources.arrow;
+            btnResetA.ImageAlign = ContentAlignment.MiddleRight;
+            btnResetA.Location = new Point(461, 132);
+            btnResetA.Name = "btnResetA";
+            btnResetA.Size = new Size(128, 58);
+            btnResetA.TabIndex = 58;
+            btnResetA.Text = "Hoàn tác";
+            btnResetA.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnResetA.UseVisualStyleBackColor = false;
+            btnResetA.Click += btnResetA_Click;
             // 
-            // button7
+            // btnAddA
             // 
-            button7.BackColor = Color.FromArgb(104, 176, 145);
-            button7.Location = new Point(656, 16);
-            button7.Name = "button7";
-            button7.Size = new Size(145, 53);
-            button7.TabIndex = 35;
-            button7.Text = "Thêm";
-            button7.UseVisualStyleBackColor = false;
+            btnAddA.BackColor = SystemColors.Control;
+            btnAddA.Image = Properties.Resources.plus;
+            btnAddA.ImageAlign = ContentAlignment.MiddleRight;
+            btnAddA.Location = new Point(21, 132);
+            btnAddA.Name = "btnAddA";
+            btnAddA.Size = new Size(128, 58);
+            btnAddA.TabIndex = 57;
+            btnAddA.Text = "Thêm";
+            btnAddA.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAddA.UseVisualStyleBackColor = false;
+            btnAddA.Click += btnAddA_Click;
             // 
-            // button8
+            // btnDeleteA
             // 
-            button8.BackColor = Color.FromArgb(169, 65, 65);
-            button8.Location = new Point(807, 16);
-            button8.Name = "button8";
-            button8.Size = new Size(145, 53);
-            button8.TabIndex = 37;
-            button8.Text = "Xóa";
-            button8.UseVisualStyleBackColor = false;
+            btnDeleteA.BackColor = SystemColors.Control;
+            btnDeleteA.Image = Properties.Resources.delete;
+            btnDeleteA.ImageAlign = ContentAlignment.MiddleRight;
+            btnDeleteA.Location = new Point(169, 132);
+            btnDeleteA.Name = "btnDeleteA";
+            btnDeleteA.Size = new Size(128, 58);
+            btnDeleteA.TabIndex = 59;
+            btnDeleteA.Text = "Xóa";
+            btnDeleteA.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnDeleteA.UseVisualStyleBackColor = false;
+            btnDeleteA.Click += btnDeleteA_Click;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(316, 87);
+            label10.Location = new Point(475, 86);
             label10.Name = "label10";
             label10.Size = new Size(114, 23);
             label10.TabIndex = 22;
             label10.Text = "Nhập lại MK:";
             // 
-            // textBox14
+            // txtRePassword
             // 
-            textBox14.Location = new Point(433, 78);
-            textBox14.Name = "textBox14";
-            textBox14.Size = new Size(198, 30);
-            textBox14.TabIndex = 27;
+            txtRePassword.Location = new Point(592, 77);
+            txtRePassword.Name = "txtRePassword";
+            txtRePassword.Size = new Size(320, 30);
+            txtRePassword.TabIndex = 27;
             // 
-            // textBox4
+            // txtPassword
             // 
-            textBox4.Location = new Point(433, 47);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(198, 30);
-            textBox4.TabIndex = 27;
+            txtPassword.Location = new Point(592, 46);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(320, 30);
+            txtPassword.TabIndex = 27;
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(316, 50);
+            label12.Location = new Point(475, 49);
             label12.Name = "label12";
             label12.Size = new Size(91, 23);
             label12.TabIndex = 23;
-            label12.Text = "Mất khẩu:";
+            label12.Text = "Mật khẩu:";
             // 
-            // textBox10
+            // txtFindA
             // 
-            textBox10.Location = new Point(70, 126);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(300, 30);
-            textBox10.TabIndex = 29;
+            txtFindA.Location = new Point(91, 251);
+            txtFindA.Name = "txtFindA";
+            txtFindA.Size = new Size(451, 30);
+            txtFindA.TabIndex = 29;
+            txtFindA.TextChanged += txtFindA_TextChanged;
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(20, 132);
+            label14.Location = new Point(41, 257);
             label14.Name = "label14";
             label14.Size = new Size(46, 23);
             label14.TabIndex = 25;
             label14.Text = "Tìm:";
             // 
-            // textBox11
+            // txtAccount
             // 
-            textBox11.Location = new Point(100, 78);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(204, 30);
-            textBox11.TabIndex = 29;
+            txtAccount.Location = new Point(100, 78);
+            txtAccount.Name = "txtAccount";
+            txtAccount.Size = new Size(308, 30);
+            txtAccount.TabIndex = 29;
+            txtAccount.Leave += txtAccount_Leave;
             // 
             // label15
             // 
@@ -471,30 +618,30 @@
             label15.TabIndex = 25;
             label15.Text = "Tên TK:";
             // 
-            // textBox9
+            // txtAccountId
             // 
-            textBox9.Location = new Point(433, 16);
-            textBox9.Name = "textBox9";
-            textBox9.ReadOnly = true;
-            textBox9.Size = new Size(198, 30);
-            textBox9.TabIndex = 30;
+            txtAccountId.Location = new Point(592, 15);
+            txtAccountId.Name = "txtAccountId";
+            txtAccountId.ReadOnly = true;
+            txtAccountId.Size = new Size(320, 30);
+            txtAccountId.TabIndex = 30;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(317, 22);
+            label11.Location = new Point(476, 21);
             label11.Name = "label11";
             label11.Size = new Size(66, 23);
             label11.TabIndex = 26;
             label11.Text = "Mã TK:";
             // 
-            // textBox3
+            // txtAId
             // 
-            textBox3.Location = new Point(100, 16);
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.Size = new Size(204, 30);
-            textBox3.TabIndex = 30;
+            txtAId.Location = new Point(100, 16);
+            txtAId.Name = "txtAId";
+            txtAId.ReadOnly = true;
+            txtAId.Size = new Size(308, 30);
+            txtAId.TabIndex = 30;
             // 
             // label9
             // 
@@ -505,13 +652,13 @@
             label9.TabIndex = 26;
             label9.Text = "Mã NV:";
             // 
-            // textBox12
+            // txtAName
             // 
-            textBox12.Location = new Point(100, 47);
-            textBox12.Name = "textBox12";
-            textBox12.ReadOnly = true;
-            textBox12.Size = new Size(204, 30);
-            textBox12.TabIndex = 30;
+            txtAName.Location = new Point(100, 47);
+            txtAName.Name = "txtAName";
+            txtAName.ReadOnly = true;
+            txtAName.Size = new Size(308, 30);
+            txtAName.TabIndex = 30;
             // 
             // label16
             // 
@@ -522,37 +669,22 @@
             label16.TabIndex = 26;
             label16.Text = "Họ tên:";
             // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Location = new Point(322, 118);
-            label13.Name = "label13";
-            label13.Size = new Size(103, 23);
-            label13.TabIndex = 23;
-            label13.Text = "Lương/Giờ:";
-            // 
-            // textBox7
-            // 
-            textBox7.Location = new Point(433, 115);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(185, 30);
-            textBox7.TabIndex = 27;
-            // 
             // frmEmployee
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
-            Controls.Add(tabControl1);
+            ClientSize = new Size(1138, 710);
+            Controls.Add(tctEmployeeAccount);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "frmEmployee";
             Text = "frmEmployee";
-            tabControl1.ResumeLayout(false);
+            Load += frmEmployee_Load;
+            tctEmployeeAccount.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvEmployee).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAccount).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
@@ -560,52 +692,60 @@
 
         #endregion
 
-        private TabControl tabControl1;
+        private TabControl tctEmployeeAccount;
         private TabPage tabPage1;
-        private DataGridView dataGridView1;
+        private DataGridView dgvEmployee;
         private Panel panel1;
-        private Button button4;
-        private Button button3;
-        private Button button1;
-        private Button button2;
-        private ComboBox comboBox3;
+        private ComboBox cboProvince;
         private Label label2;
-        private ComboBox comboBox2;
+        private ComboBox cboWard;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txtPhone;
         private Label label3;
-        private TextBox textBox8;
+        private TextBox txtAddress;
         private Label label8;
         private Label label7;
-        private TextBox textBox2;
+        private TextBox txtFind;
         private Label label4;
-        private TextBox textBox5;
+        private TextBox txtName;
         private Label label5;
-        private TextBox textBox6;
+        private TextBox txtId;
         private Label label6;
         private TabPage tabPage2;
-        private DataGridView dataGridView2;
+        private DataGridView dgvAccount;
         private Panel panel2;
         private Label label10;
-        private TextBox textBox4;
+        private TextBox txtPassword;
         private Label label12;
-        private TextBox textBox10;
+        private TextBox txtFindA;
         private Label label14;
-        private TextBox textBox11;
+        private TextBox txtAccount;
         private Label label15;
-        private TextBox textBox12;
+        private TextBox txtAName;
         private Label label16;
-        private TextBox textBox9;
+        private TextBox txtAccountId;
         private Label label11;
-        private TextBox textBox3;
+        private TextBox txtAId;
         private Label label9;
-        private TextBox textBox14;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private ComboBox comboBox1;
-        private TextBox textBox7;
+        private TextBox txtRePassword;
+        private ComboBox cboRole;
+        private TextBox txtSalary;
         private Label label13;
+        private TextBox txtCitizenId;
+        private Label label20;
+        private DateTimePicker dtpDateOfBirth;
+        private ComboBox cboGender;
+        private Label label22;
+        private Label label21;
+        private Button btnSave;
+        private Button btnReset;
+        private Button btnAdd;
+        private Button btnDelete;
+        private Button btnSaveA;
+        private Button btnResetA;
+        private Button btnAddA;
+        private Button btnDeleteA;
+        private ComboBox cboStatus;
+        private Label label23;
     }
 }

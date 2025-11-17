@@ -37,10 +37,19 @@ namespace GUI
                     var employee = bLL_Employee.GetAll().FirstOrDefault(e => e.Id == account.EmployeeId);
                     if (employee != null)
                     {
+                        // Kiểm tra trạng thái của nhân viên
+                        if (employee.CurrentStatus == "Đã nghỉ")
+                        {
+                            MessageBox.Show("Nhân viên này đã nghỉ việc. Vui lòng kiểm tra lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txtPass.Clear();
+                            txtPass.Focus();
+                            return;
+                        }
+
                         if (account.AccountName == admin.AccountName && account.Password == admin.Password)
                             NextForm = new frmAdMain();
                         else if (employee.Role == "Quản lý" || employee.Role == "Nhân viên")
-                            NextForm = new frmMain(employee);
+                            NextForm = new frmMain(employee, account);
                     }
 
 
