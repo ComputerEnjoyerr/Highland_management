@@ -28,21 +28,12 @@ namespace DAL
                 .FirstOrDefault(n => n.Id == id);
         }
 
-        public Notification GetByName(string name)
+        public Notification GetByType(string type)
         {
             return _context.Notifications
                 .Include(n => n.Branch)
                 .Include(n => n.Employee)
-                .FirstOrDefault(n => n.Title == name);
-        }
-
-        public List<Notification> GetByEmployeeId(string employeeId)
-        {
-            return _context.Notifications
-                .Include(n => n.Branch)
-                .Include(n => n.Employee)
-                .Where(n => n.EmployeeId == employeeId)
-                .ToList();
+                .FirstOrDefault(n => n.Type == type);
         }
 
         public void Add(Notification notification)

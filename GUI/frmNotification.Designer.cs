@@ -28,150 +28,187 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvNotification = new DataGridView();
             panel2 = new Panel();
             groupBox1 = new GroupBox();
-            comboBox2 = new ComboBox();
-            dateTimePicker1 = new DateTimePicker();
+            btnRemove = new Button();
+            btnIsRead = new Button();
+            cboType = new ComboBox();
+            dtpTime = new DateTimePicker();
             label7 = new Label();
-            textBox6 = new TextBox();
+            txtContent = new TextBox();
             label6 = new Label();
             label5 = new Label();
-            textBox4 = new TextBox();
+            txtTitle = new TextBox();
             label4 = new Label();
-            textBox3 = new TextBox();
+            txtId = new TextBox();
             label3 = new Label();
             panel1 = new Panel();
             groupBox2 = new GroupBox();
-            comboBox1 = new ComboBox();
+            cboFindByType = new ComboBox();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvNotification).BeginInit();
             panel2.SuspendLayout();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvNotification
             // 
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(3, 71);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(591, 636);
-            dataGridView1.TabIndex = 12;
+            dgvNotification.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvNotification.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvNotification.Location = new Point(3, 80);
+            dgvNotification.Name = "dgvNotification";
+            dgvNotification.RowHeadersWidth = 51;
+            dgvNotification.Size = new Size(1010, 906);
+            dgvNotification.TabIndex = 12;
+            dgvNotification.CellClick += dgvNotification_CellClick;
             // 
             // panel2
             // 
             panel2.Controls.Add(groupBox1);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(600, 0);
+            panel2.Location = new Point(1019, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(392, 710);
+            panel2.Size = new Size(673, 989);
             panel2.TabIndex = 10;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(comboBox2);
-            groupBox1.Controls.Add(dateTimePicker1);
+            groupBox1.Controls.Add(btnRemove);
+            groupBox1.Controls.Add(btnIsRead);
+            groupBox1.Controls.Add(cboType);
+            groupBox1.Controls.Add(dtpTime);
             groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(textBox6);
+            groupBox1.Controls.Add(txtContent);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(textBox4);
+            groupBox1.Controls.Add(txtTitle);
             groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(textBox3);
+            groupBox1.Controls.Add(txtId);
             groupBox1.Controls.Add(label3);
-            groupBox1.Dock = DockStyle.Right;
+            groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(392, 710);
+            groupBox1.Size = new Size(673, 989);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Chi tiết thông báo";
             // 
-            // comboBox2
+            // btnRemove
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(156, 91);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(205, 25);
-            comboBox2.TabIndex = 16;
+            btnRemove.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRemove.BackColor = SystemColors.Control;
+            btnRemove.FlatAppearance.BorderSize = 0;
+            btnRemove.Image = Properties.Resources.delete;
+            btnRemove.ImageAlign = ContentAlignment.MiddleRight;
+            btnRemove.Location = new Point(472, 785);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(175, 60);
+            btnRemove.TabIndex = 18;
+            btnRemove.Text = "Xóa thông báo";
+            btnRemove.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnRemove.UseVisualStyleBackColor = false;
+            btnRemove.Click += btnRemove_Click;
             // 
-            // dateTimePicker1
+            // btnIsRead
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Time;
-            dateTimePicker1.Location = new Point(156, 122);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(205, 25);
-            dateTimePicker1.TabIndex = 17;
+            btnIsRead.BackColor = SystemColors.Control;
+            btnIsRead.FlatAppearance.BorderSize = 0;
+            btnIsRead.Image = Properties.Resources.eye;
+            btnIsRead.ImageAlign = ContentAlignment.MiddleRight;
+            btnIsRead.Location = new Point(32, 785);
+            btnIsRead.Name = "btnIsRead";
+            btnIsRead.Size = new Size(136, 60);
+            btnIsRead.TabIndex = 18;
+            btnIsRead.Text = "Đã xem";
+            btnIsRead.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnIsRead.UseVisualStyleBackColor = false;
+            btnIsRead.Click += btnIsRead_Click;
+            // 
+            // cboType
+            // 
+            cboType.FormattingEnabled = true;
+            cboType.Location = new Point(170, 108);
+            cboType.Name = "cboType";
+            cboType.Size = new Size(191, 31);
+            cboType.TabIndex = 16;
+            // 
+            // dtpTime
+            // 
+            dtpTime.Format = DateTimePickerFormat.Time;
+            dtpTime.Location = new Point(170, 145);
+            dtpTime.Name = "dtpTime";
+            dtpTime.Size = new Size(191, 30);
+            dtpTime.TabIndex = 17;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(26, 128);
+            label7.Location = new Point(32, 154);
             label7.Name = "label7";
-            label7.Size = new Size(75, 19);
+            label7.Size = new Size(91, 23);
             label7.TabIndex = 7;
             label7.Text = "Thời gian:";
             // 
-            // textBox6
+            // txtContent
             // 
-            textBox6.Location = new Point(26, 203);
-            textBox6.Multiline = true;
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(335, 495);
-            textBox6.TabIndex = 12;
+            txtContent.Location = new Point(32, 250);
+            txtContent.Multiline = true;
+            txtContent.Name = "txtContent";
+            txtContent.Size = new Size(615, 513);
+            txtContent.TabIndex = 12;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(26, 181);
+            label6.Location = new Point(32, 224);
             label6.Name = "label6";
-            label6.Size = new Size(75, 19);
+            label6.Size = new Size(90, 23);
             label6.TabIndex = 8;
             label6.Text = "Nội dung:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(26, 94);
+            label5.Location = new Point(32, 114);
             label5.Name = "label5";
-            label5.Size = new Size(114, 19);
+            label5.Size = new Size(136, 23);
             label5.TabIndex = 9;
             label5.Text = "Loại thông báo:";
             // 
-            // textBox4
+            // txtTitle
             // 
-            textBox4.Location = new Point(156, 60);
-            textBox4.Name = "textBox4";
-            textBox4.ReadOnly = true;
-            textBox4.Size = new Size(205, 25);
-            textBox4.TabIndex = 14;
+            txtTitle.Location = new Point(170, 72);
+            txtTitle.Name = "txtTitle";
+            txtTitle.ReadOnly = true;
+            txtTitle.Size = new Size(471, 30);
+            txtTitle.TabIndex = 14;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(26, 63);
+            label4.Location = new Point(32, 78);
             label4.Name = "label4";
-            label4.Size = new Size(62, 19);
+            label4.Size = new Size(74, 23);
             label4.TabIndex = 10;
             label4.Text = "Tiêu đề:";
             // 
-            // textBox3
+            // txtId
             // 
-            textBox3.Location = new Point(156, 29);
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.Size = new Size(205, 25);
-            textBox3.TabIndex = 15;
+            txtId.Location = new Point(170, 36);
+            txtId.Name = "txtId";
+            txtId.ReadOnly = true;
+            txtId.Size = new Size(471, 30);
+            txtId.TabIndex = 15;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(26, 32);
+            label3.Location = new Point(32, 42);
             label3.Name = "label3";
-            label3.Size = new Size(34, 19);
+            label3.Size = new Size(40, 23);
             label3.TabIndex = 11;
             label3.Text = "Mã:";
             // 
@@ -181,49 +218,51 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(600, 65);
+            panel1.Size = new Size(1019, 74);
             panel1.TabIndex = 13;
             // 
             // groupBox2
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox2.Controls.Add(comboBox1);
+            groupBox2.Controls.Add(cboFindByType);
             groupBox2.Controls.Add(label1);
-            groupBox2.Location = new Point(3, 0);
+            groupBox2.Dock = DockStyle.Fill;
+            groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(591, 62);
+            groupBox2.Size = new Size(1019, 74);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
             groupBox2.Text = "Tìm kiếm";
             // 
-            // comboBox1
+            // cboFindByType
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(161, 25);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(239, 25);
-            comboBox1.TabIndex = 16;
+            cboFindByType.FormattingEnabled = true;
+            cboFindByType.Location = new Point(161, 32);
+            cboFindByType.Name = "cboFindByType";
+            cboFindByType.Size = new Size(271, 31);
+            cboFindByType.TabIndex = 16;
+            cboFindByType.SelectedIndexChanged += cboFindByType_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 28);
+            label1.Location = new Point(12, 35);
             label1.Name = "label1";
-            label1.Size = new Size(114, 19);
+            label1.Size = new Size(136, 23);
             label1.TabIndex = 10;
             label1.Text = "Loại thông báo:";
             // 
             // frmNotification
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
+            ClientSize = new Size(1692, 989);
             Controls.Add(panel1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvNotification);
             Controls.Add(panel2);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "frmNotification";
             Text = "frmNotification";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += frmNotification_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvNotification).EndInit();
             panel2.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -235,22 +274,24 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvNotification;
         private Panel panel2;
         private GroupBox groupBox1;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dtpTime;
         private Label label7;
-        private TextBox textBox6;
+        private TextBox txtContent;
         private Label label6;
         private Label label5;
-        private TextBox textBox4;
+        private TextBox txtTitle;
         private Label label4;
-        private TextBox textBox3;
+        private TextBox txtId;
         private Label label3;
         private Panel panel1;
         private GroupBox groupBox2;
-        private ComboBox comboBox1;
+        private ComboBox cboFindByType;
         private Label label1;
-        private ComboBox comboBox2;
+        private Button btnRemove;
+        private Button btnIsRead;
+        private ComboBox cboType;
     }
 }

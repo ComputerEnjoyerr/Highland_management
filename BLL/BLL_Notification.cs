@@ -19,13 +19,9 @@ namespace BLL
         {
             return _dalNotification.GetById(id);
         }
-        public Notification GetByName(string name)
+        public Notification GetByType(string type)
         {
-            return _dalNotification.GetByName(name);
-        }
-        public List<Notification> GetByEmployeeId(string employeeId)
-        {
-            return _dalNotification.GetByEmployeeId(employeeId);
+            return _dalNotification.GetByType(type);
         }
 
         public void Add(Notification notification)
@@ -47,6 +43,15 @@ namespace BLL
                 // Assuming there's an Update method in DAL_Notification
                 _dalNotification.Update(notification);
             }
+        }
+
+        public string GenerateNotificationId(string type)
+        {
+            // Id được tạo ra từ ngày hiện tại + số ngẫu nhiên 4 chữ số
+            string datePart = DateTime.Now.ToString("yyyyMMdd");
+            string randomString = Guid.NewGuid().ToString("N").Substring(0, 4).ToUpper();
+            string typePart = type.ToUpper().Substring(0, 3);
+            return $"NT{typePart}{datePart}{randomString}";
         }
     }
 }
