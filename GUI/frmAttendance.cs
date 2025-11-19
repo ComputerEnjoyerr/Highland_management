@@ -90,83 +90,70 @@ namespace GUI
 
         private void button12_Click(object sender, EventArgs e)
         {
-                
-
             try
             {
-                if (string.IsNullOrWhiteSpace(txtEmployeeId.Text))
-                {
-                    MessageBox.Show("Vui lòng chọn nhân viên cần Check In.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 DateOnly selectedDate = DateOnly.FromDateTime(dateTimePicker3.Value);
-                var shiftAssign = bLL_ShiftAssignment.GetAll()
-                    .FirstOrDefault(sa => sa.EmployeeId == txtEmployeeId.Text && sa.Shift != null && sa.Shift.WorkDate == selectedDate);
 
-                if (shiftAssign == null)
+                var assignments = bLL_ShiftAssignment.GetAll()
+                    .Where(sa => sa.Shift != null && sa.Shift.WorkDate == selectedDate)
+                    .ToList();
+
+                if (!assignments.Any())
                 {
-                    MessageBox.Show("Nhân viên này hôm nay không có ca làm.", "Thông báo");
+                    MessageBox.Show("Không có ca làm trong ngày này.", "Thông báo");
                     return;
                 }
 
-                var existing = bLL_Attendance.GetAll()
-                    .FirstOrDefault(a => a.EmployeeId == txtEmployeeId.Text && a.ShiftId == shiftAssign.ShiftId);
+                int created = 0, skipped = 0;
 
-                if (existing != null && existing.CheckIn.HasValue)
+                foreach (var sa in assignments)
                 {
-                    MessageBox.Show("Nhân viên này đã Check In rồi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                    var emp = sa.Employee;
+                    if (emp == null || string.IsNullOrEmpty(emp.BranchId)) continue;
 
-                DateTime selectedCheckInTime = dateTimePicker3.Value.Date + dtCheckIn.Value.TimeOfDay;
-                TimeOnly checkInOnly = TimeOnly.FromDateTime(selectedCheckInTime);
-                TimeOnly startTime = shiftAssign.Shift.StartTime;
+                    var existing = bLL_Attendance.GetAll()
+                        .FirstOrDefault(a => a.EmployeeId == sa.EmployeeId && a.ShiftId == sa.ShiftId);
 
+                    if (existing != null)
+                    {
+                        skipped++;
+                        continue;
+                    }
 
-                var employee = bLL_Employee.GetById(txtEmployeeId.Text);
-                if (string.IsNullOrEmpty(employee?.BranchId))
-                {
-                    MessageBox.Show("Nhân viên không thuộc chi nhánh nào!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                    DateTime checkInTime = selectedDate.ToDateTime(sa.Shift.StartTime);
+                    DateTime checkOutTime = selectedDate.ToDateTime(sa.Shift.EndTime);
 
-                if (existing == null)
-                {
-                    var attendance = new Attendance
+                    var att = new Attendance
                     {
                         Id = bLL_Attendance.GenerateId(),
-                        EmployeeId = txtEmployeeId.Text,
-                        ShiftId = shiftAssign.ShiftId,
-                        BranchId = employee.BranchId,
-                        CheckIn = selectedCheckInTime,
-                        CheckOut = null,
-                        Status = "Đang làm việc",
-                        Method = "Thủ công",
-                        Note = txtNote.Text
+                        EmployeeId = sa.EmployeeId,
+                        ShiftId = sa.ShiftId,
+                        BranchId = emp.BranchId,
+                        CheckIn = checkInTime,
+                        CheckOut = checkOutTime,
+                        Status = "Đúng giờ",
+                        OvertimeHours = 0,
+                        Method = "Tự động",
+                        Note = ""
                     };
-                    bLL_Attendance.Add(attendance);
-                }
-                else
-                {
-                    existing.CheckIn = selectedCheckInTime;
-                    existing.Status = "";
-                    existing.Note = txtNote.Text;
-                    bLL_Attendance.Update(existing);
+
+                    bLL_Attendance.Add(att);
+                    created++;
                 }
 
-                MessageBox.Show($"Check In thành công lúc {checkInOnly:HH:mm}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // CẬP NHẬT LẠI TRẠNG THÁI CONTROL
-                UpdateCheckInOutControls();
                 LoadAttendanceByAttendanceDate();
+                LoadEmployeeByShiftDate();
+                ApplyRowColors();
+
+                MessageBox.Show(
+                    $"Check In hàng loạt thành công!\n" +
+                    $"Đã chấm: {created} nhân viên\n",
+                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                string inner = ex.InnerException?.Message ?? "Không có";
-                MessageBox.Show($"Lỗi: {ex.Message}\nChi tiết: {inner}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
             }
-
 
         }
 
@@ -174,133 +161,144 @@ namespace GUI
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtEmployeeId.Text))
+                if (dgvAttendance.CurrentRow == null)
                 {
-                    MessageBox.Show("Vui lòng chọn nhân viên cần đánh vắng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn 1 nhân viên trong bảng điểm danh.", "Cảnh báo");
+                    return;
+                }
+
+                var row = dgvAttendance.CurrentRow;
+                string employeeId = row.Cells["EmployeeId"].Value?.ToString();
+                string shiftId = row.Cells["Id"].Value?.ToString() ?? "";
+                string name = row.Cells["EmployeeName"].Value?.ToString() ?? "Không rõ";
+                string shiftType = row.Cells["ShiftType"].Value?.ToString() ?? "";
+
+                if (string.IsNullOrEmpty(employeeId))
+                {
+                    MessageBox.Show("Không xác định được nhân viên.", "Lỗi");
                     return;
                 }
 
                 DateOnly selectedDate = DateOnly.FromDateTime(dateTimePicker3.Value);
+
+                // Tìm ca làm của nhân viên đang chọn
                 var shiftAssign = bLL_ShiftAssignment.GetAll()
-                    .FirstOrDefault(sa => sa.EmployeeId == txtEmployeeId.Text
-                                       && sa.Shift != null
-                                       && sa.Shift.WorkDate == selectedDate);
+                    .FirstOrDefault(sa => sa.EmployeeId == employeeId && sa.Shift.WorkDate == selectedDate);
 
                 if (shiftAssign == null)
                 {
-                    MessageBox.Show("Nhân viên này hôm nay không có lịch làm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Nhân viên không có ca làm trong ngày này.", "Lỗi");
                     return;
                 }
 
-                var existingAttendance = bLL_Attendance.GetAll()
-                    .FirstOrDefault(a => a.EmployeeId == txtEmployeeId.Text && a.ShiftId == shiftAssign.ShiftId);
-
-                // NẾU ĐÃ CÓ BẢN GHI → KIỂM TRA TRẠNG THÁI
-                if (existingAttendance != null)
+                var emp = bLL_Employee.GetById(employeeId);
+                if (emp == null || string.IsNullOrEmpty(emp.BranchId))
                 {
-                    if (existingAttendance.CheckIn.HasValue || existingAttendance.CheckOut.HasValue)
-                    {
-                        MessageBox.Show("Nhân viên này đã điểm danh — không thể đánh vắng.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    // Nếu đã có bản ghi nhưng chưa Check In → cho phép đánh vắng (trường hợp hiếm)
-                }
-
-                var employee = bLL_Employee.GetById(txtEmployeeId.Text);
-                if (string.IsNullOrEmpty(employee?.BranchId))
-                {
-                    MessageBox.Show("Nhân viên không thuộc chi nhánh nào!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Nhân viên không hợp lệ!", "Lỗi");
                     return;
                 }
 
-                // TẠO HOẶC CẬP NHẬT BẢN GHI "VẮNG MẶT"
-                Attendance attendance;
-                if (existingAttendance == null)
+
+                //// TÌM CHÍNH XÁC BẢN GHI CỦA NHÂN VIÊN + CA
+                //var existing = bLL_Attendance.GetAll()
+                //    .FirstOrDefault(a => a.EmployeeId == employeeId && a.ShiftId == shiftAssign.ShiftId);
+
+                // TÌM BẢN GHI ĐIỂM DANH CHÍNH XÁC THEO Id (Attendance.Id)
+                var existing = bLL_Attendance.GetAll()
+                    .FirstOrDefault(a => a.Id == shiftId);
+                if (existing == null)
                 {
-                    attendance = new Attendance
+                    MessageBox.Show("Không tìm thấy bản ghi điểm danh.", "Lỗi");
+                    return;
+                }
+
+                //// Nếu đã điểm danh (có giờ vào hoặc ra) → CẤM đánh vắng
+                //if (existing != null && (existing.CheckIn.HasValue || existing.CheckOut.HasValue))
+                //{
+                //    MessageBox.Show($"Không thể đánh vắng vì {name} đã điểm danh!", "Cảnh báo");
+                //    return;
+                //}
+
+                // Tạo mới nếu chưa có
+                if (existing == null)
+                {
+                    var newAtt = new Attendance
                     {
                         Id = bLL_Attendance.GenerateId(),
-                        EmployeeId = txtEmployeeId.Text,
+                        EmployeeId = employeeId,
                         ShiftId = shiftAssign.ShiftId,
-                        BranchId = employee.BranchId,
+                        BranchId = emp.BranchId,
                         CheckIn = null,
                         CheckOut = null,
                         Status = "Vắng mặt",
                         Method = "Thủ công",
-                        Note = txtNote.Text ?? "Không phép"
+                        Note = string.IsNullOrWhiteSpace(txtNote.Text) ? "Không phép" : txtNote.Text.Trim(),
+                        OvertimeHours = 0
                     };
-                    bLL_Attendance.Add(attendance);
+                    bLL_Attendance.Add(newAtt);
+                    txtId.Text = newAtt.Id; // Cập nhật form
                 }
                 else
                 {
-                    existingAttendance.Status = "Vắng mặt";
-                    existingAttendance.Note = txtNote.Text ?? "Không phép";
-                    bLL_Attendance.Update(existingAttendance);
-                    attendance = existingAttendance;
+                    // Xóa giờ nếu có, đặt lại trạng thái
+                    existing.CheckIn = null;
+                    existing.CheckOut = null;
+                    existing.Status = "Vắng mặt";
+                    existing.Note = string.IsNullOrWhiteSpace(txtNote.Text) ? "Không phép" : txtNote.Text.Trim();
+                    existing.OvertimeHours = 0;
+                    bLL_Attendance.Update(existing);
                 }
 
-                MessageBox.Show($"Đã đánh vắng nhân viên {employee.EmployeeName} thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Đã đánh vắng: {name} - Ca: {shiftType}", "Thành công");
 
-                // CẬP NHẬT GIAO DIỆN
-                UpdateCheckInOutControls();
+                // Làm mới dữ liệu
                 LoadAttendanceByAttendanceDate();
-                LoadAttendanceForEmployee(txtEmployeeId.Text); // Cập nhật chi tiết
+                LoadEmployeeByShiftDate();
+                ApplyRowColors();
+                //UpdateCheckInOutControls();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi đánh vắng: " + (ex.InnerException?.Message ?? ex.Message), "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
             }
         }
 
         private void dgvAttendance_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-
             var row = dgvAttendance.Rows[e.RowIndex];
+
             txtId.Text = row.Cells["Id"].Value?.ToString() ?? "";
             txtEmployeeId.Text = row.Cells["EmployeeId"].Value?.ToString() ?? "";
             txtEnployeeName.Text = row.Cells["EmployeeName"].Value?.ToString() ?? "";
             txtShift.Text = row.Cells["ShiftType"].Value?.ToString() ?? "";
+            txtNote.Text = row.Cells["Note"].Value?.ToString() ?? "";
             cbStatus.Text = row.Cells["Status"].Value?.ToString() ?? "";
 
-            // === SỬA TẠI ĐÂY: KIỂM TRA null TRƯỚC KHI GÁN ===
+            // Lấy giờ vào
             string checkInStr = row.Cells["CheckIn"].Value?.ToString() ?? "";
-            if (!string.IsNullOrEmpty(checkInStr) && DateTime.TryParse(checkInStr, out DateTime checkIn))
-            {
-                dtCheckIn.Value = checkIn;
-            }
+            if (!string.IsNullOrEmpty(checkInStr) && DateTime.TryParse(checkInStr, out DateTime ci))
+                dtCheckIn.Value = ci;
             else
-            {
-                // Nếu null hoặc rỗng → gợi ý giờ ca làm
-                DateOnly workDate = DateOnly.FromDateTime(dateTimePicker3.Value);
-                var shift = bLL_ShiftAssignment.GetAll()
-                    .FirstOrDefault(sa => sa.EmployeeId == txtEmployeeId.Text && sa.Shift?.WorkDate == workDate);
-                dtCheckIn.Value = shift != null
-                    ? workDate.ToDateTime(shift.Shift.StartTime)
-                    : DateTime.Now;
-            }
+                dtCheckIn.Value = DateOnly.FromDateTime(dateTimePicker3.Value).ToDateTime(TimeOnly.Parse("08:00"));
 
+            // Lấy giờ ra
             string checkOutStr = row.Cells["CheckOut"].Value?.ToString() ?? "";
-            if (!string.IsNullOrEmpty(checkOutStr) && DateTime.TryParse(checkOutStr, out DateTime checkOut))
-            {
-                dtCheckOut.Value = checkOut;
-            }
+            if (!string.IsNullOrEmpty(checkOutStr) && DateTime.TryParse(checkOutStr, out DateTime co))
+                dtCheckOut.Value = co;
             else
-            {
                 dtCheckOut.Value = DateTime.Now;
-            }
 
-            var employee = bLL_Employee.GetById(txtEmployeeId.Text);
-            if (employee != null)
+            var emp = bLL_Employee.GetById(txtEmployeeId.Text);
+            if (emp != null)
             {
-                txtRole.Text = employee.Role ?? "";
-                txtSalaryPerHour.Text = employee.SalaryPerHour.ToString();
-                txtPhone.Text = employee.Phone ?? "";
+                txtRole.Text = emp.Role ?? "";
+                txtSalaryPerHour.Text = emp.SalaryPerHour.ToString();
+                txtPhone.Text = emp.Phone ?? "";
             }
-            txtNote.Text = row.Cells["Note"].Value?.ToString() ?? "Không phép";
 
-            // BẮT BUỘC GỌI HÀM NÀY
-            UpdateCheckInOutControls();
+            //UpdateCheckInOutControls(); // QUAN TRỌNG
+            ApplyRowColors();
 
         }
         private void ClearForm()
@@ -355,7 +353,7 @@ namespace GUI
             }
 
             // CẬP NHẬT TRẠNG THÁI dtCheckIn & dtCheckOut
-            UpdateCheckInOutControls();
+           // UpdateCheckInOutControls();
 
             LoadAttendanceForEmployee(txtEmployeeId.Text);
         }
@@ -389,6 +387,7 @@ namespace GUI
             // Reset DataSource trước khi gán lại
             dgvAttendance.DataSource = null;
             dgvAttendance.DataSource = attendances;
+            ApplyRowColors();
         }
 
         private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
@@ -472,6 +471,7 @@ namespace GUI
                 .ToList();
 
             dgvAttendance.DataSource = attendances;
+            ApplyRowColors();
         }
 
         private void dgvEmployee_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -483,176 +483,167 @@ namespace GUI
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtEmployeeId.Text))
+                if (string.IsNullOrWhiteSpace(txtId.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn nhân viên cần Check Out.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                DateOnly selectedDate = DateOnly.FromDateTime(dateTimePicker3.Value);
-                var shiftAssign = bLL_ShiftAssignment.GetAll()
-                    .FirstOrDefault(sa => sa.EmployeeId == txtEmployeeId.Text
-                                       && sa.Shift != null
-                                       && sa.Shift.WorkDate == selectedDate);
-
-                if (shiftAssign == null)
-                {
-                    MessageBox.Show("Không tìm thấy ca làm việc hôm nay.", "Thông báo");
+                    MessageBox.Show("Vui lòng chọn nhân viên trong bảng điểm danh.", "Cảnh báo");
                     return;
                 }
 
                 var attendance = bLL_Attendance.GetAll()
-                    .FirstOrDefault(a => a.EmployeeId == txtEmployeeId.Text && a.ShiftId == shiftAssign.ShiftId);
+                    .FirstOrDefault(a => a.Id == txtId.Text);
 
-                if (attendance == null || !attendance.CheckIn.HasValue)
+                // Nếu chưa có bản ghi → tạo mới
+                if (attendance == null)
                 {
-                    MessageBox.Show("Nhân viên chưa Check In!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (!TryCreateNewAttendanceForCheckout(out attendance)) return;
+                }
+
+                // Lấy giờ từ form
+                DateTime checkInTime = DateOnly.FromDateTime(dateTimePicker3.Value)
+                    .ToDateTime(TimeOnly.FromDateTime(dtCheckIn.Value));
+                DateTime checkOutTime = DateOnly.FromDateTime(dateTimePicker3.Value)
+                    .ToDateTime(TimeOnly.FromDateTime(dtCheckOut.Value));
+
+                if (checkOutTime <= checkInTime)
+                {
+                    MessageBox.Show("Giờ ra phải lớn hơn giờ vào!", "Cảnh báo");
                     return;
                 }
 
-                if (attendance.CheckOut.HasValue)
+                // Tính trạng thái
+                var shiftAssign = bLL_ShiftAssignment.GetAll()
+                    .FirstOrDefault(sa => sa.EmployeeId == txtEmployeeId.Text && sa.ShiftId == attendance.ShiftId);
+                if (shiftAssign == null)
                 {
-                    MessageBox.Show("Nhân viên đã Check Out rồi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Không tìm thấy ca làm.", "Lỗi");
                     return;
                 }
 
-                // LẤY GIỜ CHECK IN & CHECK OUT
-                DateTime checkInTime = attendance.CheckIn.Value;
-                DateTime checkOutTime = dateTimePicker3.Value.Date + dtCheckOut.Value.TimeOfDay;
-
-                // TÍNH GIỜ CA LÀM
                 TimeSpan shiftStart = shiftAssign.Shift.StartTime.ToTimeSpan();
                 TimeSpan shiftEnd = shiftAssign.Shift.EndTime.ToTimeSpan();
-                TimeSpan checkInActual = checkInTime.TimeOfDay;
-                TimeSpan checkOutActual = checkOutTime.TimeOfDay;
+                bool late = checkInTime.TimeOfDay > shiftStart.Add(TimeSpan.FromMinutes(15));
+                bool early = checkOutTime.TimeOfDay < shiftEnd.Subtract(TimeSpan.FromMinutes(15));
+                string status = "Đúng giờ";
+                if (late && early) status = "Đi muộn và Về sớm";
+                else if (late) status = "Đi muộn";
+                else if (early) status = "Về sớm";
 
-                // XÁC ĐỊNH ĐI TRỄ
-                bool late = checkInActual > shiftStart.Add(TimeSpan.FromMinutes(15));
-
-                // XÁC ĐỊNH VỀ SỚM
-                bool early = checkOutActual < shiftEnd;
-
-                // XÁC ĐỊNH TRẠNG THÁI
-                string status;
-                if (late && early)
-                    status = "Đi muộn và Về sớm";
-                else if (late)
-                    status = "Đi muộn";
-                else if (early)
-                    status = "Về sớm";
-                else
-                    status = "Đúng giờ";
-
-                // TÍNH GIỜ LÀM THỰC TẾ
                 TimeSpan worked = checkOutTime - checkInTime;
-                double workedHours = worked.TotalHours;
+                double shiftHours = (shiftEnd - shiftStart).TotalHours;
+                decimal overtime = worked.TotalHours > shiftHours ? (decimal)(worked.TotalHours - shiftHours) : 0;
 
-                // TÍNH GIỜ CA CHUẨN
-                TimeSpan shiftDuration = shiftEnd - shiftStart;
-                double shiftHours = shiftDuration.TotalHours;
-
-                // TÍNH OT
-                decimal overtime = 0;
-                if (workedHours > shiftHours)
-                {
-                    overtime = (decimal)(workedHours - shiftHours);
-                    //status += "";
-                }
-
-                // CẬP NHẬT ATTENDANCE
+                // Cập nhật
+                attendance.CheckIn = checkInTime;
                 attendance.CheckOut = checkOutTime;
                 attendance.Status = status;
                 attendance.OvertimeHours = overtime;
                 attendance.Method = "Thủ công";
                 attendance.Note = txtNote.Text;
 
-                bLL_Attendance.Update(attendance);
+                if (attendance.Id == null) // mới tạo
+                    bLL_Attendance.Add(attendance);
+                else
+                    bLL_Attendance.Update(attendance);
 
-                // HIỂN THỊ KẾT QUẢ
-                MessageBox.Show(
-                    $"Check Out thành công!\n" +
-                    $"Check In: {checkInTime:HH:mm} | Check Out: {checkOutTime:HH:mm}\n" +
-                    $"Giờ làm: {workedHours:F1}h | OT: {overtime:F1}h\n" +
-                    $"Trạng thái: {status}",
-                    "Check Out",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
-                // CẬP NHẬT GIAO DIỆN
-                UpdateCheckInOutControls();
+                MessageBox.Show($"Check Out thành công!\nTrạng thái: {status}\nOT: {overtime:F1}h", "Thành công");
                 LoadAttendanceByAttendanceDate();
+                LoadEmployeeByShiftDate();
+                ApplyRowColors();
+                //UpdateCheckInOutControls();
             }
             catch (Exception ex)
             {
-                string inner = ex.InnerException?.Message ?? "Không có";
-                MessageBox.Show($"Lỗi Check Out:\n{ex.Message}\nChi tiết: {inner}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi");
             }
         }
 
         //cập nhập trạng thái check in check out
         private void UpdateCheckInOutControls()
         {
-            if (string.IsNullOrWhiteSpace(txtEmployeeId.Text))
+            if (string.IsNullOrWhiteSpace(txtId.Text))
             {
-                dtCheckIn.Enabled = false;
-                dtCheckOut.Enabled = false;
-                return;
-            }
-
-            DateOnly workDate = DateOnly.FromDateTime(dateTimePicker3.Value);
-            var shiftAssign = bLL_ShiftAssignment.GetAll()
-                .FirstOrDefault(sa => sa.EmployeeId == txtEmployeeId.Text
-                                   && sa.Shift != null
-                                   && sa.Shift.WorkDate == workDate);
-
-            if (shiftAssign == null)
-            {
-                dtCheckIn.Enabled = false;
-                dtCheckOut.Enabled = false;
+                dtCheckIn.Enabled = dtCheckOut.Enabled = false;
                 return;
             }
 
             var attendance = bLL_Attendance.GetAll()
-                .FirstOrDefault(a => a.EmployeeId == txtEmployeeId.Text && a.ShiftId == shiftAssign.ShiftId);
+                .FirstOrDefault(a => a.Id == txtId.Text);
 
+            // Nếu chưa có bản ghi → cho phép nhập cả vào + ra
             if (attendance == null)
             {
-                // Chưa điểm danh
                 dtCheckIn.Enabled = true;
-                dtCheckOut.Enabled = false;
-                dtCheckIn.Value = workDate.ToDateTime(shiftAssign.Shift.StartTime);
-                dtCheckOut.Value = workDate.ToDateTime(shiftAssign.Shift.EndTime);
-            }
-            else if (attendance.CheckIn.HasValue && !attendance.CheckOut.HasValue)
-            {
-                // Đã Check In, chưa Check Out
-                dtCheckIn.Enabled = false;
                 dtCheckOut.Enabled = true;
-                dtCheckIn.Value = attendance.CheckIn.Value; // AN TOÀN
-                dtCheckOut.Value = DateTime.Now;
+                return;
             }
-            else if (!attendance.CheckIn.HasValue)
+
+            // CHỈ KHÓA KHI ĐÃ CHECK OUT
+            if (attendance.CheckOut.HasValue)
             {
-                // Đánh vắng (CheckIn = null)
-                dtCheckIn.Enabled = false;
-                dtCheckOut.Enabled = false;
-                dtCheckIn.Value = workDate.ToDateTime(shiftAssign.Shift.StartTime); // Gợi ý giờ ca
-                dtCheckOut.Value = workDate.ToDateTime(shiftAssign.Shift.EndTime);
+                dtCheckIn.Enabled = dtCheckOut.Enabled = false;
             }
             else
             {
-                // Đã Check Out
-                dtCheckIn.Enabled = false;
-                dtCheckOut.Enabled = false;
-                dtCheckIn.Value = attendance.CheckIn.Value;
-                dtCheckOut.Value = attendance.CheckOut.Value;
+                dtCheckIn.Enabled = true;
+                dtCheckOut.Enabled = true;
             }
         }
 
         private void dtCheckIn_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+        private void ApplyRowColors()
+        {
+            foreach (DataGridViewRow row in dgvAttendance.Rows)
+            {
+                if (row.IsNewRow) continue;
+                string status = row.Cells["Status"].Value?.ToString()?.Trim() ?? "";
+
+                if (status.Contains("Vắng")) row.DefaultCellStyle.BackColor = Color.LightCoral;
+                else if (status.Contains("muộn") && status.Contains("sớm")) row.DefaultCellStyle.BackColor = Color.Orange;
+                else if (status.Contains("muộn")) row.DefaultCellStyle.BackColor = Color.Salmon;
+                else if (status.Contains("sớm")) row.DefaultCellStyle.BackColor = Color.Khaki;
+                else if (status.Contains("Đúng giờ")) row.DefaultCellStyle.BackColor = Color.LightGreen;
+                else row.DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+        private bool TryCreateNewAttendanceForCheckout(out Attendance attendance)
+        {
+            attendance = null;
+            string employeeId = txtEmployeeId.Text;
+            if (string.IsNullOrEmpty(employeeId))
+            {
+                MessageBox.Show("Không xác định nhân viên.", "Lỗi");
+                return false;
+            }
+
+            DateOnly selectedDate = DateOnly.FromDateTime(dateTimePicker3.Value);
+            var shiftAssign = bLL_ShiftAssignment.GetAll()
+                .FirstOrDefault(sa => sa.EmployeeId == employeeId && sa.Shift.WorkDate == selectedDate);
+            if (shiftAssign == null)
+            {
+                MessageBox.Show("Nhân viên không có ca làm trong ngày này.", "Lỗi");
+                return false;
+            }
+
+            var emp = bLL_Employee.GetById(employeeId);
+            if (emp == null || string.IsNullOrEmpty(emp.BranchId)) return false;
+
+            attendance = new Attendance
+            {
+                Id = bLL_Attendance.GenerateId(),
+                EmployeeId = employeeId,
+                ShiftId = shiftAssign.ShiftId,
+                BranchId = emp.BranchId,
+                Status = "Đúng giờ", // sẽ cập nhật sau
+                Method = "Thủ công",
+                Note = txtNote.Text,
+                OvertimeHours = 0
+            };
+
+            txtId.Text = attendance.Id; // cập nhật form
+            return true;
         }
     }
 }
