@@ -21,5 +21,10 @@ namespace BLL
         {
             dAL_Table.Update(table);
         }
+
+        public void Remove(int id)
+        {
+            dAL_Table.Remove(id);
+        }
     }
 }

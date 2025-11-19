@@ -187,7 +187,7 @@ namespace GUI
 
         private void btnTable_Click(object sender, EventArgs e)
         {
-            frmTable fr = new frmTable();
+            frmTable fr = new frmTable(currentUser);
             button.BackColor = ColorTranslator.FromHtml("#3B3030");
             button.ForeColor = ColorTranslator.FromHtml("#F9F5EE");
             btnTable.BackColor = ColorTranslator.FromHtml("#F9F5EE");
