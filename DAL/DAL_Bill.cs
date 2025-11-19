@@ -23,6 +23,14 @@ namespace DAL
                 .ToList();
         }
 
+        public Bill? GetById(string id)
+        {
+            return context.Bills
+                .Include(b => b.Branch)
+                .Include(b => b.Customer)
+                .Include(b => b.Employee)
+                .FirstOrDefault(b => b.Id == id);
+        }
         public void Add(Bill bill)
         {
             context.Bills.Add(bill);

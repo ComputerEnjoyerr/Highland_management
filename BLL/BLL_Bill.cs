@@ -16,6 +16,16 @@ namespace BLL
         {
             return dAL_Bill.GetAll();
         }
+
+        public Bill GetById(string id)
+        {
+            var bill = dAL_Bill.GetAll().FirstOrDefault(b => b.Id == id);
+            if (bill == null)
+            {
+                return new Bill();
+            }
+            return bill;
+        }
         public void Add(Bill bill)
         {
             dAL_Bill.Add(bill);
