@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using BLL;
+using DTO;
 using System.Runtime.InteropServices;
 
 namespace GUI
@@ -7,6 +8,8 @@ namespace GUI
     {
         bool sideBarExpand = true;
         private Employee employee = new(); // Nhân viên/Quản lý đăng nhập vào tài khoản
+        private BLL_Inventory bLL_Inventory = new BLL_Inventory();
+        private BLL_Notification bLL_Notification = new BLL_Notification();
 
         private Account currentUser; // Tài khoản đăng nhập hiện tại
 
@@ -26,6 +29,24 @@ namespace GUI
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCAPTION = 0x2;
+
+        private void CheckInventoryLevels()
+        {
+            var lowStockItems = bLL_Inventory.GetLowStockItems(employee.BranchId);
+            foreach (var item in lowStockItems)
+            {
+                var notification = new Notification
+                {
+                    Id = bLL_Notification.GenerateNotificationId("STK"),
+                    Title = "Cảnh báo tồn kho thấp",
+                    Message = $"Nguyên liệu {item.Ingredient.IngredientName} có tồn kho thấp: {item.CurrentQuantity} đơn vị.",
+                    Type = "Tồn kho",
+                    CreatedAt = DateTime.Now,
+                    IsRead = false
+                };
+                bLL_Notification.Add(notification);
+            }
+        }
 
         private void tmSideBar_Tick(object sender, EventArgs e)
         {
@@ -155,7 +176,7 @@ namespace GUI
 
         private void btnNotification_Click(object sender, EventArgs e)
         {
-            frmNotification frm = new frmNotification();
+            frmNotification frm = new frmNotification(employee);
             button.BackColor = ColorTranslator.FromHtml("#3B3030");
             button.ForeColor = ColorTranslator.FromHtml("#F9F5EE");
             btnNotification.BackColor = ColorTranslator.FromHtml("#F9F5EE");
@@ -177,7 +198,7 @@ namespace GUI
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-
+            CheckInventoryLevels();
         }
 
         private void pnTitleBar_Paint(object sender, PaintEventArgs e)

@@ -30,6 +30,7 @@ namespace GUI
         private readonly BLL_Ingredient bLL_Ingredient = new();
         private readonly BLL_Unit bLL_Unit = new();
         private readonly BLL_Recipe bLL_Recipe = new();
+        private readonly BLL_Notification bLL_Notification = new();
 
         private Employee employee = new(); // Nhân viên đang đăng nhập
         private List<Table> tables = new(); // Danh sách bàn ăn của chi nhánh
@@ -57,12 +58,25 @@ namespace GUI
         private bool HasEnoughIngredients(Product product, int quantity)
         {
             var recipeList = bLL_Recipe.GetByProductId(product.Id);
+            var tableName = selectedTable != null ? selectedTable.TableName : "Không xác định";
             foreach (var recipe in recipeList)
             {
                 // Tìm nguyên liệu trong kho
                 var inventoryItem = selectedInventory.FirstOrDefault(i => i.IngredientId == recipe.IngredientId);
                 if (inventoryItem == null || inventoryItem.CurrentQuantity < recipe.Quantity * quantity)
                 {
+                    Notification notification = new()
+                    {
+                        Id = bLL_Notification.GenerateNotificationId("INV"),
+                        Title = $"Thiếu nguyên liệu cho sản phẩm {product.ProductName}",
+                        Message = $"Không đủ nguyên liệu để làm món {product.ProductName} với số lượng {quantity} tại bàn ăn {tableName}",
+                        CreatedAt = DateTime.Now,
+                        EmployeeId = employee.Id,
+                        BranchId = employee.BranchId,
+                        Type = "Nguyên liệu",
+                        IsRead = false
+                    };
+                    bLL_Notification.Add(notification);
                     return false; // Không đủ nguyên liệu
                 }
             }
@@ -99,8 +113,19 @@ namespace GUI
                 }
                 if (issuedIngredients.Any())
                 {
-                    string ingredientNames = string.Join(". \n", issuedIngredients);
-                    MessageBox.Show($"Cảnh báo: Nguyên liệu sau đã hết kho khi thanh toán món {bLL_Product.GetById(billInfo.ProductId).ProductName}:\n{ingredientNames}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    string ingredientNames = string.Join("- \n", issuedIngredients);
+                    Notification notification = new()
+                    {
+                        Id = bLL_Notification.GenerateNotificationId("INV"),
+                        Title = $"Thiếu nguyên liệu cho sản phẩm {bLL_Product.GetById(billInfo.ProductId).ProductName}",
+                        Message = $"Không thể cập nhật kho hàng vì đủ nguyên liệu cho sản phẩm {selectedProduct.ProductName} với số lượng {nmrProductQty.Value}\nChi tiết nguyên liệu:\n{ingredientNames}",
+                        CreatedAt = DateTime.Now,
+                        EmployeeId = employee.Id,
+                        BranchId = employee.BranchId,
+                        Type = "Tồn kho",
+                        IsRead = false
+                    };
+                    bLL_Notification.Add(notification);
                 }
             } catch (Exception ex)
             {
@@ -519,6 +544,7 @@ namespace GUI
             // Kiểm tra sản phẩm đang chọn và trong danh sách có đủ nguyên liệu không
             if (!HasEnoughIngredients(selectedProduct, (int)nmrProductQty.Value))
             {
+
                 DialogResult rs = MessageBox.Show("Không đủ nguyên liệu để làm món này.\nBạn có chắc muốn thêm sản phẩm vào danh sách?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (rs == DialogResult.No)
                     return;

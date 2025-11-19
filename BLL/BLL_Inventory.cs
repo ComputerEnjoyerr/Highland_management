@@ -45,5 +45,14 @@ namespace BLL
                 throw new Exception($"{ValidateInput(inventoryItem).Message}");
             dAL_Inventory.Update(inventoryItem);
         }
+
+        public List<Inventory> GetLowStockItems(string branchId)
+        {
+            // Giả sử ngưỡng tồn kho thấp là 10 đơn vị
+            decimal lowStockThreshold = 10m;
+            return dAL_Inventory.GetAllByBranch(branchId)
+                .Where(inv => inv.CurrentQuantity < lowStockThreshold)
+                .ToList();
+        }
     }
 }
