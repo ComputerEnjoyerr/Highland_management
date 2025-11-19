@@ -92,10 +92,11 @@ namespace GUI
 
             DrawFinancialPieChart();
             UpdateButtonStates();
+            ReloadAll();
 
             //// Thêm sự kiện khi thay đổi tháng/năm
-            cbMonth.SelectedIndexChanged += (s, ev) => ReloadAll();
-            cbYear.SelectedIndexChanged += (s, ev) => ReloadAll();
+            //cbMonth.SelectedIndexChanged += (s, ev) => ReloadAll();
+            //cbYear.SelectedIndexChanged += (s, ev) => ReloadAll();
 
         }
         private void LoadChiPhiCoDinh()
@@ -120,7 +121,7 @@ namespace GUI
                 isUpdating = false;
 
                 // Cập nhật lại lợi nhuận và biểu đồ
-               
+
                 CapNhatLoiNhuan();
                 DrawFinancialPieChart();
                 UpdateButtonStates();
@@ -296,6 +297,7 @@ namespace GUI
             LoadDataIngredient();
             DrawFinancialPieChart();
             LoadChiPhiCoDinh();
+            ReloadAll();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -624,7 +626,7 @@ namespace GUI
         ("Doanh thu",       doanhThu,     Color.FromArgb(0, 180, 0)),
         ("Lương nhân viên", luongNV,      Color.FromArgb(220, 53, 69)),
         ("Nguyên liệu",     nguyenLieu,   Color.FromArgb(255, 140, 0)),
-        ("Điện nước",       dienNuoc,     Color.FromArgb(30, 144, 255)),
+        ("Điện nước",       dienNuoc,     Color.FromArgb(30, 169, 225)),
         ("Mặt bằng",        matBang,      Color.FromArgb(255, 215, 0)),
         ("Chi phí khác",    chiPhiKhac,   Color.FromArgb(128, 128, 128)),
         (loiNhuan >= 0 ? "Lợi nhuận" : "Lỗ", Math.Abs(loiNhuan),
@@ -721,7 +723,7 @@ namespace GUI
                 bLL_Financial.Update(fin);  // ← void, không cần kiểm tra true/false
 
                 MessageBox.Show("Lưu thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 daLuuThangNay = true;
                 cheDoSua = false;
                 LoadChiPhiCoDinh(); // sẽ đọc lại từ DB → luôn luôn đúng
@@ -743,7 +745,12 @@ namespace GUI
 
         private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
+        }
 
+        private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

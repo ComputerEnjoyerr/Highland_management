@@ -166,6 +166,7 @@
             cbYear.Name = "cbYear";
             cbYear.Size = new Size(219, 31);
             cbYear.TabIndex = 1;
+            cbYear.SelectedIndexChanged += cbYear_SelectedIndexChanged;
             // 
             // label10
             // 
@@ -532,10 +533,10 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(dataGridView2);
-            tabPage2.Location = new Point(4, 29);
+            tabPage2.Location = new Point(4, 32);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1206, 403);
+            tabPage2.Size = new Size(1206, 400);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Nguyên liệu";
             tabPage2.UseVisualStyleBackColor = true;
@@ -548,17 +549,17 @@
             dataGridView2.Location = new Point(3, 3);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(1200, 397);
+            dataGridView2.Size = new Size(1200, 394);
             dataGridView2.TabIndex = 0;
             dataGridView2.CellDoubleClick += dataGridView2_CellDoubleClick;
             // 
             // tabPage3
             // 
             tabPage3.Controls.Add(dataGridView3);
-            tabPage3.Location = new Point(4, 29);
+            tabPage3.Location = new Point(4, 32);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(1206, 403);
+            tabPage3.Size = new Size(1206, 400);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Nhân viên";
             tabPage3.UseVisualStyleBackColor = true;
@@ -571,7 +572,7 @@
             dataGridView3.Location = new Point(3, 3);
             dataGridView3.Name = "dataGridView3";
             dataGridView3.RowHeadersWidth = 51;
-            dataGridView3.Size = new Size(1200, 397);
+            dataGridView3.Size = new Size(1200, 394);
             dataGridView3.TabIndex = 0;
             // 
             // frmFinancial
