@@ -17,6 +17,7 @@ namespace GUI
     public partial class frmTable : Form
     {
         private readonly BLL_Table bLL_Table = new BLL_Table();
+        private List<Product> productList = new List<Product>();
         private readonly Account _currentUser;
         public frmTable(Account currentUser)
         {
