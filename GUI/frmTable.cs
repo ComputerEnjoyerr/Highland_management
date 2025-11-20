@@ -1,4 +1,5 @@
 ﻿using BLL;
+using DAL;
 using DTO;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace GUI
     public partial class frmTable : Form
     {
         private readonly BLL_Table bLL_Table = new BLL_Table();
-        private List<Product> productList = new List<Product>();
+        private List<Table> tableList = new List<Table>();
         private readonly Account _currentUser;
         public frmTable(Account currentUser)
         {
@@ -27,48 +28,39 @@ namespace GUI
 
         private void frmTable_Load(object sender, EventArgs e)
         {
-            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
-
-            LoadTable(branchId);
+            LoadTable();
             LoadCapacity();
             LoadStatus();
         }
 
         // Hàm load danh sách bàn
-        private void LoadTable(string branchId, string? keyword = null)
+        private void LoadTable(string? keyword = "")
         {
             dgvTable.MultiSelect = false;
             dgvTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvTable.ReadOnly = true;
 
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                var filteredList = bLL_Table.GetByBranch(branchId)
-                    .Where(t => t.TableName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                t.Capacity.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                t.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .Select(t => new
-                    {
-                        t.Id,
-                        t.TableName,
-                        t.Capacity,
-                        t.Status,
-                        BranchName = t.Branch.BranchName
-                    }).ToList();
-                dgvTable.DataSource = filteredList;
-                return;
-            }
+            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
 
-            var tableList = bLL_Table.GetByBranch(branchId)
-                .Select(t => new
-                {
-                    t.Id,
-                    t.TableName,
-                    t.Capacity,
-                    t.Status,
-                    BranchName = t.Branch.BranchName
-                }).ToList();
-            dgvTable.DataSource = tableList;
+            var filteredList = bLL_Table.GetByBranch(branchId)
+            .Where(t => t.TableName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                        t.Capacity.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                        t.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+            tableList = filteredList;
+
+            // Trích dữ liệu cần thiết
+            var displayLists = tableList.Select(t => new
+            {
+                t.Id,
+                t.TableName,
+                t.Capacity,
+                t.Status,
+                BranchName = t.Branch.BranchName
+            }).ToList();
+            dgvTable.DataSource = filteredList;
+            return;
         }
 
         // Hàm load sức chứa
@@ -76,7 +68,7 @@ namespace GUI
         {
             cboCapacity.Items.Clear();
 
-            for (int i = 4; i <= 30; i += 2)
+            for (int i = 2; i <= 30; i += 2)
             {
                 cboCapacity.Items.Add(i);
             }
@@ -116,6 +108,137 @@ namespace GUI
             {
                 MessageBox.Show("Thông tin bàn không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+            try
+            {
+                string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
+                Table table = new Table
+                {
+                    TableName = txtTableName.Text,
+                    Capacity = Convert.ToInt32(cboCapacity.SelectedItem),
+                    Status = cboStatus.SelectedIndex,
+                    BranchId = branchId
+                };
+                bLL_Table.Add(table);
+                LoadTable();
+                ClearData();
+                MessageBox.Show("Thêm bàn thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!int.TryParse(txtId.Text, out int id))
+                {
+                    MessageBox.Show("Vui lòng chọn bàn cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Xác nhận xóa
+                DialogResult rs = MessageBox.Show(
+                    "Bạn có chắc chắn muốn xóa bàn này?",
+                    "Xác nhận",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+                if (rs == DialogResult.Yes)
+                {
+                    bLL_Table.Remove(id);
+                    MessageBox.Show("Đã xóa thành công", "Thông báo");
+                    LoadTable();
+                    ClearData();
+                }
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Xóa bàn thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtTableName.Text))
+                {
+                    MessageBox.Show("Thông tin bàn không được để trống!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                var table = bLL_Table.GetById(Convert.ToInt32(txtId.Text));
+
+                table.TableName = txtTableName.Text;
+                table.Capacity = Convert.ToInt32(cboCapacity.SelectedItem);
+                table.Status = cboStatus.SelectedIndex;
+
+                bLL_Table.Update(table);
+                MessageBox.Show("Đã cập nhật thành công", "Thông báo");
+
+                LoadTable();
+                ClearData();
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Cập nhật bàn thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
+            }
+        }
+
+        private void dgvTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // Lấy ID bàn từ lưới
+            if (!int.TryParse(dgvTable.Rows[e.RowIndex].Cells["Id"].Value.ToString(), out int tableId))
+                return;
+
+            // Lấy dữ liệu chi tiết từ BLL
+            var table = bLL_Table.GetById(tableId);
+            if (table == null) return;
+
+            // Đổ dữ liệu vào controls
+            txtId.Text = table.Id.ToString();
+            txtTableName.Text = table.TableName;
+
+            // --- Gán CAPACITY (kiểu INT) ---
+            for (int i = 0; i < cboCapacity.Items.Count; i++)
+            {
+                if ((int)cboCapacity.Items[i] == table.Capacity)
+                {
+                    cboCapacity.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            // Status đang lưu dưới dạng số: 0 = Trống, 1 = Đã đặt
+            if (table.Status == 0) cboStatus.SelectedIndex = 0;
+            else if (table.Status == 1) cboStatus.SelectedIndex = 1;
+        }
+
+        // Biển theo dõi công tác nhập liệu
+        private CancellationTokenSource _cts = new();
+        private async void txtFind_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtFind.Text;
+
+            // Hủy thao tác trước đó nếu người dùng vẫn đang nhập
+            _cts?.Cancel();
+            _cts = new CancellationTokenSource();
+
+            try
+            {
+                // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
+                await Task.Delay(500, _cts.Token);
+                LoadTable(keyword: input);
+            }
+            catch (TaskCanceledException)
+            {
+                // Người dùng vẫn đang nhập, bỏ qua
             }
         }
     }

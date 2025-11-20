@@ -60,6 +60,7 @@
             dgvTable.RowHeadersWidth = 51;
             dgvTable.Size = new Size(1692, 613);
             dgvTable.TabIndex = 5;
+            dgvTable.CellClick += dgvTable_CellClick;
             // 
             // panel1
             // 
@@ -106,6 +107,7 @@
             btnUpdate.Text = "Lưu";
             btnUpdate.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnReset
             // 
@@ -147,6 +149,7 @@
             btnDelete.Text = "Xóa";
             btnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // cboCapacity
             // 
@@ -191,6 +194,7 @@
             txtFind.Name = "txtFind";
             txtFind.Size = new Size(771, 30);
             txtFind.TabIndex = 57;
+            txtFind.TextChanged += txtFind_TextChanged;
             // 
             // label4
             // 

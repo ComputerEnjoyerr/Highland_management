@@ -48,5 +48,25 @@ namespace DAL
                 context.SaveChanges();
             }
         }
+
+        public bool CheckBranchExists(string branchId)
+        {
+            return context.Branches.Any(b => b.Id == branchId);
+        }
+
+        public bool IsTableNameExists(string branchId, string tableName)
+        {
+            return context.Tables.Any(t => t.BranchId == branchId && t.TableName == tableName);
+        }
+
+        public bool IsTableUsedInBill(int tableId)
+        {
+            return context.Bills.Any(b => b.TableId == tableId);
+        }
+
+        public Table? GetById(int id)
+        {
+            return context.Tables.FirstOrDefault(t => t.Id == id);
+        }
     }
 }
