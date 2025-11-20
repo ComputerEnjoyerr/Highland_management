@@ -66,5 +66,20 @@ namespace DAL
                     ws.WorkSchedule != null &&
                     ws.WorkSchedule.BranchId == branchId);
         }
+
+        // Lấy tất cả ca làm việc trong 1 tuần của chi nhánh
+        public List<WorkShift> GetShiftsByWeek(DateOnly weekStart, DateOnly weekEnd, string branchId)
+        {
+            return _context.WorkShifts
+                .Include(ws => ws.WorkSchedule)
+                .Where(ws =>
+                    ws.WorkDate >= weekStart &&
+                    ws.WorkDate <= weekEnd &&
+                    ws.WorkSchedule != null &&
+                    ws.WorkSchedule.BranchId == branchId)
+                .OrderBy(ws => ws.WorkDate)
+                .ThenBy(ws => ws.ShiftType)
+                .ToList();
+        }
     }
 }

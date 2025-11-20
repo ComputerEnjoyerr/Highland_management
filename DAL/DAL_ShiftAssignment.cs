@@ -102,5 +102,15 @@ namespace DAL
                 .Where(sa => sa.Shift.WorkDate >= today && sa.Shift.WorkDate < today.AddDays(1))
                 .ToList();
         }
+
+        // Lấy danh sách nhân viên theo ShiftId
+        public List<Employee> GetEmployeesByShift(string shiftId)
+        {
+            return _context.ShiftAssignments
+                .Where(sa => sa.ShiftId == shiftId)
+                .Include(sa => sa.Employee)
+                .Select(sa => sa.Employee!)
+                .ToList();
+        }
     }
 }

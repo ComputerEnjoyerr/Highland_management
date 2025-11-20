@@ -24,18 +24,19 @@ namespace GUI
         private Employee employee = new Employee();
 
         private List<Employee> employeeList = new List<Employee>();
-        private List<ShiftAssignment> shiftAssignments = new List<ShiftAssignment>();
         private List<ShiftAssignment> shiftMorningList = new();
         private List<ShiftAssignment> shiftAfternoonList = new();
         private List<ShiftAssignment> shiftEveningList = new();
+        private Action onScheduleUpdated;
 
-        public frmScheduleInfo(Employee employee, string day, string month, int year)
+        public frmScheduleInfo(Employee employee, string day, string month, int year, Action onUpdated = null)
         {
             InitializeComponent();
             this.month = month;
             this.year = year;
             this.day = day;
             this.employee = employee;
+            this.onScheduleUpdated = onUpdated;
         }
 
         private void frmScheduleInfo_Load(object sender, EventArgs e)
@@ -255,7 +256,6 @@ namespace GUI
                     return;
                 }
 
-                // Lấy thông tin nhân viên và ca làm việc
                 string employeeId = txtEmployeeId.Text;
                 string employeeName = txtEmployeeName.Text;
                 string employeeRole = txtEmployeeRole.Text;
@@ -263,7 +263,6 @@ namespace GUI
                 string employeeShift = cboEmployeeShift.SelectedItem?.ToString() ?? "";
                 string? note = txtNote.Text?.Trim();
 
-                // Nếu có nhập thì kiểm tra độ dài
                 if (!string.IsNullOrEmpty(note) && note.Length > 200)
                 {
                     MessageBox.Show("Ghi chú không được vượt quá 200 ký tự!",
@@ -271,7 +270,6 @@ namespace GUI
                     return;
                 }
 
-                // Chuyển ngày, tháng, năm về kiểu DateOnly
                 var selectedDate = new DateOnly(year, int.Parse(month), int.Parse(day));
 
                 if (string.IsNullOrEmpty(cboEmployeeShift.Text))
@@ -281,7 +279,6 @@ namespace GUI
                     return;
                 }
 
-                // Kiểm tra nhân viên đã đăng ký cùng ca trong cùng ngày chưa
                 var existingAssignment = bLL_ShiftAssignment.GetAll()
                     .FirstOrDefault(a =>
                         a.EmployeeId == employeeId &&
@@ -300,14 +297,12 @@ namespace GUI
                 }
 
                 int offset = selectedDate.DayOfWeek == DayOfWeek.Sunday
-                    ? -6 // Nếu là Chủ nhật thì lùi về Thứ 2 của tuần hiện tại
+                    ? -6
                     : DayOfWeek.Monday - selectedDate.DayOfWeek;
 
-                // Tính ngày bắt đầu và kết thúc tuần (kiểu DateOnly)
                 var weekStart = selectedDate.AddDays((int)offset);
                 var weekEnd = weekStart.AddDays(6);
 
-                // Lấy lịch làm việc trong tuần đó
                 var workSchedule = bLL_WorkSchedule.GetByBranchAndWeek(employee.BranchId, weekStart, weekEnd);
 
                 if (workSchedule == null)
@@ -324,12 +319,10 @@ namespace GUI
                     bLL_WorkSchedule.Add(workSchedule);
                 }
 
-                // Kiểm tra ca làm việc
                 var workShift = bLL_WorkShift.GetShiftByDateAndType(selectedDate, employeeShift, employee.BranchId);
 
                 if (workShift == null)
                 {
-                    // Xác định giờ theo loại ca
                     TimeSpan startTime, endTime;
                     switch (employeeShift)
                     {
@@ -378,6 +371,9 @@ namespace GUI
                 // Làm mới dữ liệu hiển thị
                 LoadEmployeeByShift(employeeShift);
                 ClearDataEmployee();
+
+                // GỌI CALLBACK ĐỂ RELOAD FORM SCHEDULE
+                onScheduleUpdated?.Invoke();
             }
             catch (Exception ex)
             {
@@ -568,6 +564,9 @@ namespace GUI
                     // Cập nhật lại danh sách nhân viên theo ca
                     LoadEmployeeByShift(employeeShift);
                     ClearDataMorning();
+
+                    // GỌI CALLBACK ĐỂ RELOAD FORM SCHEDULE
+                    onScheduleUpdated?.Invoke();
                 }
             }
             catch (Exception ex)
@@ -634,6 +633,9 @@ namespace GUI
                     // Cập nhật lại danh sách nhân viên theo ca
                     LoadEmployeeByShift(employeeShift);
                     ClearDataAfternoon();
+
+                    // GỌI CALLBACK ĐỂ RELOAD FORM SCHEDULE
+                    onScheduleUpdated?.Invoke();
                 }
             }
             catch (Exception ex)
@@ -700,6 +702,9 @@ namespace GUI
                     // Cập nhật lại danh sách nhân viên theo ca
                     LoadEmployeeByShift(employeeShift);
                     ClearDataEvening();
+
+                    // GỌI CALLBACK ĐỂ RELOAD FORM SCHEDULE
+                    onScheduleUpdated?.Invoke();
                 }
             }
             catch (Exception ex)

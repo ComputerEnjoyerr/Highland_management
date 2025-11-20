@@ -32,6 +32,7 @@
             tabPage1 = new TabPage();
             dgvEmployee = new DataGridView();
             panel1 = new Panel();
+            btnPrintReport = new Button();
             cboStatus = new ComboBox();
             label23 = new Label();
             btnSave = new Button();
@@ -130,6 +131,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnPrintReport);
             panel1.Controls.Add(cboStatus);
             panel1.Controls.Add(label23);
             panel1.Controls.Add(btnSave);
@@ -165,6 +167,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1124, 404);
             panel1.TabIndex = 2;
+            // 
+            // btnPrintReport
+            // 
+            btnPrintReport.Image = Properties.Resources.printer;
+            btnPrintReport.ImageAlign = ContentAlignment.MiddleRight;
+            btnPrintReport.Location = new Point(628, 288);
+            btnPrintReport.Name = "btnPrintReport";
+            btnPrintReport.Size = new Size(237, 58);
+            btnPrintReport.TabIndex = 67;
+            btnPrintReport.Text = "In Thông Tin Nhân Viên";
+            btnPrintReport.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnPrintReport.UseVisualStyleBackColor = true;
+            btnPrintReport.Click += btnPrintReport_Click;
             // 
             // cboStatus
             // 
@@ -747,5 +762,6 @@
         private Button btnDeleteA;
         private ComboBox cboStatus;
         private Label label23;
+        private Button btnPrintReport;
     }
 }

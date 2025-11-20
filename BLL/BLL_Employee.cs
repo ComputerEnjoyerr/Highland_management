@@ -3,6 +3,7 @@ using DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -137,36 +138,41 @@ namespace BLL
                 throw new Exception("Căn cước công dân này đã được nhân viên khác sử dụng!");
         }
 
-        // Hàm tạo mã cho nhân viên mới (định dạng: NVyyMMxxxx)
-        public string GenerateEmployeeId()
+        // Hàm tạo mã cho nhân viên mới (định dạng: EMddMMyyyyxxxx)
+        public string GenerateEmployeeId(DateTime birthDate)
         {
-            string prefix = "NV" + DateTime.Now.ToString("yyMM"); // Ví dụ: NV2510
+            // Tạo prefix: EM + ddMMyyyy
+            string prefix = "EM" + birthDate.ToString("ddMMyyyy");
 
-            // Lấy danh sách nhân viên có Id bắt đầu bằng prefix
-            var employeesThisMonth = dAL_Employee.GetAll()
+            // Lấy danh sách nhân viên có mã bắt đầu bằng prefix
+            var employeesWithSamePrefix = dAL_Employee.GetAll()
                 .Where(e => e.Id.StartsWith(prefix))
                 .ToList();
 
-            // Tìm số thứ tự lớn nhất trong tháng
+            // Xác định số thứ tự tiếp theo
             int nextNumber = 1;
-            if (employeesThisMonth.Any())
+
+            if (employeesWithSamePrefix.Any())
             {
-                string lastId = employeesThisMonth
+                // Lấy ID lớn nhất hiện có
+                string lastId = employeesWithSamePrefix
                     .OrderByDescending(e => e.Id)
                     .First().Id;
 
-                // Lấy 4 số cuối từ mã cuối cùng
-                string numberPart = lastId.Substring(6, 4);
+                // 4 số cuối
+                string numberPart = lastId.Substring(prefix.Length, 4);
+
                 if (int.TryParse(numberPart, out int currentNumber))
                 {
                     nextNumber = currentNumber + 1;
                 }
             }
 
-            // Sinh mã mới
-            string newId = $"{prefix}{nextNumber:D4}"; // Ví dụ: NV25100001
-            return newId.Length > 10 ? newId.Substring(0, 10) : newId;
+            // Sinh ID mới với 4 số cuối
+            string newId = $"{prefix}{nextNumber:D4}";
+            return newId;
         }
+
 
         // Hàm kiểm tra trùng lặp tên nhân viên
         public bool IsEmployeeNameExists(string employeeName)
@@ -221,6 +227,12 @@ namespace BLL
                 return (false, "Trạng thái nhân viên không hợp lệ.");
 
             return (true, "Dữ liệu hợp lệ.");
+        }
+
+        // Hàm in report nhân viên
+        public DataTable GetEmployeeByFilter(string? accountId)
+        {
+            return dAL_Employee.GetEmployeeByFilter(accountId);
         }
     }
 }

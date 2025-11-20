@@ -24,6 +24,8 @@ namespace GUI
         private readonly BLL_Ward bLL_Ward = new BLL_Ward();
         private readonly BLL_Employee bLL_Employee = new BLL_Employee();
 
+        private List<Employee> EmployeeList = new List<Employee>();
+
         public frmBranch()
         {
             InitializeComponent();
@@ -484,38 +486,26 @@ namespace GUI
             dgvBanchEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBanchEmployee.ReadOnly = true;
 
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                var filteredList = bLL_Employee.GetAll()
-                    .Where(e => e.EmployeeName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.CitizenId.Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .Select(e => new
-                    {
-                        e.Id,
-                        e.CitizenId,
-                        e.EmployeeName,
-                        e.Phone,
-                        //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
-                        Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
-                        Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                        Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
-                        e.HireDate,
-                        e.Role,
-                        e.CurrentStatus
-                    }).ToList();
-                dgvBanchEmployee.DataSource = filteredList;
-                return;
-            }
+            var allEmployees = bLL_Employee.GetAll()
+            .Where(e => e.Id != "EM_ADMIN" && e.BranchId == branchId);
 
+            var filteredList = allEmployees
+                .Where(e => e.EmployeeName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.CurrentStatus.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.Role.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.Gender.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.SalaryPerHour.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.CitizenId.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            EmployeeList = filteredList;
 
-            var employees = bLL_Employee.GetEmployeesByBranchId(branchId).Select(e => new
+            var displayLists = EmployeeList.Select(e => new
             {
                 e.Id,
                 e.CitizenId,
                 e.EmployeeName,
                 e.Phone,
-                //Address = e.Address != null ? e.Address.Address1 : "Lỗi hiển thị",
                 Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
                 Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
                 Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
@@ -523,7 +513,7 @@ namespace GUI
                 e.Role,
                 e.CurrentStatus
             }).ToList();
-            dgvBanchEmployee.DataSource = employees;
+            dgvBanchEmployee.DataSource = displayLists;
         }
 
         // Hàm load vai trò nhân viên
@@ -564,6 +554,7 @@ namespace GUI
         private async void txtEFind_TextChanged(object sender, EventArgs e)
         {
             string input = txtEFind.Text;
+            string branchId = txtBId.Text;
 
             // Hủy thao tác trước đó nếu người dùng vẫn đang nhập
             _cts?.Cancel();
@@ -573,7 +564,7 @@ namespace GUI
             {
                 // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
                 await Task.Delay(500, _cts.Token);
-                LoadBranches(input);
+                LoadEmployees(branchId, keyword: input);
             }
             catch (TaskCanceledException)
             {
@@ -654,20 +645,10 @@ namespace GUI
                 return;
             }
 
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                MessageBox.Show("Vui lòng nhập tên nhân viên!",
-                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEName.Clear();
-                txtEName.Focus();
-                return;
-            }
-
             // Nếu hợp lệ -> chỉ tạo mã nếu chưa có
             if (string.IsNullOrWhiteSpace(txtEId.Text))
             {
-                txtEId.Text = bLL_Employee.GenerateEmployeeId();
+                txtEId.Text = bLL_Employee.GenerateEmployeeId(dtpDateOfBirth.Value);
             }
         }
 
@@ -732,7 +713,7 @@ namespace GUI
                 };
                 bLL_Address.Add(address);
 
-                string employeeId = bLL_Employee.GenerateEmployeeId();
+                string employeeId = bLL_Employee.GenerateEmployeeId(dtpDateOfBirth.Value);
                 txtEId.Text = employeeId;
                 var employee = new Employee
                 {

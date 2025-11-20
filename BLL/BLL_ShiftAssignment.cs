@@ -87,5 +87,9 @@ namespace BLL
             return dAL_ShiftAssignment.GetShiftAssignmentsForToday();
         }
 
+        public List<Employee> GetEmployeesByShift(string shiftId)
+        {
+            return dAL_ShiftAssignment.GetEmployeesByShift(shiftId);
+        }
     }
 }

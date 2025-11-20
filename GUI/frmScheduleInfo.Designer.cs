@@ -120,10 +120,10 @@
             tabPage3.Controls.Add(txtFindEvening);
             tabPage3.Controls.Add(label24);
             tabPage3.Controls.Add(dgvShiftEvening);
-            tabPage3.Location = new Point(4, 29);
+            tabPage3.Location = new Point(4, 32);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(906, 517);
+            tabPage3.Size = new Size(906, 514);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Ca tối";
             // 
@@ -219,7 +219,7 @@
             btnCancelEvening.BackColor = SystemColors.Control;
             btnCancelEvening.Image = Properties.Resources.delete;
             btnCancelEvening.ImageAlign = ContentAlignment.MiddleRight;
-            btnCancelEvening.Location = new Point(640, 44);
+            btnCancelEvening.Location = new Point(640, 38);
             btnCancelEvening.Name = "btnCancelEvening";
             btnCancelEvening.Size = new Size(145, 45);
             btnCancelEvening.TabIndex = 37;
@@ -371,7 +371,7 @@
             btnCancelAfternoon.BackColor = SystemColors.Control;
             btnCancelAfternoon.Image = Properties.Resources.delete;
             btnCancelAfternoon.ImageAlign = ContentAlignment.MiddleRight;
-            btnCancelAfternoon.Location = new Point(638, 53);
+            btnCancelAfternoon.Location = new Point(638, 47);
             btnCancelAfternoon.Name = "btnCancelAfternoon";
             btnCancelAfternoon.Size = new Size(145, 45);
             btnCancelAfternoon.TabIndex = 37;
@@ -523,7 +523,7 @@
             btnCancelMorning.BackColor = SystemColors.Control;
             btnCancelMorning.Image = Properties.Resources.delete;
             btnCancelMorning.ImageAlign = ContentAlignment.MiddleRight;
-            btnCancelMorning.Location = new Point(643, 53);
+            btnCancelMorning.Location = new Point(643, 47);
             btnCancelMorning.Name = "btnCancelMorning";
             btnCancelMorning.Size = new Size(145, 45);
             btnCancelMorning.TabIndex = 36;
@@ -621,7 +621,7 @@
             btnRegister.BackColor = SystemColors.Control;
             btnRegister.Image = Properties.Resources.pen;
             btnRegister.ImageAlign = ContentAlignment.MiddleRight;
-            btnRegister.Location = new Point(10, 168);
+            btnRegister.Location = new Point(10, 156);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(145, 45);
             btnRegister.TabIndex = 22;
