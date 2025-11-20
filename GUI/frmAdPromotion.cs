@@ -57,7 +57,7 @@ namespace GUI
         }
 
         // Hàm tải dữ liệu lên
-        public void LoadPromotionProgramData(string keyword = null)
+        public void LoadPromotionProgramData(string? keyword = null)
         {
             dgvPromotionProgram.MultiSelect = false;
             dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -229,32 +229,6 @@ namespace GUI
             LoadDataVoucher();
 
             InitializeComboBoxes();
-
-            // Cấu hình DataGridView hiển thị cho đẹp
-            dgvPromotionProgram.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvPromotionProgram.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvPromotionProgram.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPromotionProgram.MultiSelect = false;
-            dgvPromotionProgram.ReadOnly = true;
-            dgvPromotionProgram.AllowUserToAddRows = false;
-            dgvPromotionProgram.AllowUserToDeleteRows = false;
-            dgvPromotionProgram.AllowUserToResizeRows = false;
-            dgvPromotionProgram.RowHeadersVisible = false;
-
-            // Style cho bảng
-            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.BackColor = Color.DarkRed;
-            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvPromotionProgram.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            dgvPromotionProgram.EnableHeadersVisualStyles = false;
-
-            dgvPromotionProgram.DefaultCellStyle.BackColor = Color.White;
-            dgvPromotionProgram.DefaultCellStyle.ForeColor = Color.Black;
-            dgvPromotionProgram.DefaultCellStyle.SelectionBackColor = Color.MistyRose;
-            dgvPromotionProgram.DefaultCellStyle.SelectionForeColor = Color.Black;
-            dgvPromotionProgram.DefaultCellStyle.Font = new Font("Segoe UI", 9);
-
-            dgvPromotionProgram.GridColor = Color.LightGray;
-            dgvPromotionProgram.BorderStyle = BorderStyle.None;
         }
 
         private void dgvPromotionProgram_CellClick(object sender, DataGridViewCellEventArgs e)

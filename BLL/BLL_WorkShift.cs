@@ -56,5 +56,11 @@ namespace BLL
             }
             return $"{prefix}{nextNumber:D4}";
         }
+
+        // Lấy tất cả ca làm việc trong 1 tuần của chi nhánh
+        public List<WorkShift> GetShiftsByWeek(DateOnly weekStart, DateOnly weekEnd, string branchId)
+        {
+            return dAL_WorkShift.GetShiftsByWeek(weekStart, weekEnd, branchId);
+        }
     }
 }

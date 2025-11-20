@@ -2,15 +2,8 @@
 {
     partial class ctrDayBox
     {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,71 +15,63 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            cbSelect = new CheckBox();
+            pnlHeader = new Panel();
             lbDay = new Label();
-            panel1.SuspendLayout();
+            CaContainer = new FlowLayoutPanel();
+            pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // pnlHeader
             // 
-            panel1.BackColor = Color.WhiteSmoke;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(cbSelect);
-            panel1.Controls.Add(lbDay);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(1);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(225, 130);
-            panel1.TabIndex = 0;
-            panel1.Click += panel1_Click;
-            panel1.Paint += panel1_Paint;
-            // 
-            // cbSelect
-            // 
-            cbSelect.AutoSize = true;
-            cbSelect.Location = new Point(3, 14);
-            cbSelect.Name = "cbSelect";
-            cbSelect.Size = new Size(18, 17);
-            cbSelect.TabIndex = 1;
-            cbSelect.UseVisualStyleBackColor = true;
+            pnlHeader.BackColor = Color.Gainsboro;
+            pnlHeader.Controls.Add(lbDay);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(230, 30);
+            pnlHeader.TabIndex = 0;
+            pnlHeader.Click += panel1_Click;
             // 
             // lbDay
             // 
             lbDay.AutoSize = true;
-            lbDay.ForeColor = Color.Black;
-            lbDay.Location = new Point(192, 10);
+            lbDay.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lbDay.Location = new Point(5, 5);
             lbDay.Name = "lbDay";
-            lbDay.Size = new Size(28, 23);
+            lbDay.Size = new Size(63, 19);
             lbDay.TabIndex = 0;
-            lbDay.Text = "00";
+            lbDay.Text = "Thứ 2...";
+            // 
+            // CaContainer
+            // 
+            CaContainer.Dock = DockStyle.Fill;
+            CaContainer.FlowDirection = FlowDirection.TopDown;
+            CaContainer.Location = new Point(0, 30);
+            CaContainer.Name = "CaContainer";
+            CaContainer.Padding = new Padding(5);
+            CaContainer.Size = new Size(230, 190);
+            CaContainer.TabIndex = 1;
+            CaContainer.WrapContents = false;
             // 
             // ctrDayBox
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.Gray;
-            Controls.Add(panel1);
-            Font = new Font("Segoe UI", 10F);
-            Margin = new Padding(2);
+            BorderStyle = BorderStyle.FixedSingle;
+            Controls.Add(CaContainer);
+            Controls.Add(pnlHeader);
             Name = "ctrDayBox";
-            Size = new Size(225, 130);
-            Load += ctrDayBox_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Size = new Size(230, 220);
+            pnlHeader.ResumeLayout(false);
+            pnlHeader.PerformLayout();
             ResumeLayout(false);
+
         }
 
         #endregion
 
-        private Panel panel1;
-        private Label lbDay;
-        private CheckBox cbSelect;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Label lbDay;
     }
 }

@@ -1,7 +1,9 @@
 ﻿using DTO;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +84,68 @@ namespace DAL
         public bool IsEmployeeNameExists(string employeeName)
         {
             return _context.Employees.Any(e => e.EmployeeName == employeeName);
+        }
+
+        // Hàm in report chi nhánh
+        public DataTable GetEmployeeByFilter(string? accountId)
+        {
+            var sql = @"
+            SELECT 
+                E.Id AS EmployeeId,
+                E.EmployeeName,
+                E.CitizenId,
+                E.Phone,
+                E.Gender,
+                E.DateOfBirth,
+                E.Role,
+                E.HireDate,
+                E.CurrentStatus,
+
+                A.Name AS AddressName,
+                W.WardName,
+                P.ProvinceName,
+
+                B.Id AS BranchId,
+                B.BranchName,
+                BA.Name AS BranchAddressName,
+                BW.WardName AS BranchWard,
+                BP.ProvinceName AS BranchProvince
+
+            FROM EMPLOYEE E
+            JOIN EMPLOYEE ER ON ER.BranchId = E.BranchId
+            JOIN ACCOUNT ACC ON ACC.EmployeeId = ER.Id 
+                            AND ACC.Id = @AccountId
+
+            LEFT JOIN ADDRESS A ON A.Id = E.AddressId
+            LEFT JOIN WARD W ON W.Id = A.WardId
+            LEFT JOIN PROVINCE P ON P.Id = W.ProvinceId
+
+            JOIN BRANCH B ON B.Id = E.BranchId
+            LEFT JOIN ADDRESS BA ON BA.Id = B.AddressId
+            LEFT JOIN WARD BW ON BW.Id = BA.WardId
+            LEFT JOIN PROVINCE BP ON BP.Id = BW.ProvinceId
+
+            WHERE 
+                E.Id <> 'EM_ADMIN';";
+
+            using (var cmd = _context.Database.GetDbConnection().CreateCommand())
+            {
+                cmd.CommandText = sql;
+
+                // Thêm tham số vào lệnh
+                cmd.Parameters.Add(new SqlParameter("@AccountId",
+                    string.IsNullOrEmpty(accountId) ? DBNull.Value : accountId));
+
+                // Mở kết nối
+                _context.Database.OpenConnection();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    var dt = new DataTable();
+                    dt.Load(reader);
+                    return dt;
+                }
+            }
         }
     }
 }

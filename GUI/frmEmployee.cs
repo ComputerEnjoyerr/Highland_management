@@ -1,6 +1,7 @@
 ﻿using BLL;
 using DAL;
 using DTO;
+using FastReport;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,9 @@ namespace GUI
         private readonly BLL_Province bLL_Province = new BLL_Province();
         private readonly BLL_Branch bLL_Branch = new BLL_Branch();
 
+        private List<Employee> EmployeeList = new List<Employee>();
+        private List<Account> AccountList = new List<Account>();
+
         private readonly Account _currentUser;
         public frmEmployee(Account currentUser)
         {
@@ -30,44 +34,28 @@ namespace GUI
         }
 
         // Hàm load dữ liệu nhân viên lên DataGridView
-        public void LoadEmployeeData(string branchId, string? keyword = null)
+        public void LoadEmployeeData(string? keyword = "")
         {
+            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
             dgvEmployee.MultiSelect = false;
             dgvEmployee.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEmployee.ReadOnly = true;
 
             var allEmployees = bLL_Employee.GetAll()
             .Where(e => e.Id != "EM_ADMIN" && e.BranchId == branchId && e.Role != "Quản lý");
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                var filteredList = allEmployees
-                    .Where(e => e.EmployeeName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.CurrentStatus.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.Role.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.Gender.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.SalaryPerHour.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                e.CitizenId.Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .Select(e => new
-                    {
-                        e.Id,
-                        e.CitizenId,
-                        e.EmployeeName,
-                        e.Gender,
-                        e.DateOfBirth,
-                        e.Role,
-                        Address = e.Address != null ? e.Address.Name : "Lỗi hiển thị",
-                        Province = e.Address?.Ward?.Province != null ? e.Address.Ward.Province.ProvinceName : "Lỗi hiển thị",
-                        Ward = e.Address?.Ward != null ? e.Address.Ward.WardName : "Lỗi hiển thị",
-                        e.SalaryPerHour,
-                        e.Phone,
-                        e.CurrentStatus
-                    }).ToList();
-                dgvEmployee.DataSource = filteredList;
-                return;
-            }
 
-            var displayList = allEmployees.Select(e => new
+            var filteredList = allEmployees
+                .Where(e => e.EmployeeName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.CurrentStatus.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.Role.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.Gender.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.SalaryPerHour.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                            e.CitizenId.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            EmployeeList = filteredList;
+
+            var displayLists = EmployeeList.Select(e => new
             {
                 e.Id,
                 e.CitizenId,
@@ -82,7 +70,8 @@ namespace GUI
                 e.Phone,
                 e.CurrentStatus
             }).ToList();
-            dgvEmployee.DataSource = displayList;
+            dgvEmployee.DataSource = displayLists;
+
         }
 
         // Hàm dọn dẹp dữ liệu
@@ -181,14 +170,12 @@ namespace GUI
         }
         private void frmEmployee_Load(object sender, EventArgs e)
         {
-            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
-
-            LoadEmployeeData(branchId);
+            LoadEmployeeData();
             LoadProvince();
             LoadGender();
             LoadRole();
             LoadEmployeeStatus();
-            LoadAccountData(branchId);
+            LoadAccountData();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -270,29 +257,20 @@ namespace GUI
                 return;
             }
 
-            // Kiểm tra trùng tên (trừ chính nhân viên đang chỉnh sửa)
-            var existingEmployee = bLL_Employee.GetAll()
-                .FirstOrDefault(e => e.EmployeeName.Equals(name, StringComparison.OrdinalIgnoreCase)
-                                  && e.BranchId == txtId.Text
-                                  && e.Id != txtId.Text);
+            // Lấy BranchId của tài khoản đăng nhập
+            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
 
+            // Kiểm tra trùng tên trong chi nhánh (trừ chính nó)
+            var existingEmployee = bLL_Employee.GetAll()
+                .FirstOrDefault(e =>
+                    e.EmployeeName.Equals(name, StringComparison.OrdinalIgnoreCase) &&
+                    e.BranchId == branchId &&
+                    e.Id != txtId.Text // Nếu đang sửa thì bỏ qua chính nó
+                );
             if (existingEmployee != null)
             {
-                MessageBox.Show("Tên nhân viên này đã tồn tại trong chi nhánh này!",
-                                "Thông báo",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                txtName.Clear();
-                txtName.Focus();
-                return;
-            }
-
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                MessageBox.Show("Vui lòng nhập tên nhân viên!",
-                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtName.Clear();
+                MessageBox.Show("Tên nhân viên này đã tồn tại trong chi nhánh!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtName.Focus();
                 return;
             }
@@ -300,11 +278,11 @@ namespace GUI
             // Nếu hợp lệ -> chỉ tạo mã nếu chưa có
             if (string.IsNullOrWhiteSpace(txtId.Text))
             {
-                txtId.Text = bLL_Employee.GenerateEmployeeId();
+                txtId.Text = bLL_Employee.GenerateEmployeeId(dtpDateOfBirth.Value);
             }
         }
 
-        // Biển theo dõi công tác nhập liệu
+        // Biển theo dõi công tác nhập dữ liệu
         private CancellationTokenSource _cts = new();
         private async void txtFind_TextChanged(object sender, EventArgs e)
         {
@@ -318,7 +296,7 @@ namespace GUI
             {
                 // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
                 await Task.Delay(500, _cts.Token);
-                LoadEmployeeData(input);
+                LoadEmployeeData(keyword:input);
             }
             catch (TaskCanceledException)
             {
@@ -391,7 +369,7 @@ namespace GUI
                 };
                 bLL_Address.Add(address);
 
-                string employeeId = bLL_Employee.GenerateEmployeeId();
+                string employeeId = bLL_Employee.GenerateEmployeeId(dtpDateOfBirth.Value);
                 txtId.Text = employeeId;
                 var employee = new Employee
                 {
@@ -411,7 +389,7 @@ namespace GUI
                 bLL_Employee.Add(employee);
                 MessageBox.Show("Đã thêm nhân viên thành công", "Thông báo");
                 ClearData();
-                LoadEmployeeData(branchId);
+                LoadEmployeeData();
             }
             catch (Exception ex)
             {
@@ -422,8 +400,6 @@ namespace GUI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
-
             if (string.IsNullOrWhiteSpace(txtId.Text))
             {
                 MessageBox.Show("Vui lòng chọn nhân viên cần cập nhật từ bảng.", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
@@ -499,7 +475,7 @@ namespace GUI
                 bLL_Employee.Update(employee);
                 MessageBox.Show("Đã cập nhật thành công", "Thông báo");
 
-                LoadEmployeeData(branchId);
+                LoadEmployeeData();
                 ClearData();
             }
             catch (Exception ex)
@@ -511,7 +487,6 @@ namespace GUI
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
             try
             {
                 string id = txtId.Text.Trim();
@@ -525,7 +500,7 @@ namespace GUI
                 {
                     bLL_Employee.Delete(id);
                     MessageBox.Show("Đã xóa thành công", "Thông báo");
-                    LoadEmployeeData(branchId);
+                    LoadEmployeeData();
                     ClearData();
                 }
             }
@@ -539,8 +514,9 @@ namespace GUI
         // ----------------------- Tạo tài khoản ------------------------
 
         // Hàm load tài khoản
-        public void LoadAccountData(string branchId, string? keyword = null)
+        public void LoadAccountData(string? keyword = "")
         {
+            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
             dgvAccount.MultiSelect = false;
             dgvAccount.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAccount.ReadOnly = true;
@@ -548,36 +524,23 @@ namespace GUI
             var allAccounts = bLL_Account.GetAll()
             .Where(a => a.Id != "AC_ADMIN" && a.Employee != null
             && a.Employee.BranchId == branchId && a.Employee.Role != "Quản lý");
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                var filteredList = allAccounts
+
+
+            var filteredList = allAccounts
                     .Where(a => (a.AccountName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                                 a.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase)) &&
-                                 a.Employee.BranchId == branchId)
-                    .Select(a => new
-                    {
-                        a.Id,
-                        a.AccountName,
-                        a.Password,
-                        EmployeeName = a.EmployeeId != null ? a.Employee.EmployeeName : "Lỗi hiển thị",
-                        a.CreateDate
-                    }).ToList();
-                dgvAccount.DataSource = filteredList;
-                return;
-            }
+                                 a.Id.ToString().Contains(keyword, StringComparison.OrdinalIgnoreCase) &&
+                                 a.Employee.BranchId == branchId))
+                .ToList();
+             AccountList = filteredList;
 
-            var displayList = allAccounts
-                .Where(a => a.Employee != null && a.Employee.BranchId == branchId)
-                .Select(a => new
-                {
-                    a.Id,
-                    a.AccountName,
-                    a.Password,
-                    EmployeeName = a.EmployeeId != null ? a.Employee.EmployeeName : "Lỗi hiển thị",
-                    a.CreateDate
-                }).ToList();
-
-            dgvAccount.DataSource = displayList;
+            var displayLists = AccountList.Select(a => new
+            {
+                a.Id,
+                a.AccountName,
+                EmployeeName = a.Employee != null ? a.Employee.EmployeeName : "Lỗi hiển thị",
+                a.CreateDate
+            }).ToList();
+            dgvAccount.DataSource = displayLists;
         }
 
         // Hàm dọn dẹp dữ liệu
@@ -703,7 +666,6 @@ namespace GUI
             string password = txtPassword.Text.Trim();
             string confirm = txtRePassword.Text.Trim();
             string employeeId = txtAId.Text.Trim();
-            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
 
             // Kiểm tra đã chọn nhân viên
             if (string.IsNullOrEmpty(employeeId))
@@ -752,7 +714,7 @@ namespace GUI
                 bLL_Account.Add(account);
                 MessageBox.Show("Đã tạo tài khoản thành công", "Thông báo");
                 ClearAccountData();
-                LoadAccountData(branchId);
+                LoadAccountData();
             }
             catch (Exception ex)
             {
@@ -763,7 +725,6 @@ namespace GUI
 
         private void btnDeleteA_Click(object sender, EventArgs e)
         {
-            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
             try
             {
                 string id = txtAccountId.Text.Trim();
@@ -778,7 +739,7 @@ namespace GUI
                     bLL_Account.Delete(id);
                     MessageBox.Show("Đã xóa thành công", "Thông báo");
                     ClearAccountData();
-                    LoadAccountData(branchId);
+                    LoadAccountData();
                 }
             }
             catch (Exception ex)
@@ -792,7 +753,6 @@ namespace GUI
         {
             string password = txtPassword.Text.Trim();
             string confirm = txtRePassword.Text.Trim();
-            string branchId = new BLL_Employee().GetById(_currentUser.EmployeeId).BranchId;
 
             if (string.IsNullOrWhiteSpace(txtAccountId.Text))
             {
@@ -826,7 +786,7 @@ namespace GUI
                 MessageBox.Show("Đã cập nhật thành công", "Thông báo");
 
                 ClearAccountData();
-                LoadAccountData(branchId);
+                LoadAccountData();
             }
             catch (Exception ex)
             {
@@ -847,11 +807,49 @@ namespace GUI
             {
                 // Chờ 0,5s giây sau khi người dùng dừng nhập rồi mới thực hiện tìm kiếm
                 await Task.Delay(500, _cts.Token);
-                LoadEmployeeData(input);
+                LoadAccountData(keyword: input);
             }
             catch (TaskCanceledException)
             {
                 // Người dùng vẫn đang nhập, bỏ qua
+            }
+        }
+
+        private void btnPrintReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Lấy dữ liệu lọc 
+                string? accountId = _currentUser.Id;
+
+                // Lấy dữ liệu từ BLL
+                var employeeTable = bLL_Employee.GetEmployeeByFilter(accountId);
+                employeeTable.TableName = "EmployeeDetail";
+
+                // Đường dẫn tới file báo cáo FastReport
+                string reportPath = Path.Combine(Application.StartupPath, @"..\..\..\RPTEmployeeDetail.frx");
+                Report report = new Report();
+
+                report.Dictionary.Connections.Clear();
+                report.Load(reportPath);
+
+                // Gán dữ liệu cho báo cáo
+                report.RegisterData(employeeTable, "EmployeeDetail");
+
+                // Gán tham số (nếu file report có sử dụng)
+                report.SetParameterValue("AccountId", accountId ?? "");
+
+                // Kích hoạt nguồn dữ liệu
+                report.GetDataSource("EmployeeDetail").Enabled = true;
+
+                // Hiển thị báo cáo
+                report.Show();
+            }
+            catch (Exception ex)
+            {
+                // Lấy chi tiết lỗi từ InnerException
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Lỗi khi xuất báo cáo chi nhánh.\nChi tiết lỗi: " + inner);
             }
         }
     }
