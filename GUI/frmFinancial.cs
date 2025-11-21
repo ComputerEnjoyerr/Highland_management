@@ -36,6 +36,7 @@ namespace GUI
         private readonly BLL_Customer bLL_Customer = new();
         private readonly BLL_Attendance bLL_Attendance = new();
         private readonly BLL_StockReceipt bLL_StockReceipt = new();
+        private readonly BLL_Account bLL_Account = new();
 
         private bool daLuuThangNay = false;
         private bool cheDoSua = false;
@@ -101,41 +102,86 @@ namespace GUI
         }
         private void LoadChiPhiCoDinh()
         {
+            //var fin = bLL_Financial.GetByMonthYear(SelectedMonth, SelectedYear);
+            //daLuuThangNay = (fin != null);
+
+            //if (fin != null)
+            //{
+            //    isUpdating = true;
+
+            //    // Sử dụng giá trị từ database, nếu null thì dùng 0
+            //    FormatRichTextBox(txtDoanhThu, fin.TotalRevenue ?? 0);
+            //    FormatRichTextBox(txtTienNguyenLieu, fin.IngredientCost ?? 0);
+            //    FormatRichTextBox(txtLuongNV, fin.SalaryCost ?? 0);
+            //    FormatRichTextBox(txtDienNuoc, fin.ElectricityCost ?? 0);
+            //    FormatRichTextBox(txtMatBang, fin.RentCost ?? 0);
+            //    FormatRichTextBox(txtChiPhiKhac, fin.OtherCost ?? 0);
+
+            //    isUpdating = false;
+
+            //    // Cập nhật lại lợi nhuận và biểu đồ
+
+            //    CapNhatLoiNhuan();
+            //    DrawFinancialPieChart();
+            //    UpdateButtonStates();
+            //}
+            //else
+            //{
+            //    // Nếu chưa có dữ liệu, set về 0
+            //    isUpdating = true;
+            //    FormatRichTextBox(txtDienNuoc, 0);
+            //    FormatRichTextBox(txtMatBang, 0);
+            //    FormatRichTextBox(txtChiPhiKhac, 0);
+            //    isUpdating = false;
+            //}
+
+            //UpdateButtonStates();
+
+            // Luôn tính toán dữ liệu MỚI NHẤT từ các nguồn
+            decimal doanhThuMoi = TinhDoanhThuMoi();
+            decimal nguyenLieuMoi = TinhNguyenLieuMoi();
+            decimal luongNVMoi = TinhLuongNVMoi();
+
             var fin = bLL_Financial.GetByMonthYear(SelectedMonth, SelectedYear);
             daLuuThangNay = (fin != null);
-            decimal dienNuoc = 0, matBang = 0, chiPhiKhac = 0;
 
             if (fin != null)
             {
                 isUpdating = true;
 
-                // Sử dụng giá trị từ database, nếu null thì dùng 0
-                decimal dienNuocValue = (fin.ElectricityCost ?? 0) + (fin.WaterCost ?? 0);
-                decimal matBangValue = fin.RentCost ?? 0;
-                decimal chiPhiKhacValue = fin.OtherCost ?? 0;
+                // CẬP NHẬT dữ liệu tính toán mới nhất
+                fin.TotalRevenue = doanhThuMoi;
+                fin.IngredientCost = nguyenLieuMoi;
+                fin.SalaryCost = luongNVMoi;
+                bLL_Financial.Update(fin); // Lưu luôn vào DB
 
-                FormatRichTextBox(txtDienNuoc, dienNuocValue);
-                FormatRichTextBox(txtMatBang, matBangValue);
-                FormatRichTextBox(txtChiPhiKhac, chiPhiKhacValue);
+                // Hiển thị
+                FormatRichTextBox(txtDoanhThu, doanhThuMoi);
+                FormatRichTextBox(txtTienNguyenLieu, nguyenLieuMoi);
+                FormatRichTextBox(txtLuongNV, luongNVMoi);
+                FormatRichTextBox(txtDienNuoc, fin.ElectricityCost ?? 0);
+                FormatRichTextBox(txtMatBang, fin.RentCost ?? 0);
+                FormatRichTextBox(txtChiPhiKhac, fin.OtherCost ?? 0);
 
                 isUpdating = false;
-
-                // Cập nhật lại lợi nhuận và biểu đồ
-
-                CapNhatLoiNhuan();
-                DrawFinancialPieChart();
-                UpdateButtonStates();
             }
             else
             {
-                // Nếu chưa có dữ liệu, set về 0
                 isUpdating = true;
+
+                // Hiển thị dữ liệu tính toán mới nhất
+                FormatRichTextBox(txtDoanhThu, doanhThuMoi);
+                FormatRichTextBox(txtTienNguyenLieu, nguyenLieuMoi);
+                FormatRichTextBox(txtLuongNV, luongNVMoi);
                 FormatRichTextBox(txtDienNuoc, 0);
                 FormatRichTextBox(txtMatBang, 0);
                 FormatRichTextBox(txtChiPhiKhac, 0);
+
                 isUpdating = false;
             }
 
+            CapNhatLoiNhuan();
+            DrawFinancialPieChart();
             UpdateButtonStates();
         }
 
@@ -195,6 +241,7 @@ namespace GUI
 
         private void LoadDataIngredient()
         {
+           
             // Bảo vệ ComboBox
             if (cbMonth.SelectedIndex < 0 || string.IsNullOrEmpty(cbYear.Text))
                 return;
@@ -202,43 +249,59 @@ namespace GUI
             int selectedMonth = cbMonth.SelectedIndex + 1;
             int selectedYear = int.Parse(cbYear.Text);
 
-            var receipts = bLL_StockReceipt.GetAll()
-                .Where(s =>
-                    s.ReceiptDate.Month == selectedMonth &&
-                    s.ReceiptDate.Year == selectedYear &&
-                    s.Ingredient != null)
-                .ToList();
+            try
+            {
+                // CHỈ DÙNG 1 QUERY - tối ưu hiệu suất
+                var receipts = bLL_StockReceipt.GetAll()
+                    .Where(s => s.ReceiptDate.Month == selectedMonth &&
+                               s.ReceiptDate.Year == selectedYear &&
+                               s.Ingredient != null)
+                    .ToList();
 
-            // TÍNH TỔNG TIỀN NGUYÊN LIỆU
-            decimal totalCost = receipts.Sum(s => s.Quantity * s.UnitPrice);
+                //// Debug: Kiểm tra dữ liệu raw
+                //MessageBox.Show($"Tìm thấy {receipts.Count} receipts cho {selectedMonth}/{selectedYear}");
 
-            var data = bLL_StockReceipt.GetAll()
-         .Where(s =>
-             s.ReceiptDate.Month == selectedMonth &&   // DateOnly → có .Month, .Year
-             s.ReceiptDate.Year == selectedYear &&     // KHÔNG CẦN .Value
-             s.Ingredient != null)
-         .GroupBy(s => s.IngredientId)
-         .Select(g => new
-         {
-             IngredientId = g.Key,
-             IngredientName = g.First().Ingredient?.IngredientName ?? "Không xác định",
-             TotalQuantity = g.Sum(x => x.Quantity),
-             UnitPrice = g.First().UnitPrice,
-             ReceiptDate = g.First().ReceiptDate
-             //TotalValue = g.Sum(x => x.Quantity * x.UnitPrice)
-         })
-         .ToList();
+                // TÍNH TỔNG TIỀN NGUYÊN LIỆU
+                decimal totalCost = receipts.Sum(s => s.Quantity * s.UnitPrice);
 
-            dataGridView2.DataSource = data;
-            txtTienNguyenLieu.Text = $"{totalCost:N0} vnd";
-            FormatRichTextBox(txtTienNguyenLieu, totalCost);
-            CapNhatLoiNhuan();
+                // NHÓM DỮ LIỆU CHO DATAGRIDVIEW - Sửa lỗi GroupBy
+                var data = receipts
+                    .GroupBy(s => new { s.IngredientId, s.UnitPrice }) // Nhóm theo cả ID và giá
+                    .Select(g => new
+                    {
+                        IngredientId = g.Key.IngredientId,
+                        IngredientName = g.First().Ingredient?.IngredientName ?? "Không xác định",
+                        TotalQuantity = g.Sum(x => x.Quantity),
+                        UnitPrice = g.Key.UnitPrice, // Lấy giá từ key
+                        ReceiptDate = g.Max(x => x.ReceiptDate) // Ngày nhập gần nhất
+                    })
+                    .OrderBy(x => x.IngredientName)
+                    .ToList();              
 
-            DrawFinancialPieChart();
+                // GÁN DỮ LIỆU VÀO GRID
+                dataGridView2.DataSource = data;
+
+                // CẬP NHẬT TEXTBOX
+                txtTienNguyenLieu.Text = $"{totalCost:N0} vnd";
+                FormatRichTextBox(txtTienNguyenLieu, totalCost);
+
+                // CẬP NHẬT GIAO DIỆN
+                CapNhatLoiNhuan();
+                DrawFinancialPieChart();
+
+                // FORCE REFRESH GRID
+                dataGridView2.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi load nguyên liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadDataEmployee()
         {
+
+            var employee = bLL_Employee.GetAll();
             if (cbMonth.SelectedIndex < 0 || string.IsNullOrEmpty(cbYear.Text))
                 return;
 
@@ -707,6 +770,50 @@ namespace GUI
 
         private void btnLuuChiPhi_Click(object sender, EventArgs e)
         {
+            //try
+            //{
+            //    decimal doanhThu = LaySo(txtDoanhThu);
+            //    decimal nguyenLieu = LaySo(txtTienNguyenLieu);
+            //    decimal luongNV = LaySo(txtLuongNV);
+            //    decimal dienNuoc = LaySo(txtDienNuoc);
+            //    decimal matBang = LaySo(txtMatBang);
+            //    decimal chiPhiKhac = LaySo(txtChiPhiKhac);
+
+            //    var branch = bLL_Branch.GetAll().FirstOrDefault();
+            //    if (branch == null)
+            //    {
+            //        MessageBox.Show("Không tìm thấy chi nhánh nào!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        return;
+            //    }
+
+            //    var fin = new Financial
+            //    {
+            //        BranchId = bLL_Branch.GetAll().FirstOrDefault()?.Id,
+            //        ReportMonth = SelectedMonth,
+            //        ReportYear = SelectedYear,
+            //        TotalRevenue = doanhThu,
+            //        IngredientCost = nguyenLieu,
+            //        SalaryCost = luongNV,
+            //        ElectricityCost = LaySo(txtDienNuoc),
+            //        WaterCost = 0,
+            //        RentCost = LaySo(txtMatBang),
+            //        OtherCost = LaySo(txtChiPhiKhac)
+            //    };
+
+            //    bLL_Financial.Update(fin);  // ← void, không cần kiểm tra true/false
+
+            //    MessageBox.Show("Lưu thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //    daLuuThangNay = true;
+            //    cheDoSua = false;
+            //    LoadChiPhiCoDinh(); // sẽ đọc lại từ DB → luôn luôn đúng
+            //    UpdateButtonStates();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+
             try
             {
                 var fin = new Financial
@@ -714,19 +821,20 @@ namespace GUI
                     BranchId = bLL_Branch.GetAll().FirstOrDefault()?.Id,
                     ReportMonth = SelectedMonth,
                     ReportYear = SelectedYear,
+                    TotalRevenue = TinhDoanhThuMoi(),        // Luôn dùng dữ liệu MỚI
+                    IngredientCost = TinhNguyenLieuMoi(),    // Luôn dùng dữ liệu MỚI  
+                    SalaryCost = TinhLuongNVMoi(),           // Luôn dùng dữ liệu MỚI
                     ElectricityCost = LaySo(txtDienNuoc),
                     WaterCost = 0,
                     RentCost = LaySo(txtMatBang),
                     OtherCost = LaySo(txtChiPhiKhac)
                 };
 
-                bLL_Financial.Update(fin);  // ← void, không cần kiểm tra true/false
+                bLL_Financial.Update(fin);
 
                 MessageBox.Show("Lưu thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 daLuuThangNay = true;
                 cheDoSua = false;
-                LoadChiPhiCoDinh(); // sẽ đọc lại từ DB → luôn luôn đúng
                 UpdateButtonStates();
             }
             catch (Exception ex)
@@ -745,12 +853,109 @@ namespace GUI
 
         private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (cbMonth.SelectedIndex < 0 || string.IsNullOrEmpty(cbYear.Text))
+            {
+                MessageBox.Show("Vui lòng chọn tháng/năm!", "Thiếu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int thang = cbMonth.SelectedIndex + 1;
+            int nam = int.Parse(cbYear.Text.Trim());
+
+            // === LẤY DỮ LIỆU THẬT TỪ CÁC HÀM BẠN ĐÃ VIẾT SẴN ===
+            decimal doanhThu = LaySo(txtDoanhThu);
+            decimal nguyenLieu = LaySo(txtTienNguyenLieu);
+            decimal luongNV = LaySo(txtLuongNV);
+            decimal dienNuoc = LaySo(txtDienNuoc);
+            decimal matBang = LaySo(txtMatBang);
+            decimal chiPhiKhac = LaySo(txtChiPhiKhac);
+            decimal loiNhuan = doanhThu - luongNV - nguyenLieu - dienNuoc - matBang - chiPhiKhac;
+
+            // Tạo 1 dòng dữ liệu giả để đẩy vào báo cáo
+            var data = new[]
+            {
+        new {
+            TotalRevenue = doanhThu,
+            IngredientCost = nguyenLieu,
+            SalaryCost = luongNV,
+            ElectricityCost = dienNuoc,
+            RentCost = matBang,
+            OtherCost = chiPhiKhac,
+            Profit = loiNhuan,
+            ReportMonth = thang,
+            ReportYear = nam
+        }
+    };
+            string brach = bLL_Branch.GetAll().FirstOrDefault()?.BranchName ?? "Không có";
+            using (var report = new FastReport.Report())
+            {
+                report.Load(Application.StartupPath + @"RPTDoanhThuChiPhi.frx");
+
+                // ĐẨY DỮ LIỆU THẬT VÀO
+               // report.RegisterData(data, "FINANCIAL_SUMMARY");
+
+                report.SetParameterValue("thangbc", thang);
+                report.SetParameterValue("nambc", nam);
+                report.SetParameterValue("pTieuDe", $"BÁO CÁO DOANH THU - CHI PHÍ THÁNG {thang:00}/{nam}");
+                report.SetParameterValue("pChiNhanh", brach);
+                report.SetParameterValue("pNgayIn", DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+
+                report.Prepare();
+                report.ShowPrepared();
+            }
+        }
+
+        //Tính toán 
+        private decimal TinhDoanhThuMoi()
+        {
+            var bills = bLL_Bill.GetAll()
+                .Where(b => b.CreateDate?.Month == SelectedMonth && b.CreateDate?.Year == SelectedYear)
+                .ToList();
+
+            return bills.Sum(b => b.TotalPrice);
+        }
+
+        private decimal TinhNguyenLieuMoi()
+        {
+            var receipts = bLL_StockReceipt.GetAll()
+                .Where(s => s.ReceiptDate.Month == SelectedMonth && s.ReceiptDate.Year == SelectedYear)
+                .ToList();
+
+            return receipts.Sum(s => s.Quantity * s.UnitPrice);
+        }
+
+        private decimal TinhLuongNVMoi()
+        {
+            var attendances = bLL_Attendance.GetAll()
+                .Where(a => a.CheckIn.HasValue &&
+                           a.CheckIn.Value.Month == SelectedMonth &&
+                           a.CheckIn.Value.Year == SelectedYear)
+                .ToList();
+
+            decimal total = 0;
+            var grouped = attendances.GroupBy(a => a.EmployeeId);
+
+            foreach (var group in grouped)
+            {
+                var emp = group.First().Employee;
+                double hours = group.Sum(a =>
+                    (a.CheckOut.Value - a.CheckIn.Value).TotalHours +
+                    (double)(a.OvertimeHours ?? 0)
+                );
+                total += (decimal)hours * emp.SalaryPerHour;
+            }
+
+            return total;
         }
     }
 }

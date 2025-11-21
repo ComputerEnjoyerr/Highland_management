@@ -29,29 +29,45 @@ namespace DAL
         
         public void Update(Financial f)
         {
-            var existing = _context.Financials
-                .FirstOrDefault(x => x.ReportMonth == f.ReportMonth && x.ReportYear == f.ReportYear);
-
-            if (existing != null)
+            try
             {
-                // UPDATE – chỉ cập nhật những field được phép
-                existing.ElectricityCost = f.ElectricityCost;
-                existing.WaterCost = f.WaterCost;
-                existing.RentCost = f.RentCost;
-                existing.OtherCost = f.OtherCost;
+                var existing = _context.Financials
+                    .FirstOrDefault(x => x.ReportMonth == f.ReportMonth && x.ReportYear == f.ReportYear);
+
+                if (existing != null)
+                {
+                    // UPDATE
+                    existing.TotalRevenue = f.TotalRevenue;
+                    existing.IngredientCost = f.IngredientCost;
+                    existing.SalaryCost = f.SalaryCost;
+                    existing.ElectricityCost = f.ElectricityCost;
+                    existing.WaterCost = f.WaterCost;
+                    existing.RentCost = f.RentCost;
+                    existing.OtherCost = f.OtherCost;
+                    existing.CreatedAt = DateTime.Now;
+                }
+                else
+                {
+                    // INSERT
+                    f.BranchId = f.BranchId ?? "BR251102001";
+                    if (string.IsNullOrEmpty(f.ReportId))
+                        f.ReportId = $"RP{f.ReportYear % 100:D2}{f.ReportMonth:D2}{DateTime.Now:HHmmss}";
+
+                    f.CreatedAt = DateTime.Now;
+                    _context.Financials.Add(f);
+                }
+
+                _context.SaveChanges();
+                
             }
-            else
+            catch (Exception ex)
             {
-                // INSERT
-                if (string.IsNullOrEmpty(f.ReportId))
-                    f.ReportId = $"RP{f.ReportYear % 100:D2}{f.ReportMonth:D2}{DateTime.Now:HHmmss}";
-
-                f.CreatedAt = DateTime.Now;
-                _context.Financials.Add(f);
+                throw new Exception($"Lỗi khi lưu Financial: {ex.Message}");
+                
             }
-
-            _context.SaveChanges();
         }
+
+
         
     }
 }
