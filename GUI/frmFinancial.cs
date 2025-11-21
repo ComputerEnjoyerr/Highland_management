@@ -899,7 +899,8 @@ namespace GUI
             string brach = bLL_Branch.GetAll().FirstOrDefault()?.BranchName ?? "Không có";
             using (var report = new FastReport.Report())
             {
-                report.Load(Application.StartupPath + @"RPTDoanhThuChiPhi.frx");
+                string path = Path.Combine(Application.StartupPath, @"..\..\..\RPTDoanhThuChiPhi.frx");
+                report.Load(path);
 
                 // ĐẨY DỮ LIỆU THẬT VÀO
                // report.RegisterData(data, "FINANCIAL_SUMMARY");
@@ -944,13 +945,13 @@ namespace GUI
 
             decimal total = 0;
             var grouped = attendances.GroupBy(a => a.EmployeeId);
-
+            if (grouped == null) return 0;
             foreach (var group in grouped)
             {
                 var emp = group.First().Employee;
-                double hours = group.Sum(a =>
+                double hours = group.Sum(a => a.CheckIn.HasValue && a.CheckOut.HasValue ?
                     (a.CheckOut.Value - a.CheckIn.Value).TotalHours +
-                    (double)(a.OvertimeHours ?? 0)
+                    (double)(a.OvertimeHours ?? 0) : 0
                 );
                 total += (decimal)hours * emp.SalaryPerHour;
             }

@@ -38,7 +38,8 @@ namespace GUI
         private void LoadNotification(string type = "")
         {
             var filteredNotifications = bLL_Notification.GetAll()
-                .Where(n => n.Type.Contains(type, StringComparison.OrdinalIgnoreCase))
+                .Where(n => n.Type.Contains(type, StringComparison.OrdinalIgnoreCase) && 
+                            n.BranchId == employee.BranchId)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToList();
             notifications = filteredNotifications;

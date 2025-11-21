@@ -55,11 +55,10 @@ namespace GUI
             {
                 t.Id,
                 t.TableName,
-                t.Capacity,
-                t.Status,
-                BranchName = t.Branch.BranchName
+                Status = t.Status == 0 ? "Trống" : "Đang được đặt",
+                t.Capacity
             }).ToList();
-            dgvTable.DataSource = filteredList;
+            dgvTable.DataSource = displayLists;
             return;
         }
 
