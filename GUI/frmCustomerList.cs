@@ -15,9 +15,20 @@ namespace GUI
     public partial class frmCustomerList : Form
     {
         public Customer SelectedCustomer = new Customer();
-        private BLL_Customer BLL_Customer = new BLL_Customer();
+        private BLL_Customer bLL_Customer = new BLL_Customer();
         private List<Customer> customers = new List<Customer>();
-
+        private Customer unknowCustomer = new Customer
+        {
+            Id = "UKNOWNGUEST-001",
+            CustomerName = "Khách vãng lai",
+            Phone = "0901234567",
+            Email = "unknown@example.com",
+            Gender = "Nam",
+            DateOfBirth = DateOnly.FromDateTime(DateTime.UtcNow),
+            Point = 0,
+            Drips = 0,
+            Tier = "Member"
+        };
         public frmCustomerList()
         {
             InitializeComponent();
@@ -25,7 +36,7 @@ namespace GUI
         private void LoadCustomer(string keyword = "")
         {
             // Hiển thị các btn Khách hàng
-            var filteredList = BLL_Customer.GetAll()
+            var filteredList = bLL_Customer.GetAll()
                 .Where(c => c.CustomerName.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
                             c.Tier != null && c.Tier.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
                             c.Phone.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
@@ -86,6 +97,35 @@ namespace GUI
             catch (TaskCanceledException)
             {
                 // Người dùng vẫn đang nhập, bỏ qua
+            }
+        }
+
+        private void btnChooseCustomer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Nếu chưa có khách hàng nào được chọn thì chọn khách vãng lai
+                if (customers.FirstOrDefault(c => c.Id == unknowCustomer.Id) == null)
+                {
+                    bLL_Customer.Add(unknowCustomer);
+                    SelectedCustomer = unknowCustomer;
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                } else
+                {
+                    var existingCustomer = bLL_Customer.GetById(unknowCustomer.Id);
+                    if (existingCustomer != null)
+                    {
+                        SelectedCustomer = existingCustomer;
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Chọn khách vãng lai thất bại.\nChi tiết lỗi: " + inner, "Thông báo");
             }
         }
     }
