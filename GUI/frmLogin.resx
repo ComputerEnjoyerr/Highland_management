@@ -1713,6 +1713,9 @@ MANAGEMENT
   <data name="txtPass.Location" type="System.Drawing.Point, System.Drawing">
     <value>148, 154</value>
   </data>
+  <data name="txtPass.PasswordChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value>*</value>
+  </data>
   <data name="txtPass.Size" type="System.Drawing.Size, System.Drawing">
     <value>289, 30</value>
   </data>

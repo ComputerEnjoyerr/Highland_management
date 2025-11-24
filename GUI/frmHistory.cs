@@ -27,7 +27,7 @@ namespace GUI
         private Employee selectedEmployee; // Nhân viên đang chọn
         private void LoadHistoryBill()
         {
-            var billList = bLL_Bill.GetAll();
+            var billList = bLL_Bill.GetAll().OrderByDescending(b => b.CreateDate);
             var historyData = billList.Select(bill => new
             {
                 BillID = bill.Id,
@@ -35,7 +35,9 @@ namespace GUI
                 EmployeeName = bLL_Employee.GetById(bill.EmployeeId)?.EmployeeName,
                 BillDate = bill.CreateDate,
                 TotalPrice = bill.TotalPrice
-            }).ToList();
+            })
+            
+            .ToList();
             dgvHistoryBill.DataSource = historyData;
         }
 
@@ -44,6 +46,7 @@ namespace GUI
         {
             var billList = bLL_Bill.GetAll()
                                    .Where(b => b.CustomerId == customerId)
+                                   .OrderByDescending(b => b.CreateDate)
                                    .ToList();
 
             if (billList.Count == 0)
@@ -93,6 +96,7 @@ namespace GUI
         {
             var billList = bLL_Bill.GetAll()
                                    .Where(b => b.EmployeeId == employeeId)
+                                   .OrderByDescending(b => b.CreateDate)
                                    .ToList();
 
             if (billList.Count == 0)

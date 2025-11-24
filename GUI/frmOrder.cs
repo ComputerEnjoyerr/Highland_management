@@ -377,6 +377,9 @@ namespace GUI
 
         private void CalculateTotalPrice()
         {
+            if (selectedCustomer == null)
+                return;
+            
             if (selectedBill == null)
                 return;
 
@@ -404,24 +407,29 @@ namespace GUI
             // Tính khuyến mãi (nếu có)
             decimal discount = 0;
             var promoPrograms = bLL_PromotionProgram.GetAllPromotionPrograms();
-
-            if (promoPrograms != null && promoPrograms.Any())
+            // Không áp dụng khuyến mãi cho khách vãng lai
+            if (selectedCustomer.Id != "UKNOWNGUEST-001")
             {
-                foreach (var promo in promoPrograms)
+                if (promoPrograms != null && promoPrograms.Any())
                 {
-                    if (promo == null) continue;
+                    foreach (var promo in promoPrograms)
+                    {
+                        if (promo == null) continue;
 
-                    if (promo.DiscountType == "Phần trăm")
-                    {
-                        decimal percent = promo.Value;
-                        discount += total * (percent / 100);
+                        if (promo.DiscountType == "Phần trăm")
+                        {
+                            decimal percent = promo.Value;
+                            discount += total * (percent / 100);
+                        }
+                        else if (promo.DiscountType == "Tiền")
+                        {
+                            discount += promo.Value;
+                        } // Chưa xét mua 1 tặng 1
                     }
-                    else if (promo.DiscountType == "Tiền")
-                    {
-                        discount += promo.Value;
-                    } // Chưa xét mua 1 tặng 1
                 }
             }
+            // Lấy danh sách khuyến mãi áp dụng cho sản phẩm trong hóa đơn
+
 
             decimal dripDiscount = 0;
             if (selectedCustomer != null)
@@ -545,9 +553,8 @@ namespace GUI
             if (!HasEnoughIngredients(selectedProduct, (int)nmrProductQty.Value))
             {
 
-                DialogResult rs = MessageBox.Show("Không đủ nguyên liệu để làm món này.\nBạn có chắc muốn thêm sản phẩm vào danh sách?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (rs == DialogResult.No)
-                    return;
+                MessageBox.Show("Không đủ nguyên liệu để làm món này.", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                return;
             }
 
             if (selectedCustomer == null)
