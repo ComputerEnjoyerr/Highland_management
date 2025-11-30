@@ -52,15 +52,16 @@
             // 
             textBox1.Location = new Point(110, 12);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(316, 25);
+            textBox1.Size = new Size(316, 30);
             textBox1.TabIndex = 1;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(19, 15);
             label1.Name = "label1";
-            label1.Size = new Size(75, 19);
+            label1.Size = new Size(91, 23);
             label1.TabIndex = 0;
             label1.Text = "Tìm kiếm:";
             // 
@@ -70,8 +71,10 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(14, 73);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(887, 464);
             dataGridView1.TabIndex = 2;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // frmEmployeeList
             // 
@@ -85,6 +88,7 @@
             Name = "frmEmployeeList";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Danh sách nhân viên";
+            Load += frmEmployeeList_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

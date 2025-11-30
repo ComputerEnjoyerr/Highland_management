@@ -12,47 +12,38 @@ namespace GUI
 {
     public partial class ctrDayBox : UserControl
     {
-        string day;
         public string DayText { get; private set; }
-        public int Month {  get; private set; }
+        public int Month { get; private set; }
         public int Year { get; private set; }
-        public ctrDayBox(string day, int month, int year)
+
+        public FlowLayoutPanel CaContainer { get; private set; }
+
+        public ctrDayBox(string day, int dayNum, int month, int year)
         {
             InitializeComponent();
-            this.day = day;
+
+            CaContainer.Dock = DockStyle.Fill;
+            CaContainer.FlowDirection = FlowDirection.TopDown;
+            CaContainer.WrapContents = false;
+            CaContainer.AutoScroll = true;
+            CaContainer.Padding = new Padding(5, 2, 5, 2);
+            CaContainer.AutoSize = false;
+
+            // Hiển thị tiêu đề ngày
             lbDay.Text = day;
-            DayText = day;
-            cbSelect.Visible = false;
+            DayText = dayNum.ToString(); 
             Month = month;
             Year = year;
-            
-        }
-        public event EventHandler ButtonClicked;
-        private void ctrDayBox_Load(object sender, EventArgs e)
-        {
 
+            // Đăng ký sự kiện click
+            lbDay.Click += panel1_Click;
         }
+
+        public event EventHandler ButtonClicked;
 
         private void panel1_Click(object sender, EventArgs e)
         {
-            //if (!cbSelect.Checked)
-            //{
-            //    cbSelect.Checked = true;
-            //    this.BackColor = Color.Orange;
-            //}
-            //else
-            //{
-            //    cbSelect.Checked = false;
-            //    this.BackColor = Color.Gray;
-            //}
-
-            ButtonClicked?.Invoke(this, EventArgs.Empty); // Gán sự kiện click để dùng cho form chính
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            ButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

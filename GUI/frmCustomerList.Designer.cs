@@ -29,49 +29,68 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomerList));
-            dataGridView1 = new DataGridView();
+            dgvCustomer = new DataGridView();
             panel1 = new Panel();
-            textBox1 = new TextBox();
+            txtFindCustomer = new TextBox();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            btnChooseCustomer = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomer).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvCustomer
             // 
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(14, 74);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(887, 464);
-            dataGridView1.TabIndex = 0;
+            dgvCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomer.Location = new Point(14, 101);
+            dgvCustomer.Name = "dgvCustomer";
+            dgvCustomer.RowHeadersWidth = 51;
+            dgvCustomer.Size = new Size(887, 437);
+            dgvCustomer.TabIndex = 0;
+            dgvCustomer.CellContentDoubleClick += dgvCustomer_CellContentDoubleClick;
             // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(249, 245, 238);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(btnChooseCustomer);
+            panel1.Controls.Add(txtFindCustomer);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(14, 14);
             panel1.Name = "panel1";
-            panel1.Size = new Size(887, 53);
+            panel1.Size = new Size(887, 81);
             panel1.TabIndex = 1;
             // 
-            // textBox1
+            // txtFindCustomer
             // 
-            textBox1.Location = new Point(124, 12);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(316, 25);
-            textBox1.TabIndex = 1;
+            txtFindCustomer.Location = new Point(127, 26);
+            txtFindCustomer.Name = "txtFindCustomer";
+            txtFindCustomer.Size = new Size(386, 30);
+            txtFindCustomer.TabIndex = 1;
+            txtFindCustomer.TextChanged += txtFindCustomer_TextChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(19, 15);
+            label1.Location = new Point(22, 29);
             label1.Name = "label1";
-            label1.Size = new Size(75, 19);
+            label1.Size = new Size(91, 23);
             label1.TabIndex = 0;
             label1.Text = "Tìm kiếm:";
+            // 
+            // btnChooseCustomer
+            // 
+            btnChooseCustomer.BackColor = SystemColors.Control;
+            btnChooseCustomer.Image = Properties.Resources.pen;
+            btnChooseCustomer.ImageAlign = ContentAlignment.MiddleRight;
+            btnChooseCustomer.Location = new Point(531, 19);
+            btnChooseCustomer.Name = "btnChooseCustomer";
+            btnChooseCustomer.Size = new Size(195, 42);
+            btnChooseCustomer.TabIndex = 5;
+            btnChooseCustomer.Text = "Chưa có tài khoản";
+            btnChooseCustomer.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnChooseCustomer.UseVisualStyleBackColor = false;
+            btnChooseCustomer.Click += btnChooseCustomer_Click;
             // 
             // frmCustomerList
             // 
@@ -79,14 +98,15 @@
             BackColor = Color.FromArgb(74, 60, 60);
             ClientSize = new Size(914, 550);
             Controls.Add(panel1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvCustomer);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "frmCustomerList";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Danh sách khách hàng";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += frmCustomerList_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvCustomer).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -94,9 +114,10 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvCustomer;
         private Panel panel1;
-        private TextBox textBox1;
+        private TextBox txtFindCustomer;
         private Label label1;
+        private Button btnChooseCustomer;
     }
 }

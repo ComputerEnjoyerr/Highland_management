@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL;
+using DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,29 +14,71 @@ namespace GUI
 {
     public partial class frmLogin : Form
     {
+        private readonly BLL_Account bLL_Account = new();
+        private readonly BLL_Employee bLL_Employee = new();
         public frmLogin()
         {
             InitializeComponent();
         }
         public Form NextForm { get; private set; } // Lưu form tiếp theo
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (txtPass.Text == "123" && txtName.Text == "ad")
+            try
             {
-                NextForm = new frmAdMain();
-            }
-            else
+                string name = txtName.Text;
+                string pass = txtPass.Text;
+                var admin = bLL_Account.GetAll().First(); // Tài khoản admin
+                var account = bLL_Account.GetAll().FirstOrDefault(a => a.AccountName.Trim().ToLower() == name.Trim().ToLower() && a.Password == pass);
+
+                if (account != null)
+                {
+                    // Lấy nhân viên từ tài khoản
+                    var employee = bLL_Employee.GetAll().FirstOrDefault(e => e.Id == account.EmployeeId);
+                    if (employee != null)
+                    {
+                        // Kiểm tra trạng thái của nhân viên
+                        if (employee.CurrentStatus == "Đã nghỉ")
+                        {
+                            MessageBox.Show("Nhân viên này đã nghỉ việc. Vui lòng kiểm tra lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txtPass.Clear();
+                            txtPass.Focus();
+                            return;
+                        }
+
+                        if (account.AccountName == admin.AccountName && account.Password == admin.Password)
+                            NextForm = new frmAdMain();
+                        else if (employee.Role == "Quản lý" || employee.Role == "Nhân viên")
+                            NextForm = new frmMain(employee, account);
+                    }
+
+
+                    // Đăng nhập thành công
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    
+                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng.\nVui lòng kiểm tra lại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Danh sách tài khoản mẫu:\n1. Tên đăng nhập: admin | Mật khẩu: admin123 (Quyền: Quản trị viên)\n2. Tên đăng nhập: nguyenvana | Mật khẩu: 123456", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtPass.Clear();
+                    txtPass.Focus();
+                }
+            } catch (Exception ex)
             {
-                NextForm = new frmMain();
+                // Lấy chi tiết lỗi từ InnerException
+                var inner = ex.InnerException?.InnerException?.Message ?? ex.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Lỗi dữ liệu tài khoan.\nChi tiết lỗi: " + inner);
             }
-            // Đăng nhập thành công
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult rs = MessageBox.Show("Bạn có muốn thoát khỏi ứng dụng này không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (rs == DialogResult.Yes) 
+                Application.Exit();
         }
     }
 }

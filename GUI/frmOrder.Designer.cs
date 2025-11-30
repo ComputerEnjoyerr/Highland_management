@@ -31,16 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrder));
             tabMain = new TabControl();
             tpTable = new TabPage();
+            panel26 = new Panel();
             flpBanAn = new FlowLayoutPanel();
-            button14 = new Button();
             button15 = new Button();
             button16 = new Button();
             button17 = new Button();
             button18 = new Button();
             button19 = new Button();
+            button26 = new Button();
             tpOrder = new TabPage();
             panel11 = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            flpProducts = new FlowLayoutPanel();
             panel13 = new Panel();
             label3 = new Label();
             label2 = new Label();
@@ -107,32 +108,37 @@
             pictureBox23 = new PictureBox();
             pictureBox24 = new PictureBox();
             panel12 = new Panel();
+            btnRefresh = new Button();
             textBox1 = new TextBox();
             label1 = new Label();
             tabControl2 = new TabControl();
             tpOrderNCheckOut = new TabPage();
-            button13 = new Button();
-            button12 = new Button();
-            button11 = new Button();
-            numericUpDown1 = new NumericUpDown();
+            btnRemoveProduct = new Button();
+            btnAddProduct = new Button();
+            btnChooseCustomer = new Button();
+            nmrProductQty = new NumericUpDown();
             label25 = new Label();
-            textBox3 = new TextBox();
+            txtProductName = new TextBox();
             label24 = new Label();
-            textBox2 = new TextBox();
+            txtCustomer = new TextBox();
             label23 = new Label();
-            label22 = new Label();
-            dataGridView1 = new DataGridView();
+            lbTableName = new Label();
+            dgvBillInfo = new DataGridView();
             tpCheckout = new TabPage();
-            checkBox1 = new CheckBox();
-            button20 = new Button();
-            textBox6 = new TextBox();
+            txtCustomerDrips = new TextBox();
+            label22 = new Label();
+            txtCustomerTier = new TextBox();
+            label36 = new Label();
+            cbxPrintBill = new CheckBox();
+            btnCheckBill = new Button();
+            txtFinalPrice = new TextBox();
             label28 = new Label();
-            textBox5 = new TextBox();
+            txtDiscount = new TextBox();
             label27 = new Label();
-            textBox4 = new TextBox();
+            txtTotalPrice = new TextBox();
             label29 = new Label();
             label26 = new Label();
-            dataGridView2 = new DataGridView();
+            dgvBillInfoCheckout = new DataGridView();
             flpSideBar = new FlowLayoutPanel();
             pnNotification = new Panel();
             btnNotification = new Button();
@@ -159,10 +165,11 @@
             button10 = new Button();
             tabMain.SuspendLayout();
             tpTable.SuspendLayout();
+            panel26.SuspendLayout();
             flpBanAn.SuspendLayout();
             tpOrder.SuspendLayout();
             panel11.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
+            flpProducts.SuspendLayout();
             panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -205,10 +212,10 @@
             panel12.SuspendLayout();
             tabControl2.SuspendLayout();
             tpOrderNCheckOut.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmrProductQty).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvBillInfo).BeginInit();
             tpCheckout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvBillInfoCheckout).BeginInit();
             flpSideBar.SuspendLayout();
             pnNotification.SuspendLayout();
             panel1.SuspendLayout();
@@ -233,53 +240,51 @@
             tabMain.Multiline = true;
             tabMain.Name = "tabMain";
             tabMain.SelectedIndex = 0;
-            tabMain.Size = new Size(992, 730);
+            tabMain.Size = new Size(1692, 989);
             tabMain.TabIndex = 0;
             // 
             // tpTable
             // 
-            tpTable.Controls.Add(flpBanAn);
+            tpTable.Controls.Add(panel26);
             tpTable.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            tpTable.Location = new Point(4, 26);
+            tpTable.Location = new Point(4, 32);
             tpTable.Name = "tpTable";
             tpTable.Padding = new Padding(3);
-            tpTable.Size = new Size(984, 700);
+            tpTable.Size = new Size(1684, 953);
             tpTable.TabIndex = 1;
             tpTable.Text = "Bàn ăn";
             tpTable.UseVisualStyleBackColor = true;
             // 
+            // panel26
+            // 
+            panel26.Controls.Add(flpBanAn);
+            panel26.Dock = DockStyle.Fill;
+            panel26.Location = new Point(3, 3);
+            panel26.Name = "panel26";
+            panel26.Size = new Size(1678, 947);
+            panel26.TabIndex = 1;
+            // 
             // flpBanAn
             // 
+            flpBanAn.AutoScroll = true;
             flpBanAn.BackColor = Color.FromArgb(74, 60, 60);
-            flpBanAn.Controls.Add(button14);
             flpBanAn.Controls.Add(button15);
             flpBanAn.Controls.Add(button16);
             flpBanAn.Controls.Add(button17);
             flpBanAn.Controls.Add(button18);
             flpBanAn.Controls.Add(button19);
+            flpBanAn.Controls.Add(button26);
             flpBanAn.Dock = DockStyle.Fill;
-            flpBanAn.Location = new Point(3, 3);
+            flpBanAn.Location = new Point(0, 0);
             flpBanAn.Name = "flpBanAn";
-            flpBanAn.Size = new Size(978, 694);
+            flpBanAn.Size = new Size(1678, 947);
             flpBanAn.TabIndex = 0;
-            // 
-            // button14
-            // 
-            button14.BackColor = Color.FromArgb(249, 245, 238);
-            button14.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            button14.Location = new Point(3, 3);
-            button14.Name = "button14";
-            button14.Size = new Size(150, 120);
-            button14.TabIndex = 0;
-            button14.Text = "Bàn 1";
-            button14.UseVisualStyleBackColor = false;
-            button14.Click += button14_Click;
             // 
             // button15
             // 
             button15.BackColor = Color.FromArgb(249, 245, 238);
             button15.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            button15.Location = new Point(159, 3);
+            button15.Location = new Point(3, 3);
             button15.Name = "button15";
             button15.Size = new Size(150, 120);
             button15.TabIndex = 0;
@@ -290,7 +295,7 @@
             // 
             button16.BackColor = Color.FromArgb(249, 245, 238);
             button16.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            button16.Location = new Point(315, 3);
+            button16.Location = new Point(159, 3);
             button16.Name = "button16";
             button16.Size = new Size(150, 120);
             button16.TabIndex = 0;
@@ -301,7 +306,7 @@
             // 
             button17.BackColor = Color.FromArgb(249, 245, 238);
             button17.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            button17.Location = new Point(471, 3);
+            button17.Location = new Point(315, 3);
             button17.Name = "button17";
             button17.Size = new Size(150, 120);
             button17.TabIndex = 0;
@@ -312,7 +317,7 @@
             // 
             button18.BackColor = Color.FromArgb(249, 245, 238);
             button18.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            button18.Location = new Point(627, 3);
+            button18.Location = new Point(471, 3);
             button18.Name = "button18";
             button18.Size = new Size(150, 120);
             button18.TabIndex = 0;
@@ -323,22 +328,33 @@
             // 
             button19.BackColor = Color.FromArgb(249, 245, 238);
             button19.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            button19.Location = new Point(783, 3);
+            button19.Location = new Point(627, 3);
             button19.Name = "button19";
             button19.Size = new Size(150, 120);
             button19.TabIndex = 0;
             button19.Text = "Bàn 6";
             button19.UseVisualStyleBackColor = false;
             // 
+            // button26
+            // 
+            button26.BackColor = Color.FromArgb(249, 245, 238);
+            button26.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            button26.Location = new Point(783, 3);
+            button26.Name = "button26";
+            button26.Size = new Size(150, 120);
+            button26.TabIndex = 0;
+            button26.Text = "Bàn 2";
+            button26.UseVisualStyleBackColor = false;
+            // 
             // tpOrder
             // 
             tpOrder.Controls.Add(panel11);
             tpOrder.Controls.Add(flpSideBar);
             tpOrder.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            tpOrder.Location = new Point(4, 26);
+            tpOrder.Location = new Point(4, 32);
             tpOrder.Name = "tpOrder";
             tpOrder.Padding = new Padding(3);
-            tpOrder.Size = new Size(984, 700);
+            tpOrder.Size = new Size(1684, 953);
             tpOrder.TabIndex = 2;
             tpOrder.Text = "Đặt món";
             tpOrder.UseVisualStyleBackColor = true;
@@ -346,38 +362,38 @@
             // panel11
             // 
             panel11.BackColor = Color.Transparent;
-            panel11.Controls.Add(flowLayoutPanel1);
+            panel11.Controls.Add(flpProducts);
             panel11.Controls.Add(panel12);
             panel11.Controls.Add(tabControl2);
             panel11.Dock = DockStyle.Fill;
             panel11.Location = new Point(179, 3);
             panel11.Name = "panel11";
-            panel11.Size = new Size(802, 694);
+            panel11.Size = new Size(1502, 947);
             panel11.TabIndex = 4;
             // 
-            // flowLayoutPanel1
+            // flpProducts
             // 
-            flowLayoutPanel1.AllowDrop = true;
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = Color.DarkGray;
-            flowLayoutPanel1.Controls.Add(panel13);
-            flowLayoutPanel1.Controls.Add(panel14);
-            flowLayoutPanel1.Controls.Add(panel15);
-            flowLayoutPanel1.Controls.Add(panel16);
-            flowLayoutPanel1.Controls.Add(panel17);
-            flowLayoutPanel1.Controls.Add(panel18);
-            flowLayoutPanel1.Controls.Add(panel19);
-            flowLayoutPanel1.Controls.Add(panel20);
-            flowLayoutPanel1.Controls.Add(panel21);
-            flowLayoutPanel1.Controls.Add(panel22);
-            flowLayoutPanel1.Controls.Add(panel23);
-            flowLayoutPanel1.Controls.Add(panel25);
-            flowLayoutPanel1.Controls.Add(panel24);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(0, 60);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(361, 634);
-            flowLayoutPanel1.TabIndex = 2;
+            flpProducts.AllowDrop = true;
+            flpProducts.AutoScroll = true;
+            flpProducts.BackColor = Color.DarkGray;
+            flpProducts.Controls.Add(panel13);
+            flpProducts.Controls.Add(panel14);
+            flpProducts.Controls.Add(panel15);
+            flpProducts.Controls.Add(panel16);
+            flpProducts.Controls.Add(panel17);
+            flpProducts.Controls.Add(panel18);
+            flpProducts.Controls.Add(panel19);
+            flpProducts.Controls.Add(panel20);
+            flpProducts.Controls.Add(panel21);
+            flpProducts.Controls.Add(panel22);
+            flpProducts.Controls.Add(panel23);
+            flpProducts.Controls.Add(panel25);
+            flpProducts.Controls.Add(panel24);
+            flpProducts.Dock = DockStyle.Fill;
+            flpProducts.Location = new Point(0, 60);
+            flpProducts.Name = "flpProducts";
+            flpProducts.Size = new Size(976, 887);
+            flpProducts.TabIndex = 2;
             // 
             // panel13
             // 
@@ -398,7 +414,7 @@
             label3.ForeColor = Color.FromArgb(168, 34, 43);
             label3.Location = new Point(3, 181);
             label3.Name = "label3";
-            label3.Size = new Size(53, 19);
+            label3.Size = new Size(65, 23);
             label3.TabIndex = 3;
             label3.Text = "29.000";
             // 
@@ -407,7 +423,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(3, 153);
             label2.Name = "label2";
-            label2.Size = new Size(86, 19);
+            label2.Size = new Size(102, 23);
             label2.TabIndex = 2;
             label2.Text = "Phin sữa đá";
             // 
@@ -450,7 +466,7 @@
             label4.ForeColor = Color.FromArgb(168, 34, 43);
             label4.Location = new Point(3, 181);
             label4.Name = "label4";
-            label4.Size = new Size(53, 19);
+            label4.Size = new Size(65, 23);
             label4.TabIndex = 3;
             label4.Text = "29.000";
             // 
@@ -459,7 +475,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(3, 153);
             label5.Name = "label5";
-            label5.Size = new Size(86, 19);
+            label5.Size = new Size(102, 23);
             label5.TabIndex = 2;
             label5.Text = "Phin sữa đá";
             // 
@@ -490,7 +506,7 @@
             panel15.Controls.Add(label7);
             panel15.Controls.Add(pictureBox5);
             panel15.Controls.Add(pictureBox6);
-            panel15.Location = new Point(3, 214);
+            panel15.Location = new Point(315, 3);
             panel15.Name = "panel15";
             panel15.Size = new Size(150, 205);
             panel15.TabIndex = 0;
@@ -502,7 +518,7 @@
             label6.ForeColor = Color.FromArgb(168, 34, 43);
             label6.Location = new Point(3, 181);
             label6.Name = "label6";
-            label6.Size = new Size(53, 19);
+            label6.Size = new Size(65, 23);
             label6.TabIndex = 3;
             label6.Text = "29.000";
             // 
@@ -511,7 +527,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(3, 153);
             label7.Name = "label7";
-            label7.Size = new Size(86, 19);
+            label7.Size = new Size(102, 23);
             label7.TabIndex = 2;
             label7.Text = "Phin sữa đá";
             // 
@@ -542,7 +558,7 @@
             panel16.Controls.Add(label9);
             panel16.Controls.Add(pictureBox7);
             panel16.Controls.Add(pictureBox8);
-            panel16.Location = new Point(159, 214);
+            panel16.Location = new Point(471, 3);
             panel16.Name = "panel16";
             panel16.Size = new Size(150, 205);
             panel16.TabIndex = 0;
@@ -554,7 +570,7 @@
             label8.ForeColor = Color.FromArgb(168, 34, 43);
             label8.Location = new Point(3, 181);
             label8.Name = "label8";
-            label8.Size = new Size(53, 19);
+            label8.Size = new Size(65, 23);
             label8.TabIndex = 3;
             label8.Text = "29.000";
             // 
@@ -563,7 +579,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(3, 153);
             label9.Name = "label9";
-            label9.Size = new Size(86, 19);
+            label9.Size = new Size(102, 23);
             label9.TabIndex = 2;
             label9.Text = "Phin sữa đá";
             // 
@@ -594,7 +610,7 @@
             panel17.Controls.Add(label11);
             panel17.Controls.Add(pictureBox9);
             panel17.Controls.Add(pictureBox10);
-            panel17.Location = new Point(3, 425);
+            panel17.Location = new Point(627, 3);
             panel17.Name = "panel17";
             panel17.Size = new Size(150, 205);
             panel17.TabIndex = 0;
@@ -606,7 +622,7 @@
             label10.ForeColor = Color.FromArgb(168, 34, 43);
             label10.Location = new Point(3, 181);
             label10.Name = "label10";
-            label10.Size = new Size(53, 19);
+            label10.Size = new Size(65, 23);
             label10.TabIndex = 3;
             label10.Text = "29.000";
             // 
@@ -615,7 +631,7 @@
             label11.AutoSize = true;
             label11.Location = new Point(3, 153);
             label11.Name = "label11";
-            label11.Size = new Size(86, 19);
+            label11.Size = new Size(102, 23);
             label11.TabIndex = 2;
             label11.Text = "Phin sữa đá";
             // 
@@ -646,7 +662,7 @@
             panel18.Controls.Add(label13);
             panel18.Controls.Add(pictureBox11);
             panel18.Controls.Add(pictureBox12);
-            panel18.Location = new Point(159, 425);
+            panel18.Location = new Point(783, 3);
             panel18.Name = "panel18";
             panel18.Size = new Size(150, 205);
             panel18.TabIndex = 0;
@@ -658,7 +674,7 @@
             label12.ForeColor = Color.FromArgb(168, 34, 43);
             label12.Location = new Point(3, 181);
             label12.Name = "label12";
-            label12.Size = new Size(53, 19);
+            label12.Size = new Size(65, 23);
             label12.TabIndex = 3;
             label12.Text = "29.000";
             // 
@@ -667,7 +683,7 @@
             label13.AutoSize = true;
             label13.Location = new Point(3, 153);
             label13.Name = "label13";
-            label13.Size = new Size(86, 19);
+            label13.Size = new Size(102, 23);
             label13.TabIndex = 2;
             label13.Text = "Phin sữa đá";
             // 
@@ -698,7 +714,7 @@
             panel19.Controls.Add(label15);
             panel19.Controls.Add(pictureBox13);
             panel19.Controls.Add(pictureBox14);
-            panel19.Location = new Point(3, 636);
+            panel19.Location = new Point(3, 214);
             panel19.Name = "panel19";
             panel19.Size = new Size(150, 205);
             panel19.TabIndex = 0;
@@ -710,7 +726,7 @@
             label14.ForeColor = Color.FromArgb(168, 34, 43);
             label14.Location = new Point(3, 181);
             label14.Name = "label14";
-            label14.Size = new Size(53, 19);
+            label14.Size = new Size(65, 23);
             label14.TabIndex = 3;
             label14.Text = "29.000";
             // 
@@ -719,7 +735,7 @@
             label15.AutoSize = true;
             label15.Location = new Point(3, 153);
             label15.Name = "label15";
-            label15.Size = new Size(86, 19);
+            label15.Size = new Size(102, 23);
             label15.TabIndex = 2;
             label15.Text = "Phin sữa đá";
             // 
@@ -750,7 +766,7 @@
             panel20.Controls.Add(label17);
             panel20.Controls.Add(pictureBox15);
             panel20.Controls.Add(pictureBox16);
-            panel20.Location = new Point(159, 636);
+            panel20.Location = new Point(159, 214);
             panel20.Name = "panel20";
             panel20.Size = new Size(150, 205);
             panel20.TabIndex = 0;
@@ -762,7 +778,7 @@
             label16.ForeColor = Color.FromArgb(168, 34, 43);
             label16.Location = new Point(3, 181);
             label16.Name = "label16";
-            label16.Size = new Size(53, 19);
+            label16.Size = new Size(65, 23);
             label16.TabIndex = 3;
             label16.Text = "29.000";
             // 
@@ -771,7 +787,7 @@
             label17.AutoSize = true;
             label17.Location = new Point(3, 153);
             label17.Name = "label17";
-            label17.Size = new Size(86, 19);
+            label17.Size = new Size(102, 23);
             label17.TabIndex = 2;
             label17.Text = "Phin sữa đá";
             // 
@@ -802,7 +818,7 @@
             panel21.Controls.Add(label19);
             panel21.Controls.Add(pictureBox17);
             panel21.Controls.Add(pictureBox18);
-            panel21.Location = new Point(3, 847);
+            panel21.Location = new Point(315, 214);
             panel21.Name = "panel21";
             panel21.Size = new Size(150, 205);
             panel21.TabIndex = 0;
@@ -814,7 +830,7 @@
             label18.ForeColor = Color.FromArgb(168, 34, 43);
             label18.Location = new Point(3, 181);
             label18.Name = "label18";
-            label18.Size = new Size(53, 19);
+            label18.Size = new Size(65, 23);
             label18.TabIndex = 3;
             label18.Text = "29.000";
             // 
@@ -823,7 +839,7 @@
             label19.AutoSize = true;
             label19.Location = new Point(3, 153);
             label19.Name = "label19";
-            label19.Size = new Size(86, 19);
+            label19.Size = new Size(102, 23);
             label19.TabIndex = 2;
             label19.Text = "Phin sữa đá";
             // 
@@ -854,7 +870,7 @@
             panel22.Controls.Add(label21);
             panel22.Controls.Add(pictureBox19);
             panel22.Controls.Add(pictureBox20);
-            panel22.Location = new Point(159, 847);
+            panel22.Location = new Point(471, 214);
             panel22.Name = "panel22";
             panel22.Size = new Size(150, 205);
             panel22.TabIndex = 0;
@@ -866,7 +882,7 @@
             label20.ForeColor = Color.FromArgb(168, 34, 43);
             label20.Location = new Point(3, 181);
             label20.Name = "label20";
-            label20.Size = new Size(53, 19);
+            label20.Size = new Size(65, 23);
             label20.TabIndex = 3;
             label20.Text = "29.000";
             // 
@@ -875,7 +891,7 @@
             label21.AutoSize = true;
             label21.Location = new Point(3, 153);
             label21.Name = "label21";
-            label21.Size = new Size(86, 19);
+            label21.Size = new Size(102, 23);
             label21.TabIndex = 2;
             label21.Text = "Phin sữa đá";
             // 
@@ -906,7 +922,7 @@
             panel23.Controls.Add(label31);
             panel23.Controls.Add(pictureBox21);
             panel23.Controls.Add(pictureBox22);
-            panel23.Location = new Point(3, 1058);
+            panel23.Location = new Point(627, 214);
             panel23.Name = "panel23";
             panel23.Size = new Size(150, 205);
             panel23.TabIndex = 0;
@@ -918,7 +934,7 @@
             label30.ForeColor = Color.FromArgb(168, 34, 43);
             label30.Location = new Point(3, 181);
             label30.Name = "label30";
-            label30.Size = new Size(53, 19);
+            label30.Size = new Size(65, 23);
             label30.TabIndex = 3;
             label30.Text = "29.000";
             // 
@@ -927,7 +943,7 @@
             label31.AutoSize = true;
             label31.Location = new Point(3, 153);
             label31.Name = "label31";
-            label31.Size = new Size(86, 19);
+            label31.Size = new Size(102, 23);
             label31.TabIndex = 2;
             label31.Text = "Phin sữa đá";
             // 
@@ -958,7 +974,7 @@
             panel25.Controls.Add(label35);
             panel25.Controls.Add(pictureBox25);
             panel25.Controls.Add(pictureBox26);
-            panel25.Location = new Point(159, 1058);
+            panel25.Location = new Point(783, 214);
             panel25.Name = "panel25";
             panel25.Size = new Size(150, 205);
             panel25.TabIndex = 0;
@@ -970,7 +986,7 @@
             label34.ForeColor = Color.FromArgb(168, 34, 43);
             label34.Location = new Point(3, 181);
             label34.Name = "label34";
-            label34.Size = new Size(53, 19);
+            label34.Size = new Size(65, 23);
             label34.TabIndex = 3;
             label34.Text = "29.000";
             // 
@@ -979,7 +995,7 @@
             label35.AutoSize = true;
             label35.Location = new Point(3, 153);
             label35.Name = "label35";
-            label35.Size = new Size(86, 19);
+            label35.Size = new Size(102, 23);
             label35.TabIndex = 2;
             label35.Text = "Phin sữa đá";
             // 
@@ -1010,9 +1026,9 @@
             panel24.Controls.Add(label33);
             panel24.Controls.Add(pictureBox23);
             panel24.Controls.Add(pictureBox24);
-            panel24.Location = new Point(3, 1269);
+            panel24.Location = new Point(3, 425);
             panel24.Name = "panel24";
-            panel24.Size = new Size(150, 205);
+            panel24.Size = new Size(150, 243);
             panel24.TabIndex = 0;
             // 
             // label32
@@ -1020,20 +1036,20 @@
             label32.AutoSize = true;
             label32.BackColor = Color.Transparent;
             label32.ForeColor = Color.FromArgb(168, 34, 43);
-            label32.Location = new Point(3, 181);
+            label32.Location = new Point(3, 210);
             label32.Name = "label32";
-            label32.Size = new Size(53, 19);
+            label32.Size = new Size(65, 23);
             label32.TabIndex = 3;
             label32.Text = "29.000";
             // 
             // label33
             // 
-            label33.AutoSize = true;
+            label33.AllowDrop = true;
             label33.Location = new Point(3, 153);
             label33.Name = "label33";
-            label33.Size = new Size(86, 19);
+            label33.Size = new Size(125, 47);
             label33.TabIndex = 2;
-            label33.Text = "Phin sữa đá";
+            label33.Text = "Phin sữa đá Phin sữa đá Phin sữa đá";
             // 
             // pictureBox23
             // 
@@ -1057,19 +1073,37 @@
             // 
             // panel12
             // 
+            panel12.BackColor = Color.FromArgb(249, 245, 238);
+            panel12.Controls.Add(btnRefresh);
             panel12.Controls.Add(textBox1);
             panel12.Controls.Add(label1);
             panel12.Dock = DockStyle.Top;
             panel12.Location = new Point(0, 0);
             panel12.Name = "panel12";
-            panel12.Size = new Size(361, 60);
+            panel12.Size = new Size(976, 60);
             panel12.TabIndex = 1;
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnRefresh.BackColor = SystemColors.Control;
+            btnRefresh.FlatAppearance.BorderSize = 0;
+            btnRefresh.Image = Properties.Resources.arrow;
+            btnRefresh.ImageAlign = ContentAlignment.MiddleRight;
+            btnRefresh.Location = new Point(409, 7);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(140, 45);
+            btnRefresh.TabIndex = 5;
+            btnRefresh.Text = "Hoàn tác";
+            btnRefresh.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnRefresh.UseVisualStyleBackColor = false;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(106, 15);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(213, 25);
+            textBox1.Size = new Size(287, 30);
             textBox1.TabIndex = 1;
             // 
             // label1
@@ -1077,7 +1111,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(13, 18);
             label1.Name = "label1";
-            label1.Size = new Size(72, 19);
+            label1.Size = new Size(87, 23);
             label1.TabIndex = 0;
             label1.Text = "Tìm món:";
             // 
@@ -1086,229 +1120,282 @@
             tabControl2.Controls.Add(tpOrderNCheckOut);
             tabControl2.Controls.Add(tpCheckout);
             tabControl2.Dock = DockStyle.Right;
-            tabControl2.Location = new Point(361, 0);
+            tabControl2.Location = new Point(976, 0);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(441, 694);
+            tabControl2.Size = new Size(526, 947);
             tabControl2.TabIndex = 0;
             // 
             // tpOrderNCheckOut
             // 
             tpOrderNCheckOut.BackColor = Color.Transparent;
-            tpOrderNCheckOut.Controls.Add(button13);
-            tpOrderNCheckOut.Controls.Add(button12);
-            tpOrderNCheckOut.Controls.Add(button11);
-            tpOrderNCheckOut.Controls.Add(numericUpDown1);
+            tpOrderNCheckOut.Controls.Add(btnRemoveProduct);
+            tpOrderNCheckOut.Controls.Add(btnAddProduct);
+            tpOrderNCheckOut.Controls.Add(btnChooseCustomer);
+            tpOrderNCheckOut.Controls.Add(nmrProductQty);
             tpOrderNCheckOut.Controls.Add(label25);
-            tpOrderNCheckOut.Controls.Add(textBox3);
+            tpOrderNCheckOut.Controls.Add(txtProductName);
             tpOrderNCheckOut.Controls.Add(label24);
-            tpOrderNCheckOut.Controls.Add(textBox2);
+            tpOrderNCheckOut.Controls.Add(txtCustomer);
             tpOrderNCheckOut.Controls.Add(label23);
-            tpOrderNCheckOut.Controls.Add(label22);
-            tpOrderNCheckOut.Controls.Add(dataGridView1);
-            tpOrderNCheckOut.Location = new Point(4, 26);
+            tpOrderNCheckOut.Controls.Add(lbTableName);
+            tpOrderNCheckOut.Controls.Add(dgvBillInfo);
+            tpOrderNCheckOut.Location = new Point(4, 32);
             tpOrderNCheckOut.Name = "tpOrderNCheckOut";
             tpOrderNCheckOut.Padding = new Padding(3);
-            tpOrderNCheckOut.Size = new Size(454, 664);
+            tpOrderNCheckOut.Size = new Size(518, 911);
             tpOrderNCheckOut.TabIndex = 0;
             tpOrderNCheckOut.Text = "Đặt món";
             // 
-            // button13
+            // btnRemoveProduct
             // 
-            button13.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button13.BackColor = Color.FromArgb(169, 65, 65);
-            button13.Location = new Point(164, 590);
-            button13.Name = "button13";
-            button13.Size = new Size(145, 60);
-            button13.TabIndex = 4;
-            button13.Text = "Xóa món";
-            button13.UseVisualStyleBackColor = false;
+            btnRemoveProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnRemoveProduct.BackColor = SystemColors.Control;
+            btnRemoveProduct.Image = Properties.Resources.delete;
+            btnRemoveProduct.ImageAlign = ContentAlignment.MiddleRight;
+            btnRemoveProduct.Location = new Point(164, 837);
+            btnRemoveProduct.Name = "btnRemoveProduct";
+            btnRemoveProduct.Size = new Size(145, 60);
+            btnRemoveProduct.TabIndex = 4;
+            btnRemoveProduct.Text = "Xóa món";
+            btnRemoveProduct.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnRemoveProduct.UseVisualStyleBackColor = false;
+            btnRemoveProduct.Click += btnRemoveProduct_Click;
             // 
-            // button12
+            // btnAddProduct
             // 
-            button12.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button12.BackColor = Color.FromArgb(104, 176, 145);
-            button12.FlatAppearance.BorderSize = 0;
-            button12.Location = new Point(11, 590);
-            button12.Name = "button12";
-            button12.Size = new Size(145, 60);
-            button12.TabIndex = 4;
-            button12.Text = "Thêm món";
-            button12.UseVisualStyleBackColor = false;
+            btnAddProduct.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAddProduct.BackColor = SystemColors.Control;
+            btnAddProduct.FlatAppearance.BorderSize = 0;
+            btnAddProduct.Image = Properties.Resources.plus;
+            btnAddProduct.ImageAlign = ContentAlignment.MiddleRight;
+            btnAddProduct.Location = new Point(11, 837);
+            btnAddProduct.Name = "btnAddProduct";
+            btnAddProduct.Size = new Size(145, 60);
+            btnAddProduct.TabIndex = 4;
+            btnAddProduct.Text = "Thêm món";
+            btnAddProduct.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAddProduct.UseVisualStyleBackColor = false;
+            btnAddProduct.Click += btnAddProduct_Click;
             // 
-            // button11
+            // btnChooseCustomer
             // 
-            button11.BackColor = Color.FromArgb(230, 181, 56);
-            button11.Location = new Point(337, 73);
-            button11.Name = "button11";
-            button11.Size = new Size(102, 42);
-            button11.TabIndex = 4;
-            button11.Text = "Chọn khách";
-            button11.UseVisualStyleBackColor = false;
+            btnChooseCustomer.BackColor = Color.FromArgb(230, 181, 56);
+            btnChooseCustomer.Location = new Point(384, 62);
+            btnChooseCustomer.Name = "btnChooseCustomer";
+            btnChooseCustomer.Size = new Size(125, 42);
+            btnChooseCustomer.TabIndex = 4;
+            btnChooseCustomer.Text = "Chọn khách";
+            btnChooseCustomer.UseVisualStyleBackColor = false;
+            btnChooseCustomer.Click += btnChooseCustomer_Click;
             // 
-            // numericUpDown1
+            // nmrProductQty
             // 
-            numericUpDown1.Location = new Point(136, 133);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(91, 25);
-            numericUpDown1.TabIndex = 3;
+            nmrProductQty.Location = new Point(144, 142);
+            nmrProductQty.Name = "nmrProductQty";
+            nmrProductQty.Size = new Size(121, 30);
+            nmrProductQty.TabIndex = 3;
             // 
             // label25
             // 
             label25.AutoSize = true;
-            label25.Location = new Point(14, 135);
+            label25.Location = new Point(14, 144);
             label25.Name = "label25";
-            label25.Size = new Size(107, 19);
+            label25.Size = new Size(129, 23);
             label25.TabIndex = 2;
             label25.Text = "Số lượng món:";
             // 
-            // textBox3
+            // txtProductName
             // 
-            textBox3.Location = new Point(136, 101);
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.Size = new Size(191, 25);
-            textBox3.TabIndex = 1;
+            txtProductName.Location = new Point(144, 106);
+            txtProductName.Name = "txtProductName";
+            txtProductName.ReadOnly = true;
+            txtProductName.Size = new Size(234, 30);
+            txtProductName.TabIndex = 1;
             // 
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(14, 104);
+            label24.Location = new Point(14, 109);
             label24.Name = "label24";
-            label24.Size = new Size(70, 19);
+            label24.Size = new Size(83, 23);
             label24.TabIndex = 2;
             label24.Text = "Tên món:";
             // 
-            // textBox2
+            // txtCustomer
             // 
-            textBox2.Location = new Point(136, 70);
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.Size = new Size(191, 25);
-            textBox2.TabIndex = 1;
+            txtCustomer.Location = new Point(144, 70);
+            txtCustomer.Name = "txtCustomer";
+            txtCustomer.ReadOnly = true;
+            txtCustomer.Size = new Size(234, 30);
+            txtCustomer.TabIndex = 1;
             // 
             // label23
             // 
             label23.AutoSize = true;
             label23.Location = new Point(14, 73);
             label23.Name = "label23";
-            label23.Size = new Size(90, 19);
+            label23.Size = new Size(108, 23);
             label23.TabIndex = 2;
             label23.Text = "Khách hàng:";
             // 
-            // label22
+            // lbTableName
             // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            label22.Location = new Point(11, 12);
-            label22.Name = "label22";
-            label22.Size = new Size(88, 37);
-            label22.TabIndex = 1;
-            label22.Text = "Bàn 1";
+            lbTableName.AutoSize = true;
+            lbTableName.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lbTableName.Location = new Point(11, 12);
+            lbTableName.Name = "lbTableName";
+            lbTableName.Size = new Size(118, 46);
+            lbTableName.TabIndex = 1;
+            lbTableName.Text = "Bàn __";
             // 
-            // dataGridView1
+            // dgvBillInfo
             // 
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(11, 171);
-            dataGridView1.Margin = new Padding(0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(440, 412);
-            dataGridView1.TabIndex = 0;
+            dgvBillInfo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvBillInfo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvBillInfo.Location = new Point(11, 184);
+            dgvBillInfo.Margin = new Padding(0);
+            dgvBillInfo.Name = "dgvBillInfo";
+            dgvBillInfo.RowHeadersWidth = 51;
+            dgvBillInfo.Size = new Size(504, 646);
+            dgvBillInfo.TabIndex = 0;
+            dgvBillInfo.CellClick += dgvBillInfo_CellClick;
             // 
             // tpCheckout
             // 
             tpCheckout.BackColor = Color.Transparent;
-            tpCheckout.Controls.Add(checkBox1);
-            tpCheckout.Controls.Add(button20);
-            tpCheckout.Controls.Add(textBox6);
+            tpCheckout.Controls.Add(txtCustomerDrips);
+            tpCheckout.Controls.Add(label22);
+            tpCheckout.Controls.Add(txtCustomerTier);
+            tpCheckout.Controls.Add(label36);
+            tpCheckout.Controls.Add(cbxPrintBill);
+            tpCheckout.Controls.Add(btnCheckBill);
+            tpCheckout.Controls.Add(txtFinalPrice);
             tpCheckout.Controls.Add(label28);
-            tpCheckout.Controls.Add(textBox5);
+            tpCheckout.Controls.Add(txtDiscount);
             tpCheckout.Controls.Add(label27);
-            tpCheckout.Controls.Add(textBox4);
+            tpCheckout.Controls.Add(txtTotalPrice);
             tpCheckout.Controls.Add(label29);
             tpCheckout.Controls.Add(label26);
-            tpCheckout.Controls.Add(dataGridView2);
-            tpCheckout.Location = new Point(4, 26);
+            tpCheckout.Controls.Add(dgvBillInfoCheckout);
+            tpCheckout.Location = new Point(4, 32);
             tpCheckout.Name = "tpCheckout";
             tpCheckout.Padding = new Padding(3);
-            tpCheckout.Size = new Size(433, 664);
+            tpCheckout.Size = new Size(518, 911);
             tpCheckout.TabIndex = 1;
             tpCheckout.Text = "Thanh toán";
             // 
-            // checkBox1
+            // txtCustomerDrips
             // 
-            checkBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox1.AutoSize = true;
-            checkBox1.Checked = true;
-            checkBox1.CheckState = CheckState.Checked;
-            checkBox1.Location = new Point(159, 616);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(99, 23);
-            checkBox1.TabIndex = 6;
-            checkBox1.Text = "In hóa đơn";
-            checkBox1.UseVisualStyleBackColor = true;
+            txtCustomerDrips.Location = new Point(174, 110);
+            txtCustomerDrips.Name = "txtCustomerDrips";
+            txtCustomerDrips.ReadOnly = true;
+            txtCustomerDrips.Size = new Size(234, 30);
+            txtCustomerDrips.TabIndex = 7;
             // 
-            // button20
+            // label22
             // 
-            button20.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button20.BackColor = Color.FromArgb(104, 176, 145);
-            button20.FlatAppearance.BorderSize = 0;
-            button20.Location = new Point(8, 597);
-            button20.Name = "button20";
-            button20.Size = new Size(145, 52);
-            button20.TabIndex = 5;
-            button20.Text = "Thanh toán";
-            button20.UseVisualStyleBackColor = false;
+            label22.AutoSize = true;
+            label22.Location = new Point(16, 113);
+            label22.Name = "label22";
+            label22.Size = new Size(106, 23);
+            label22.TabIndex = 9;
+            label22.Text = "Điểm Drips:";
             // 
-            // textBox6
+            // txtCustomerTier
             // 
-            textBox6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            textBox6.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            textBox6.Location = new Point(182, 556);
-            textBox6.Name = "textBox6";
-            textBox6.ReadOnly = true;
-            textBox6.Size = new Size(230, 32);
-            textBox6.TabIndex = 2;
+            txtCustomerTier.Location = new Point(174, 74);
+            txtCustomerTier.Name = "txtCustomerTier";
+            txtCustomerTier.ReadOnly = true;
+            txtCustomerTier.Size = new Size(234, 30);
+            txtCustomerTier.TabIndex = 8;
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Location = new Point(16, 77);
+            label36.Name = "label36";
+            label36.Size = new Size(155, 23);
+            label36.TabIndex = 10;
+            label36.Text = "Hạng khách hàng:";
+            // 
+            // cbxPrintBill
+            // 
+            cbxPrintBill.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            cbxPrintBill.AutoSize = true;
+            cbxPrintBill.Checked = true;
+            cbxPrintBill.CheckState = CheckState.Checked;
+            cbxPrintBill.Location = new Point(174, 863);
+            cbxPrintBill.Name = "cbxPrintBill";
+            cbxPrintBill.Size = new Size(118, 27);
+            cbxPrintBill.TabIndex = 6;
+            cbxPrintBill.Text = "In hóa đơn";
+            cbxPrintBill.UseVisualStyleBackColor = true;
+            // 
+            // btnCheckBill
+            // 
+            btnCheckBill.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCheckBill.BackColor = SystemColors.Control;
+            btnCheckBill.FlatAppearance.BorderSize = 0;
+            btnCheckBill.Image = Properties.Resources.printer;
+            btnCheckBill.ImageAlign = ContentAlignment.MiddleRight;
+            btnCheckBill.Location = new Point(7, 849);
+            btnCheckBill.Name = "btnCheckBill";
+            btnCheckBill.Size = new Size(145, 52);
+            btnCheckBill.TabIndex = 5;
+            btnCheckBill.Text = "Thanh toán";
+            btnCheckBill.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnCheckBill.UseVisualStyleBackColor = false;
+            btnCheckBill.Click += btnCheckBill_Click;
+            // 
+            // txtFinalPrice
+            // 
+            txtFinalPrice.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtFinalPrice.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            txtFinalPrice.Location = new Point(194, 769);
+            txtFinalPrice.Name = "txtFinalPrice";
+            txtFinalPrice.ReadOnly = true;
+            txtFinalPrice.Size = new Size(284, 39);
+            txtFinalPrice.TabIndex = 2;
             // 
             // label28
             // 
             label28.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label28.AutoSize = true;
             label28.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            label28.Location = new Point(6, 551);
+            label28.Location = new Point(5, 769);
             label28.Name = "label28";
-            label28.Size = new Size(147, 37);
+            label28.Size = new Size(183, 46);
             label28.TabIndex = 1;
             label28.Text = "Tổng tiền:";
             // 
-            // textBox5
+            // txtDiscount
             // 
-            textBox5.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            textBox5.Location = new Point(117, 517);
-            textBox5.Name = "textBox5";
-            textBox5.ReadOnly = true;
-            textBox5.Size = new Size(192, 25);
-            textBox5.TabIndex = 2;
+            txtDiscount.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtDiscount.Location = new Point(119, 726);
+            txtDiscount.Name = "txtDiscount";
+            txtDiscount.ReadOnly = true;
+            txtDiscount.Size = new Size(246, 30);
+            txtDiscount.TabIndex = 2;
             // 
             // label27
             // 
             label27.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label27.AutoSize = true;
-            label27.Location = new Point(6, 520);
+            label27.Location = new Point(6, 729);
             label27.Name = "label27";
-            label27.Size = new Size(91, 19);
+            label27.Size = new Size(109, 23);
             label27.TabIndex = 1;
             label27.Text = "Khuyến mãi:";
             // 
-            // textBox4
+            // txtTotalPrice
             // 
-            textBox4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            textBox4.Location = new Point(117, 486);
-            textBox4.Name = "textBox4";
-            textBox4.ReadOnly = true;
-            textBox4.Size = new Size(192, 25);
-            textBox4.TabIndex = 2;
+            txtTotalPrice.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtTotalPrice.Location = new Point(119, 690);
+            txtTotalPrice.Name = "txtTotalPrice";
+            txtTotalPrice.ReadOnly = true;
+            txtTotalPrice.Size = new Size(246, 30);
+            txtTotalPrice.TabIndex = 2;
             // 
             // label29
             // 
@@ -1316,28 +1403,29 @@
             label29.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             label29.Location = new Point(6, 15);
             label29.Name = "label29";
-            label29.Size = new Size(219, 37);
+            label29.Size = new Size(205, 46);
             label29.TabIndex = 1;
-            label29.Text = "Danh sách món:";
+            label29.Text = "Thanh Toán";
             // 
             // label26
             // 
             label26.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label26.AutoSize = true;
-            label26.Location = new Point(6, 489);
+            label26.Location = new Point(6, 693);
             label26.Name = "label26";
-            label26.Size = new Size(82, 19);
+            label26.Size = new Size(100, 23);
             label26.TabIndex = 1;
             label26.Text = "Thành tiền:";
             // 
-            // dataGridView2
+            // dgvBillInfoCheckout
             // 
-            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(6, 55);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.Size = new Size(421, 421);
-            dataGridView2.TabIndex = 0;
+            dgvBillInfoCheckout.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvBillInfoCheckout.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvBillInfoCheckout.Location = new Point(6, 151);
+            dgvBillInfoCheckout.Name = "dgvBillInfoCheckout";
+            dgvBillInfoCheckout.RowHeadersWidth = 51;
+            dgvBillInfoCheckout.Size = new Size(506, 533);
+            dgvBillInfoCheckout.TabIndex = 0;
             // 
             // flpSideBar
             // 
@@ -1357,7 +1445,7 @@
             flpSideBar.Dock = DockStyle.Left;
             flpSideBar.Location = new Point(3, 3);
             flpSideBar.Name = "flpSideBar";
-            flpSideBar.Size = new Size(176, 694);
+            flpSideBar.Size = new Size(176, 947);
             flpSideBar.TabIndex = 2;
             // 
             // pnNotification
@@ -1631,7 +1719,7 @@
             // frmOrder
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 730);
+            ClientSize = new Size(1692, 989);
             Controls.Add(tabMain);
             Font = new Font("Segoe UI", 10F);
             Name = "frmOrder";
@@ -1639,10 +1727,11 @@
             Load += frmOrder_Load;
             tabMain.ResumeLayout(false);
             tpTable.ResumeLayout(false);
+            panel26.ResumeLayout(false);
             flpBanAn.ResumeLayout(false);
             tpOrder.ResumeLayout(false);
             panel11.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
+            flpProducts.ResumeLayout(false);
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -1700,11 +1789,11 @@
             tabControl2.ResumeLayout(false);
             tpOrderNCheckOut.ResumeLayout(false);
             tpOrderNCheckOut.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmrProductQty).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvBillInfo).EndInit();
             tpCheckout.ResumeLayout(false);
             tpCheckout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvBillInfoCheckout).EndInit();
             flpSideBar.ResumeLayout(false);
             pnNotification.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -1749,7 +1838,7 @@
         private Panel panel10;
         private Button button10;
         private Panel panel11;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flpProducts;
         private Panel panel12;
         private TabControl tabControl2;
         private TabPage tpOrderNCheckOut;
@@ -1806,33 +1895,32 @@
         private Label label21;
         private PictureBox pictureBox19;
         private PictureBox pictureBox20;
-        private DataGridView dataGridView1;
+        private DataGridView dgvBillInfo;
         private Label label23;
-        private Label label22;
-        private Button button13;
-        private Button button12;
-        private Button button11;
-        private NumericUpDown numericUpDown1;
+        private Label lbTableName;
+        private Button btnRemoveProduct;
+        private Button btnAddProduct;
+        private Button btnChooseCustomer;
+        private NumericUpDown nmrProductQty;
         private Label label25;
-        private TextBox textBox3;
+        private TextBox txtProductName;
         private Label label24;
-        private TextBox textBox2;
+        private TextBox txtCustomer;
         private FlowLayoutPanel flpBanAn;
-        private Button button14;
         private Button button15;
         private Button button16;
         private Button button17;
         private Button button18;
         private Button button19;
-        private TextBox textBox6;
+        private TextBox txtFinalPrice;
         private Label label28;
-        private TextBox textBox5;
+        private TextBox txtDiscount;
         private Label label27;
-        private TextBox textBox4;
+        private TextBox txtTotalPrice;
         private Label label26;
-        private DataGridView dataGridView2;
-        private CheckBox checkBox1;
-        private Button button20;
+        private DataGridView dgvBillInfoCheckout;
+        private CheckBox cbxPrintBill;
+        private Button btnCheckBill;
         private Label label29;
         private Panel panel23;
         private Label label30;
@@ -1850,5 +1938,12 @@
         private PictureBox pictureBox23;
         private PictureBox pictureBox24;
         private Button button21;
+        private Button button26;
+        private Panel panel26;
+        private Button btnRefresh;
+        private TextBox txtCustomerDrips;
+        private Label label22;
+        private TextBox txtCustomerTier;
+        private Label label36;
     }
 }

@@ -28,126 +28,137 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
-            dataGridView2 = new DataGridView();
+            tcMain = new TabControl();
+            tpProduct = new TabPage();
+            dgvProduct = new DataGridView();
             groupBox3 = new GroupBox();
-            textBox3 = new TextBox();
+            txtFindProduct = new TextBox();
             label5 = new Label();
             panel1 = new Panel();
             groupBox2 = new GroupBox();
-            dataGridView1 = new DataGridView();
+            dgvRecipe1 = new DataGridView();
             groupBox1 = new GroupBox();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button5 = new Button();
-            button1 = new Button();
-            pictureBox1 = new PictureBox();
-            comboBox1 = new ComboBox();
+            btnUpdate = new Button();
+            btnShowReport = new Button();
+            btnClear = new Button();
+            btnAdd = new Button();
+            btnDelete = new Button();
+            btnChooseImage = new Button();
+            pbImage = new PictureBox();
+            cboStatus = new ComboBox();
+            cboCategory = new ComboBox();
+            label15 = new Label();
             label4 = new Label();
             label3 = new Label();
-            textBox2 = new TextBox();
+            txtPrice = new TextBox();
+            label13 = new Label();
+            txtProductName1 = new TextBox();
             label2 = new Label();
-            textBox1 = new TextBox();
+            txtProductId1 = new TextBox();
             label1 = new Label();
-            tabPage2 = new TabPage();
+            tpRecipe = new TabPage();
             panel4 = new Panel();
             panel5 = new Panel();
-            dataGridView3 = new DataGridView();
+            dgvRecipe2 = new DataGridView();
             groupBox4 = new GroupBox();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
-            button9 = new Button();
-            textBox4 = new TextBox();
+            cboProductName = new ComboBox();
+            btnUpdateRecipe = new Button();
+            btnClearRecipe = new Button();
+            btnAddRecipe = new Button();
+            btnDeleteRecipe = new Button();
+            txtIngredientId = new TextBox();
             label7 = new Label();
-            textBox5 = new TextBox();
             label9 = new Label();
-            textBox7 = new TextBox();
+            txtRecipeId = new TextBox();
+            label14 = new Label();
+            txtProductId2 = new TextBox();
             label10 = new Label();
-            comboBox3 = new ComboBox();
+            cboIngredientUnit = new ComboBox();
             label12 = new Label();
             label6 = new Label();
-            textBox6 = new TextBox();
-            textBox8 = new TextBox();
+            txtIngredientQty = new TextBox();
+            txtIngredientName = new TextBox();
             label8 = new Label();
             panel3 = new Panel();
-            dataGridView4 = new DataGridView();
+            dgvIngredient = new DataGridView();
             groupBox5 = new GroupBox();
-            textBox9 = new TextBox();
+            txtFindIngredient = new TextBox();
             label11 = new Label();
-            tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            tcMain.SuspendLayout();
+            tpProduct.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProduct).BeginInit();
             groupBox3.SuspendLayout();
             panel1.SuspendLayout();
             groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRecipe1).BeginInit();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbImage).BeginInit();
+            tpRecipe.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRecipe2).BeginInit();
             groupBox4.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvIngredient).BeginInit();
             groupBox5.SuspendLayout();
             SuspendLayout();
             // 
-            // tabControl1
+            // tcMain
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Dock = DockStyle.Fill;
-            tabControl1.Location = new Point(0, 0);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(992, 710);
-            tabControl1.TabIndex = 0;
+            tcMain.Controls.Add(tpProduct);
+            tcMain.Controls.Add(tpRecipe);
+            tcMain.Dock = DockStyle.Fill;
+            tcMain.Location = new Point(0, 0);
+            tcMain.Name = "tcMain";
+            tcMain.SelectedIndex = 0;
+            tcMain.Size = new Size(1692, 989);
+            tcMain.TabIndex = 0;
             // 
-            // tabPage1
+            // tpProduct
             // 
-            tabPage1.Controls.Add(dataGridView2);
-            tabPage1.Controls.Add(groupBox3);
-            tabPage1.Controls.Add(panel1);
-            tabPage1.Location = new Point(4, 32);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(984, 674);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Sản phẩm";
-            tabPage1.UseVisualStyleBackColor = true;
+            tpProduct.BackColor = Color.FromArgb(249, 245, 238);
+            tpProduct.Controls.Add(dgvProduct);
+            tpProduct.Controls.Add(groupBox3);
+            tpProduct.Controls.Add(panel1);
+            tpProduct.Location = new Point(4, 32);
+            tpProduct.Name = "tpProduct";
+            tpProduct.Padding = new Padding(3);
+            tpProduct.Size = new Size(1684, 953);
+            tpProduct.TabIndex = 0;
+            tpProduct.Text = "Sản phẩm";
             // 
-            // dataGridView2
+            // dgvProduct
             // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(483, 64);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(498, 607);
-            dataGridView2.TabIndex = 4;
+            dgvProduct.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProduct.Dock = DockStyle.Fill;
+            dgvProduct.Location = new Point(566, 64);
+            dgvProduct.Name = "dgvProduct";
+            dgvProduct.RowHeadersWidth = 51;
+            dgvProduct.Size = new Size(1115, 886);
+            dgvProduct.TabIndex = 4;
+            dgvProduct.CellClick += dgvProduct_CellClick;
+            dgvProduct.CellDoubleClick += dgvProduct_CellDoubleClick;
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(textBox3);
+            groupBox3.Controls.Add(txtFindProduct);
             groupBox3.Controls.Add(label5);
             groupBox3.Dock = DockStyle.Top;
-            groupBox3.Location = new Point(483, 3);
+            groupBox3.Location = new Point(566, 3);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(498, 61);
+            groupBox3.Size = new Size(1115, 61);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
             groupBox3.Text = "Sản phẩm";
             // 
-            // textBox3
+            // txtFindProduct
             // 
-            textBox3.Location = new Point(113, 24);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(379, 30);
-            textBox3.TabIndex = 6;
+            txtFindProduct.Location = new Point(113, 24);
+            txtFindProduct.Name = "txtFindProduct";
+            txtFindProduct.Size = new Size(379, 30);
+            txtFindProduct.TabIndex = 6;
+            txtFindProduct.TextChanged += txtFindProduct_TextChanged;
             // 
             // label5
             // 
@@ -165,123 +176,180 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(480, 668);
+            panel1.Size = new Size(563, 947);
             panel1.TabIndex = 0;
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(dataGridView1);
+            groupBox2.Controls.Add(dgvRecipe1);
             groupBox2.Dock = DockStyle.Fill;
-            groupBox2.Location = new Point(0, 350);
+            groupBox2.Location = new Point(0, 456);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(480, 318);
+            groupBox2.Size = new Size(563, 491);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Nguyên liệu";
+            groupBox2.Text = "Chi tiết Công thức";
             // 
-            // dataGridView1
+            // dgvRecipe1
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 26);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(474, 289);
-            dataGridView1.TabIndex = 2;
+            dgvRecipe1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvRecipe1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRecipe1.Dock = DockStyle.Fill;
+            dgvRecipe1.Location = new Point(3, 26);
+            dgvRecipe1.Name = "dgvRecipe1";
+            dgvRecipe1.RowHeadersWidth = 51;
+            dgvRecipe1.Size = new Size(557, 462);
+            dgvRecipe1.TabIndex = 2;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(button4);
-            groupBox1.Controls.Add(button3);
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(button5);
-            groupBox1.Controls.Add(button1);
-            groupBox1.Controls.Add(pictureBox1);
-            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(btnUpdate);
+            groupBox1.Controls.Add(btnShowReport);
+            groupBox1.Controls.Add(btnClear);
+            groupBox1.Controls.Add(btnAdd);
+            groupBox1.Controls.Add(btnDelete);
+            groupBox1.Controls.Add(btnChooseImage);
+            groupBox1.Controls.Add(pbImage);
+            groupBox1.Controls.Add(cboStatus);
+            groupBox1.Controls.Add(cboCategory);
+            groupBox1.Controls.Add(label15);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(textBox2);
+            groupBox1.Controls.Add(txtPrice);
+            groupBox1.Controls.Add(label13);
+            groupBox1.Controls.Add(txtProductName1);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(txtProductId1);
             groupBox1.Controls.Add(label1);
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(480, 350);
+            groupBox1.Size = new Size(563, 456);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Sản phẩm";
             // 
-            // button4
+            // btnUpdate
             // 
-            button4.BackColor = Color.FromArgb(230, 181, 56);
-            button4.Location = new Point(101, 292);
-            button4.Name = "button4";
-            button4.Size = new Size(145, 48);
-            button4.TabIndex = 34;
-            button4.Text = "Lưu";
-            button4.UseVisualStyleBackColor = false;
+            btnUpdate.BackColor = SystemColors.Control;
+            btnUpdate.Image = Properties.Resources.pen;
+            btnUpdate.ImageAlign = ContentAlignment.MiddleRight;
+            btnUpdate.Location = new Point(265, 381);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(115, 61);
+            btnUpdate.TabIndex = 34;
+            btnUpdate.Text = "Lưu";
+            btnUpdate.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
-            // button3
+            // btnShowReport
             // 
-            button3.BackColor = Color.White;
-            button3.Location = new Point(252, 292);
-            button3.Name = "button3";
-            button3.Size = new Size(145, 48);
-            button3.TabIndex = 36;
-            button3.Text = "Hoàn tác";
-            button3.UseVisualStyleBackColor = false;
+            btnShowReport.BackColor = SystemColors.Control;
+            btnShowReport.Image = Properties.Resources.printer;
+            btnShowReport.ImageAlign = ContentAlignment.MiddleRight;
+            btnShowReport.Location = new Point(278, 304);
+            btnShowReport.Name = "btnShowReport";
+            btnShowReport.Size = new Size(140, 53);
+            btnShowReport.TabIndex = 36;
+            btnShowReport.Text = "In sản phẩm";
+            btnShowReport.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnShowReport.UseVisualStyleBackColor = false;
+            btnShowReport.Click += btnShowReport_Click;
             // 
-            // button2
+            // btnClear
             // 
-            button2.BackColor = Color.FromArgb(104, 176, 145);
-            button2.Location = new Point(101, 238);
-            button2.Name = "button2";
-            button2.Size = new Size(145, 48);
-            button2.TabIndex = 35;
-            button2.Text = "Thêm";
-            button2.UseVisualStyleBackColor = false;
+            btnClear.BackColor = SystemColors.Control;
+            btnClear.Image = Properties.Resources.arrow;
+            btnClear.ImageAlign = ContentAlignment.MiddleRight;
+            btnClear.Location = new Point(392, 381);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(115, 61);
+            btnClear.TabIndex = 36;
+            btnClear.Text = "Hoàn tác";
+            btnClear.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnRefresh_Click;
             // 
-            // button5
+            // btnAdd
             // 
-            button5.BackColor = Color.FromArgb(169, 65, 65);
-            button5.Location = new Point(252, 238);
-            button5.Name = "button5";
-            button5.Size = new Size(145, 48);
-            button5.TabIndex = 37;
-            button5.Text = "Xóa";
-            button5.UseVisualStyleBackColor = false;
+            btnAdd.BackColor = SystemColors.Control;
+            btnAdd.Image = Properties.Resources.plus;
+            btnAdd.ImageAlign = ContentAlignment.MiddleRight;
+            btnAdd.Location = new Point(12, 381);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(115, 61);
+            btnAdd.TabIndex = 35;
+            btnAdd.Text = "Thêm";
+            btnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
-            // button1
+            // btnDelete
             // 
-            button1.Location = new Point(220, 132);
-            button1.Name = "button1";
-            button1.Size = new Size(102, 42);
-            button1.TabIndex = 9;
-            button1.Text = "Chọn ảnh";
-            button1.UseVisualStyleBackColor = true;
+            btnDelete.BackColor = SystemColors.Control;
+            btnDelete.Image = Properties.Resources.delete;
+            btnDelete.ImageAlign = ContentAlignment.MiddleRight;
+            btnDelete.Location = new Point(138, 381);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(115, 61);
+            btnDelete.TabIndex = 37;
+            btnDelete.Text = "Xóa";
+            btnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
-            // pictureBox1
+            // btnChooseImage
             // 
-            pictureBox1.BackColor = Color.Gray;
-            pictureBox1.Location = new Point(101, 132);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(113, 100);
-            pictureBox1.TabIndex = 8;
-            pictureBox1.TabStop = false;
+            btnChooseImage.BackColor = SystemColors.Control;
+            btnChooseImage.Location = new Point(278, 210);
+            btnChooseImage.Name = "btnChooseImage";
+            btnChooseImage.Size = new Size(102, 42);
+            btnChooseImage.TabIndex = 9;
+            btnChooseImage.Text = "Chọn ảnh";
+            btnChooseImage.UseVisualStyleBackColor = false;
+            btnChooseImage.Click += btnChooseImage_Click;
             // 
-            // comboBox1
+            // pbImage
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(101, 98);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(342, 31);
-            comboBox1.TabIndex = 7;
+            pbImage.BackColor = Color.Gray;
+            pbImage.Location = new Point(115, 210);
+            pbImage.Name = "pbImage";
+            pbImage.Size = new Size(157, 147);
+            pbImage.TabIndex = 8;
+            pbImage.TabStop = false;
+            // 
+            // cboStatus
+            // 
+            cboStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cboStatus.FormattingEnabled = true;
+            cboStatus.Location = new Point(115, 173);
+            cboStatus.Name = "cboStatus";
+            cboStatus.Size = new Size(392, 31);
+            cboStatus.TabIndex = 7;
+            // 
+            // cboCategory
+            // 
+            cboCategory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cboCategory.FormattingEnabled = true;
+            cboCategory.Location = new Point(115, 100);
+            cboCategory.Name = "cboCategory";
+            cboCategory.Size = new Size(392, 31);
+            cboCategory.TabIndex = 7;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(12, 176);
+            label15.Name = "label15";
+            label15.Size = new Size(97, 23);
+            label15.TabIndex = 4;
+            label15.Text = "Trạng thái:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 132);
+            label4.Location = new Point(12, 210);
             label4.Name = "label4";
             label4.Size = new Size(87, 23);
             label4.TabIndex = 4;
@@ -290,54 +358,74 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 101);
+            label3.Location = new Point(12, 103);
             label3.Name = "label3";
             label3.Size = new Size(48, 23);
             label3.TabIndex = 4;
             label3.Text = "Loại:";
             // 
-            // textBox2
+            // txtPrice
             // 
-            textBox2.Location = new Point(101, 67);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(342, 30);
-            textBox2.TabIndex = 6;
+            txtPrice.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtPrice.Location = new Point(115, 137);
+            txtPrice.Name = "txtPrice";
+            txtPrice.Size = new Size(392, 30);
+            txtPrice.TabIndex = 6;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(12, 140);
+            label13.Name = "label13";
+            label13.Size = new Size(76, 23);
+            label13.TabIndex = 4;
+            label13.Text = "Giá bán:";
+            // 
+            // txtProductName1
+            // 
+            txtProductName1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtProductName1.Location = new Point(115, 64);
+            txtProductName1.Name = "txtProductName1";
+            txtProductName1.Size = new Size(392, 30);
+            txtProductName1.TabIndex = 6;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 70);
+            label2.Location = new Point(12, 67);
             label2.Name = "label2";
             label2.Size = new Size(67, 23);
             label2.TabIndex = 4;
             label2.Text = "Tên SP:";
             // 
-            // textBox1
+            // txtProductId1
             // 
-            textBox1.Location = new Point(101, 36);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(342, 30);
-            textBox1.TabIndex = 6;
+            txtProductId1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtProductId1.Location = new Point(115, 28);
+            txtProductId1.Name = "txtProductId1";
+            txtProductId1.ReadOnly = true;
+            txtProductId1.Size = new Size(392, 30);
+            txtProductId1.TabIndex = 6;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 39);
+            label1.Location = new Point(12, 31);
             label1.Name = "label1";
             label1.Size = new Size(65, 23);
             label1.TabIndex = 4;
             label1.Text = "Mã SP:";
             // 
-            // tabPage2
+            // tpRecipe
             // 
-            tabPage2.Controls.Add(panel4);
-            tabPage2.Location = new Point(4, 32);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(984, 674);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Quản lý công thức";
-            tabPage2.UseVisualStyleBackColor = true;
+            tpRecipe.BackColor = Color.FromArgb(249, 245, 238);
+            tpRecipe.Controls.Add(panel4);
+            tpRecipe.Location = new Point(4, 32);
+            tpRecipe.Name = "tpRecipe";
+            tpRecipe.Padding = new Padding(3);
+            tpRecipe.Size = new Size(1684, 953);
+            tpRecipe.TabIndex = 1;
+            tpRecipe.Text = "Quản lý công thức";
             // 
             // panel4
             // 
@@ -346,157 +434,202 @@
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(3, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(978, 668);
+            panel4.Size = new Size(1678, 947);
             panel4.TabIndex = 1;
             // 
             // panel5
             // 
-            panel5.Controls.Add(dataGridView3);
+            panel5.Controls.Add(dgvRecipe2);
             panel5.Controls.Add(groupBox4);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(454, 668);
+            panel5.Size = new Size(960, 947);
             panel5.TabIndex = 1;
             // 
-            // dataGridView3
+            // dgvRecipe2
             // 
-            dataGridView3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(5, 357);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.RowHeadersWidth = 51;
-            dataGridView3.Size = new Size(443, 306);
-            dataGridView3.TabIndex = 1;
+            dgvRecipe2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvRecipe2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvRecipe2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRecipe2.Location = new Point(5, 421);
+            dgvRecipe2.Name = "dgvRecipe2";
+            dgvRecipe2.RowHeadersWidth = 51;
+            dgvRecipe2.Size = new Size(949, 521);
+            dgvRecipe2.TabIndex = 1;
+            dgvRecipe2.CellClick += dgvRecipe2_CellClick;
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(button6);
-            groupBox4.Controls.Add(button7);
-            groupBox4.Controls.Add(button8);
-            groupBox4.Controls.Add(button9);
-            groupBox4.Controls.Add(textBox4);
+            groupBox4.Controls.Add(cboProductName);
+            groupBox4.Controls.Add(btnUpdateRecipe);
+            groupBox4.Controls.Add(btnClearRecipe);
+            groupBox4.Controls.Add(btnAddRecipe);
+            groupBox4.Controls.Add(btnDeleteRecipe);
+            groupBox4.Controls.Add(txtIngredientId);
             groupBox4.Controls.Add(label7);
-            groupBox4.Controls.Add(textBox5);
             groupBox4.Controls.Add(label9);
-            groupBox4.Controls.Add(textBox7);
+            groupBox4.Controls.Add(txtRecipeId);
+            groupBox4.Controls.Add(label14);
+            groupBox4.Controls.Add(txtProductId2);
             groupBox4.Controls.Add(label10);
-            groupBox4.Controls.Add(comboBox3);
+            groupBox4.Controls.Add(cboIngredientUnit);
             groupBox4.Controls.Add(label12);
             groupBox4.Controls.Add(label6);
-            groupBox4.Controls.Add(textBox6);
-            groupBox4.Controls.Add(textBox8);
+            groupBox4.Controls.Add(txtIngredientQty);
+            groupBox4.Controls.Add(txtIngredientName);
             groupBox4.Controls.Add(label8);
             groupBox4.Dock = DockStyle.Top;
             groupBox4.Location = new Point(0, 0);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(454, 351);
+            groupBox4.Size = new Size(960, 415);
             groupBox4.TabIndex = 0;
             groupBox4.TabStop = false;
             groupBox4.Text = "Công thức";
             // 
-            // button6
+            // cboProductName
             // 
-            button6.BackColor = Color.FromArgb(230, 181, 56);
-            button6.Location = new Point(14, 278);
-            button6.Name = "button6";
-            button6.Size = new Size(165, 53);
-            button6.TabIndex = 72;
-            button6.Text = "Lưu";
-            button6.UseVisualStyleBackColor = false;
+            cboProductName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cboProductName.FormattingEnabled = true;
+            cboProductName.Location = new Point(171, 126);
+            cboProductName.Name = "cboProductName";
+            cboProductName.Size = new Size(635, 31);
+            cboProductName.TabIndex = 76;
+            cboProductName.SelectedIndexChanged += cboProductName_SelectedIndexChanged;
             // 
-            // button7
+            // btnUpdateRecipe
             // 
-            button7.BackColor = Color.White;
-            button7.Location = new Point(185, 278);
-            button7.Name = "button7";
-            button7.Size = new Size(165, 53);
-            button7.TabIndex = 74;
-            button7.Text = "Hoàn tác";
-            button7.UseVisualStyleBackColor = false;
+            btnUpdateRecipe.BackColor = SystemColors.Control;
+            btnUpdateRecipe.Image = Properties.Resources.pen;
+            btnUpdateRecipe.ImageAlign = ContentAlignment.MiddleRight;
+            btnUpdateRecipe.Location = new Point(306, 331);
+            btnUpdateRecipe.Name = "btnUpdateRecipe";
+            btnUpdateRecipe.Size = new Size(135, 63);
+            btnUpdateRecipe.TabIndex = 72;
+            btnUpdateRecipe.Text = "Lưu";
+            btnUpdateRecipe.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnUpdateRecipe.UseVisualStyleBackColor = false;
+            btnUpdateRecipe.Click += btnUpdateRecipe_Click;
             // 
-            // button8
+            // btnClearRecipe
             // 
-            button8.BackColor = Color.FromArgb(104, 176, 145);
-            button8.Location = new Point(14, 219);
-            button8.Name = "button8";
-            button8.Size = new Size(165, 53);
-            button8.TabIndex = 73;
-            button8.Text = "Thêm";
-            button8.UseVisualStyleBackColor = false;
+            btnClearRecipe.BackColor = SystemColors.Control;
+            btnClearRecipe.Image = Properties.Resources.arrow;
+            btnClearRecipe.ImageAlign = ContentAlignment.MiddleRight;
+            btnClearRecipe.Location = new Point(462, 331);
+            btnClearRecipe.Name = "btnClearRecipe";
+            btnClearRecipe.Size = new Size(135, 63);
+            btnClearRecipe.TabIndex = 74;
+            btnClearRecipe.Text = "Hoàn tác";
+            btnClearRecipe.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnClearRecipe.UseVisualStyleBackColor = false;
+            btnClearRecipe.Click += btnClearRecipe_Click;
             // 
-            // button9
+            // btnAddRecipe
             // 
-            button9.BackColor = Color.FromArgb(169, 65, 65);
-            button9.Location = new Point(185, 219);
-            button9.Name = "button9";
-            button9.Size = new Size(165, 53);
-            button9.TabIndex = 75;
-            button9.Text = "Xóa";
-            button9.UseVisualStyleBackColor = false;
+            btnAddRecipe.BackColor = SystemColors.Control;
+            btnAddRecipe.Image = Properties.Resources.plus;
+            btnAddRecipe.ImageAlign = ContentAlignment.MiddleRight;
+            btnAddRecipe.Location = new Point(6, 331);
+            btnAddRecipe.Name = "btnAddRecipe";
+            btnAddRecipe.Size = new Size(135, 63);
+            btnAddRecipe.TabIndex = 73;
+            btnAddRecipe.Text = "Thêm";
+            btnAddRecipe.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnAddRecipe.UseVisualStyleBackColor = false;
+            btnAddRecipe.Click += btnAddRecipe_Click;
             // 
-            // textBox4
+            // btnDeleteRecipe
             // 
-            textBox4.Location = new Point(154, 85);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(279, 30);
-            textBox4.TabIndex = 69;
+            btnDeleteRecipe.BackColor = SystemColors.Control;
+            btnDeleteRecipe.Image = Properties.Resources.delete;
+            btnDeleteRecipe.ImageAlign = ContentAlignment.MiddleRight;
+            btnDeleteRecipe.Location = new Point(154, 331);
+            btnDeleteRecipe.Name = "btnDeleteRecipe";
+            btnDeleteRecipe.Size = new Size(135, 63);
+            btnDeleteRecipe.TabIndex = 75;
+            btnDeleteRecipe.Text = "Xóa";
+            btnDeleteRecipe.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnDeleteRecipe.UseVisualStyleBackColor = false;
+            btnDeleteRecipe.Click += btnDeleteRecipe_Click;
+            // 
+            // txtIngredientId
+            // 
+            txtIngredientId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtIngredientId.Location = new Point(171, 163);
+            txtIngredientId.Name = "txtIngredientId";
+            txtIngredientId.ReadOnly = true;
+            txtIngredientId.Size = new Size(635, 30);
+            txtIngredientId.TabIndex = 69;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(14, 89);
+            label7.Location = new Point(13, 167);
             label7.Name = "label7";
             label7.Size = new Size(138, 23);
             label7.TabIndex = 66;
             label7.Text = "Mã nguyên liệu:";
             // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(154, 55);
-            textBox5.Name = "textBox5";
-            textBox5.ReadOnly = true;
-            textBox5.Size = new Size(279, 30);
-            textBox5.TabIndex = 70;
-            // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(14, 58);
+            label9.Location = new Point(13, 131);
             label9.Name = "label9";
             label9.Size = new Size(124, 23);
             label9.TabIndex = 67;
             label9.Text = "Tên sản phẩm:";
             // 
-            // textBox7
+            // txtRecipeId
             // 
-            textBox7.Location = new Point(154, 24);
-            textBox7.Name = "textBox7";
-            textBox7.ReadOnly = true;
-            textBox7.Size = new Size(279, 30);
-            textBox7.TabIndex = 71;
+            txtRecipeId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtRecipeId.Location = new Point(171, 54);
+            txtRecipeId.Name = "txtRecipeId";
+            txtRecipeId.ReadOnly = true;
+            txtRecipeId.Size = new Size(635, 30);
+            txtRecipeId.TabIndex = 71;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(13, 57);
+            label14.Name = "label14";
+            label14.Size = new Size(125, 23);
+            label14.TabIndex = 68;
+            label14.Text = "Mã công thức:";
+            // 
+            // txtProductId2
+            // 
+            txtProductId2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtProductId2.Location = new Point(171, 90);
+            txtProductId2.Name = "txtProductId2";
+            txtProductId2.ReadOnly = true;
+            txtProductId2.Size = new Size(635, 30);
+            txtProductId2.TabIndex = 71;
+            txtProductId2.TextChanged += txtProductId2_TextChanged;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(14, 27);
+            label10.Location = new Point(13, 93);
             label10.Name = "label10";
             label10.Size = new Size(122, 23);
             label10.TabIndex = 68;
             label10.Text = "Mã sản phẩm:";
             // 
-            // comboBox3
+            // cboIngredientUnit
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(154, 179);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(279, 31);
-            comboBox3.TabIndex = 65;
+            cboIngredientUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cboIngredientUnit.FormattingEnabled = true;
+            cboIngredientUnit.Location = new Point(171, 271);
+            cboIngredientUnit.Name = "cboIngredientUnit";
+            cboIngredientUnit.Size = new Size(270, 31);
+            cboIngredientUnit.TabIndex = 65;
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(14, 185);
+            label12.Location = new Point(13, 277);
             label12.Name = "label12";
             label12.Size = new Size(105, 23);
             label12.TabIndex = 60;
@@ -505,30 +638,33 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(14, 151);
+            label6.Location = new Point(13, 238);
             label6.Name = "label6";
             label6.Size = new Size(88, 23);
             label6.TabIndex = 61;
             label6.Text = "Số lượng:";
             // 
-            // textBox6
+            // txtIngredientQty
             // 
-            textBox6.Location = new Point(154, 148);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(279, 30);
-            textBox6.TabIndex = 63;
+            txtIngredientQty.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtIngredientQty.Location = new Point(171, 235);
+            txtIngredientQty.Name = "txtIngredientQty";
+            txtIngredientQty.Size = new Size(270, 30);
+            txtIngredientQty.TabIndex = 63;
             // 
-            // textBox8
+            // txtIngredientName
             // 
-            textBox8.Location = new Point(154, 116);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(279, 30);
-            textBox8.TabIndex = 64;
+            txtIngredientName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtIngredientName.Location = new Point(171, 199);
+            txtIngredientName.Name = "txtIngredientName";
+            txtIngredientName.ReadOnly = true;
+            txtIngredientName.Size = new Size(635, 30);
+            txtIngredientName.TabIndex = 64;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(14, 119);
+            label8.Location = new Point(13, 202);
             label8.Name = "label8";
             label8.Size = new Size(140, 23);
             label8.TabIndex = 62;
@@ -536,42 +672,45 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(dataGridView4);
+            panel3.Controls.Add(dgvIngredient);
             panel3.Controls.Add(groupBox5);
             panel3.Dock = DockStyle.Right;
-            panel3.Location = new Point(454, 0);
+            panel3.Location = new Point(960, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(524, 668);
+            panel3.Size = new Size(718, 947);
             panel3.TabIndex = 0;
             // 
-            // dataGridView4
+            // dgvIngredient
             // 
-            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView4.Dock = DockStyle.Fill;
-            dataGridView4.Location = new Point(0, 68);
-            dataGridView4.Name = "dataGridView4";
-            dataGridView4.RowHeadersWidth = 51;
-            dataGridView4.Size = new Size(524, 600);
-            dataGridView4.TabIndex = 1;
+            dgvIngredient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvIngredient.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvIngredient.Dock = DockStyle.Fill;
+            dgvIngredient.Location = new Point(0, 68);
+            dgvIngredient.Name = "dgvIngredient";
+            dgvIngredient.RowHeadersWidth = 51;
+            dgvIngredient.Size = new Size(718, 879);
+            dgvIngredient.TabIndex = 1;
+            dgvIngredient.CellClick += dgvIngredient_CellClick;
             // 
             // groupBox5
             // 
-            groupBox5.Controls.Add(textBox9);
+            groupBox5.Controls.Add(txtFindIngredient);
             groupBox5.Controls.Add(label11);
             groupBox5.Dock = DockStyle.Top;
             groupBox5.Location = new Point(0, 0);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(524, 68);
+            groupBox5.Size = new Size(718, 68);
             groupBox5.TabIndex = 0;
             groupBox5.TabStop = false;
             groupBox5.Text = "Nguyên liệu";
             // 
-            // textBox9
+            // txtFindIngredient
             // 
-            textBox9.Location = new Point(110, 27);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(408, 30);
-            textBox9.TabIndex = 69;
+            txtFindIngredient.Location = new Point(110, 27);
+            txtFindIngredient.Name = "txtFindIngredient";
+            txtFindIngredient.Size = new Size(408, 30);
+            txtFindIngredient.TabIndex = 69;
+            txtFindIngredient.TextChanged += txtFindIngredient_TextChanged;
             // 
             // label11
             // 
@@ -585,30 +724,32 @@
             // frmProduct
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(992, 710);
-            Controls.Add(tabControl1);
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(1692, 989);
+            Controls.Add(tcMain);
             Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             Name = "frmProduct";
             Text = "frmRecipe";
-            tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            Load += frmProduct_Load;
+            tcMain.ResumeLayout(false);
+            tpProduct.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvProduct).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             panel1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRecipe1).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbImage).EndInit();
+            tpRecipe.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRecipe2).EndInit();
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvIngredient).EndInit();
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
             ResumeLayout(false);
@@ -616,54 +757,61 @@
 
         #endregion
 
-        private TabControl tabControl1;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
+        private TabControl tcMain;
+        private TabPage tpProduct;
+        private TabPage tpRecipe;
         private Panel panel1;
         private GroupBox groupBox1;
-        private Button button1;
-        private PictureBox pictureBox1;
-        private ComboBox comboBox1;
+        private Button btnChooseImage;
+        private PictureBox pbImage;
+        private ComboBox cboCategory;
         private Label label4;
         private Label label3;
-        private TextBox textBox2;
+        private TextBox txtProductName1;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox txtProductId1;
         private Label label1;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button button5;
-        private TextBox textBox3;
+        private Button btnUpdate;
+        private Button btnClear;
+        private Button btnAdd;
+        private Button btnDelete;
+        private TextBox txtFindProduct;
         private Label label5;
         private GroupBox groupBox3;
         private GroupBox groupBox2;
-        private DataGridView dataGridView1;
+        private DataGridView dgvRecipe1;
         private Panel panel4;
         private Panel panel5;
         private Panel panel3;
-        private DataGridView dataGridView3;
+        private DataGridView dgvRecipe2;
         private GroupBox groupBox4;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private Button button9;
-        private TextBox textBox4;
+        private Button btnUpdateRecipe;
+        private Button btnClearRecipe;
+        private Button btnAddRecipe;
+        private Button btnDeleteRecipe;
+        private TextBox txtIngredientId;
         private Label label7;
-        private TextBox textBox5;
         private Label label9;
-        private TextBox textBox7;
+        private TextBox txtProductId2;
         private Label label10;
-        private ComboBox comboBox3;
+        private ComboBox cboIngredientUnit;
         private Label label12;
         private Label label6;
-        private TextBox textBox6;
-        private TextBox textBox8;
+        private TextBox txtIngredientQty;
+        private TextBox txtIngredientName;
         private Label label8;
-        private DataGridView dataGridView4;
+        private DataGridView dgvIngredient;
         private GroupBox groupBox5;
-        private TextBox textBox9;
+        private TextBox txtFindIngredient;
         private Label label11;
-        private DataGridView dataGridView2;
+        private DataGridView dgvProduct;
+        private TextBox txtPrice;
+        private Label label13;
+        private ComboBox cboProductName;
+        private TextBox txtRecipeId;
+        private Label label14;
+        private Button btnShowReport;
+        private ComboBox cboStatus;
+        private Label label15;
     }
 }
